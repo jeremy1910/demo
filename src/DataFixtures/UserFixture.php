@@ -29,6 +29,8 @@ class UserFixture extends Fixture
         $useradmin->setUsername('admin');
         $useradmin->setPassword($this->encodePasswordFixture($useradmin, 'admin'));
         $useradmin->setRoles(["ROLE_ADMIN"]);
+        $useradmin->setEnable(true);
+        $useradmin->setAdresseMail('jeremy1910@gmail.com');
 
         $manager->persist($useradmin);
         $manager->flush();

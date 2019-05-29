@@ -73,4 +73,61 @@ class CategoryController extends AbstractController
         $this->entityManager->flush();
 
     }
+
+    /**
+     *
+     * @Route("/rmCategoryA", name="rmCategoryA")
+     * @param Request $request
+     * @return void
+     */
+    public function removeCategoryAjax(Request $request){
+        if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
+            $repo = $this->entityManager->getRepository(Category::class);
+            $id = $request->query->get('id');
+            $category = $repo->find($id);
+            if($category === NULL)
+            {
+                        $this->addFlash(
+                            'notice',
+                            'Suppression impossible ! La category n\'existe pas.'
+                        );
+                        $flashMessage = $this->get('session')->getFlashBag()->all();
+        
+                        return new JsonResponse([false, $flashMessage]);
+            }
+                    
+            if ($this->isGranted('CATEGORY_DELETE', $category)) {
+                try {
+                    
+                    
+                    $this->deleteCategory($category);
+                    $this->addFlash(
+                        'notice',
+                        'Category suprimmée !'
+                    );
+                    $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                    return new JsonResponse([true, $flashMessage]);
+                }catch (\Exception $e){
+                    return new JsonResponse($e->getMessage());
+                }
+            } else {
+
+                $this->addFlash(
+                    'notice',
+                    "Suppression impossible ! Vous n'avaez pas les autoristaions necessaires"
+                );
+                $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                return new JsonResponse([false, $flashMessage]);
+            }
+        
+        }
+
+    }
+
+    public function deleteCategory(Category $category){
+        $this->entityManager->remove($category);
+        $this->entityManager->flush();
+    }
 }

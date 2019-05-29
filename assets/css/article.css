@@ -1,0 +1,23 @@
+container_custom_article_title{
+    background-color: #117bbfb3;
+    height: 300px;
+    color: #fff;
+    text-align: center;
+    font-size: 2em;
+    vertical-align: middle;
+    margin: 50px auto 50px auto;
+    border-radius: 4px 4px 4px 4px;
+    border: 1px solid #8e98a5
+}
+
+.container_custom_article_body{
+    background-color: #f8f8f8;
+
+    padding-top: 10px;
+
+
+
+    border-radius: 4px 4px 4px 4px;
+
+    border: 1px solid #eaeaea;
+}

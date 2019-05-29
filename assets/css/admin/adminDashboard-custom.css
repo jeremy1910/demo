@@ -1,0 +1,21 @@
+.nav-link.active {
+    background-color: #ad0006b3 !important;
+    color: #e6e6e6 !important;
+    font-weight: bold;
+}
+
+.nav-link{
+    color: #534d4d !important;
+}
+
+#menu-2-content-1 a.active{
+
+    background-color: #2babc6 !important;
+}
+
+.custom_border_shadow_admin_content{
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    padding-top: 10px;
+    margin-left: 150px;
+    width: 80% !important;
+}

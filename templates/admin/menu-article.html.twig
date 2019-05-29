@@ -1,0 +1,45 @@
+{{ form_start(formArticle) }}
+<div class="row">
+
+    <div class="col-4">
+        {{ form_row(formArticle.title) }}
+        {{ form_row(formArticle.user) }}
+        <a class="btn btn-primary float-left" href="{{ path('create_article') }}">Ajouter un artcile</a>
+    </div>
+    <div class="col-4">
+        {{  form_row(formArticle.numCategory) }}
+        {{ form_row(formArticle.tags) }}
+        <div id="tagsList"></div>
+    </div>
+    <div class="col-4">
+        {{ form_row(formArticle.created_after) }}
+        {{  form_row(formArticle.created_before) }}
+
+        <button id="validateArticleButton" class="btn btn-success position-relative float-right">Appliquer</button>
+    </div>
+
+</div>
+{{ form_end(formArticle) }}
+<div class="table-responsive mt-4">
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr id="title-lines">
+        <th scope="col">ID</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Category</th>
+        <th scope="col">Auteur</th>
+        <th scope="col">Date création</th>
+        <th scope="col">Date dernière modification</th>
+        <th scope="col">Description</th>
+        <th scope="col">Tags</th>
+        <th scope="col">Action</th>
+
+    </tr>
+    </thead>
+    <tbody id="table-body">
+
+    </tbody>
+</table>
+</div>
+
+{% include 'article/modalValideDelete.html.twig' %}

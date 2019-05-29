@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CreateArticleController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(form, {'attr': {'id': 'form'}}) }}
+        <div class="form-group mt-4">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+            {{ form_help(form.title) }}
+        </div>
+        <div class="row">
+            <div id="form-category" class="form-group col">
+                {{ form_label(form.num_category) }}
+                {{ form_errors(form.num_category) }}
+                {{ form_widget(form.num_category) }}
+                <input type="text" id="selectHiden"  class="form-control mt-4" style="display: none">
+                <button type="button" id="submitHiden"  class="form-control" style="display: none">Ajouter</button>
+
+                {{ form_help(form.num_category) }}
+            </div>
+
+            <div class="form-group col">
+                {{ form_label(form.tags) }}
+                {{ form_errors(form.tags) }}
+                {{ form_widget(form.tags) }}
+                {{ form_help(form.tags) }}
+                <div id="tag-container" style="height: 100px" class="container-fluid border rounded"></div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+            <div id="form-image" class="form-group">
+                {{ form_label(form.image) }}
+                {{ form_errors(form.image) }}
+                {{ form_widget(form.image) }}
+                {{ form_help(form.image) }}
+            </div>
+
+            </div>
+            <div class="col-3">
+
+                    <img id="blah" class="img-fluid img-thumbnail" src="{{ form.image.vars.value.fileName is defined ? asset('images/' ~ form.image.vars.value.fileName)}}">
+
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            {{ form_label(form.description) }}
+            {{ form_errors(form.description) }}
+            {{ form_widget(form.description) }}
+            {{ form_help(form.description) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.body) }}
+            {{ form_errors(form.body) }}
+            {{ form_widget(form.body) }}
+            {{ form_help(form.body) }}
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Créer</button>
+
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('article.js') }}"></script>
+    {{ parent() }}
+
+    <script>
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#form_article_image_imageFile").change(function() {
+            readURL(this);
+        });
+
+    </script>
+
+{% endblock %}

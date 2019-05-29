@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('AdminDashboard') }}
+{%  endblock %}
+
+{% block body %}
+    <div class="jumbotron"></div>
+    <div class="row">
+        <div class="col-2">
+            <div class="nav flex-column nav-pills" id="v-menu" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-menu-1" data-toggle="pill" href="" role="tab" aria-controls="v-pills-home" aria-selected="true">Tableau de bord</a>
+                <a class="nav-link" id="v-menu-2" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" aria-selected="false">Contenu</a>
+                <a class="nav-link" id="v-menu-3" data-toggle="pill" href="" role="tab" aria-controls="v-pills-messages" aria-selected="false">Utilisateurs</a>
+                <a class="nav-link" id="v-menu-4" data-toggle="pill" href="" role="tab" aria-controls="v-pills-settings" aria-selected="false">Parametre</a>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="tab-content" id="v-menu-tabContent">
+                <div class="tab-pane" id="v-menu-1-content" role="tabpanel" aria-labelledby="v-pills-home-tab">dneziufnuizebnfuzenfiiunzefze</div>
+                <div class="tab-pane" id="v-menu-2-content" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    <div id="menu-2-content-1" class="container-fluid border-left border-bottom rounded custom_border_shadow_admin_content">
+                        <ul class="nav nav-pills mb-3" id="menu-2-content-1-h-menu" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#menu-2-content-1-h-menu-content-1" role="tab" aria-controls="pills-home" aria-selected="true">Articles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#menu-2-content-1-h-menu-content-2" role="tab" aria-controls="pills-profile" aria-selected="false">Catégories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#menu-2-content-1-h-menu-content-3" role="tab" aria-controls="pills-contact" aria-selected="false">Tags</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+                            <div class="tab-pane fade show active" id="menu-2-content-1-h-menu-content-1" role="tabpanel" aria-labelledby="pills-home-tab">{%  include('admin/menu-article.html.twig') %}</div>
+                            <div class="tab-pane fade" id="menu-2-content-1-h-menu-content-2" role="tabpanel" aria-labelledby="pills-profile-tab">{% include('admin/menu-category.html.twig') %}</div>
+                            <div class="tab-pane fade" id="menu-2-content-1-h-menu-content-3" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="v-menu-3-content" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div id="v-pills-2-content-1" class="container-fluid border-left border-bottom rounded custom_border_shadow_admin_content">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                            </tr>
+                            <tr>
+
+                            </tr>
+                            <tr>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="v-menu-4-content" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {{ encore_entry_script_tags('AdminDashboard-menu-article') }}
+    {{ encore_entry_script_tags('AdminDashboard-menu-category') }}
+
+{% endblock %}

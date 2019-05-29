@@ -1,0 +1,55 @@
+.custom_card_img_size
+{
+    height: 200px;
+}
+.custom_card_body_size
+{
+    height: 286px;
+}
+
+.custom-card-centered{
+
+}
+
+.custom_carousel_caption{
+    background-color: #717171cc;
+    width: 100%;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+.custom_card_index_hover_effet:hover{
+    margin: 1px !important;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    border-radius: .25rem !important;
+    background-color: #fff !important;
+}
+
+.custom_card_list_hover_effet{
+    transition-duration: 0.2s;
+}
+.custom_card_list_hover_effet:hover{
+
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+    border-radius: .25rem !important;
+    background-color: #e6e6e6e6 !important;
+    transition-duration: 0.2s;
+
+    transition-timing-function: linear;
+}
+
+.card_custom_1{
+    margin-bottom: 15px;
+    background-color: #fffffff0 !important;
+}
+
+@media screen and (max-width: 720px) {
+    .custom-card-centered{
+        float: none;
+        margin: 0 auto;
+        width: 95%;
+    }
+
+
+
+}

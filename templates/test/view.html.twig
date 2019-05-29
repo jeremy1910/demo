@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_end(form) }}
+        <div id="tagsList"></div>
+        <button id="validateArticleButton" class="btn btn-success">Appliquer</button>
+    </div>
+
+    <div class="well">
+        <div id="datetimepicker1" class="input-append date">
+            <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+            <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {{ encore_entry_script_tags('adminDashboard') }}
+    <script type="text/javascript">
+        $(function() {
+            $('#datetimepicker1').datetimepicker({
+                language: 'pt-BR'
+            });
+        });
+    </script>
+{% endblock %}

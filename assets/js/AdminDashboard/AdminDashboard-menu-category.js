@@ -67,7 +67,7 @@ function  dashboardAdminCreateTableLineMenuCategory(item){
 
     $('<tr><th>'+ item.id +'</th>' +
         '<td>'+item.libele+'</td>' +
-        '<td><a href="/delete/'+ item.id +'"class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
+        '<td><a href="/rmCategoryA?id='+ item.id +'"class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
         '</tr>').appendTo($t).hide().fadeIn(500);
 
 }

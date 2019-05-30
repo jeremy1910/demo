@@ -1,3 +1,6 @@
+import { eventSuppr } from './AdminDashboard.js';
+import { displayFlashMessageSuccess } from '../globalFunctions';
+
 $('#v-menu > a').each(function () {
     $(this).click(function (e) {
         e.preventDefault();
@@ -35,18 +38,8 @@ let hrefArtcileToDelete = '';
 
 
 
-$('#buttonValidDelete').click(eventSuppr);
 
-function eventSuppr(e) {
-    e.preventDefault();
-    console.log("suppreion de : " + hrefArtcileToDelete);
-    $.get(hrefArtcileToDelete)
-        .done(function (data, textStatus, jqXDR) {
-            displayListArticle();
 
-        });
-
-}
 
 
 $('#validateArticleButton').click(function (e) {
@@ -54,7 +47,7 @@ $('#validateArticleButton').click(function (e) {
     displayListArticle();
 });
 
-function displayListArticle() {
+export function displayListArticle() {
 
     let request = "";
 
@@ -98,7 +91,13 @@ function displayListArticle() {
             })
             $('.js-btn-suppr').each(function () {
                 $(this).click(function () {
-                    hrefArtcileToDelete = $(this).attr('href');
+                    $('#buttonValidDelete').attr('href', $(this).attr('href'));
+                    $('#buttonValidDelete').click(function (e) {
+                        e.preventDefault();
+                        eventSuppr('article');
+
+                    });
+
                 });
             });
             $('.js-search-by-badge').each(function () {

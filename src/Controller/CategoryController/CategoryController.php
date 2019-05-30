@@ -89,7 +89,7 @@ class CategoryController extends AbstractController
             {
                         $this->addFlash(
                             'notice',
-                            'Suppression impossible ! La category n\'existe pas.'
+                            'Suppression impossible ! La categorie n\'existe pas.'
                         );
                         $flashMessage = $this->get('session')->getFlashBag()->all();
         
@@ -103,7 +103,7 @@ class CategoryController extends AbstractController
                     $this->deleteCategory($category);
                     $this->addFlash(
                         'notice',
-                        'Category suprimmée !'
+                        'Categorie suprimmée !'
                     );
                     $flashMessage = $this->get('session')->getFlashBag()->all();
 

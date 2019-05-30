@@ -1,4 +1,6 @@
 import { displayFlashMessageSuccess } from '../globalFunctions';
+import {eventSuppr} from "./AdminDashboard";
+//import { eventSuppr } from 'AdminDashboard';
 
 const NB_COL = 3;
 const COL_WIDTH = 100/NB_COL;
@@ -26,10 +28,12 @@ $('#confimAddCategoryButton').click(function (e) {
 
 $('#validateCategoryButton').click(function(e){
     e.preventDefault();
-    displayListArticle();
+    displayListCategory();
 });
 
-function displayListArticle() {
+
+
+export function displayListCategory() {
 
     let request = "";
 
@@ -59,9 +63,14 @@ function displayListArticle() {
 
                 dashboardAdminCreateTableLineMenuCategory(item);
             });
-            $('.js-btn-suppr').each(function () {
+            $('.js-btn-suppr-category').each(function () {
                 $(this).click(function () {
-                    hrefArtcileToDelete = $(this).attr('href');
+                    $('#buttonValidDelete').attr('href', $(this).attr('href'));
+                    $('#buttonValidDelete').click(function (e) {
+                        e.preventDefault();
+                        eventSuppr('category');
+
+                    });
                 });
             });
             $('.js-btn-edit').each(function () {
@@ -81,7 +90,7 @@ function displayListArticle() {
                                 .done(function (data, textStatus, jqXDR) {
                                     if (data[0] === true){
                                         displayFlashMessageSuccess(data[1].notice, 'flash-message');
-                                        displayListArticle();
+                                        displayListCategory();
                                     }
                                 });
                     });
@@ -101,7 +110,7 @@ function  dashboardAdminCreateTableLineMenuCategory(item){
         '<th style="width:' + COL_WIDTH + '%" scope="row">'+ item.id +'</th>' +
         '<td style="width:' + COL_WIDTH + '%" id="categoryLibele'+ item.id +'">'+item.libele+'</td>' +
         '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id='+ item.id +'" num="'+item.id +'" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
-        '<a href="/rmCategoryA?id='+ item.id +'"class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
+        '<a href="/rmCategoryA?id='+ item.id +'"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
         '</tr>').appendTo($t).hide().fadeIn(500);
 
 }

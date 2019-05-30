@@ -42,17 +42,20 @@ function eventSuppr(e) {
     console.log("suppreion de : " + hrefArtcileToDelete);
     $.get(hrefArtcileToDelete)
         .done(function (data, textStatus, jqXDR) {
-            displayListArticle(e);
+            displayListArticle();
 
         });
 
 }
 
 
-$('#validateArticleButton').click(displayListArticle);
-
-function displayListArticle(e) {
+$('#validateArticleButton').click(function (e) {
     e.preventDefault();
+    displayListArticle();
+});
+
+function displayListArticle() {
+
     let request = "";
 
     if ($('#article_dashboard_filter_title').val() != "")
@@ -98,6 +101,19 @@ function displayListArticle(e) {
                     hrefArtcileToDelete = $(this).attr('href');
                 });
             });
+            $('.js-search-by-badge').each(function () {
+                $(this).click(function () {
+                    let $tag = $('<a href="#" class="badge badge-warning"></a>').click(function (e) {
+                        e.preventDefault();
+                        $(this).remove();
+                    });
+                    $tag.text($(this).text()).appendTo('#tagsList');
+
+
+                    displayListArticle();
+
+                })
+            })
         })
 
 }
@@ -118,7 +134,7 @@ function creatTableLine(item) {
 
     if (item.tags != undefined){
         item.tags.forEach(function (tag, index, array) {
-            tagHtml += '<span class="badge badge-warning">'+ tag.tag_name +'</span>';
+            tagHtml += '<span class="badge badge-warning js-search-by-badge">'+ tag.tag_name +'</span>';
         });
     }
 

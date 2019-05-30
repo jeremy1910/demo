@@ -1,4 +1,8 @@
 import { displayFlashMessageSuccess } from '../globalFunctions';
+
+const NB_COL = 3;
+const COL_WIDTH = 100/NB_COL;
+
 $('#divAddNewCategory').hide();
 
 $('#addCategoryButton').click(function (e) {
@@ -20,10 +24,13 @@ $('#confimAddCategoryButton').click(function (e) {
     }
 });
 
-$('#validateCategoryButton').click(displayListArticle);
-
-function displayListArticle(e) {
+$('#validateCategoryButton').click(function(e){
     e.preventDefault();
+    displayListArticle();
+});
+
+function displayListArticle() {
+
     let request = "";
 
     if ($('#filter_category_id').val() != "")
@@ -36,15 +43,15 @@ function displayListArticle(e) {
     }
 
 
-/*
-    if ($('#article_dashboard_filter_created_before').val() != ''){
-        request += '&created_before=' + $('#article_dashboard_filter_created_before').val();
-    }
-    if ($('#article_dashboard_filter_created_after').val() != ''){
-        request += '&created_after=' + $('#article_dashboard_filter_created_after').val();
-    }
-    console.log(request);
-*/
+    /*
+        if ($('#article_dashboard_filter_created_before').val() != ''){
+            request += '&created_before=' + $('#article_dashboard_filter_created_before').val();
+        }
+        if ($('#article_dashboard_filter_created_after').val() != ''){
+            request += '&created_after=' + $('#article_dashboard_filter_created_after').val();
+        }
+        console.log(request);
+    */
     $.getJSON('/get_info?t=category'+request)
         .done(function (data, textStatus, jqXDR) {
             $('#table-body-category').empty();
@@ -57,6 +64,31 @@ function displayListArticle(e) {
                     hrefArtcileToDelete = $(this).attr('href');
                 });
             });
+            $('.js-btn-edit').each(function () {
+                $(this).click(function (e) {
+                    e.preventDefault();
+                    let href = $(this).attr('href');
+                    let num = $(this).attr('num');
+                    let text = $('#categoryLibele'+num).text();
+
+
+                    $('#categoryLibele'+num).text('');
+                    let $btn = $('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>');
+                    $btn.click(function (e) {
+                        e.preventDefault();
+                        let newLibele = $('#inputNewCategory'+ num).val();
+                            $.getJSON(href+'&libele='+newLibele)
+                                .done(function (data, textStatus, jqXDR) {
+                                    if (data[0] === true){
+                                        displayFlashMessageSuccess(data[1].notice, 'flash-message');
+                                        displayListArticle();
+                                    }
+                                });
+                    });
+                    $btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewCategory'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#categoryLibele'+num)));
+                    //$('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>').appendTo('#categoryLibele'+num);
+                })
+            })
         })
 
 }
@@ -65,9 +97,11 @@ function  dashboardAdminCreateTableLineMenuCategory(item){
 
     let $t = $('#table-body-category');
 
-    $('<tr><th>'+ item.id +'</th>' +
-        '<td>'+item.libele+'</td>' +
-        '<td><a href="/rmCategoryA?id='+ item.id +'"class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
+    $('<tr>' +
+        '<th style="width:' + COL_WIDTH + '%" scope="row">'+ item.id +'</th>' +
+        '<td style="width:' + COL_WIDTH + '%" id="categoryLibele'+ item.id +'">'+item.libele+'</td>' +
+        '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id='+ item.id +'" num="'+item.id +'" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
+        '<a href="/rmCategoryA?id='+ item.id +'"class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
         '</tr>').appendTo($t).hide().fadeIn(500);
 
 }

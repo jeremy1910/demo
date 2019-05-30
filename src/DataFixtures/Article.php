@@ -14,8 +14,8 @@ use Faker;
 
 
 
-//require_once  '/home/jeje/lab/dev/symfony/demo/vendor/fzaninotto/faker/src/autoload.php';
-require_once 'C:\tmp\demo\demo\vendor\fzaninotto\faker\src\autoload.php';
+require_once  '/home/jeje/lab/dev/symfony/demo/vendor/fzaninotto/faker/src/autoload.php';
+//require_once 'C:\tmp\demo\demo\vendor\fzaninotto\faker\src\autoload.php';
 
 
 class Article extends Fixture

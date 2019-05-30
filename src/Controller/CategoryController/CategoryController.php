@@ -78,7 +78,7 @@ class CategoryController extends AbstractController
      *
      * @Route("/rmCategoryA", name="rmCategoryA")
      * @param Request $request
-     * @return void
+     * @return mixed
      */
     public function removeCategoryAjax(Request $request){
         if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
@@ -126,8 +126,63 @@ class CategoryController extends AbstractController
 
     }
 
-    public function deleteCategory(Category $category){
+    private function deleteCategory(Category $category){
         $this->entityManager->remove($category);
         $this->entityManager->flush();
     }
+
+
+    /**
+     * @Route("/edtCategoryA", name="edtCategoryA")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function editCategoryAjax(Request $request){
+        if (($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) AND ($request->query->has('libele') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('libele')))) {
+            $repo = $this->entityManager->getRepository(Category::class);
+            $id = $request->query->get('id');
+            $libele = $request->query->get('libele');
+            $category = $repo->find($id);
+            if($category === NULL)
+            {
+                $this->addFlash(
+                    'notice',
+                    'Impossible de renomer la categorie ! La category n\'existe pas.'
+                );
+                $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                return new JsonResponse([false, $flashMessage]);
+            }
+            if ($this->isGranted('CATEGORY_DELETE', $category)) {
+                try {
+                    $this->editCategory($category, $libele);
+                    $this->addFlash(
+                        'notice',
+                        'Category renomée !'
+                    );
+                    $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                    return new JsonResponse([true, $flashMessage]);
+                }catch (\Exception $e){
+                    return new JsonResponse($e->getMessage());
+                }
+            } else {
+
+                $this->addFlash(
+                    'notice',
+                    "Impossible de renomer la categorie ! Vous n'avaez pas les autoristaions necessaires"
+                );
+                $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                return new JsonResponse([false, $flashMessage]);
+            }
+        }
+
+    }
+
+    private function editCategory(Category $category, string $newLibele){
+        $category->setLibele($newLibele);
+        $this->entityManager->flush();
+    }
+
 }

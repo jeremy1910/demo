@@ -57,6 +57,9 @@ class DataRequestRouterServicesDataRequest
                 case 'category':
                     return new DataRequestCategoryService($this->em, $this->target, $this->option);
                     break;
+                case 'tag':
+                    return new DataRequestTagService($this->em, $this->target, $this->option);
+                    break;
                 default:
                     dd('target incorect : '. $this->target);
             }

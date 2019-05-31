@@ -27,14 +27,14 @@ class TagsController extends AbstractController
     }
 
     /**
-     * @Route("addTagA", name="addTagA")
+     * @Route("/addTagA", name="addTagA")
      */
     public function addTagA(Request $request){
 
         if ($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name'))) {
             $tag = new Tag();
 
-            if ($this->isGranted('CATEGORY_CREATE', $tag)) {
+            if ($this->isGranted('TAG_CREATE', $tag)) {
                 try {
                     $tag->setTagName($request->query->get('name'));
                     $this->createTag($tag);
@@ -52,7 +52,7 @@ class TagsController extends AbstractController
 
                 $this->addFlash(
                     'notice',
-                    'Création impossible !'
+                    'Création impossible ! Vous n\'avez pas des autorisations suffisantes'
                 );
                 $flashMessage = $this->get('session')->getFlashBag()->all();
 
@@ -60,7 +60,13 @@ class TagsController extends AbstractController
             }
         }
         else{
-            return new JsonResponse('Any argument given');
+            $this->addFlash(
+                'notice',
+                'Création impossible ! Aucun élément à créer'
+            );
+            $flashMessage = $this->get('session')->getFlashBag()->all();
+
+            return new JsonResponse([false, $flashMessage]);
         }
 
     }
@@ -71,7 +77,7 @@ class TagsController extends AbstractController
     }
 
     /**
-     * @Route("delTagA", name="addTagA")
+     * @Route("/delTagA", name="delTagA")
      */
     public function delTagA(Request $request){
         if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
@@ -126,7 +132,7 @@ class TagsController extends AbstractController
     }
 
     /**
-     * @Route("edtTagA", name="addTagA")
+     * @Route("/edtTagA", name="edtTagA")
      */
     public function edtTagA(Request $request){
         if (($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) AND ($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name')))) {

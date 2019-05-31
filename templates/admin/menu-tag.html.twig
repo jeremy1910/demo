@@ -1,0 +1,39 @@
+{{ form_start(formTag) }}
+<div class="row">
+
+    <div class="col-6">
+        {{ form_row(formTag.id) }}
+
+        <button id="addTagButton" class="btn btn-primary mb-4">Ajouter un tag</button>
+        <div id="divAddNewTag" class="row">
+            <div class="col-10">
+                {{ form_row(formCategory.newLibele)}}
+            </div>
+            <div class="col-2">
+                <button id="confimAddTagButton" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        {{form_row(formTag.tagName) }}
+        <button id="validateTagButton" class="btn btn-success float-right">Appliquer</button>
+    </div>
+</div>
+
+
+{{ form_end(formTag) }}
+
+<div class="table-responsive mt-4">
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr id="title-lines">
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody id="table-body-tag">
+
+        </tbody>
+    </table>
+</div>

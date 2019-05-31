@@ -19,6 +19,31 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    public function findTagByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL)
+    {
+
+
+        $req = $this->createQueryBuilder('a')
+            ->select('a');
+
+        foreach ($conditions as $key => $condition) {
+            if ($key == 'name'){
+                $req->andWhere('a.tagName LIKE :name');
+                $req->setParameter($key, '%'.$condition.'%');
+            }
+            else if($key == 'id'){
+                $req->andWhere('a.id = :id');
+                $req->setParameter('id', $condition);
+            }
+            else{
+                return false;
+            }
+        }
+
+        return $req->setFirstResult($offset)->setMaxResults($maxResult)->getQuery()
+            ->getResult();
+
+    }
     // /**
     //  * @return Tag[] Returns an array of Tag objects
     //  */

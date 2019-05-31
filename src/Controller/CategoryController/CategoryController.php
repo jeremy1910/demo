@@ -62,7 +62,7 @@ class CategoryController extends AbstractController
             }
         }
         else{
-            return new JsonResponse('Any argument given');
+            return new JsonResponse('Aucun élément à ajouter.');
         }
 
 
@@ -122,6 +122,14 @@ class CategoryController extends AbstractController
                 return new JsonResponse([false, $flashMessage]);
             }
         
+        }else{
+            $this->addFlash(
+                'notice',
+                "Aucun élément à supprimer."
+            );
+            $flashMessage = $this->get('session')->getFlashBag()->all();
+
+            return new JsonResponse([false, $flashMessage]);
         }
 
     }

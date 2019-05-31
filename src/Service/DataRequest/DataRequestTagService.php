@@ -19,7 +19,7 @@ class DataRequestTagService extends DataRequestClassService
     public function getResult()
     {
 
-        if($this->target == 'article') {
+        if($this->target == 'tag') {
 
             $repository = $this->em->getRepository(Tag::class);
             /* Si il n'y a pas d'option */
@@ -33,58 +33,22 @@ class DataRequestTagService extends DataRequestClassService
                     dd('option non valide : '.$key);
                 }
 
-                if($key == 'title'){
-                    if (\preg_match("/[A-Za-z0-9]+/", $line))
+                if($key == 'id'){
+                    if (\preg_match('/^[0-9]+$/', $line))
                     {
-                        $this->validedOptions['title'] = $line;
+                        $this->validedOptions['id'] = $line;
                     }
                     else{
                         dd('argument username : '. $line . ' invalide');
                     }
                 }
-                elseif ($key == 'author'){
+                elseif ($key == 'name'){
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
-                        $this->validedOptions['author'] = $line;
+                        $this->validedOptions['name'] = $line;
                     }
                     else{
                         dd('argument username : '. $line . ' invalide');
-                    }
-                }
-                elseif (preg_match('/^category[0-9]+$/', $key)){
-                    if (\preg_match("/[A-Za-z0-9]+/", $line))
-                    {
-                        $this->validedOptions['category'][] = $line;
-                    }
-                    else{
-                        dd('argument category : '. $line . ' category');
-                    }
-                }
-                elseif (preg_match('/^tag[0-9]+$/', $key)){
-                    if (\preg_match("/[A-Za-z0-9]+/", $line))
-                    {
-                        $this->validedOptions['tags'][] = $line;
-                    }
-                    else{
-                        dd('argument username : '. $line . ' invalide');
-                    }
-                }
-                elseif($key === 'created_before') {
-                    if (\preg_match("/^(19[5-9][0-9]|20[0-4][0-9]|2050)[-](0?[1-9]|1[0-2])[-](0?[1-9]|[12][0-9]|3[01])$/", $this->option['created_before']))
-                    {
-                        $this->validedOptions['created_before'] = $this->option['created_before'];
-                    }
-                    else{
-                        dd('argument username : '. $this->option['created_before'] . ' invalide');
-                    }
-                }
-                elseif($key === 'created_after') {
-                    if (\preg_match("/^(19[5-9][0-9]|20[0-4][0-9]|2050)[-](0?[1-9]|1[0-2])[-](0?[1-9]|[12][0-9]|3[01])$/", $this->option['created_after']))
-                    {
-                        $this->validedOptions['created_after'] = $this->option['created_after'];
-                    }
-                    else{
-                        dd('argument username : '. $this->option['created_after'] . ' invalide');
                     }
                 }
                 else{
@@ -93,8 +57,7 @@ class DataRequestTagService extends DataRequestClassService
 
             }
 
-
-            return $repository->findArticleByCondition($this->validedOptions);
+            return $repository->findTagByCondition($this->validedOptions);
         }
     }
 }

@@ -30,7 +30,7 @@ class DashboardController extends AbstractController
      */
     public function getData(Request $request, ArticleFilterHandler $articleFilterHandler){
 
-        dd($this->getUser()->getRoles());
+
         if($request->query->get('users')){
             /**
              * @var $currentUser User

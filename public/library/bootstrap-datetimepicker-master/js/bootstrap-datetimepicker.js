@@ -1440,7 +1440,7 @@
 
        In jquery 1.7.2+ everything works fine.
        */
-      //this.picker.find('>div').hide().filter('.datetimepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
+      //this.picker.find('>div').hide().Filter('.datetimepicker-'+DPGlobal.modes[this.viewMode].clsName).show();
       this.picker.find('>div').hide().filter('.datetimepicker-' + DPGlobal.modes[this.viewMode].clsName).css('display', 'block');
       this.updateNavArrows();
     },

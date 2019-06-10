@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Filter;
+use App\Form\Article\Filter\ArticleFilterType;
 use App\Form\ArticleFilterNameType;
 use App\Service\ArticleFilterHandler;
 use App\Service\ImageArticleHandler;
 use App\Service\ImageProcessingHandler;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,16 +31,18 @@ use Imagick;
 class ArticleController extends AbstractController
 {
 
-
     /**
      * @var ObjectManager
      */
     private $em;
 
-    public function __construct(ObjectManager $em)
-    {
 
+    private $entityManager;
+
+    public function __construct(ObjectManager $em, EntityManagerInterface $entityManager)
+    {
         $this->em = $em;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -158,6 +162,27 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/article/filter", name="articleFilter")
+     */
+    public function filter(Request  $request){
+        $articleFilter = new Article\Filter\ArticleFilter();
+        $form = $this->createForm(ArticleFilterType::class, $articleFilter);
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $tabParameterRequest = array_merge(['t' => 'article'], $articleFilter->iterate());
+
+            return $this->redirectToRoute("get_info", $tabParameterRequest);
+        }
+        else{
+            return new JsonResponse(false);
+        }
+    }
+
+    /**
      * @Route("/delete/{id}", name="delete_article")
      */
     public function deleteArticle(Article $article){
@@ -172,6 +197,68 @@ class ArticleController extends AbstractController
         }
 
     }
+
+
+    /**
+     *
+     * @Route("/rmArticleA", name="rmArticleA")
+     * @param Request $request
+     * @return mixed
+     */
+    public function removeCategoryAjax(Request $request){
+        if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
+            $repo = $this->entityManager->getRepository(Article::class);
+            $id = $request->query->get('id');
+            $article = $repo->find($id);
+            if($article === NULL)
+            {
+                $this->addFlash(
+                    'notice',
+                    'Suppression impossible ! L\'article n\'existe pas.'
+                );
+                $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                return new JsonResponse([false, $flashMessage]);
+            }
+
+            if ($this->isGranted('DELETE', $article)) {
+                try {
+
+
+                    $this->deleteArticle($article);
+                    $this->addFlash(
+                        'notice',
+                        'Categorie suprimmée !'
+                    );
+                    $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                    return new JsonResponse([true, $flashMessage]);
+                }catch (\Exception $e){
+                    return new JsonResponse($e->getMessage());
+                }
+            } else {
+
+                $this->addFlash(
+                    'notice',
+                    "Suppression impossible ! Vous n'avaez pas les autoristaions necessaires"
+                );
+                $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                return new JsonResponse([false, $flashMessage]);
+            }
+
+        }else{
+            $this->addFlash(
+                'notice',
+                "Aucun élément à supprimer."
+            );
+            $flashMessage = $this->get('session')->getFlashBag()->all();
+
+            return new JsonResponse([false, $flashMessage]);
+        }
+
+    }
+
 
     /**
      * @Route("/list", name="list_article")

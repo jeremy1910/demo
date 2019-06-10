@@ -98,7 +98,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->select('a');
 
         foreach ($conditions as $key => $condition) {
-            if ($key == 'author'){
+            if ($key == 'user'){
 
                 $req->innerJoin('a.user', 'user')
                     ->addSelect('user')
@@ -118,27 +118,25 @@ class ArticleRepository extends ServiceEntityRepository
                 $req->andWhere('a.' . $key . ' LIKE :' . $key);
                 $req->setParameter($key, '%'.$condition.'%');
             }
-            else if ($key == 'category'){
+            else if ($key == 'num_category'){
 
                 $req->andWhere($req->expr()->in('a.num_category', ':category'))
                     ->setParameter('category', $condition);
             }
 
-            else if($key == 'created_after'){
+            else if($key == 'created_at_after'){
                 $req->andWhere('a.created_at >= :after')
                     ->setParameter('after', (new \DateTime($condition))->format('Y-m-d'));
 
             }
-            else if($key == 'created_before'){
+            else if($key == 'created_at_before'){
 
                 $req->andWhere('a.created_at <= :before')
                     ->setParameter('before', (new \DateTime($condition))->format('Y-m-d'));
 
             }
             else{
-
-                $req->andWhere('a.' . $key . ' = :' . $key);
-                $req->setParameter($key, $condition);
+                return [false, 'condition name incorect'];
             }
         }
 

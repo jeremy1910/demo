@@ -64,6 +64,9 @@ class DataRequestRouterServicesDataRequest
                     dd('target incorect : '. $this->target);
             }
         }
+        else{
+            return null;
+        }
 
     }
 

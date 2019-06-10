@@ -1,3 +1,4 @@
+{# @var formArticle \App\Entity\Article\Filter\ArticleFilter #}
 {{ form_start(formArticle) }}
 <div class="row">
 
@@ -12,14 +13,14 @@
         <div id="tagsList"></div>
     </div>
     <div class="col-4">
-        {{ form_row(formArticle.created_after) }}
-        {{  form_row(formArticle.created_before) }}
-
-        <button id="validateArticleButton" class="btn btn-success position-relative float-right">Appliquer</button>
+        {{ form_row(formArticle.createdAtAfter) }}
+        {{  form_row(formArticle.createdAtBefore) }}
+        {{  form_row(formArticle.submit) }}
     </div>
 
 </div>
-{{ form_end(formArticle) }}
+{{ form_row(formArticle._token) }}
+{{ form_end(formArticle, {'render_rest': false}) }}
 <div class="table-responsive mt-4">
 <table class="table table-bordered table-striped">
     <thead>

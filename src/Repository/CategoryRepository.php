@@ -25,11 +25,12 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function getAllLibele()
     {
-        $em = $this->getEntityManager();
+        $req = $this->createQueryBuilder('a')
+            ->select('a.id, a.libele');
 
-        $query = $em->createQuery('SELECT c.libele FROM App\Entity\Category c');
 
-        return $query->execute();
+        $query = $req->getQuery();
+        return $query->getArrayResult();
     }
 
     public function findCategoryByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL){

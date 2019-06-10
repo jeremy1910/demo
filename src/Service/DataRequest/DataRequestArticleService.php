@@ -14,7 +14,7 @@ use App\Entity\Article;
 class DataRequestArticleService extends DataRequestClassService
 {
 
-    protected $permitedOptions = ['title', 'author', 'tag[0-9]+', 'category[0-9]+', 'created_before', 'created_after'];
+    protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after'];
 
     public function getResult()
     {
@@ -42,25 +42,26 @@ class DataRequestArticleService extends DataRequestClassService
                         dd('argument username : '. $line . ' invalide');
                     }
                 }
-                elseif ($key == 'author'){
+                elseif ($key == 'user'){
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
-                        $this->validedOptions['author'] = $line;
+                        $this->validedOptions['user'] = $line;
                     }
                     else{
                         dd('argument username : '. $line . ' invalide');
                     }
                 }
-                elseif (preg_match('/^category[0-9]+$/', $key)){
+                elseif (preg_match('/^num_category[0-9]+$/', $key)){
+
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
-                        $this->validedOptions['category'][] = $line;
+                        $this->validedOptions['num_category'][] = $line;
                     }
                      else{
                         dd('argument category : '. $line . ' category');
                     }
                 }
-                elseif (preg_match('/^tag[0-9]+$/', $key)){
+                elseif (preg_match('/^tags[0-9]+$/', $key)){
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
                         $this->validedOptions['tags'][] = $line;
@@ -69,19 +70,19 @@ class DataRequestArticleService extends DataRequestClassService
                         dd('argument username : '. $line . ' invalide');
                     }
                 }
-                elseif($key === 'created_before') {
-                    if (\preg_match("/^(19[5-9][0-9]|20[0-4][0-9]|2050)[-](0?[1-9]|1[0-2])[-](0?[1-9]|[12][0-9]|3[01])$/", $this->option['created_before']))
+                elseif($key === 'created_at_before') {
+                    if (\preg_match("/^(19[5-9][0-9]|20[0-4][0-9]|2050)[-](0?[1-9]|1[0-2])[-](0?[1-9]|[12][0-9]|3[01])$/", $this->option['created_at_before']))
                     {
-                        $this->validedOptions['created_before'] = $this->option['created_before'];
+                        $this->validedOptions['created_at_before'] = $this->option['created_at_before'];
                     }
                     else{
                         dd('argument username : '. $this->option['created_before'] . ' invalide');
                     }
                 }
-                elseif($key === 'created_after') {
-                    if (\preg_match("/^(19[5-9][0-9]|20[0-4][0-9]|2050)[-](0?[1-9]|1[0-2])[-](0?[1-9]|[12][0-9]|3[01])$/", $this->option['created_after']))
+                elseif($key === 'created_at_after') {
+                    if (\preg_match("/^(19[5-9][0-9]|20[0-4][0-9]|2050)[-](0?[1-9]|1[0-2])[-](0?[1-9]|[12][0-9]|3[01])$/", $this->option['created_at_after']))
                     {
-                        $this->validedOptions['created_after'] = $this->option['created_after'];
+                        $this->validedOptions['created_at_after'] = $this->option['created_at_after'];
                     }
                     else{
                         dd('argument username : '. $this->option['created_after'] . ' invalide');
@@ -94,8 +95,12 @@ class DataRequestArticleService extends DataRequestClassService
             }
 
 
-            return $repository->findArticleByCondition($this->validedOptions);
+            $reponse = $repository->findArticleByCondition($this->validedOptions);
         }
+        else{
+            $reponse = [false, 'target incorect'];
+        }
+        return $reponse;
     }
 
 }

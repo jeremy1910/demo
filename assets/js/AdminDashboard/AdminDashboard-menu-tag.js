@@ -1,8 +1,7 @@
 import { displayFlashMessageSuccess } from '../globalFunctions';
 import {eventSuppr} from "./AdminDashboard";
 
-import { displayFlashMessageSuccess } from '../globalFunctions';
-import {eventSuppr} from "./AdminDashboard";
+
 //import { eventSuppr } from 'AdminDashboard';
 
 const NB_COL = 3;

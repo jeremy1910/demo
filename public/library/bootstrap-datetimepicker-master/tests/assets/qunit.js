@@ -778,7 +778,7 @@ QUnit.load = function() {
 	if ( toolbar ) {
 		var filter = document.createElement("input");
 		filter.type = "checkbox";
-		filter.id = "qunit-filter-pass";
+		filter.id = "qunit-Filter-pass";
 		addEvent( filter, "click", function() {
 			var ol = document.getElementById("qunit-tests");
 			if ( filter.checked ) {
@@ -789,13 +789,13 @@ QUnit.load = function() {
 			}
 			if ( defined.sessionStorage ) {
 				if (filter.checked) {
-					sessionStorage.setItem("qunit-filter-passed-tests", "true");
+					sessionStorage.setItem("qunit-Filter-passed-tests", "true");
 				} else {
-					sessionStorage.removeItem("qunit-filter-passed-tests");
+					sessionStorage.removeItem("qunit-Filter-passed-tests");
 				}
 			}
 		});
-		if ( config.hidepassed || defined.sessionStorage && sessionStorage.getItem("qunit-filter-passed-tests") ) {
+		if ( config.hidepassed || defined.sessionStorage && sessionStorage.getItem("qunit-Filter-passed-tests") ) {
 			filter.checked = true;
 			var ol = document.getElementById("qunit-tests");
 			ol.className = ol.className + " hidepass";
@@ -803,7 +803,7 @@ QUnit.load = function() {
 		toolbar.appendChild( filter );
 
 		var label = document.createElement("label");
-		label.setAttribute("for", "qunit-filter-pass");
+		label.setAttribute("for", "qunit-Filter-pass");
 		label.innerHTML = "Hide passed tests";
 		toolbar.appendChild( label );
 	}

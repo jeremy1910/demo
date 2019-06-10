@@ -52,11 +52,15 @@ class Test_DataRequestRouterServiceController extends AbstractController
 
 
         $route = $dataRequestRouter->getRoute($request, 'GET');
-        $response = $route->getResult();
-
         $serializer = SerializerBuilder::create()->build();
-        $jsonContent = $serializer->serialize($response, 'json', SerializationContext::create()->enableMaxDepthChecks());
-
+        if($route !== null){
+            $response = $route->getResult();
+            $jsonContent = $serializer->serialize($response, 'json', SerializationContext::create()->enableMaxDepthChecks());
+        }
+        else{
+            $response = false;
+            $jsonContent = $serializer->serialize($response, 'json');
+        }
 
         return new Response($jsonContent);
     }

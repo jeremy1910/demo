@@ -10,6 +10,7 @@ namespace App\Controller\admin;
 
 
 use App\Form\AdminDashboard\ArticleDashboardFilterType;
+use App\Form\Article\Filter\ArticleFilterType;
 use App\Form\Filter\FilterCategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,9 @@ class AdminController extends AbstractController
     public function admin_page()
     {
 
-        $formArticle = $this->createForm(ArticleDashboardFilterType::class);
+        $formArticle = $this->createForm(ArticleFilterType::class, null, array(
+            'action' => $this->generateUrl("articleFilter")));
+
         $formCategory = $this->createForm(FilterCategoryType::class);
         $formTag = $this->createForm(FilterTagType::class);
         return $this->render('admin/admin.html.twig', [

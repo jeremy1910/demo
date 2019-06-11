@@ -11,27 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d315271-7ef1-4497-9e17-593b53526c62" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Article/Filter/ArticleFilter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/Article/Filter/ArticleFilterType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-article.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-article.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-tag.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-tag.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/prod/monolog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/prod/monolog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/library/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/library/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/library/bootstrap-datetimepicker-master/tests/assets/qunit.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/library/bootstrap-datetimepicker-master/tests/assets/qunit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/admin/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/admin/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/dashboard/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/dashboard/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/test/Test_DataRequestRouterServiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/test/Test_DataRequestRouterServiceController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/DataRequest/DataRequestArticleService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/DataRequest/DataRequestArticleService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/DataRequest/DataRequestRouterServicesDataRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/DataRequest/DataRequestRouterServicesDataRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/menu-article.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/menu-article.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/4fc80b9d3c4fb060d16e2a8ecc3a880c.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -95,8 +77,8 @@
           <file leaf-file-name="AdminDashboard-menu-article.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-article.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="780">
-                  <caret line="91" column="5" lean-forward="true" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
+                <state relative-caret-position="540">
+                  <caret line="69" column="51" selection-start-line="69" selection-start-column="51" selection-end-line="69" selection-end-column="51" />
                   <folding>
                     <element signature="e#0#49#0" expanded="true" />
                   </folding>
@@ -107,13 +89,8 @@
           <file leaf-file-name="AdminDashboard-menu-category.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-category.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="699">
+                <state relative-caret-position="1665">
                   <caret line="112" column="48" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="48" />
-                  <folding>
-                    <element signature="n#style#0;n#th#0;n#tr#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -121,7 +98,7 @@
           <file leaf-file-name="AdminDashboard.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="473">
+                <state relative-caret-position="570">
                   <caret line="40" selection-start-line="40" selection-end-line="40" />
                 </state>
               </provider>
@@ -161,17 +138,8 @@
           <file leaf-file-name="ArticleController.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Controller/ArticleController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="417">
+                <state relative-caret-position="15">
                   <caret line="229" column="33" selection-start-line="229" selection-start-column="33" selection-end-line="229" selection-end-column="33" />
-                  <folding>
-                    <element signature="e#2191#2205#1#PHP" expanded="true" />
-                    <element signature="e#2248#2275#0#PHP" expanded="true" />
-                    <element signature="e#3317#3344#0#PHP" expanded="true" />
-                    <element signature="e#3534#3541#1#PHP" expanded="true" />
-                    <element signature="e#3705#3729#0#PHP" expanded="true" />
-                    <element signature="e#4942#4952#0#PHP" expanded="true" />
-                    <element signature="e#7952#7984#0#PHP" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -179,7 +147,7 @@
           <file leaf-file-name="CategoryController.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Controller/CategoryController/CategoryController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="338">
+                <state relative-caret-position="1590">
                   <caret line="116" column="29" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
                 </state>
               </provider>
@@ -745,7 +713,8 @@
       <workItem from="1559938997897" duration="2720000" />
       <workItem from="1560030775837" duration="11167000" />
       <workItem from="1560089180663" duration="25031000" />
-      <workItem from="1560175359229" duration="5230000" />
+      <workItem from="1560175359229" duration="6045000" />
+      <workItem from="1560252065258" duration="1842000" />
     </task>
     <task id="LOCAL-00001" summary="avancement adminDashboard 30/05/19">
       <created>1559217600682</created>
@@ -768,11 +737,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559250554785</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Refonte Backend (filter)">
+      <created>1560194475615</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1560194475615</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="341407000" />
+    <option name="totallyTimeSpent" value="344064000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -795,7 +771,7 @@
       <window_info id="npm" order="2" sideWeight="0.28787878" side_tool="true" weight="0.14956245" />
       <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.87072396" visible="true" weight="0.23857868" />
       <window_info anchor="right" id="Remote Host" order="3" weight="0.32901135" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8371212" visible="true" weight="0.14797136" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8371212" visible="true" weight="0.14916468" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" visible="true" weight="0.08552108" />
       <window_info id="Structure" order="1" sideWeight="0.16287878" side_tool="true" weight="0.14956245" />
@@ -846,7 +822,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="avancement adminDashboard 30/05/19" />
     <MESSAGE value="avancement adminDashboard 30/05/19 22:23" />
-    <option name="LAST_COMMIT_MESSAGE" value="avancement adminDashboard 30/05/19 22:23" />
+    <MESSAGE value="Refonte Backend (filter)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refonte Backend (filter)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1173,50 +1150,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/CategoryController/CategoryController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
+        <state relative-caret-position="1590">
           <caret line="116" column="29" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/ArticleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
+        <state relative-caret-position="15">
           <caret line="229" column="33" selection-start-line="229" selection-start-column="33" selection-end-line="229" selection-end-column="33" />
-          <folding>
-            <element signature="e#2191#2205#1#PHP" expanded="true" />
-            <element signature="e#2248#2275#0#PHP" expanded="true" />
-            <element signature="e#3317#3344#0#PHP" expanded="true" />
-            <element signature="e#3534#3541#1#PHP" expanded="true" />
-            <element signature="e#3705#3729#0#PHP" expanded="true" />
-            <element signature="e#4942#4952#0#PHP" expanded="true" />
-            <element signature="e#7952#7984#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
+        <state relative-caret-position="570">
           <caret line="40" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-category.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="699">
+        <state relative-caret-position="1665">
           <caret line="112" column="48" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="48" />
-          <folding>
-            <element signature="n#style#0;n#th#0;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-article.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="91" column="5" lean-forward="true" selection-start-line="91" selection-start-column="5" selection-end-line="91" selection-end-column="5" />
+        <state relative-caret-position="540">
+          <caret line="69" column="51" selection-start-line="69" selection-start-column="51" selection-end-line="69" selection-end-column="51" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>

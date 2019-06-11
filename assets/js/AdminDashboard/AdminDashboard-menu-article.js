@@ -66,25 +66,24 @@ $(document).ready(function () {
         });
         $('.js-search-by-badge').each(function () {
             $(this).click(function () {
-                let $tag = $('<a href="#" class="badge badge-warning"></a>').click(function (e) {
-                    e.preventDefault();
+                $('#inputsTagHiden').children().remove();
+                $('#tagsList').children().remove();
 
-                    let tagIndex = $('#inputsTagHiden').children().length;
-                    $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val($(this).text()).hide().appendTo('#inputsTagHiden');
-                    let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning"></a>').click(function (e) {
-                        e.preventDefault();
-                        $(this).remove();
-                        $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
-                    });
-                    $tag.text($(this).text()).appendTo('#tagsList');
+                let tagIndex = $('#inputsTagHiden').children().length;
+                let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning"></a>').click(function (e) {
+                    e.preventDefault();
+                    $(this).remove();
+                    $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
+
+
 
                 });
 
 
-
+                $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val($(this).text()).hide().appendTo('#inputsTagHiden');
                 $tag.text($(this).text()).appendTo('#tagsList');
-
-
+                let $form = $("form[name='article_filter']");
+                menuArticleSendAjaxFormFilter($form);
 
 
             })

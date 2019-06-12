@@ -14,7 +14,7 @@ use App\Entity\Article;
 class DataRequestArticleService extends DataRequestClassService
 {
 
-    protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after'];
+    protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after', 'nbResult', 'pageSelected'];
 
     public function getResult()
     {
@@ -62,6 +62,7 @@ class DataRequestArticleService extends DataRequestClassService
                     }
                 }
                 elseif (preg_match('/^tags[0-9]+$/', $key)){
+
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
                         $this->validedOptions['tags'][] = $line;
@@ -86,6 +87,24 @@ class DataRequestArticleService extends DataRequestClassService
                     }
                     else{
                         dd('argument username : '. $this->option['created_after'] . ' invalide');
+                    }
+                }
+                elseif ($key == 'nbResult'){
+                    if (\preg_match("/[A-Za-z0-9]+/", $line))
+                    {
+                        $this->validedOptions['nbResult'] = $line;
+                    }
+                    else{
+                        dd('argument username : '. $line . ' invalide');
+                    }
+                }
+                elseif ($key == 'pageSelected'){
+                    if (\preg_match("/[A-Za-z0-9]+/", $line))
+                    {
+                        $this->validedOptions['pageSelected'] = $line;
+                    }
+                    else{
+                        dd('argument username : '. $line . ' invalide');
                     }
                 }
                 else{

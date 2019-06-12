@@ -1,5 +1,4 @@
 import {displayFlashMessageSuccess} from "../globalFunctions";
-import {displayListArticle} from "./AdminDashboard-menu-article";
 import {displayListCategory} from "./AdminDashboard-menu-category";
 
 require('../../css/admin/adminDashboard-custom.css');
@@ -46,8 +45,12 @@ export function eventSuppr(targetToDelete) {
     $.get(url)
         .done(function (data, textStatus, jqXDR) {
             if (targetToDelete == 'article'){
-                displayFlashMessageSuccess('Article supprimé', 'flash-message');
-                displayListArticle();
+                if (data[0] == true){
+                    displayFlashMessageSuccess(data[1].notice[0], 'flash-message');
+                }
+                else{
+                    displayFlashMessageSuccess(data[1].notice[0], 'flash-message');
+                }
             }
             else if (targetToDelete == 'category'){
                 if (data[0] == true){

@@ -38,12 +38,10 @@ class DataRequestRouterServicesDataRequest
 
         if($this->request->has('t')){
             $this->target = $this->request->get('t');
-            $array = $this->request->all();
-            array_shift($array);
-            $array = array_flip($array);
-            $array = array_unique($array);
-            $array = array_flip($array);
 
+            $array = $this->request->all();
+
+            array_shift($array);
 
             $this->option = $array;
 

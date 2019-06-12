@@ -7,4 +7,8 @@ export function displayFlashMessageSuccess(message, encre) {
         '</div>').appendTo('#'+encre);
 }
 
+function displayPagination(nbPage, pageActive) {
+
+}
+
 

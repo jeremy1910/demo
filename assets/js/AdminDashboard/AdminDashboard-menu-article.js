@@ -7,34 +7,37 @@ $(document).ready(function () {
     menuArticleTagPrototype = $(menuArticleTagPrototype).find('input').prop('outerHTML');
 
     let menuArticleInputToAddTag = $('<div class="form-group"><label for="genericTagInput">Tags</label><input type="text" id="genericTagInput" placeholder="Ajouter un tag à rechercher" class="form-control"></div><div id="inputsTagHiden"></div>')
-    let hrefArtcileToDelete = '';
-
     $('#article_filter_tags').parent().replaceWith(menuArticleInputToAddTag);
 
 
     $('#genericTagInput').keypress(function (e) {
-
         if (e.key == 'Enter') {
-            let tagIndex = $('#inputsTagHiden').children().length;
-            $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val($(this).val()).hide().appendTo('#inputsTagHiden');
-            let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning"></a>').click(function (e) {
-                e.preventDefault();
-                $(this).remove();
-                $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
-            });
-            $tag.text($(this).val()).appendTo('#tagsList');
+            menuArticleCreateTagHTML($(this).val());
             $(this).val('');
 
         }
     });
     $("form[name='article_filter']").submit(function (e) {
         e.preventDefault();
-        let $form = $(e.target);
-        menuArticleSendAjaxFormFilter($form);
+        menuArticleSendAjaxFormFilter();
 
     });
 
-    function menuArticleSendAjaxFormFilter($form){
+
+    function menuArticleCreateTagHTML(value) {
+        let tagIndex = $('#inputsTagHiden').children().length;
+        $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val(value).hide().appendTo('#inputsTagHiden');
+        let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning"></a>').click(function (e) {
+            e.preventDefault();
+            $(this).remove();
+            $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
+        });
+        $tag.text(value).appendTo('#tagsList');
+    }
+
+    function menuArticleSendAjaxFormFilter(){
+        let $form = $("form[name='article_filter']");
+        console.log($form.serialize());
         $.ajax({
             url: $form.attr('action'),
             method: 'POST',
@@ -57,8 +60,8 @@ $(document).ready(function () {
                 $('#buttonValidDelete').click(function (e) {
                     e.preventDefault();
                     eventSuppr('article');
-                    let $form = $("form[name='article_filter']");
-                    menuArticleSendAjaxFormFilter($form);
+
+                    menuArticleSendAjaxFormFilter();
 
                 });
 
@@ -68,22 +71,8 @@ $(document).ready(function () {
             $(this).click(function () {
                 $('#inputsTagHiden').children().remove();
                 $('#tagsList').children().remove();
-
-                let tagIndex = $('#inputsTagHiden').children().length;
-                let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning"></a>').click(function (e) {
-                    e.preventDefault();
-                    $(this).remove();
-                    $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
-
-
-
-                });
-
-
-                $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val($(this).text()).hide().appendTo('#inputsTagHiden');
-                $tag.text($(this).text()).appendTo('#tagsList');
-                let $form = $("form[name='article_filter']");
-                menuArticleSendAjaxFormFilter($form);
+                menuArticleCreateTagHTML($(this).text());
+                menuArticleSendAjaxFormFilter();
 
 
             })

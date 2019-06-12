@@ -59,6 +59,61 @@ class ArticleFilter
 
     private $tags;
 
+
+
+
+    private $user;
+
+    /**
+     * @var int
+     */
+    private $nbResult;
+
+    /**
+     * @var int
+     */
+    private $pageSelected;
+
+    /**
+     * @return int|null
+     */
+    public function getPageSelected(): ?int
+    {
+        return $this->pageSelected;
+    }
+
+    /**
+     * @param int $pageSelected
+     * @return ArticleFilter
+     */
+    public function setPageSelected(int $pageSelected): ArticleFilter
+    {
+        $this->pageSelected = $pageSelected;
+        return $this;
+    }
+
+
+
+
+
+    /**
+     * @return int|null
+     */
+    public function getNbResult(): ?int
+    {
+        return $this->nbResult;
+    }
+
+    /**
+     * @param int $nbResult
+     * @return ArticleFilter
+     */
+    public function setNbResult(int $nbResult): ArticleFilter
+    {
+        $this->nbResult = $nbResult;
+        return $this;
+    }
+
     /**
      * @return mixed
      */
@@ -76,9 +131,6 @@ class ArticleFilter
         $this->tags = $tags;
         return $this;
     }
-
-
-    private $user;
 
 
     public function getUser()

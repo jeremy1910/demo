@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArticleFilterType extends AbstractType
 {
+
+    private const NB_RESULT = 25;
+    private const PAGE_SELECTED = 0;
+
     private $categoryRepository;
     public function __construct(CategoryRepository $categoryRepository)
     {
@@ -78,6 +83,12 @@ class ArticleFilterType extends AbstractType
                 'required' => false,
                 'label' => 'Auteur',
                 'attr' => ['placeholder' => 'Recherche par auteur'],
+            ])
+            ->add('nbResult', HiddenType::class, [
+                'data' => self::NB_RESULT,
+            ])
+            ->add('pageSelected', HiddenType::class, [
+                'data' => self::PAGE_SELECTED,
             ])
             ->add('submit', SubmitType::class)
         ;

@@ -129,11 +129,11 @@ class ArticleRepository extends ServiceEntityRepository
                     ->setParameter('after', (new \DateTime($condition))->format('Y-m-d'));
 
             }
-            else if($key == 'created_at_before'){
-
-                $req->andWhere('a.created_at <= :before')
-                    ->setParameter('before', (new \DateTime($condition))->format('Y-m-d'));
-
+            else if($key == 'nbResult'){
+                $maxResult = $condition;
+            }
+            else if($key == 'pageSelected'){
+                $offset = $condition;
             }
             else{
                 return [false, 'condition name incorect'];
@@ -142,7 +142,7 @@ class ArticleRepository extends ServiceEntityRepository
 
         $querry = $req->orderBy('a.created_at', 'DESC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 
-
+        //dd($querry);
         return $querry->getResult();
 
     }

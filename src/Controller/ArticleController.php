@@ -178,7 +178,8 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute("get_info", $tabParameterRequest);
         }
         else{
-            return new JsonResponse(false);
+
+            return new JsonResponse(false, 'formulaire invalide');
         }
     }
 

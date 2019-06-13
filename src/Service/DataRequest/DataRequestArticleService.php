@@ -115,6 +115,10 @@ class DataRequestArticleService extends DataRequestClassService
 
 
             $reponse = $repository->findArticleByCondition($this->validedOptions);
+            $nbArticle = count($reponse);
+
+            $nbPage = (int) ceil($nbArticle / $this->validedOptions['nbResult']);
+           $reponse['nbPage'] = $nbPage;
         }
         else{
             $reponse = [false, 'target incorect'];

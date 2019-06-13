@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ArticleFilterType extends AbstractType
 {
 
-    private const NB_RESULT = 25;
+    private const NB_RESULT = 10;
     private const PAGE_SELECTED = 0;
 
     private $categoryRepository;

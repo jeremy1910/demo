@@ -33,7 +33,7 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
-    public function findNumberOfArticles(array $conditions = NULL)
+    public function findNumberOfArticles(array $conditions = [])
     {
 
         if (sizeof($conditions) == 0)

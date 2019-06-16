@@ -10,6 +10,8 @@ namespace App\Controller\CategoryController;
 
 
 use App\Entity\Category;
+use App\Form\Category\CategoryType;
+use App\Form\Category\Filter\CategoryFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +29,40 @@ class CategoryController extends AbstractController
     private $entityManager;
 
 
+    /**
+     * @Route("/category/filter", name="categoryFilter")
+     */
+    public function filter(Request  $request){
+        $categoryFilter = new Category\Filter\CategoryFilter();
+        $form = $this->createForm(CategoryFilterType::class, $categoryFilter);
 
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $tabParameterRequest = array_merge(['t' => 'category'], $categoryFilter->iterate());
+
+            return $this->redirectToRoute("get_info", $tabParameterRequest);
+        }
+        else{
+
+            return new JsonResponse(false, 'formulaire invalide');
+        }
+    }
+
+    /**
+     * @Route("/addCategoryFormA", name="addCategoryFormA")
+     */
+    public function addCategoryAjaxByForm(Request $request)
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd("ici");
+        }
+    }
     /**
      * @Route("/addCategoryA", name="addCategoryA")
      */

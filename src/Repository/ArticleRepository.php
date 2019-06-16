@@ -90,59 +90,51 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
 
-    public function findArticleByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL)
+    public function findArticleByCondition($conditions, $maxResult = NULL, $offset = NULL, $count = false)
     {
 
-
-        $req = $this->createQueryBuilder('a')
-            ->select('a');
-
-        foreach ($conditions as $key => $condition) {
-            if ($key == 'user'){
-
-                $req->innerJoin('a.user', 'user')
-                    ->addSelect('user')
-
-                    ->andWhere('user.username LIKE :user')
-                    ->setParameter('user', '%'.$condition.'%');
-            }
-            else if ($key == 'tags'){
-
-
-                $req->leftJoin('a.tags', 'tags')
-                    ->andWhere($req->expr()->in('tags.tagName', ':tags'))
-                    ->setParameter('tags', $condition);
-
-            }
-            else if ($key == 'title'){
-                $req->andWhere('a.' . $key . ' LIKE :' . $key);
-                $req->setParameter($key, '%'.$condition.'%');
-            }
-            else if ($key == 'num_category'){
-
-                $req->andWhere($req->expr()->in('a.num_category', ':category'))
-                    ->setParameter('category', $condition);
-            }
-
-            else if($key == 'created_at_after'){
-                $req->andWhere('a.created_at >= :after')
-                    ->setParameter('after', (new \DateTime($condition))->format('Y-m-d'));
-
-            }
-            else if($key == 'nbResult'){
-                $maxResult = $condition;
-            }
-            else if($key == 'pageSelected'){
-                $offset = $condition;
-            }
-            else{
-                return [false, 'condition name incorect'];
-            }
+        if($count){
+            $req = $this->createQueryBuilder('a')
+                ->select('count(a.id)');
+        }
+        else {
+            $req = $this->createQueryBuilder('a')
+                ->select('a');
         }
 
+        if($conditions !== NULL) {
+            foreach ($conditions as $key => $condition) {
+                if ($key == 'user') {
+
+                    $req->innerJoin('a.user', 'user')
+                        //->addSelect('user.username')
+                        ->andWhere('user.username LIKE :user')
+                        ->setParameter('user', '%' . $condition . '%');
+                } else if ($key == 'tags') {
+
+
+                    $req->leftJoin('a.tags', 'tags')
+                        ->andWhere($req->expr()->in('tags.tagName', ':tags'))
+                        ->setParameter('tags', $condition);
+
+                } else if ($key == 'title') {
+                    $req->andWhere('a.' . $key . ' LIKE :' . $key);
+                    $req->setParameter($key, '%' . $condition . '%');
+                } else if ($key == 'num_category') {
+
+                    $req->andWhere($req->expr()->in('a.num_category', ':category'))
+                        ->setParameter('category', $condition);
+                } else if ($key == 'created_at_after') {
+                    $req->andWhere('a.created_at >= :after')
+                        ->setParameter('after', (new \DateTime($condition))->format('Y-m-d'));
+
+                } else {
+                    return [false, 'condition name incorect'];
+                }
+            }
+        }
         $querry = $req->orderBy('a.created_at', 'DESC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 
-        //dd($querry);
         return $querry->getResult();
 
     }

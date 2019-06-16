@@ -9,9 +9,10 @@
 namespace App\Entity\Article\Filter;
 
 
+use App\Entity\Interfaces\EntityFilterInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class ArticleFilter
+class ArticleFilter implements EntityFilterInterface
 {
     /**
      * @var int|null

@@ -1,3 +1,5 @@
+{# @var formCategory \App\Entity\Category\Filter\CategoryFilter #}
+{# @var formCategoryCreate \App\Entity\Category#}
 {{ form_start(formCategory) }}
 <div class="row">
 
@@ -7,7 +9,9 @@
         <button id="addCategoryButton" class="btn btn-primary mb-4">Ajouter une categorie</button>
         <div id="divAddNewCategory" class="row">
             <div class="col-10">
-                {{ form_row(formCategory.newLibele)}}
+                {{ form_start(formCategoryCreate) }}
+                {{ form_row(formCategoryCreate.libele)}}
+                {{ form_end(formCategoryCreate) }}
             </div>
             <div class="col-2">
                 <button id="confimAddCategoryButton" class="btn btn-primary">Ajouter</button>
@@ -19,9 +23,10 @@
         <button id="validateCategoryButton" class="btn btn-success float-right">Appliquer</button>
     </div>
 </div>
-
-
-{{ form_end(formCategory) }}
+{{ form_row(formCategory.nbResult) }}
+{{ form_row(formCategory.pageSelected) }}
+{{ form_row(formCategory._token) }}
+{{ form_end(formCategory, {'render_rest': false})  }}
 
 <div class="table-responsive mt-4">
     <table class="table table-hover">

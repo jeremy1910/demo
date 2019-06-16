@@ -24,8 +24,8 @@
 {{ form_row(formArticle._token) }}
 {{ form_end(formArticle, {'render_rest': false}) }}
 <div class="table-responsive mt-4">
-    <table class="table table-bordered table-striped">
-        <thead>
+    <table class="table table-hover">
+        <thead class="table-dark" style="background-color: #343a40;">
         <tr id="title-lines">
             <th scope="col">ID</th>
             <th scope="col">Titre</th>
@@ -43,7 +43,23 @@
 
         </tbody>
     </table>
-    <div id="pagination"></div>
+
+
+
+</div>
+<div class="row">
+    <div class="col-10">
+        <div id="pagination" style="width: min-content ; margin: auto;"></div>
+    </div>
+    <div class="col-2">
+        <select id="selecter">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+        </select>
+    </div>
 </div>
 
 

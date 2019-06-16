@@ -21,6 +21,8 @@ abstract class DataRequestClassService
     protected $em;
     protected $permitedOptions;
     protected $validedOptions;
+    protected $offset;
+    protected $maxResult;
 
 
     public function __construct(EntityManagerInterface $em, $target, $option)

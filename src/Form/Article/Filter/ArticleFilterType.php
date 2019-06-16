@@ -21,7 +21,7 @@ class ArticleFilterType extends AbstractType
 {
 
     private const NB_RESULT = 10;
-    private const PAGE_SELECTED = 0;
+    private const PAGE_SELECTED = 1;
 
     private $categoryRepository;
     public function __construct(CategoryRepository $categoryRepository)
@@ -90,7 +90,9 @@ class ArticleFilterType extends AbstractType
             ->add('pageSelected', HiddenType::class, [
                 'data' => self::PAGE_SELECTED,
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Rechercher',
+            ])
         ;
     }
 

@@ -57,7 +57,7 @@ class DataRequestArticleService extends DataRequestClassService
                     {
                         $this->validedOptions['num_category'][] = $line;
                     }
-                     else{
+                    else{
                         dd('argument category : '. $line . ' category');
                     }
                 }
@@ -92,7 +92,8 @@ class DataRequestArticleService extends DataRequestClassService
                 elseif ($key == 'nbResult'){
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
-                        $this->validedOptions['nbResult'] = $line;
+
+                        $this->maxResult = $line;
                     }
                     else{
                         dd('argument username : '. $line . ' invalide');
@@ -101,7 +102,7 @@ class DataRequestArticleService extends DataRequestClassService
                 elseif ($key == 'pageSelected'){
                     if (\preg_match("/[A-Za-z0-9]+/", $line))
                     {
-                        $this->validedOptions['pageSelected'] = $line;
+                        $this->offset = $line;
                     }
                     else{
                         dd('argument username : '. $line . ' invalide');
@@ -113,12 +114,13 @@ class DataRequestArticleService extends DataRequestClassService
 
             }
 
+            $nbArticle = $repository->findArticleByCondition($this->validedOptions, NULL, NULL, TRUE);
 
-            $reponse = $repository->findArticleByCondition($this->validedOptions);
-            $nbArticle = count($reponse);
+            $reponse['result'] = $repository->findArticleByCondition($this->validedOptions, $this->maxResult, ($this->offset-1)*$this->maxResult);
 
-            $nbPage = (int) ceil($nbArticle / $this->validedOptions['nbResult']);
-           $reponse['nbPage'] = $nbPage;
+
+            $nbPage = (int) ceil($nbArticle[0]['1'] / $this->maxResult);
+            $reponse['nbPage'] = $nbPage;
         }
         else{
             $reponse = [false, 'target incorect'];

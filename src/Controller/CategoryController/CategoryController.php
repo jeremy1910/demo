@@ -42,7 +42,6 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
 
             $tabParameterRequest = array_merge(['t' => 'category'], $categoryFilter->iterate());
-
             return $this->redirectToRoute("get_info", $tabParameterRequest);
         }
         else{

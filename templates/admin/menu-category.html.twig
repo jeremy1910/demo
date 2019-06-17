@@ -1,5 +1,5 @@
 {# @var formCategory \App\Entity\Category\Filter\CategoryFilter #}
-{# @var formCategoryCreate \App\Entity\Category#}
+{# @var formCategory.createCategory \App\Entity\Category#}
 {{ form_start(formCategory) }}
 <div class="row">
 
@@ -10,7 +10,7 @@
         <div id="divAddNewCategory" class="row">
             <div class="col-10">
 
-                {{ form_row(formCategory.createCategory )}}
+                {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': false, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
 
             </div>
             <div class="col-2">
@@ -20,7 +20,7 @@
     </div>
     <div class="col-6">
         {{form_row(formCategory.libele) }}
-        <button id="validateCategoryButton" class="btn btn-success float-right">Appliquer</button>
+        {{ form_row(formCategory.search) }}
     </div>
 </div>
 {{ form_row(formCategory.nbResult) }}

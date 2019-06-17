@@ -1,7 +1,75 @@
-import { displayFlashMessageSuccess } from '../globalFunctions';
+import {displayFlashMessageSuccess, displayPagination} from '../globalFunctions';
 import {eventSuppr} from "./AdminDashboard";
-//import { eventSuppr } from 'AdminDashboard';
 
+const NB_COL = 3;
+const COL_WIDTH = 100/NB_COL;
+
+function menuCategorySendAjaxFormFilter(){
+    let $form = $("form[name='category_filter']");
+
+    $.ajax({
+        url: $form.attr('action'),
+        method: 'POST',
+        data: $form.serialize()})
+        .done(function (data, textStatus, jqXDR) {
+            menuCategoryDisplayResult(data)
+        });
+}
+
+
+function menuCategoryDisplayResult(data) {
+    let pageActive = $('#category_filter_pageSelected').val();
+    let result = JSON.parse(data);
+
+    $('#table-body').empty();
+    $.each(result.result, function (i, item) {
+        menuCategoryCreateTableLine(item);
+
+    });
+    $('.js-btn-suppr-category').each(function () {
+        $(this).click(function () {
+            $('#buttonValidDelete').attr('href', $(this).attr('href'));
+            $('#buttonValidDelete').click(function (e) {
+                e.preventDefault();
+                eventSuppr('article');
+
+                menuCategorySendAjaxFormFilter();
+
+            });
+
+        });
+    });
+
+    displayPagination(result.nbPage, pageActive, function (e) {
+        e.preventDefault();
+        $('#category_filter_pageSelected').val($(this).children().text());
+        menuCategorySendAjaxFormFilter();
+    }, function (e) {
+        e.preventDefault();
+        $('#category_filter_pageSelected').val(Number(pageActive)-1);
+        menuCategorySendAjaxFormFilter();
+    }, function (e) {
+        e.preventDefault();
+        $('#category_filter_pageSelected').val(Number(pageActive)+1);
+        menuCategorySendAjaxFormFilter();
+    }, $('#category_filter_pageSelected'))
+}
+
+function  menuCategoryCreateTableLine(item){
+
+    let $t = $('#table-body-category');
+
+    $('<tr>' +
+        '<th style="width:' + COL_WIDTH + '%" scope="row">'+ item.id +'</th>' +
+        '<td style="width:' + COL_WIDTH + '%" id="categoryLibele'+ item.id +'">'+item.libele+'</td>' +
+        '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id='+ item.id +'" num="'+item.id +'" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
+        '<a href="/rmCategoryA?id='+ item.id +'"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
+        '</tr>').appendTo($t).hide().fadeIn(500);
+
+}
+
+
+/**
 const NB_COL = 3;
 const COL_WIDTH = 100/NB_COL;
 
@@ -47,15 +115,7 @@ export function displayListCategory() {
     }
 
 
-    /*
-        if ($('#article_dashboard_filter_created_before').val() != ''){
-            request += '&created_before=' + $('#article_dashboard_filter_created_before').val();
-        }
-        if ($('#article_dashboard_filter_created_after').val() != ''){
-            request += '&created_after=' + $('#article_dashboard_filter_created_after').val();
-        }
-        console.log(request);
-    */
+
     $.getJSON('/get_info?t=category'+request)
         .done(function (data, textStatus, jqXDR) {
             $('#table-body-category').empty();
@@ -114,3 +174,4 @@ function  dashboardAdminCreateTableLineMenuCategory(item){
         '</tr>').appendTo($t).hide().fadeIn(500);
 
 }
+ */

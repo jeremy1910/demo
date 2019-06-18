@@ -13,7 +13,7 @@ use App\Entity\Category;
 
 class DataRequestCategoryService extends DataRequestClassService
 {
-    protected $permitedOptions = ['id', 'libele'];
+    protected $permitedOptions = ['id', 'libele', 'nbResult', 'pageSelected'];
 
     public function getResult()
     {

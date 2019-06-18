@@ -40,9 +40,7 @@ class CategoryFilterType extends AbstractType
                 'attr' => ['placeholder' => 'Recherche par nom de catégorie'],
                 'required' => false,
             ])
-            ->add('createCategory', CategoryType::class, [
-                'mapped' => false,
-            ])
+            ->add('createCategory', CategoryType::class)
             ->add('nbResult', HiddenType::class, [
                 'data' => self::NB_RESULT,
                 'required' => false,
@@ -56,18 +54,7 @@ class CategoryFilterType extends AbstractType
                 'label' => 'Rechercher',
 
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-                return false;
-                dd($event->getData());
-                if($event->getForm()->get('submit')->isClicked() && $event->getForm()->has('createCategory')){
-                    $category = new Category();
-                    $category->setLibele($event->getForm()->get('createCategory'));
-                    $this->entityManager->persist($category);
-                    $this->entityManager->flush();
 
-                }
-
-            })
         ;
     }
 

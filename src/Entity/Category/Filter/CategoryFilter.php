@@ -5,6 +5,7 @@ namespace App\Entity\Category\Filter;
 
 
 
+use App\Entity\Category;
 use App\Entity\Interfaces\EntityFilterInterface;
 
 class CategoryFilter implements EntityFilterInterface
@@ -30,6 +31,28 @@ class CategoryFilter implements EntityFilterInterface
      */
     private $pageSelected;
 
+    /**
+     * @var Category
+     */
+    private $createCategory;
+
+    /**
+     * @return Category|null
+     */
+    public function getCreateCategory(): ?Category
+    {
+        return $this->createCategory;
+    }
+
+    /**
+     * @param Category $createCategory
+     * @return CategoryFilter
+     */
+    public function setCreateCategory(Category $createCategory)
+    {
+        $this->createCategory = $createCategory;
+        return $this;
+    }
 
     /**
      * @return int|null

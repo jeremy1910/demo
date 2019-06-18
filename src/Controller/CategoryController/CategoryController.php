@@ -40,9 +40,18 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            if($form->get('search')->isClicked()) {
 
-            $tabParameterRequest = array_merge(['t' => 'category'], $categoryFilter->iterate());
-            return $this->redirectToRoute("get_info", $tabParameterRequest);
+                $tabParameterRequest = array_merge(['t' => 'category'], $categoryFilter->iterate());
+                unset($tabParameterRequest['createCategory']);
+
+                return $this->redirectToRoute("get_info", $tabParameterRequest);
+            }elseif ($form->get('createCategory')->get('submit')->isClicked()){
+                $category = $form->get('createCategory')->getData();
+                $this->entityManager->persist($category);
+                $this->entityManager->flush();
+
+            }
         }
         else{
 

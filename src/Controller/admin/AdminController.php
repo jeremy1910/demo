@@ -34,14 +34,12 @@ class AdminController extends AbstractController
         $formCategory = $this->createForm(CategoryFilterType::class, null, array(
             'action' => $this->generateUrl("categoryFilter")));
 
-        $formCategoryCreate = $this->createForm(CategoryType::class, null, [
-           'action' => $this->generateUrl("addCategoryFormA"),
-        ]);
+
         $formTag = $this->createForm(FilterTagType::class);
         return $this->render('admin/admin.html.twig', [
             'formArticle' => $formArticle->createView(),
             'formCategory' => $formCategory->createView(),
-            'formCategoryCreate' => $formCategoryCreate->createView(),
+
             'formTag' => $formTag->createView(),
         ]);
 

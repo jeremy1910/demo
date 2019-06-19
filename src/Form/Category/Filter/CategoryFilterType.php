@@ -50,6 +50,10 @@ class CategoryFilterType extends AbstractType
                 'data' => self::PAGE_SELECTED,
                 'required' => false,
             ])
+            ->add('clickedButton', HiddenType::class, [
+                'required' => false,
+                'mapped' => false,
+            ])
             ->add('search', SubmitType::class, [
                 'label' => 'Rechercher',
 

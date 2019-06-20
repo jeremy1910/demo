@@ -33,26 +33,34 @@ class CategoryRepository extends ServiceEntityRepository
         return $query->getArrayResult();
     }
 
-    public function findCategoryByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL){
-        $req = $this->createQueryBuilder('a')
-            ->select('a');
+    public function findByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL, $count = false){
 
-        foreach ($conditions as $key => $condition) {
-            if ($key == 'id'){
-                $req->andWhere('a.id = :id')
-                    ->setParameter('id', $condition);
+
+        if($count){
+            $req = $this->createQueryBuilder('a')
+                ->select('count(a.id)');
+        }
+        else {
+            $req = $this->createQueryBuilder('a')
+                ->select('a');
+        }
+
+        if($conditions !== null) {
+            foreach ($conditions as $key => $condition) {
+                if ($key == 'id') {
+                    $req->andWhere('a.id = :id')
+                        ->setParameter('id', $condition);
+                } else if ($key == 'libele') {
+
+
+                    $req->andWhere('a.libele LIKE :libele')
+                        ->setParameter('libele', '%' . $condition . '%');
+
+                } else {
+                    dd('requete invalide');
+                }
+
             }
-            else if ($key == 'libele'){
-
-
-                $req->andWhere('a.libele LIKE :libele')
-                    ->setParameter('libele', '%'.$condition.'%');
-
-            }
-            else{
-                dd('requete invalide');
-            }
-
         }
         $querry = $req->orderBy('a.libele', 'DESC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 

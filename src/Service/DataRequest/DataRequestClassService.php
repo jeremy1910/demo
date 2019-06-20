@@ -17,12 +17,12 @@ abstract class DataRequestClassService
 {
 
     protected $target;
-    protected $option;
+    protected $option = [];
     protected $em;
     protected $permitedOptions;
     protected $validedOptions;
-    protected $offset;
-    protected $maxResult;
+    private $offset = NULL;
+    private $maxResult = NULL;
 
 
     public function __construct(EntityManagerInterface $em, $target, $option)
@@ -53,7 +53,42 @@ abstract class DataRequestClassService
 
     }
 
-    abstract public function getResult();
+    public function getResult($entity){
+        $repository = $this->em->getRepository($entity);
+
+        $nbElement = $repository->findByCondition($this->validedOptions, null, null, TRUE);
+
+        $result['result'] = $repository->findByCondition($this->validedOptions, $this->maxResult, ($this->offset-1)*$this->maxResult);
+
+
+        $nbPage = (int) ceil($nbElement[0]['1'] / $this->maxResult);
+        $result['nbPage'] = $nbPage;
+
+        return $result;
+    }
+
+    public function handelMaxAndOffsetResult(){
+        if (isset($this->option['nbResult']) && \preg_match("/[A-Za-z0-9]+/", $this->option['nbResult'])) {
+
+            $this->maxResult = $this->option['nbResult'];
+        }
+        else{
+            dd('argument username : '. $this->option['nbResult'] . ' invalide');
+        }
+
+        if (isset($this->option['pageSelected']) && \preg_match("/[A-Za-z0-9]+/", $this->option['pageSelected'])) {
+
+
+            $this->offset = $this->option['pageSelected'];
+        }
+        else{
+            dd('argument username : '. $this->option['nbResult'] . ' invalide');
+        }
+
+    }
+
+    abstract public function setFilter();
+
 
 
 }

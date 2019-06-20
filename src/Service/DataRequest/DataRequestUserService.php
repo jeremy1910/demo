@@ -17,7 +17,7 @@ class DataRequestUserService extends DataRequestClassService
 
 
 
-    public function getResult(){
+    public function setFilter(){
 
 
 

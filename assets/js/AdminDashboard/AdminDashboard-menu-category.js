@@ -8,6 +8,7 @@ $(document).ready(function () {
 
     $('#category_filter_search').click(function (e) {
         e.preventDefault();
+
         $('#category_filter_clickedButton').val($(this).attr('name'));
         menuCategorySendAjaxFormFilter();
         $('#category_filter_clickedButton').val('');
@@ -24,14 +25,15 @@ $(document).ready(function () {
 
     function menuCategorySendAjaxFormFilter() {
         let $form = $("form[name='category_filter']");
+
         $.ajax({
             url: $form.attr('action'),
             method: 'POST',
             data: $form.serialize()
-        })
-            .done(function (data, textStatus, jqXDR) {
+        }).done(function (data, textStatus, jqXDR) {
+
                 menuCategoryDisplayResult(data)
-            });
+            })
     }
 
 
@@ -40,6 +42,7 @@ $(document).ready(function () {
         let result = JSON.parse(data);
 
         $('#table-body-category').empty();
+
         $.each(result.result, function (i, item) {
             menuCategoryCreateTableLine(item);
 
@@ -76,6 +79,8 @@ $(document).ready(function () {
     function menuCategoryCreateTableLine(item) {
 
         let $t = $('#table-body-category');
+
+
 
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +

@@ -90,7 +90,7 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
 
-    public function findArticleByCondition($conditions, $maxResult = NULL, $offset = NULL, $count = false)
+    public function findByCondition($conditions, $maxResult = NULL, $offset = NULL, $count = false)
     {
 
         if($count){

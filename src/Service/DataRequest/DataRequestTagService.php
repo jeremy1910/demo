@@ -16,7 +16,7 @@ class DataRequestTagService extends DataRequestClassService
 
     protected $permitedOptions = ['id', 'name'];
 
-    public function getResult()
+    public function setFilter()
     {
 
         if($this->target == 'tag') {

@@ -9,6 +9,10 @@
 namespace App\Service\DataRequest;
 
 
+use App\Entity\Article;
+use App\Entity\Category;
+use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -47,16 +51,16 @@ class DataRequestRouterServicesDataRequest
 
             switch ($this->target) {
                 case 'user':
-                    return new DataRequestUserService($this->em, $this->target, $this->option);
+                    return new DataRequestUserService($this->em, $this->target, $this->option, User::class);
                     break;
                 case 'article':
-                    return new DataRequestArticleService($this->em, $this->target, $this->option);
+                    return new DataRequestArticleService($this->em, $this->target, $this->option, Article::class);
                     break;
                 case 'category':
-                    return new DataRequestCategoryService($this->em, $this->target, $this->option);
+                    return new DataRequestCategoryService($this->em, $this->target, $this->option, Category::class);
                     break;
                 case 'tag':
-                    return new DataRequestTagService($this->em, $this->target, $this->option);
+                    return new DataRequestTagService($this->em, $this->target, $this->option, Tag::class);
                     break;
                 default:
                     dd('target incorect : '. $this->target);

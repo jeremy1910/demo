@@ -12,6 +12,7 @@ namespace App\Controller\CategoryController;
 use App\Entity\Category;
 use App\Form\Category\CategoryType;
 use App\Form\Category\Filter\CategoryFilterType;
+use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,12 +22,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, flashMessage $flashMessage)
     {
         $this->entityManager = $entityManager;
+        $this->flashMessage = $flashMessage;
     }
 
     private $entityManager;
+    private $flashMessage;
 
 
     /**
@@ -48,9 +51,9 @@ class CategoryController extends AbstractController
                 return $this->redirectToRoute("get_info", $tabParameterRequest);
             }elseif ($form->get('clickedButton')->getData() == "category_filter[createCategory][submit]"){
                 $category = $form->get('createCategory')->getData();
-                $this->entityManager->persist($category);
-                $this->entityManager->flush();
-
+                $this->createCategory($category);
+                $flashMessage = $this->flashMessage->getFlashMessage('success', 'Categorie créée');
+                return new JsonResponse([true, $flashMessage]);
             }
 
         }
@@ -143,26 +146,17 @@ class CategoryController extends AbstractController
             if ($this->isGranted('CATEGORY_DELETE', $category)) {
                 try {
                     
-                    
                     $this->deleteCategory($category);
-                    $this->addFlash(
-                        'notice',
-                        'Categorie suprimmée !'
-                    );
-                    $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Categorie suprimmée');
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
-                    return new JsonResponse($e->getMessage());
+
+                    $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible');
+                    return new JsonResponse([false, $flashMessage]);
                 }
             } else {
 
-                $this->addFlash(
-                    'notice',
-                    "Suppression impossible ! Vous n'avaez pas les autoristaions necessaires"
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Vous n\'avaez pas les autoristaions necessaires');
                 return new JsonResponse([false, $flashMessage]);
             }
         
@@ -197,35 +191,21 @@ class CategoryController extends AbstractController
             $category = $repo->find($id);
             if($category === NULL)
             {
-                $this->addFlash(
-                    'notice',
-                    'Impossible de renomer la categorie ! La category n\'existe pas.'
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer la catégorie');
 
                 return new JsonResponse([false, $flashMessage]);
             }
             if ($this->isGranted('CATEGORY_DELETE', $category)) {
                 try {
                     $this->editCategory($category, $libele);
-                    $this->addFlash(
-                        'notice',
-                        'Category renomée !'
-                    );
-                    $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Catégorie renomée');
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
                     return new JsonResponse($e->getMessage());
                 }
             } else {
 
-                $this->addFlash(
-                    'notice',
-                    "Impossible de renomer la categorie ! Vous n'avaez pas les autoristaions necessaires"
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', "Impossible de renomer la categorie ! Vous n'avaez pas les autoristaions necessaires");
                 return new JsonResponse([false, $flashMessage]);
             }
         }

@@ -21,16 +21,18 @@ abstract class DataRequestClassService
     protected $em;
     protected $permitedOptions;
     protected $validedOptions;
+    protected $entity;
     private $offset = NULL;
     private $maxResult = NULL;
 
 
-    public function __construct(EntityManagerInterface $em, $target, $option)
+    public function __construct(EntityManagerInterface $em, $target, $option, $entity)
     {
 
         $this->em = $em;
         $this->target = $target;
         $this->option = $option;
+        $this->entity = $entity;
     }
 
 
@@ -53,8 +55,8 @@ abstract class DataRequestClassService
 
     }
 
-    public function getResult($entity){
-        $repository = $this->em->getRepository($entity);
+    public function getResult(){
+        $repository = $this->em->getRepository($this->entity);
 
         $nbElement = $repository->findByCondition($this->validedOptions, null, null, TRUE);
 

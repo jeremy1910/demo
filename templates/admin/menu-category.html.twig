@@ -9,9 +9,7 @@
         <button id="addCategoryButton" class="btn btn-primary mb-4">Ajouter une categorie</button>
         <div id="divAddNewCategory" class="row">
             <div class="col-10">
-
                 {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': false, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
-
             </div>
             <div class="col-2">
                 {{ form_row(formCategory.createCategory.submit, {'label': 'Ajouter'}) }}
@@ -42,4 +40,19 @@
 
         </tbody>
     </table>
+</div>
+
+<div class="row">
+    <div class="col-10">
+        <div id="pagination-category" style="width: min-content ; margin: auto;"></div>
+    </div>
+    <div class="col-2">
+        <select id="selecter">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+        </select>
+    </div>
 </div>

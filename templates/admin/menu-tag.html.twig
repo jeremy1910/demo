@@ -16,7 +16,7 @@
     </div>
     <div class="col-6">
         {{form_row(formTag.tagName) }}
-        <button id="validateTagButton" class="btn btn-success float-right">Appliquer</button>
+        {{form_row(formTag.submit) }}
     </div>
 </div>
 
@@ -36,4 +36,18 @@
 
         </tbody>
     </table>
+</div>
+<div class="row">
+    <div class="col-10">
+        <div id="pagination-tag" style="width: min-content ; margin: auto;"></div>
+    </div>
+    <div class="col-2">
+        <select id="selecter-tag">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+        </select>
+    </div>
 </div>

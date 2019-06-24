@@ -27,7 +27,12 @@ $(document).ready(function () {
 
     });
 
+    $('#selecter-category').selectpicker().change(function () {
+        $('#category_filter_nbResult').val('');
 
+        $('#category_filter_nbResult').val($("#selecter-category option:selected").text());
+        $('#category_filter_search').click();
+    });
 
     function menuCategorySendAjaxFormFilter() {
         let $form = $("form[name='category_filter']");
@@ -110,7 +115,7 @@ $(document).ready(function () {
             e.preventDefault();
             $('#category_filter_pageSelected').val(Number(pageActive)+1);
             $('#category_filter_search').click();
-        }, $('#category_filter_pageSelected'))
+        }, 'category',$('#category_filter_pageSelected'))
 
 
     }

@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Form\Filter\FilterTagType;
+use App\Form\Tag\TagFilterType;
 
 class AdminController extends AbstractController
 {
@@ -35,7 +35,8 @@ class AdminController extends AbstractController
             'action' => $this->generateUrl("categoryFilter")));
 
 
-        $formTag = $this->createForm(FilterTagType::class);
+        $formTag = $this->createForm(TagFilterType::class, null, array(
+            'action' => $this->generateUrl("tagFilter")));
         return $this->render('admin/admin.html.twig', [
             'formArticle' => $formArticle->createView(),
             'formCategory' => $formCategory->createView(),

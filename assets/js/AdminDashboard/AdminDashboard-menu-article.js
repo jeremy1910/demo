@@ -10,9 +10,10 @@ $(document).ready(function () {
     let menuArticleInputToAddTag = $('<div class="form-group"><label for="genericTagInput">Tags</label><input type="text" id="genericTagInput" placeholder="Ajouter un tag à rechercher" class="form-control"></div><div id="inputsTagHiden"></div>')
     $('#article_filter_tags').parent().replaceWith(menuArticleInputToAddTag);
 
-    $('#selecter').selectpicker().change(function () {
-        console.log($("select option:selected").text());
-        $('#article_filter_nbResult').val($("select option:selected").text());
+    $('#selecter-article').selectpicker().change(function () {
+        $('#article_filter_nbResult').val('');
+
+        $('#article_filter_nbResult').val($("#selecter-article option:selected").text());
         menuArticleSendAjaxFormFilter();
     });
 
@@ -112,7 +113,7 @@ $(document).ready(function () {
             e.preventDefault();
             $('#article_filter_pageSelected').val(Number(pageActive)+1);
             menuArticleSendAjaxFormFilter();
-        }, $('#article_filter_pageSelected'))
+        }, 'article',$('#article_filter_pageSelected'))
     }
 
 

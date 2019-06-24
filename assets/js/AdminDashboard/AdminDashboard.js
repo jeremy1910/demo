@@ -16,14 +16,7 @@ $('#v-menu > a').each(function () {
 });
 
 
-$('#pills-home-tab').click(function (e)  {
-    e.preventDefault();
-    $.get('/getData?users')
-        .done(function(data, textStatus, jqXDR) {
 
-            console.log(data);
-        });
-});
 
 $('#modalWindow').click(function (e) {
     let target = $( e.target );

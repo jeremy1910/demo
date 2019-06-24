@@ -10,6 +10,7 @@ namespace App\Controller\TagsController;
 
 
 use App\Entity\Tag;
+use App\Form\Tag\TagFilterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,29 @@ class TagsController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+
+
+    /**
+     * @Route("/tag/filter", name="tagFilter")
+     */
+    public function filter(Request  $request){
+        $tagFilter = new Tag\Filter\TagFilter();
+        $form = $this->createForm(TagFilterType::class, $tagFilter);
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $tabParameterRequest = array_merge(['t' => 'tag'], $tagFilter->iterate());
+
+            return $this->redirectToRoute("get_info", $tabParameterRequest);
+        }
+        else{
+
+            return new JsonResponse(false, 'formulaire invalide');
+        }
     }
 
     /**

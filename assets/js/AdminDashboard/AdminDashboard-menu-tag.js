@@ -7,6 +7,12 @@ import {eventSuppr} from "./AdminDashboard";
 const NB_COL = 3;
 const COL_WIDTH = 100/NB_COL;
 
+
+
+
+/*
+
+
 $('#divAddNewTag').hide();
 
 $('#addTagButton').click(function (e) {
@@ -49,15 +55,9 @@ export function displayListTag() {
     }
 
 
-    /*
-        if ($('#article_dashboard_filter_created_before').val() != ''){
-            request += '&created_before=' + $('#article_dashboard_filter_created_before').val();
-        }
-        if ($('#article_dashboard_filter_created_after').val() != ''){
-            request += '&created_after=' + $('#article_dashboard_filter_created_after').val();
-        }
-        console.log(request);
-    */
+
+
+
     $.getJSON('/get_info?t=tag'+request)
         .done(function (data, textStatus, jqXDR) {
             $('#table-body-tag').empty();
@@ -116,3 +116,4 @@ function  dashboardAdminCreateTableLineMenuTag(item){
         '</tr>').appendTo($t).hide().fadeIn(500);
 
 }
+/*

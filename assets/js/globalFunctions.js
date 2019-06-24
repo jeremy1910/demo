@@ -8,8 +8,8 @@ export function displayFlashMessageSuccess(type, message, encre) {
         '</div>').appendTo('#'+encre);
 }
 
-export function displayPagination(nbPage, pageActive, callbackOnEventPage, callbackOnEventPrevious, callbackOnEventNext, $HTMLElementPageAtive = null) {
-    $('#pagination').children().remove();
+export function displayPagination(nbPage, pageActive, callbackOnEventPage, callbackOnEventPrevious, callbackOnEventNext, encre, $HTMLElementPageAtive = null) {
+    $('#pagination-'+encre).children().remove();
     let paginationPrevious = $('    <li class="page-item">' +
         '      <a class="page-link" href="#" aria-label="Previous">' +
         '        <span aria-hidden="true">&laquo;</span>' +
@@ -24,22 +24,22 @@ export function displayPagination(nbPage, pageActive, callbackOnEventPage, callb
 
     let paginationLayoutHTMLElement = $(
         '<nav aria-label="Page navigation example">' +
-        '  <ul class="pagination" id="paginationElement">' +
+        '  <ul class="pagination" id="paginationElement-'+ encre +'">' +
         '  </ul>' +
         '</nav>');
 
-    paginationLayoutHTMLElement.appendTo('#pagination');
+    paginationLayoutHTMLElement.appendTo('#pagination-'+encre);
     if (pageActive <= 1) {
-        paginationPrevious.addClass('disabled').appendTo('#paginationElement');
+        paginationPrevious.addClass('disabled').appendTo('#paginationElement-'+encre);
     }
     else {
-        paginationPrevious.click(callbackOnEventPrevious).appendTo('#paginationElement');
+        paginationPrevious.click(callbackOnEventPrevious).appendTo('#paginationElement-'+encre);
     }
     if (pageActive >= nbPage) {
-        paginationNext.addClass('disabled').appendTo('#paginationElement');
+        paginationNext.addClass('disabled').appendTo('#paginationElement-'+encre);
     }
     else {
-        paginationNext.click(callbackOnEventNext).appendTo('#paginationElement');
+        paginationNext.click(callbackOnEventNext).appendTo('#paginationElement-'+encre);
     }
     for (let i = 1; i<=nbPage; i++){
         let paginationItem;
@@ -50,7 +50,7 @@ export function displayPagination(nbPage, pageActive, callbackOnEventPage, callb
             paginationItem = $(' <li class="page-item"><a class="page-link" href="#">'+ i +'</a></li>');
         }
         paginationItem.click(callbackOnEventPage);
-        paginationItem.appendTo('#paginationElement');
+        paginationItem.appendTo('#paginationElement-'+encre);
 
     }
     if (pageActive > nbPage){
@@ -59,7 +59,7 @@ export function displayPagination(nbPage, pageActive, callbackOnEventPage, callb
         $HTMLElementPageAtive.val(pageActive);
     }
 
-    paginationNext.appendTo('#paginationElement');
+    paginationNext.appendTo('#paginationElement-'+encre);
 }
 
 

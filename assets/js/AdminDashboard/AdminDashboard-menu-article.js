@@ -1,5 +1,4 @@
 import { eventSuppr } from './AdminDashboard.js';
-import { displayFlashMessageSuccess } from '../globalFunctions';
 import { displayPagination } from '../globalFunctions';
 
 $(document).ready(function () {

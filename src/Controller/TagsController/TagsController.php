@@ -11,6 +11,7 @@ namespace App\Controller\TagsController;
 
 use App\Entity\Tag;
 use App\Form\Tag\TagFilterType;
+use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +22,12 @@ class TagsController extends AbstractController
 {
 
     private $entityManager;
+    private $flashMessage;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, flashMessage $flashMessage)
     {
         $this->entityManager = $entityManager;
+        $this->flashMessage = $flashMessage;
     }
 
 
@@ -62,34 +65,19 @@ class TagsController extends AbstractController
                 try {
                     $tag->setTagName($request->query->get('name'));
                     $this->createTag($tag);
-                    $this->addFlash(
-                        'notice',
-                        'Tag créé !'
-                    );
-                    $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag créé !');
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
                     return new JsonResponse($e->getMessage());
                 }
             } else {
 
-                $this->addFlash(
-                    'notice',
-                    'Création impossible ! Vous n\'avez pas des autorisations suffisantes'
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Création impossible ! Vous n\'avez pas des autorisations suffisantes');
                 return new JsonResponse([false, $flashMessage]);
             }
         }
         else{
-            $this->addFlash(
-                'notice',
-                'Création impossible ! Aucun élément à créer'
-            );
-            $flashMessage = $this->get('session')->getFlashBag()->all();
-
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Création impossible ! Aucun élément à créer');
             return new JsonResponse([false, $flashMessage]);
         }
 
@@ -110,25 +98,15 @@ class TagsController extends AbstractController
             $tag = $repo->find($id);
             if($tag === NULL)
             {
-                $this->addFlash(
-                    'notice',
-                    'Suppression impossible ! Le Tag n\'existe pas.'
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Le Tag n\'existe pas.');
                 return new JsonResponse([false, $flashMessage]);
             }
 
             if ($this->isGranted('TAG_DELETE', $tag)) {
                 try {
-
-
                     $this->deleteCategory($tag);
-                    $this->addFlash(
-                        'notice',
-                        'Tag suprimmé !'
-                    );
-                    $flashMessage = $this->get('session')->getFlashBag()->all();
+
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag supprimé !');
 
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
@@ -136,12 +114,7 @@ class TagsController extends AbstractController
                 }
             } else {
 
-                $this->addFlash(
-                    'notice',
-                    "Suppression impossible ! Vous n'avaez pas les autoristaions necessaires"
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Vous n\'avaez pas les autoristaions necessaires');
                 return new JsonResponse([false, $flashMessage]);
             }
 
@@ -166,35 +139,20 @@ class TagsController extends AbstractController
             $tag = $repo->find($id);
             if($tag === NULL)
             {
-                $this->addFlash(
-                    'notice',
-                    'Impossible de renomer le tag ! Le tag n\'existe pas.'
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le tag ! Le tag n\'existe pas.');
                 return new JsonResponse([false, $flashMessage]);
             }
             if ($this->isGranted('TAG_EDIT', $tag)) {
                 try {
                     $this->editCategory($tag, $name);
-                    $this->addFlash(
-                        'notice',
-                        'Tag renomé !'
-                    );
-                    $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag renomé !');
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
                     return new JsonResponse($e->getMessage());
                 }
             } else {
 
-                $this->addFlash(
-                    'notice',
-                    "Impossible de renomer le tag ! Vous n'avez pas les autoristaions necessaires"
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le tag ! Vous n\'avez pas les autoristaions necessaires');
                 return new JsonResponse([false, $flashMessage]);
             }
         }

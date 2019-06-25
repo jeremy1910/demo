@@ -1,17 +1,141 @@
-import { displayFlashMessageSuccess } from '../globalFunctions';
 import {eventSuppr} from "./AdminDashboard";
-
-
-//import { eventSuppr } from 'AdminDashboard';
+import {displayFlashMessageSuccess, displayPagination} from '../globalFunctions';
 
 const NB_COL = 3;
 const COL_WIDTH = 100/NB_COL;
 
+$(document).ready(function () {
 
+
+    $('#selecter-tag').selectpicker().change(function () {
+        $('#tag_filter_nbResult').val('');
+
+        $('#tag_filter_nbResult').val($("#selecter-tag option:selected").text());
+        menuTagSendAjaxFormFilter();
+    });
+
+    $("form[name='tag_filter']").submit(function (e) {
+        console.log('toto');
+        e.preventDefault();
+        menuTagSendAjaxFormFilter();
+
+    });
+
+    $('#btn-create-new-tag').click(function (e) {
+        e.preventDefault();
+        if ($('#input-create-new-tag').val() != '')
+        {
+            $.get('/addTagA?name='+$('#input-create-new-tag').val())
+                .done(function (data, textStatus, jqXDR) {
+                    if (data[0] === true){
+                        displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                        menuTagSendAjaxFormFilter()
+                    }
+                    else{
+                        displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                    }
+                });
+        }
+
+    });
+    
+
+
+    function menuTagSendAjaxFormFilter() {
+        let $form = $("form[name='tag_filter']");
+
+        $.ajax({
+            url: $form.attr('action'),
+            method: 'POST',
+            data: $form.serialize()
+        })
+            .done(function (data, textStatus, jqXDR) {
+                menuTagDisplayResult(data)
+            });
+    }
+
+    function menuTagDisplayResult(data) {
+        let pageActive = $('#tag_filter_pageSelected').val();
+        let result = JSON.parse(data);
+
+        $('#table-body-tag').empty();
+        $.each(result.result, function (i, item) {
+            menuTagCreateTableLine(item);
+
+        });
+        $('.js-btn-suppr-tag').each(function () {
+            $(this).click(function () {
+                $('#buttonValidDelete').attr('href', $(this).attr('href'));
+                $('#buttonValidDelete').click(function (e) {
+                    e.preventDefault();
+                    eventSuppr('tag');
+
+                    menuTagSendAjaxFormFilter();
+
+                });
+
+            });
+        });
+        $('.js-btn-edit-tag').each(function () {
+            $(this).click(function (e) {
+                e.preventDefault();
+                let href = $(this).attr('href');
+                let num = $(this).attr('num');
+                let text = $('#tagName'+num).text();
+
+
+                $('#tagName'+num).text('');
+                let $btn = $('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>');
+                $btn.click(function (e) {
+                    e.preventDefault();
+                    let newLibele = $('#inputNewTag'+ num).val();
+                    $.getJSON(href+'&name='+newLibele)
+                        .done(function (data, textStatus, jqXDR) {
+                            if (data[0] === true){
+                                displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                                menuTagSendAjaxFormFilter();
+                            }
+                        });
+                });
+                $btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewTag'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#tagName'+num)));
+                //$('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>').appendTo('#categoryLibele'+num);
+            })
+        });
+
+
+        displayPagination(result.nbPage, pageActive, function (e) {
+            e.preventDefault();
+            $('#tag_filter_pageSelected').val($(this).children().text());
+            menuTagSendAjaxFormFilter();
+        }, function (e) {
+            e.preventDefault();
+            $('#tag_filter_pageSelected').val(Number(pageActive) - 1);
+            menuTagSendAjaxFormFilter();
+        }, function (e) {
+            e.preventDefault();
+            $('#tag_filter_pageSelected').val(Number(pageActive) + 1);
+            menuTagSendAjaxFormFilter();
+        }, 'tag', $('#tag_filter_pageSelected'))
+    }
+
+
+    function menuTagCreateTableLine(item) {
+        console.log(item);
+        let $t = $('#table-body-tag');
+
+        $('<tr>' +
+            '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
+            '<td style="width:' + COL_WIDTH + '%" id="tagName' + item.id + '">' + item.tag_name + '</td>' +
+            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtTagA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-tag">Modifier le nom</a>' +
+            '<a href="/delTagA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-tag" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
+            '</tr>').appendTo($t).hide().fadeIn(500);
+
+    }
+
+});
 
 
 /*
-
 
 $('#divAddNewTag').hide();
 
@@ -116,4 +240,5 @@ function  dashboardAdminCreateTableLineMenuTag(item){
         '</tr>').appendTo($t).hide().fadeIn(500);
 
 }
-/*
+*/
+

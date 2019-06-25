@@ -25,7 +25,7 @@ class Tag
     private $tagName;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="tags", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Article", mappedBy="tags", cascade={"persist"})
      * @Serializer\Exclude()
      */
     private $article;

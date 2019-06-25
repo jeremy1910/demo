@@ -80,7 +80,7 @@ class Article
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="article", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", inversedBy="article", cascade={"persist"})
      */
     private $tags;
 

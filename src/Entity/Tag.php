@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Tag
 {
@@ -87,4 +90,20 @@ class Tag
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function uniqueTag(LifecycleEventArgs $eventArgs){
+        $entityManager = $eventArgs->getEntityManager();
+        $repository    = $entityManager->getRepository(Tag::class);
+            $find = $repository->findBy(['tagName' => $this->tagName]);
+            if ($find != null){
+               throw new \Exception('Tag déja existant');
+            }
+
+
+
+    }
+
 }

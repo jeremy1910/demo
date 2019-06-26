@@ -2,25 +2,24 @@
 /**
  * Created by PhpStorm.
  * User: jeje
- * Date: 30/05/19
- * Time: 22:19
+ * Date: 26/06/19
+ * Time: 21:31
  */
 
-namespace App\Controller\TagsController;
+namespace App\Controller\UserController;
 
 
-use App\Entity\Tag;
-use App\Form\Tag\TagFilterType;
+use App\Entity\User;
 use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TagsController extends AbstractController
+class UserController extends AbstractController
 {
-
     private $entityManager;
     private $flashMessage;
 
@@ -32,18 +31,17 @@ class TagsController extends AbstractController
 
 
     /**
-     * @Route("/tag/filter", name="tagFilter")
+     * @Route("/user/filter", name="userFilter")
      */
     public function filter(Request  $request){
-        $tagFilter = new Tag\Filter\TagFilter();
-        $form = $this->createForm(TagFilterType::class, $tagFilter);
-
-
+        $userFilter = new User\Filter\UserFilter();
+        $form = $this->createForm(UserFilterType::class, $userFilter);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $tabParameterRequest = array_merge(['t' => 'tag'], $tagFilter->iterate());
+            $tabParameterRequest = array_merge(['t' => 'user'], $userFilter->iterate());
 
             return $this->redirectToRoute("get_info", $tabParameterRequest);
         }
@@ -54,18 +52,18 @@ class TagsController extends AbstractController
     }
 
     /**
-     * @Route("/addTagA", name="addTagA")
+     * @Route("/addUserA", name="addUserA")
      */
-    public function addTagA(Request $request){
+    public function addUserA(Request $request){
 
         if ($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name'))) {
-            $tag = new Tag();
+            $user = new User();
 
-            if ($this->isGranted('TAG_CREATE', $tag)) {
+            if ($this->isGranted('TAG_CREATE', $user)) {
                 try {
-                    $tag->setTagName($request->query->get('name'));
-                    $this->createTag($tag);
-                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag créé !');
+                    $user->setUserName($request->query->get('name'));
+                    $this->createUser($user);
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'User créé !');
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
                     $flashMessage = $this->flashMessage->getFlashMessage('danger', $e->getMessage());
@@ -84,30 +82,30 @@ class TagsController extends AbstractController
 
     }
 
-    private function createTag(Tag $tag){
-        $this->entityManager->persist($tag);
+    private function createUser(User $user){
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
 
     /**
-     * @Route("/delTagA", name="delTagA")
+     * @Route("/delUserA", name="delUserA")
      */
-    public function delTagA(Request $request){
+    public function delUserA(Request $request){
         if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
-            $repo = $this->entityManager->getRepository(Tag::class);
+            $repo = $this->entityManager->getRepository(User::class);
             $id = $request->query->get('id');
-            $tag = $repo->find($id);
-            if($tag === NULL)
+            $user = $repo->find($id);
+            if($user === NULL)
             {
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Le Tag n\'existe pas.');
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Le User n\'existe pas.');
                 return new JsonResponse([false, $flashMessage]);
             }
 
-            if ($this->isGranted('TAG_DELETE', $tag)) {
+            if ($this->isGranted('TAG_DELETE', $user)) {
                 try {
-                    $this->deleteCategory($tag);
+                    $this->deleteCategory($user);
 
-                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag supprimé !');
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'User supprimé !');
 
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
@@ -123,37 +121,37 @@ class TagsController extends AbstractController
 
     }
 
-    private function deleteCategory(Tag $tag)
+    private function deleteCategory(User $user)
     {
-        $this->entityManager->remove($tag);
+        $this->entityManager->remove($user);
         $this->entityManager->flush();
     }
 
     /**
-     * @Route("/edtTagA", name="edtTagA")
+     * @Route("/edtUserA", name="edtUserA")
      */
-    public function edtTagA(Request $request){
+    public function edtUserA(Request $request){
         if (($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) AND ($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name')))) {
-            $repo = $this->entityManager->getRepository(Tag::class);
+            $repo = $this->entityManager->getRepository(User::class);
             $id = $request->query->get('id');
             $name = $request->query->get('name');
-            $tag = $repo->find($id);
-            if($tag === NULL)
+            $user = $repo->find($id);
+            if($user === NULL)
             {
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le tag ! Le tag n\'existe pas.');
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le user ! Le user n\'existe pas.');
                 return new JsonResponse([false, $flashMessage]);
             }
-            if ($this->isGranted('TAG_EDIT', $tag)) {
+            if ($this->isGranted('TAG_EDIT', $user)) {
                 try {
-                    $this->editCategory($tag, $name);
-                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag renomé !');
+                    $this->editCategory($user, $name);
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'User renomé !');
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
                     return new JsonResponse($e->getMessage());
                 }
             } else {
 
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le tag ! Vous n\'avez pas les autoristaions necessaires');
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le user ! Vous n\'avez pas les autoristaions necessaires');
                 return new JsonResponse([false, $flashMessage]);
             }
         }
@@ -161,11 +159,9 @@ class TagsController extends AbstractController
 
     }
 
-    private function editCategory(Tag $tag, string $name)
+    private function editCategory(User $user, string $name)
     {
-        $tag->setTagName($name);
+        $user->setUserName($name);
         $this->entityManager->flush();
     }
-
-
 }

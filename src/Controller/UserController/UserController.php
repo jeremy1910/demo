@@ -10,6 +10,7 @@ namespace App\Controller\UserController;
 
 
 use App\Entity\User;
+use App\Form\User\Filter\UserFilterType;
 use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 

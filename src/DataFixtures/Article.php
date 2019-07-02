@@ -20,6 +20,8 @@ require_once  '/home/jeje/lab/dev/symfony/demo/vendor/fzaninotto/faker/src/autol
 
 class Article extends Fixture
 {
+
+
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create();
@@ -77,4 +79,5 @@ class Article extends Fixture
 
         $manager->flush();
     }
+
 }

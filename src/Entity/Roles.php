@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Roles
 {
+
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -17,24 +21,63 @@ class Roles
     private $id;
 
     /**
+     * @ORM\ManyToMany(targetEntity="\App\Entity\User", mappedBy="roles", cascade={"persist"})
+     *
+     */
+    private $users;
+
+    /**
      * @ORM\Column(type="json")
      */
-    private $role = [];
+    private $roleName;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+
+    public function setUsers($user)
+    {
+        $this->users = $user;
+        return $this;
+    }
+
+    public function addUsers(User $user)
+    {
+        if (!$this->users->contains($user))
+        {
+            $this->users[] = $user;
+            $user->addRoles($this);
+
+        }
+        return $this;
+    }
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRole(): ?array
+    public function getRoleName()
     {
-        return $this->role;
+        return $this->roleName;
     }
 
-    public function setRole(array $role): self
+    public function setRoleName($roleName): self
     {
-        $this->role = $role;
+        $this->roleName = $roleName;
 
         return $this;
     }
+
+
 }

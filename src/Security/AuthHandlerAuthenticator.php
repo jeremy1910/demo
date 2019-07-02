@@ -38,6 +38,7 @@ class AuthHandlerAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
+
         return 'app_login' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
@@ -82,6 +83,7 @@ class AuthHandlerAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+
             return new RedirectResponse($targetPath);
         }
 

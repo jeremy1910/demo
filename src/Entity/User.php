@@ -26,9 +26,10 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\ManyToMany(targetEntity="\App\Entity\Roles", inversedBy="users", cascade={"persist"})
+     *
      */
-    //private $roles = [];
+    private $roles;
 
     /**
      * @var string The hashed password
@@ -55,6 +56,7 @@ class User implements UserInterface
 
     public function __construct() {
         $this->articles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     /**
@@ -138,26 +140,44 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
 
-
-    public function getRoles(): array
+    public function getRoles()
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        $roles = $this->roles->toArray();
+        foreach ($roles as $key => $role)
+        {
+            /**
+             * @var $role Roles
+             */
+            $roles[$key] = $role->getRoleName();
+        }
+        $roles[] = "ROLE_USER";
+
+        return $roles;
+
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles($roles): self
     {
         $this->roles = $roles;
 
         return $this;
     }
+
+
+
+    public function addRoles(Roles $role)
+    {
+        if (!$this->roles->contains($role))
+        {
+            $this->roles[] = $role;
+            $role->addUsers($this);
+
+        }
+        return $this;
+    }
+
 
     /**
      * @see UserInterface

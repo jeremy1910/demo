@@ -1,0 +1,58 @@
+{# @var formUser \App\Entity\User\Filter\UserFilter #}
+{{ form_start(formUser) }}
+<div class="row">
+
+    <div class="col-6">
+        {{ form_row(formUser.id) }}
+        {{form_row(formUser.enable) }}
+        <button id="addUserButton" class="btn btn-primary mb-4">Ajouter un utilisateur</button>
+        <div id="divAddNewCategory" class="row">
+            <div class="col-10">
+                <div class="form-group">
+                    <input id="input-create-new-tag" placeholder="Nom de l'utilisateur à crééer" class="form-control">
+                </div>
+            </div>
+            <div class="col-2">
+                <button id="btn-create-user-tag"  type="submit" class="btn btn-primary">Ajouter</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-6">
+        {{form_row(formUser.username) }}
+        {{form_row(formUser.roles) }}
+        {{form_row(formTag.submit) }}
+    </div>
+</div>
+
+
+{{ form_end(formUser) }}
+
+<div class="table-responsive mt-4">
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr id="title-lines">
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody id="table-body-user">
+
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-10">
+        <div id="pagination-user" style="width: min-content ; margin: auto;"></div>
+    </div>
+    <div class="col-2">
+        <select id="selecter-user">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+        </select>
+    </div>
+</div>

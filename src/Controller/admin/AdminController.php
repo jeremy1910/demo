@@ -40,7 +40,8 @@ class AdminController extends AbstractController
             'action' => $this->generateUrl("tagFilter")));
 
         $formUser = $this->createForm(UserFilterType::class, null, array(
-            'action' => $this->generateUrl("tagFilter")));
+            'action' => $this->generateUrl("userFilter")));
+
 
         return $this->render('admin/admin.html.twig', [
             'formArticle' => $formArticle->createView(),

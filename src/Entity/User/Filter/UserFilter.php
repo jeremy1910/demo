@@ -9,7 +9,11 @@
 namespace App\Entity\User\Filter;
 
 
-class UserFilter
+
+use App\Entity\Interfaces\EntityFilterInterface;
+use App\Entity\Roles;
+
+class UserFilter implements EntityFilterInterface
 {
     /**
      * @var null|int
@@ -37,12 +41,20 @@ class UserFilter
      */
     private $adresseMail;
 
+    /**
+     * @var int
+     */
+    private $nbResult;
+
+    /**
+     * @var int
+     */
+    private $pageSelected;
 
 
     public function __construct() {
 
     }
-
 
     /**
      * @return null|string
@@ -138,4 +150,77 @@ class UserFilter
 
 
 
+
+    /**
+     * @return int|null
+     */
+    public function getNbResult(): ?int
+    {
+        return $this->nbResult;
+    }
+
+    /**
+     * @param int $nbResult
+     * @return UserFilter
+     */
+    public function setNbResult(int $nbResult): UserFilter
+    {
+        $this->nbResult = $nbResult;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPageSelected(): ?int
+    {
+        return $this->pageSelected;
+    }
+
+    /**
+     * @param int $pageSelected
+     * @return UserFilter
+     */
+    public function setPageSelected(int $pageSelected): UserFilter
+    {
+        $this->pageSelected = $pageSelected;
+        return $this;
+    }
+
+    public function iterate()
+    {
+        $tab = array();
+        foreach ($this as $key => $value) {
+            if($value instanceof Roles){
+                /**
+                 * @var $value Roles
+                 */
+                $tab[$key] = $value->getId();
+            }
+            else{
+                $tab[$key] = $value;
+            }
+        }
+
+        return $tab;
+    }
+
+/*
+    public function iterate()
+    {
+        $tab = array();
+        foreach ($this as $key => $value) {
+            if(is_array($value)){
+                foreach ($value as $key1 => $value1){
+                    $tab[$key.$key1] = $value1;
+                }
+            }
+            else{
+                $tab[$key] = $value;
+            }
+        }
+
+        return $tab;
+    }
+*/
 }

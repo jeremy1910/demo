@@ -19,24 +19,47 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findUserByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL)
+    public function findByCondition($conditions, $maxResult = NULL, $offset = NULL, $count = false)
     {
 
-
-        $req = $this->createQueryBuilder('a')
-            ->select('a');
-
-        foreach ($conditions as $key => $condition) {
-            if ($key == 'username' OR $key == 'adresseMail'){
-                $req->andWhere('a.' . $key . ' LIKE :' . $key);
-                $req->setParameter($key, '%'.$condition.'%');
-            }
-            else{
-                $req->andWhere('a.' . $key . ' = :' . $key);
-                $req->setParameter($key, $condition);
-            }
+        if($count){
+            $req = $this->createQueryBuilder('a')
+                ->select('count(a.id)');
+        }
+        else {
+            $req = $this->createQueryBuilder('a')
+                ->select('a');
         }
 
+        if($conditions !== NULL) {
+            foreach ($conditions as $key => $condition) {
+                if ($key == 'id') {
+                    $req->andWhere('a.id LIKE :id')
+                        ->setParameter('id', $condition);
+                } else if ($key == 'username') {
+                    $req->andWhere('a.username LIKE :username')
+                        ->setParameter('username', '%'.$condition.'%');
+                } else if ($key == 'adresseMail') {
+                    $req->andWhere('a.adresseMail LIKE :adresseMail');
+                    $req->setParameter('adresseMail', '%'.$condition.'%');
+                } else if ($key == 'num_category') {
+                    $req->andWhere($req->expr()->in('a.num_category', ':category'))
+                        ->setParameter('category', $condition);
+                } else if ($key == 'created_at_after') {
+                    $req->andWhere('a.created_at >= :after')
+                        ->setParameter('after', (new \DateTime($condition))->format('Y-m-d'));
+                } else if($key == 'roles' AND  $condition != null){
+                    $req->innerJoin('a.roles', 'r');
+                    $req->andWhere('r.id = :roles')
+                        ->setParameter('roles', $condition);
+                }
+                else if($key == 'enable' AND $condition != null){
+                    $req->andWhere('a.enable = :enable')
+                        ->setParameter('enable', $condition);
+                }
+
+            }
+        }
         return $req->setFirstResult($offset)->setMaxResults($maxResult)->getQuery()
             ->getResult();
 

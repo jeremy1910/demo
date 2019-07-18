@@ -43,12 +43,12 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
 
             $tabParameterRequest = array_merge(['t' => 'user'], $userFilter->iterate());
-
+            //dd($tabParameterRequest);
             return $this->redirectToRoute("get_info", $tabParameterRequest);
         }
         else{
 
-            return new JsonResponse(false, 'formulaire invalide');
+            return new JsonResponse([false, 'formulaire invalide']);
         }
     }
 

@@ -49,7 +49,8 @@ class UserFilterType extends AbstractType
             ])
             ->add('roles', EntityType::class, [
                 'class' => Roles::class,
-                'choice_label' => 'roleName',
+                'choice_label' => 'libele',
+                'attr' => ['class' => 'selectpicker'],
 
             ])
             ->add('enable', ChoiceType::class, [

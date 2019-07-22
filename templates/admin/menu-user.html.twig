@@ -1,4 +1,5 @@
 {# @var formUser \App\Entity\User\Filter\UserFilter #}
+{# @var formUserAdd \App\Form\User\Add\UserAddType #}
 {{ form_start(formUser) }}
 <div class="row">
 
@@ -9,7 +10,9 @@
         <div id="divAddNewCategory" class="row">
             <div class="col-10">
                 <div class="form-group">
-                    <input id="input-create-new-tag" placeholder="Nom de l'utilisateur à crééer" class="form-control">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModel">
+                        Ajouter un utilisateur
+                    </button>
                 </div>
             </div>
             <div class="col-2">
@@ -54,5 +57,33 @@
             <option>40</option>
             <option>50</option>
         </select>
+    </div>
+</div>
+
+
+<!-- Modal Ajout d'un utilisateur -->
+<div class="modal fade" id="addUserModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModelLabel">Ajout d'un utilisateur</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formUserAdd) }}
+                {{form_row(formUserAdd.username) }}
+                {{form_row(formUserAdd.password) }}
+                {{form_row(formUserAdd.roles) }}
+                {{form_row(formUserAdd.adresseMail) }}
+                {{form_row(formUserAdd.enable) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                {{form_row(formUserAdd.submit) }}
+                {{ form_end(formUserAdd) }}
+            </div>
+        </div>
     </div>
 </div>

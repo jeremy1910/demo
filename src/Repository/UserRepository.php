@@ -40,6 +40,7 @@ class UserRepository extends ServiceEntityRepository
                     $req->andWhere('a.username LIKE :username')
                         ->setParameter('username', '%'.$condition.'%');
                 } else if ($key == 'adresseMail') {
+
                     $req->andWhere('a.adresseMail LIKE :adresseMail');
                     $req->setParameter('adresseMail', '%'.$condition.'%');
                 } else if ($key == 'num_category') {

@@ -52,10 +52,10 @@ class DataRequestUserService extends DataRequestClassService
                 }
 
                 if ($key == 'adresseMail') {
-                    if (\preg_match(" /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ ", $this->option['mail'])) {
-                        $this->validedOptions['adresseMail'] = $this->option['mail'];
+                    if (\preg_match(" /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ ", $this->option['adresseMail'])) {
+                        $this->validedOptions['adresseMail'] = $this->option['adresseMail'];
                     } else {
-                        dd('argument mail : ' . $this->option['mail'] . ' invalide');
+                        dd('argument mail : ' . $this->option['adresseMail'] . ' invalide');
                     }
                 }
                 if ($key == 'roles') {

@@ -31,6 +31,11 @@ class Roles
      */
     private $roleName;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $libele;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -75,6 +80,18 @@ class Roles
     public function setRoleName($roleName): self
     {
         $this->roleName = $roleName;
+
+        return $this;
+    }
+
+    public function getLibele(): ?string
+    {
+        return $this->libele;
+    }
+
+    public function setLibele(string $libele): self
+    {
+        $this->libele = $libele;
 
         return $this;
     }

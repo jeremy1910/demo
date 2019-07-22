@@ -44,7 +44,7 @@ class UserFixture extends Fixture
         echo '7';
         $manager->persist($useradmin);
         echo '8';
-        var_dump($useradmin);
+
         $manager->flush();
         echo '9';
     }

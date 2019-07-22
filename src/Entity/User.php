@@ -54,6 +54,7 @@ class User implements UserInterface
      */
     private $articles;
 
+
     public function __construct() {
         $this->articles = new ArrayCollection();
         $this->roles = new ArrayCollection();
@@ -160,7 +161,9 @@ class User implements UserInterface
 
     public function setRoles($roles): self
     {
-        $this->roles = $roles;
+        $rolesArray = new ArrayCollection();
+        $rolesArray->add($roles);
+        $this->roles = $rolesArray;
 
         return $this;
     }
@@ -210,6 +213,7 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
 
 
 

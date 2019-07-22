@@ -6,7 +6,9 @@
     <div class="col-6">
         {{ form_row(formUser.id) }}
         {{form_row(formUser.enable) }}
-        <button id="addUserButton" class="btn btn-primary mb-4">Ajouter un utilisateur</button>
+        {{form_row(formUser.adresseMail) }}
+
+
         <div id="divAddNewCategory" class="row">
             <div class="col-10">
                 <div class="form-group">
@@ -14,9 +16,6 @@
                         Ajouter un utilisateur
                     </button>
                 </div>
-            </div>
-            <div class="col-2">
-                <button id="btn-create-user-tag"  type="submit" class="btn btn-primary">Ajouter</button>
             </div>
         </div>
 
@@ -81,7 +80,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                {{form_row(formUserAdd.submit) }}
+                {{form_row(formUserAdd.submit, { 'attr': {'data-dismiss': 'modal'} }) }}
                 {{ form_end(formUserAdd) }}
             </div>
         </div>

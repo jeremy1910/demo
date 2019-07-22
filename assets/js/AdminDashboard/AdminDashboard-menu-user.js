@@ -22,23 +22,29 @@ $(document).ready(function () {
 
     $('#user_add_submit').click(function (e) {
         e.preventDefault();
-        if ($('#user_add_username').val() != '')
-        {
-            $.get('/addUserA?name='+$('#user_add_username').val()+'&role='+$('#user_add_roles option:selected').val()+'&mail='+$('#user_add_adresseMail').val()+'&enable='+$("input[name='user_add[enable]']:checked").val())
-                .done(function (data, textStatus, jqXDR) {
-                    if (data[0] === true){
-                        displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
-                        menuUserSendAjaxFormFilter()
-                    }
-                    else{
-                        displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
-                    }
-                });
-        }
+        menuUserSendAjaxFormUserAdd();
 
     });
 
 
+    function menuUserSendAjaxFormUserAdd(){
+        let $form = $("form[name='user_add']");
+
+        $.ajax({
+            url: $form.attr('action'),
+            method: 'POST',
+            data: $form.serialize()
+        })
+            .done(function (data, textStatus, jqXDR) {
+                if (data[0] === true){
+                    displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                    menuUserSendAjaxFormFilter()
+                }
+                else{
+                    displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                }
+            });
+    }
 
     function menuUserSendAjaxFormFilter() {
         let $form = $("form[name='user_filter']");

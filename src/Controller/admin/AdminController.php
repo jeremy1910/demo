@@ -10,11 +10,13 @@ namespace App\Controller\admin;
 
 
 
+use App\Entity\User;
 use App\Form\Article\Filter\ArticleFilterType;
 use App\Form\Category\CategoryType;
 use App\Form\Category\Filter\CategoryFilterType;
 use App\Form\User\Add\UserAddType;
 use App\Form\User\Filter\UserFilterType;
+use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,7 +45,9 @@ class AdminController extends AbstractController
         $formUser = $this->createForm(UserFilterType::class, null, array(
             'action' => $this->generateUrl("userFilter")));
 
-        $formUserAdd = $this->createForm(UserAddType::class, null, []);
+        $formUserAdd = $this->createForm(UserAddType::class, null, array(
+            'action' => $this->generateUrl("addUserA")
+        ));
 
         return $this->render('admin/admin.html.twig', [
             'formArticle' => $formArticle->createView(),

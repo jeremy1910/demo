@@ -11,6 +11,7 @@ namespace App\Controller\UserController;
 
 use App\Entity\Roles;
 use App\Entity\User;
+use App\Form\User\Add\UserAddType;
 use App\Form\User\Filter\UserFilterType;
 use App\Repository\RolesRepository;
 use App\Service\session\flashMessage\flashMessage;
@@ -65,24 +66,17 @@ class UserController extends AbstractController
      */
     public function addUserA(Request $request){
 
-        if (($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name')))
-            AND ($request->query->has('role') AND \preg_match('/^[0-9]+$/', $request->query->get('role')))
-            AND ($request->query->has('mail') AND \preg_match(" /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/ ", $request->query->get('mail')))
-            AND ($request->query->has('enable') AND \preg_match('/^[0-1]+$/', $request->query->get('enable')))
+        $user = new User();
+        $form = $this->createForm(UserAddType::class, $user);
+        $form->handleRequest($request);
 
-        ) {
-            $user = new User();
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             if ($this->isGranted('USER_CREATE', $user)) {
                 try {
-                    $user->setUserName($request->query->get('name'));
-                    $role = $this->rolesRepository->find($request->query->get('role'));
-                    $user->setRoles($role);
-                    $user->setAdresseMail($request->query->get('mail'));
-                    $user->setEnable($request->query->get('enable') == '1');
-                    $user->setPassword($this->encodePasswordFixture($user, 'admin'));
 
-
+                    $user->setPassword($this->encodePasswordFixture($user, $user->getPassword()));
                     $this->createUser($user);
                     $flashMessage = $this->flashMessage->getFlashMessage('success', 'User créé !');
                     return new JsonResponse([true, $flashMessage]);
@@ -126,7 +120,7 @@ class UserController extends AbstractController
                 return new JsonResponse([false, $flashMessage]);
             }
 
-            if ($this->isGranted('TAG_DELETE', $user)) {
+            if ($this->isGranted('USER_DELETE', $user)) {
                 try {
                     $this->deleteCategory($user);
 

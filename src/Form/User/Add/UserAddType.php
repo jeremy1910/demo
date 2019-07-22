@@ -10,6 +10,7 @@ namespace App\Form\User\Add;
 
 
 use App\Entity\Roles;
+use App\Entity\User;
 use App\Entity\User\Filter\UserFilter;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -48,7 +49,7 @@ class UserAddType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être les même',
-                //'options' => ['attr' => ['class' => 'password-field']],
+
                 'required' => true,
                 'first_options'  => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répétez le mot de passe'],
@@ -56,8 +57,8 @@ class UserAddType extends AbstractType
             ->add('enable',ChoiceType::class, [
                 'label' => "Activer l'utilisateur ?",
                 'choices' => [
-                        'Oui' => '1',
-                        'Non' => '0'
+                        'Oui' => true,
+                        'Non' => false,
                     ],
                 'multiple'=>false,
                 'expanded'=>true
@@ -70,7 +71,7 @@ class UserAddType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => null
+            'data_class' => User::class,
         ]);
     }
 }

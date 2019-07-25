@@ -31,4 +31,3 @@ require('bootstrap/js/dist/popover');
 //global.$ = global.jQuery = $;
 
 
-

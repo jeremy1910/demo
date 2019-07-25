@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -21,7 +22,9 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=254, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min="8", minMessage="Le nom d'utilisateur doit comporter au moins 8 caractères.", max="254", maxMessage="Le nom d'utilsateur doit comporter moins de 254 caractères")
      */
     private $username;
 
@@ -35,6 +38,8 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Serializer\Exclude()
+     * @Assert\NotBlank(message="New password can not be blank.")
+     * @Assert\Regex(pattern="/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", message="New password is required to be minimum 6 chars in length and to include at least one letter and one number.")
      */
     private $password;
 
@@ -45,6 +50,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="L'adresse mail n'est pas valide.")
      */
     private $adresseMail;
 

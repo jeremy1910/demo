@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
 {
@@ -64,14 +65,17 @@ class UserController extends AbstractController
     /**
      * @Route("/addUserA", name="addUserA")
      */
-    public function addUserA(Request $request){
+    public function addUserA(Request $request, ValidatorInterface $validator){
 
         $user = new User();
         $form = $this->createForm(UserAddType::class, $user);
         $form->handleRequest($request);
 
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+
 
             if ($this->isGranted('USER_CREATE', $user)) {
                 try {
@@ -91,7 +95,9 @@ class UserController extends AbstractController
             }
         }
         else{
-            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Création impossible ! Aucun élément à créer');
+            $errorsValidator = $validator->validate($user);
+
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', $errorsValidator[0]->getMessage());
             return new JsonResponse([false, $flashMessage]);
         }
 

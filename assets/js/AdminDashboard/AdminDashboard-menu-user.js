@@ -36,6 +36,7 @@ $(document).ready(function () {
             data: $form.serialize()
         })
             .done(function (data, textStatus, jqXDR) {
+                console.log(data);
                 if (data[0] === true){
                     displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
                     menuUserSendAjaxFormFilter()

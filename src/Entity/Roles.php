@@ -21,13 +21,13 @@ class Roles
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\App\Entity\User", mappedBy="roles", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="\App\Entity\User", mappedBy="roles", cascade={"persist"})
      *
      */
     private $users;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string")
      */
     private $roleName;
 

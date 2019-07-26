@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,7 +30,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\App\Entity\Roles", inversedBy="users", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\App\Entity\Roles", inversedBy="users", cascade={"persist"})
      *
      */
     private $roles;
@@ -73,7 +74,7 @@ class User implements UserInterface
 
     public function __construct() {
         $this->articles = new ArrayCollection();
-        $this->roles = new ArrayCollection();
+
     }
 
     /**
@@ -160,16 +161,8 @@ class User implements UserInterface
 
     public function getRoles()
     {
-
-        $roles = $this->roles->toArray();
-        foreach ($roles as $key => $role)
-        {
-            /**
-             * @var $role Roles
-             */
-            $roles[$key] = $role->getRoleName();
-        }
-        $roles[] = "ROLE_USER";
+        $roles = [];
+        $roles[] = $this->roles->getRoleName();
 
         return $roles;
 
@@ -177,25 +170,11 @@ class User implements UserInterface
 
     public function setRoles($roles): self
     {
-        $rolesArray = new ArrayCollection();
-        $rolesArray->add($roles);
-        $this->roles = $rolesArray;
+        $this->roles = $roles;
 
         return $this;
     }
 
-
-
-    public function addRoles(Roles $role)
-    {
-        if (!$this->roles->contains($role))
-        {
-            $this->roles[] = $role;
-            $role->addUsers($this);
-
-        }
-        return $this;
-    }
 
 
     /**

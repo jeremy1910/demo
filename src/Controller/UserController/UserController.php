@@ -153,9 +153,21 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/edtUserA", name="edtUserA")
+     * @Route("/edtUserA/{id}", name="edtUserA")
      */
-    public function edtUserA(Request $request){
+    public function edtUserA(User $user, Request $request){
+
+
+        $form = $this->createForm(UserAddType::class, $user);
+        $form->handleRequest($request);
+
+
+
+        return  $this->render('user/addUser.html.twig', array(
+            'formUserAdd' => $form->createView(),
+        ));
+
+/*
         if (($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) AND ($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name')))) {
             $repo = $this->entityManager->getRepository(User::class);
             $id = $request->query->get('id');
@@ -181,7 +193,7 @@ class UserController extends AbstractController
             }
         }
 
-
+*/
     }
 
     private function editCategory(User $user, string $name)

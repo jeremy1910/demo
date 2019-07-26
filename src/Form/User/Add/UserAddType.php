@@ -51,8 +51,8 @@ class UserAddType extends AbstractType
             ->add('roles', EntityType::class, [
                 'class' => Roles::class,
                 'choice_label' => 'libele',
-                'required' => true,
-                'attr' => ['class' => 'selectpicker'],
+              //  'required' => true,
+               'attr' => ['class' => 'selectpicker'],
             ])
             ->add('adresseMail', TextType::class, [
                 'label' => "Adresse mail",

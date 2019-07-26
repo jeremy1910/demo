@@ -90,20 +90,17 @@ $(document).ready(function () {
                 let text = $('#userName'+num).text();
 
 
-                $('#userName'+num).text('');
-                let $btn = $('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>');
-                $btn.click(function (e) {
-                    e.preventDefault();
-                    let newLibele = $('#inputNewUser'+ num).val();
-                    $.getJSON(href+'&name='+newLibele)
+                $.ajax(href)
                         .done(function (data, textStatus, jqXDR) {
+                            $('#modal_edt_user').append(data);
+                            $('#edtUserModel').modal('toggle')
                             if (data[0] === true){
                                 displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
                                 menuUserSendAjaxFormFilter();
                             }
                         });
-                });
-                $btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewUser'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#userName'+num)));
+
+                //$btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewUser'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#userName'+num)));
                 //$('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>').appendTo('#categoryLibele'+num);
             })
         });
@@ -132,7 +129,9 @@ $(document).ready(function () {
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
             '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.username + '</td>' +
-            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtUserA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-user">Modifier le nom</a>' +
+            '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.first_name + '</td>' +
+            '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.last_name + '</td>' +
+            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtUserA/' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-user">Modifier le nom</a>' +
             '<a href="/delUserA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-user" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
             '</tr>').appendTo($t).hide().fadeIn(500);
 

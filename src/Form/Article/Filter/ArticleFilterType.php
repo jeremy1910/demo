@@ -94,6 +94,7 @@ class ArticleFilterType extends AbstractType
                 'label' => 'Rechercher',
             ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

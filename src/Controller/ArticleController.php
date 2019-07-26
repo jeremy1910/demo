@@ -110,7 +110,7 @@ class ArticleController extends AbstractController
                 $this->em->flush();
             }
 
-            dump($form);
+
             return $this->render('article/article.html.twig', [
                 'form' => $form->createView()
             ]);

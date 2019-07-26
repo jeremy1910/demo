@@ -1,0 +1,35 @@
+<!-- Modal Ajout d'un utilisateur -->
+<div class="modal fade" id="edtUserModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModelLabel">{% if formUserAdd is  defined %} Modification d'un utilisateur {% else %} Ajout d'un utilisateur {% endif %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(formUserAdd) }}
+                {{form_row(formUserAdd.username) }}
+                {{form_row(formUserAdd.firstName) }}
+                {{form_row(formUserAdd.lastName) }}
+                {% if formUserAdd is not defined %}
+                    {{form_row(formUserAdd.password) }}
+                {%  endif %}
+                {{form_row(formUserAdd.roles) }}
+
+                {% for item in formUserAdd.roles.vars.label %}
+                    {{ item }}
+                {% endfor %}
+
+                {{form_row(formUserAdd.adresseMail) }}
+                {{form_row(formUserAdd.enable) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                {{form_row(formUserAdd.submit, { 'attr': {'data-dismiss': 'modal'} }) }}
+                {{ form_end(formUserAdd, {'render_rest': false})}}
+            </div>
+        </div>
+    </div>
+</div>

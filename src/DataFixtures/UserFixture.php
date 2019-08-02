@@ -35,11 +35,14 @@ class UserFixture extends Fixture
         $role = new Roles();
         echo '3';
         $role->setRoleName('ROLE_ADMIN');
+        $role->setLibele('Role Administrateur');
         echo '4';
         $useradmin->addRoles($role);
         echo '5';
         $useradmin->setEnable(true);
         echo '6';
+        $useradmin->setLastName("Administrateur");
+        $useradmin->setFirstName('');
         $useradmin->setAdresseMail('jeremy1910@gmail.com');
         echo '7';
         $manager->persist($useradmin);

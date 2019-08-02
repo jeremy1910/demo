@@ -12,21 +12,38 @@ namespace App\Form\User\Add;
 use App\Entity\Roles;
 use App\Entity\User;
 use App\Entity\User\Filter\UserFilter;
+use App\Form\RolesType;
+use App\Repository\RolesRepository;
+use App\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserAddType extends AbstractType
 {
+    private $rolesRepository;
+    private $userRepository;
+
+    public function __construct(RolesRepository $rolesRepository, UserRepository $userRepository)
+    {
+        $this->rolesRepository = $rolesRepository;
+        $this->userRepository = $userRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder->add('username', TextType::class, [
             'label' => "Nom de connexion",
             'required' => true,
@@ -48,11 +65,10 @@ class UserAddType extends AbstractType
                     'placeholder' => "Nom de l'utilisateur",
                 ]
             ])
-            ->add('roles', EntityType::class, [
-                'class' => Roles::class,
-                'choice_label' => 'libele',
-              //  'required' => true,
-               'attr' => ['class' => 'selectpicker'],
+
+            ->add('roles', ChoiceType::class, [
+                'choices' => $this->genRolesChoice(),
+                'data' => $this->getDefaultSelectedRole($options),
             ])
             ->add('adresseMail', TextType::class, [
                 'label' => "Adresse mail",
@@ -62,10 +78,12 @@ class UserAddType extends AbstractType
                 ],
 
             ])
+
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être les même',
-                'required' => true,
+                'required' => false,
+
                 'first_options'  => ['label' => 'Mot de passe', 'attr' => ['placeholder' => "Mot de passe de l'utilisateur",]],
                 'second_options' => ['label' => 'Répétez le mot de passe', 'attr' => ['placeholder' => "Entrez de nouveau le même mot de passe",]],
                 'attr' => [
@@ -80,9 +98,22 @@ class UserAddType extends AbstractType
                     'Non' => false,
                 ],
                 'multiple'=>false,
-                'expanded'=>true
+                'expanded'=>true,
+
             ])
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class)
+
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $user = $event->getData();
+
+                if (!isset($user['password'])) {
+
+                    $form = $event->getForm();
+
+                    $form->remove('password');
+
+                }
+            });
         ;
 
     }
@@ -91,6 +122,38 @@ class UserAddType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'selected_user' => null,
+
         ]);
+
+    }
+
+    private function genRolesChoice(){
+        $roles = $this->rolesRepository->findAll();
+        $returnTab = array();
+        /**
+         * @var $role Roles
+         */
+        foreach ($roles as $key => $role){
+            $returnTab[$role->getLibele()] = $role;
+        }
+
+        return $returnTab;
+    }
+
+    private function getDefaultSelectedRole(array $options){
+        if(!is_null($options['selected_user'])){
+            $user = $this->userRepository->find($options['selected_user']);
+            $roleName = $user->getRoles()[0];
+            /**
+             * @var $role Roles[]
+             */
+            $role = $this->rolesRepository->findBy(['roleName' => $roleName]);
+
+            return $role[0];
+        }
+        else{
+            return [];
+        }
     }
 }

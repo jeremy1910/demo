@@ -22,27 +22,40 @@ $(document).ready(function () {
 
     $('#user_add_submit').click(function (e) {
         e.preventDefault();
+
         menuUserSendAjaxFormUserAdd();
 
     });
 
-
+    $('#addUserButton').click(function (e) {
+        e.preventDefault();
+        $.ajax('/addUserA')
+            .done(function (data, textStatus, jqXDR) {
+                $('#modal_edt_user').empty();
+                $('#modal_edt_user').append(data);
+                $('#edtUserModel').modal('toggle')
+                $('#user_add_submit').click(function (e) {
+                    e.preventDefault();
+                    menuUserSendAjaxFormUserAdd();
+                })
+            });
+    });
     function menuUserSendAjaxFormUserAdd(){
         let $form = $("form[name='user_add']");
-
         $.ajax({
             url: $form.attr('action'),
-            method: 'POST',
+            type: 'POST',
             data: $form.serialize()
         })
             .done(function (data, textStatus, jqXDR) {
-                console.log(data);
                 if (data[0] === true){
                     displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
                     menuUserSendAjaxFormFilter()
                 }
                 else{
-                    displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                    console.log('tooooooooooooooo');
+                    $('#modal_edt_user').empty();
+                    $('#modal_edt_user').append(data);
                 }
             });
     }
@@ -87,17 +100,16 @@ $(document).ready(function () {
                 e.preventDefault();
                 let href = $(this).attr('href');
                 let num = $(this).attr('num');
-                let text = $('#userName'+num).text();
-
 
                 $.ajax(href)
                         .done(function (data, textStatus, jqXDR) {
+                            $('#modal_edt_user').empty();
                             $('#modal_edt_user').append(data);
                             $('#edtUserModel').modal('toggle')
-                            if (data[0] === true){
-                                displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
-                                menuUserSendAjaxFormFilter();
-                            }
+                            $('#user_add_submit').click(function (e) {
+                                e.preventDefault();
+                                menuUserSendAjaxFormUserAdd();
+                            })
                         });
 
                 //$btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewUser'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#userName'+num)));

@@ -12,7 +12,7 @@
         <div id="divAddNewCategory" class="row">
             <div class="col-10">
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModel">
+                    <button id="addUserButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModel">
                         Ajouter un utilisateur
                     </button>
                 </div>
@@ -64,31 +64,3 @@
 
 <div id="modal_edt_user"></div>
 
-<!-- Modal Ajout d'un utilisateur -->
-<div class="modal fade" id="addUserModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModelLabel">Ajout d'un utilisateur</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{ form_start(formUserAdd) }}
-                {{form_row(formUserAdd.username) }}
-                {{form_row(formUserAdd.firstName) }}
-                {{form_row(formUserAdd.lastName) }}
-                {{form_row(formUserAdd.password) }}
-                {{form_row(formUserAdd.roles) }}
-                {{form_row(formUserAdd.adresseMail) }}
-                {{form_row(formUserAdd.enable) }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                {{form_row(formUserAdd.submit, { 'attr': {'data-dismiss': 'modal'} }) }}
-                {{ form_end(formUserAdd) }}
-            </div>
-        </div>
-    </div>
-</div>

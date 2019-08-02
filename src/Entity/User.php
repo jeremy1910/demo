@@ -169,7 +169,9 @@ class User implements UserInterface
              */
             $roles[$key] = $role->getRoleName();
         }
-        $roles[] = "ROLE_USER";
+        if(empty($roles)){
+            $roles[] = "ROLE_USER";
+        }
 
         return $roles;
 
@@ -206,7 +208,7 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 

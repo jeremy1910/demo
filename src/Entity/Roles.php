@@ -27,7 +27,7 @@ class Roles
     private $users;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string")
      */
     private $roleName;
 

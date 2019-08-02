@@ -31,6 +31,7 @@ class UserVoter extends Voter
         }
 
         // ... (check conditions and return true to grant permission) ...
+
         switch ($attribute) {
             case 'USER_EDIT':
                 return $this->canEdit($user);

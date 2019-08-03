@@ -13,6 +13,7 @@ use App\Entity\Roles;
 use App\Entity\User;
 use App\Form\User\Add\UserAddType;
 use App\Form\User\Filter\UserFilterType;
+use App\Form\User\ResetPassword\ResetPasswordUserType;
 use App\Form\UserType;
 use App\Repository\RolesRepository;
 use App\Service\session\flashMessage\flashMessage;
@@ -67,48 +68,36 @@ class UserController extends AbstractController
      * @Route("/addUserA", name="addUserA")
      */
     public function addUserA(Request $request, ValidatorInterface $validator){
-
         $user = new User();
-        $form = $this->createForm(UserAddType::class, $user, [
-            'action' => $this->generateUrl("addUserA")
-        ]);
-        $form->handleRequest($request);
+        if ($this->isGranted('USER_CREATE', $user)) {
 
+            $form = $this->createForm(UserAddType::class, $user, [
+                'action' => $this->generateUrl("addUserA")
+            ]);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-
-                if ($this->isGranted('USER_CREATE', $user)) {
-                    try {
-
-                        $user->setPassword($this->encodePasswordFixture($user, $user->getPassword()));
-                        $this->createUser($user);
-                        $flashMessage = $this->flashMessage->getFlashMessage('success', 'User créé !');
-                        return new JsonResponse([true, $flashMessage]);
-                    } catch (\Exception $e) {
-                        $flashMessage = $this->flashMessage->getFlashMessage('danger', $e->getMessage());
-                        return new JsonResponse([false, $flashMessage]);
-                    }
-                } else {
-
-                    $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Création impossible ! Vous n\'avez pas des autorisations suffisantes');
+                try {
+                    $user->setPassword($this->encodePasswordFixture($user, $user->getPassword()));
+                    $this->createUser($user);
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur créé avec succès !');
+                    return new JsonResponse([true, $flashMessage]);
+                } catch (\Exception $e) {
+                    $flashMessage = $this->flashMessage->getFlashMessage('danger', $e->getMessage());
                     return new JsonResponse([false, $flashMessage]);
                 }
-            }
-            else{
-                $errorsValidator = $validator->validate($user);
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', $errorsValidator[0]->getMessage());
-                return new JsonResponse([false, $flashMessage]);
-            }
-        }
-        else{
 
-            return  $this->render('user/addUser.html.twig', array(
-                'formUserAdd' => $form->createView(),
-            ));
-        }
+            } else {
+                return $this->render('user/addUser.html.twig', array(
+                    'formUserAdd' => $form->createView(),
+                ));
+            }
+        } else {
 
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Création impossible ! Vous n\'avez pas des autorisations suffisantes');
+            return new JsonResponse([false, $flashMessage]);
+        }
 
     }
     private function encodePasswordFixture(User $user, string $password)
@@ -122,24 +111,24 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/delUserA", name="delUserA")
+     * @Route("/delUserA/{id}", name="delUserA")
      */
-    public function delUserA(Request $request){
-        if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
-            $repo = $this->entityManager->getRepository(User::class);
-            $id = $request->query->get('id');
-            $user = $repo->find($id);
+    public function delUserA(User $user, Request $request){
+
             if($user === NULL)
             {
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Le User n\'existe pas.');
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! L\'utilisateur n\'existe pas.');
                 return new JsonResponse([false, $flashMessage]);
             }
-
+            if($user->getId() == 1 OR $user->getUsername() === 'admin'){
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'L\'utilisateur admin ne peut pas être supprimé !');
+                return new JsonResponse([false, $flashMessage]);
+            }
             if ($this->isGranted('USER_DELETE', $user)) {
                 try {
                     $this->deleteCategory($user);
 
-                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'User supprimé !');
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur supprimé !');
 
                     return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
@@ -151,7 +140,7 @@ class UserController extends AbstractController
                 return new JsonResponse([false, $flashMessage]);
             }
 
-        }
+
 
     }
 
@@ -167,85 +156,61 @@ class UserController extends AbstractController
     public function edtUserA(User $user, Request $request)
     {
 
+        if ($this->isGranted('USER_EDIT', $user)) {
+            $form = $this->createForm(UserAddType::class, $user, [
+                'selected_user' => $user->getId(),
+                'action' => $this->generateUrl('edtUserA', ['id' => $user->getId()])
+            ]);
+            $form->handleRequest($request);
 
-        $form = $this->createForm(UserAddType::class, $user, [
-            'selected_user' => $user->getId(),
-            'action' => $this->generateUrl('edtUserA', ['id' => $user->getId()])
-        ]);
-        $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
 
-        if ($form->isSubmitted()){
-
-            if ($form->isValid()) {
 
                 $this->entityManager->flush();
                 $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
                 return new JsonResponse([true, $flashMessage]);
-            }
-            else{
 
-                return  $this->render('user/addUser.html.twig', array(
+            } else {
+                return $this->render('user/edtUser.html.twig', array(
                     'formUserAdd' => $form->createView(),
                 ));
             }
+        } else {
+
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Modification impossible ! Vous n\'avez pas des autorisations suffisantes');
+            return new JsonResponse([false, $flashMessage]);
         }
-        else{
-            return  $this->render('user/addUser.html.twig', array(
-                'formUserAdd' => $form->createView(),
-            ));
-        }
-        /*
-                if(!is_null($user)) {
-                    $form = $this->createForm(UserAddType::class, $user, [
-                        'selected_user' => $user->getId(),
-                        'action' => $this->generateUrl("edtUserA")
-                    ]);
-                }
-                else{
-                    $user = new User();
-                    $form = $this->createForm(UserAddType::class, $user);
-                    $form->handleRequest($request);
-                    dd($user);
-                }
 
+    }
 
-                if($form->isSubmitted() && $form->isValid()){
+    /**
+     * @Route("/resetUserA/{id}", name="resetUserA")
+     */
+    public function resetUserA(User $user, Request $request){
+        if($this->isGranted('USER_EDIT', $user)){
+            $form = $this->createForm(ResetPasswordUserType::class, null, [
+                'action' => $this->generateUrl('resetUserA', ['id' => $user->getId()])
+            ]);
+            $form->handleRequest($request);
 
-                    $this->entityManager->persist($user);
-                }
+            if ($form->isSubmitted() && $form->isValid()) {
 
+                $data = $form->getData();
+                $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
+                $this->entityManager->flush();
+                $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
+                return new JsonResponse([true, $flashMessage]);
 
-                return  $this->render('user/addUser.html.twig', array(
+            } else {
+
+                return $this->render('user/resetUser.html.twig', array(
                     'formUserAdd' => $form->createView(),
                 ));
-        */
-        /*
-                if (($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) AND ($request->query->has('name') AND \preg_match("/[A-Za-z0-9]+/", $request->query->get('name')))) {
-                    $repo = $this->entityManager->getRepository(User::class);
-                    $id = $request->query->get('id');
-                    $name = $request->query->get('name');
-                    $user = $repo->find($id);
-                    if($user === NULL)
-                    {
-                        $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le user ! Le user n\'existe pas.');
-                        return new JsonResponse([false, $flashMessage]);
-                    }
-                    if ($this->isGranted('TAG_EDIT', $user)) {
-                        try {
-                            $this->editCategory($user, $name);
-                            $flashMessage = $this->flashMessage->getFlashMessage('success', 'User renomé !');
-                            return new JsonResponse([true, $flashMessage]);
-                        }catch (\Exception $e){
-                            return new JsonResponse($e->getMessage());
-                        }
-                    } else {
-
-                        $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Impossible de renomer le user ! Vous n\'avez pas les autoristaions necessaires');
-                        return new JsonResponse([false, $flashMessage]);
-                    }
-                }
-
-        */
+            }
+        }else{
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Modification impossible ! Vous n\'avez pas des autorisations suffisantes');
+            return new JsonResponse([false, $flashMessage]);
+        }
     }
 
     private function editCategory(User $user, string $name)

@@ -1,9 +1,9 @@
-<!-- Modal Ajout d'un utilisateur -->
+<!-- Modal Mofification d'un utilisateur -->
 <div class="modal fade" id="edtUserModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModelLabel">Ajout d'un utilisateur</h5>
+                <h5 class="modal-title" id="addUserModelLabel">Modification d'un utilisateur</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,11 +11,9 @@
             {{ form_start(formUserAdd) }}
             <div class="modal-body">
 
-                {{form_row(formUserAdd.username) }}
+                {{form_row(formUserAdd.username, {'disabled': 'true'}) }}
                 {{form_row(formUserAdd.firstName) }}
                 {{form_row(formUserAdd.lastName) }}
-
-                {{form_row(formUserAdd.password) }}
 
                 {{form_row(formUserAdd.roles) }}
 
@@ -30,7 +28,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                {{form_row(formUserAdd.submit, {'label': 'Créer'}) }}
+                {{form_row(formUserAdd.submit) }}
                 {{form_row(formUserAdd._token)}}
 
 

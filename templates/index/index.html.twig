@@ -83,7 +83,11 @@
                 <h1 class="display-4">Oupsss !</h1>
                 <p class="lead">Il n'y a pas d'article à afficher !</p>
                 <hr class="my-4">
-                <a class="btn btn-primary btn-lg" href="{{ path('create_article') }}" role="button">Créer un article</a>
+                {% if is_granted('ROLE_WRITER') %}
+                    <a class="btn btn-primary btn-lg" href="{{ path('create_article') }}" role="button">Créer un article</a>
+                {% else %}
+                    <p><a href="{{ path('app_login') }}">connectez vous</a>{% if is_granted('ROLE_VIEWER') %} avec un utilisateur "rédacteur" {% endif %}pour écrire un article. </p>
+                {% endif %}
             </div>
 
         {%  endif %}

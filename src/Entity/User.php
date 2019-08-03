@@ -8,9 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("username", message="Ce nom d'utilisateur existe déjà, merci d'en choisir un autre.")
+ *
  */
 class User implements UserInterface
 {
@@ -23,8 +26,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=254, unique=true)
-     * @Assert\NotBlank()
-     * @Assert\Length(min="8", minMessage="Le nom d'utilisateur doit comporter au moins 8 caractères.", max="254", maxMessage="Le nom d'utilsateur doit comporter moins de 254 caractères")
+     * @Assert\NotBlank(message="Veuillez entrer un nom d'utilisateur")
+     * @Assert\Length(min="6", minMessage="Le nom d'utilisateur doit comporter au moins 6 caractères.", max="254", maxMessage="Le nom d'utilsateur doit comporter moins de 254 caractères")
      */
     private $username;
 
@@ -44,13 +47,15 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=false)
+     * @Assert\NotNull(message="Vous devez selectionner un choix.")
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(message="L'adresse mail n'est pas valide.")
+     * @Assert\NotBlank(message="Veuillez entrer une adresse mail")
      */
     private $adresseMail;
 
@@ -62,11 +67,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez entrer un prénom")
      */
     private $firstName;
 
@@ -150,7 +157,11 @@ class User implements UserInterface
         return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    /**
+     * @param $username string|null
+     * @return User
+     */
+    public function setUsername($username): self
     {
         $this->username = $username;
 
@@ -169,9 +180,9 @@ class User implements UserInterface
              */
             $roles[$key] = $role->getRoleName();
         }
-        if(empty($roles)){
+
             $roles[] = "ROLE_USER";
-        }
+
 
         return $roles;
 
@@ -237,7 +248,7 @@ class User implements UserInterface
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName( $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -249,7 +260,7 @@ class User implements UserInterface
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setFirstName( $firstName): self
     {
         $this->firstName = $firstName;
 

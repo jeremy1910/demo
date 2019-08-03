@@ -56,6 +56,7 @@ class UserVoter extends Voter
     }
     private function canEdit(User $user)
     {
+
         return in_array('ROLE_ADMIN', $user->getRoles());
     }
 

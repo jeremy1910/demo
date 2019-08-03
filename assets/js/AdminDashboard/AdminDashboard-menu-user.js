@@ -33,9 +33,13 @@ $(document).ready(function () {
             .done(function (data, textStatus, jqXDR) {
                 $('#modal_edt_user').empty();
                 $('#modal_edt_user').append(data);
-                $('#edtUserModel').modal('toggle')
+                $('#user_add_roles').selectpicker();
+                //$('#edtUserModel').modal('toggle')
+
+                $('#edtUserModel').modal('show')
                 $('#user_add_submit').click(function (e) {
                     e.preventDefault();
+                    $('#edtUserModel').modal('hide')
                     menuUserSendAjaxFormUserAdd();
                 })
             });
@@ -50,12 +54,47 @@ $(document).ready(function () {
             .done(function (data, textStatus, jqXDR) {
                 if (data[0] === true){
                     displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                    $('#edtUserModel').modal('hide');
                     menuUserSendAjaxFormFilter()
+
                 }
                 else{
-                    console.log('tooooooooooooooo');
+
                     $('#modal_edt_user').empty();
                     $('#modal_edt_user').append(data);
+                    $('#user_add_roles').selectpicker();
+                    $('#edtUserModel').modal('toggle');
+                    $('#user_add_submit').click(function (e) {
+                        e.preventDefault();
+                        menuUserSendAjaxFormUserAdd();
+                    })
+                }
+            });
+    }
+
+    function menuUserSendAjaxFormUserReset(){
+        let $form = $("form[name='reset_password_user']");
+        $.ajax({
+            url: $form.attr('action'),
+            type: 'POST',
+            data: $form.serialize()
+        })
+            .done(function (data, textStatus, jqXDR) {
+                if (data[0] === true){
+                    displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                    $('#resetUserModel').modal('hide');
+                    menuUserSendAjaxFormFilter()
+
+                }
+                else{
+
+                    $('#modal_edt_user').empty();
+                    $('#modal_edt_user').append(data);
+                    $('#resetUserModel').modal('toggle');
+                    $('#reset_password_user_submit').click(function (e) {
+                        e.preventDefault();
+                        menuUserSendAjaxFormUserReset();
+                    })
                 }
             });
     }
@@ -103,17 +142,45 @@ $(document).ready(function () {
 
                 $.ajax(href)
                         .done(function (data, textStatus, jqXDR) {
-                            $('#modal_edt_user').empty();
-                            $('#modal_edt_user').append(data);
-                            $('#edtUserModel').modal('toggle')
-                            $('#user_add_submit').click(function (e) {
-                                e.preventDefault();
-                                menuUserSendAjaxFormUserAdd();
-                            })
+                            if (data[0] === false){
+                                displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                                menuUserSendAjaxFormFilter()
+
+                            }else {
+                                $('#modal_edt_user').empty();
+                                $('#modal_edt_user').append(data);
+                                $('#user_add_roles').selectpicker();
+                                $('#edtUserModel').modal('toggle')
+                                $('#user_add_submit').click(function (e) {
+                                    e.preventDefault();
+                                    menuUserSendAjaxFormUserAdd();
+                                })
+                            }
                         });
 
-                //$btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewUser'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#userName'+num)));
-                //$('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>').appendTo('#categoryLibele'+num);
+            })
+        });
+
+        $('.js-btn-reset-user').each(function (e) {
+            $(this).click(function (e) {
+                e.preventDefault();
+                let href = $(this).attr('href');
+                $.ajax(href)
+                    .done(function (data, textStatus, jqXDR) {
+                        if (data[0] === false){
+                            displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                            menuUserSendAjaxFormFilter()
+
+                        }else {
+                            $('#modal_edt_user').empty();
+                            $('#modal_edt_user').append(data);
+                            $('#resetUserModel').modal('toggle')
+                            $('#reset_password_user_submit').click(function (e) {
+                                e.preventDefault();
+                                menuUserSendAjaxFormUserReset();
+                            })
+                        }
+                    });
             })
         });
 
@@ -141,10 +208,12 @@ $(document).ready(function () {
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
             '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.username + '</td>' +
+            '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.roles[0].libele + '</td>' +
             '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.first_name + '</td>' +
             '<td style="width:' + COL_WIDTH + '%" id="userName' + item.id + '">' + item.last_name + '</td>' +
-            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtUserA/' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-user">Modifier le nom</a>' +
-            '<a href="/delUserA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-user" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
+            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtUserA/' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-user">Modifier</a>' +
+            '<a href="/resetUserA/'+ item.id +'"class="btn btn-warning js-btn-reset-user" data-toggle="modal" >Réinitialiser Mot de passe</a>' +
+            '<a href="/delUserA/'+ item.id +'"class="btn btn-danger js-btn-suppr-user" data-toggle="modal" data-target="#modalValiddelete">Supprimer</a></div></td>' +
             '</tr>').appendTo($t).hide().fadeIn(500);
 
     }

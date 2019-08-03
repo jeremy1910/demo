@@ -67,8 +67,11 @@ class UserAddType extends AbstractType
             ])
 
             ->add('roles', ChoiceType::class, [
+                'attr' => ['class' => 'selectpicker'],
                 'choices' => $this->genRolesChoice(),
                 'data' => $this->getDefaultSelectedRole($options),
+
+
             ])
             ->add('adresseMail', TextType::class, [
                 'label' => "Adresse mail",

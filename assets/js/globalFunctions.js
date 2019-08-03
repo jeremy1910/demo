@@ -1,5 +1,6 @@
 export function displayFlashMessageSuccess(type, message, encre) {
 
+    $('#'+encre).empty();
     $('<div class="alert alert-'+ type +' alert-dismissible fade show" role="alert">\n' +
         '<strong>'+ message +'</strong>\n' +
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +

@@ -53,6 +53,7 @@ class FormArticleType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'libele',
                 'label' => 'Catégorie',
+    //            'attr' => ['class' => 'selectpicker'],
 
             ])
             ->add('tags', CollectionType::class, [

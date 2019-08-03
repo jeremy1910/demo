@@ -14,7 +14,7 @@ class ArticleVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['EDIT', 'DELETE'])
+        return in_array($attribute, ['ARTICLE_CREATE', 'ARTICLE_EDIT', 'ARTICLE_DELETE'])
             && $subject instanceof \App\Entity\Article;
     }
 
@@ -49,10 +49,13 @@ class ArticleVoter extends Voter
 
 
         switch ($attribute) {
-            case 'EDIT':
+            case 'ARTICLE_CREATE':
+                return $this->canCreate($user, $article);
+                break;
+            case 'ARTICLE_EDIT':
                 return $this->canEdit($user, $article);
                 break;
-            case 'DELETE':
+            case 'ARTICLE_DELETE':
                 return $this->canDelete($user, $article);
                 break;
         }
@@ -72,5 +75,10 @@ class ArticleVoter extends Voter
 
         return $user->getId() === $article->getUser()->getId();
 
+    }
+
+    protected function canCreate(User $user, Article $article)
+    {
+        return in_array('ROLE_ADMIN',$user->getRoles());
     }
 }

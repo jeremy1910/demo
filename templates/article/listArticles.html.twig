@@ -46,10 +46,10 @@
 
                                 <div class="btn-group" style="position: absolute; bottom: 10px; right: 0; left: 0; font-size: 0.8em">
                                     <a id="btn-show-{{ loop.index-1 }}" href="{{ path('show_article', {'id': article.id})}}" class="btn btn-success"><img src="{{ asset('images/eye-glyph-16.svg')}}"><br> Voir </a>
-                                    {% if is_granted('EDIT', article) %}
+                                    {% if is_granted('ARTICLE_EDIT', article) %}
                                         <a id="btn-edit-{{ loop.index-1 }}" href="{{ path('edit_article', {'id': article.id})}}" class="btn btn-success"><img src="{{ asset('images/pencil-glyph-16.svg')}}"><br> Editer </a>
                                     {% endif %}
-                                    {% if is_granted('EDIT', article) %}
+                                    {% if is_granted('ARTICLE_EDIT', article) %}
                                         <a id="btn-delete-{{ loop.index-1 }}" href="/delete/{{article.id}}"  class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete"><img src="{{ asset('/images/bin-glyph-16.svg')}}"><br> Supprimer </a>
                                     {%  endif %}
                                     <a  id="btn-info-{{ loop.index-1 }}" href="#"   role="button" data-html="true" class="btn btn-primary popover-test js-popover-article float-right" data-toggle="popover" title="{{ article.title }}" data-content="<img src='{{ asset('images') }}/{{ article.image.fileName }}' class='card-img-top'> <hr> {{ article.description }}."><img src="{{ asset('images/widget-glyph-16.svg')}}"><br> Aperçus</a>

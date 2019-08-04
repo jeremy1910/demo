@@ -1,3 +1,7 @@
+
+
+
+
 var selectCategory =  document.getElementById('form_article_num_category');
 
 
@@ -8,6 +12,11 @@ addCategory_option.id = "option_ajouter";
 selectCategory.add(addCategory_option,  null);
 
 $('#form_article_num_category').selectpicker();
+
+
+$('#form_article_num_category').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+    console.log(isSelected);
+});
 
 
 
@@ -132,3 +141,25 @@ if (document.getElementById('form_article_tags').children)
 
 
 }
+
+/**************
+ * Mise en form du selecteur d'image
+ *
+ * ***************/
+
+function readURL(input) {
+
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#form_article_image_imageFile").change(function() {
+    readURL(this);
+});

@@ -77,9 +77,11 @@
 {% endblock %}
 
 {% block javascripts %}
-
-    <script src="{{ asset('article.js') }}"></script>
     {{ parent() }}
+    {{ encore_entry_script_tags('article') }}
+    <!--
+    <script src="{{ asset('article.js') }}"></script>
+
 
     <script>
         function readURL(input) {
@@ -100,5 +102,5 @@
         });
 
     </script>
-
+    -->
 {% endblock %}

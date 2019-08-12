@@ -37,47 +37,43 @@
         </div>
 
 
-        <!-- Card -->
-        <div class="card mb-3" style="border: 0 !important; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12); height: 370px">
+        <!-- Card
+        <div class="card mb-3 custom_shadow" style="border: 0 !important; height: 370px">
             <div class="row no-gutters h-100">
                 <div class="col-md-4">
-                    <img src="{{ asset('images/5.png') }}" class="card-img" style="width: 104%; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);"  alt="...">
+                    <img src="{{ asset('images/5.png') }}" class="card-img custom_shadow" style="width: 104%;"  alt="...">
                 </div>
                 <div class="col-md-8 h-100">
                     <div class="card-body mb-3 d-flex flex-column h-100">
                         <h5 class="card-title p-2 font-weight-bold text-center">Card title</h5>
-                        <p class="card-text p-2 Light weight text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text p-2 Light weight text custom_card_text_index">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                         <p class="card-text p-2 mt-auto border-top d-flex flex-row-reverse"><small class="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Card -->
+         Card -->
         {% if articles %}
-
-            <div class="row">
+                <div class="row">
                 {% for article in articles %}
-
-                    <div class=" col-sm-4 mt-4">
-
-                        <div class="card custom-card-centered custom_card_index_hover_effet" style="margin-bottom: 5px; margin-top: 5px;">
-                            <img src="{{ asset('images') }}/{{ article.image.fileName }}" class="card-img-top custom_card_img_size" alt="...">
-                            <div  class="card-body custom_card_body_size" style="position: relative">
-                                <h5 class="card-title custom_card_title_index">{{ article.title }}</h5>
-                                <hr>
-                                <p class="card-text custom_card_text_index">{{ article.description }}</p>
-
-                                <a href="{{ path('show_article', {'id': article.id})  }}" style="position: absolute; bottom: 10px; right: 5px;" class="btn btn-primary">Voir</a>
-
-                            </div>
-                            <div class="card-footer text-muted">
-                                <small class="float-right">Créé le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small>
+                    <div class="col-12">
+                        <div class="card mb-3 mb-md-5 custom_shadow">
+                            <div class="row no-gutters">
+                                <div class="col-md-4" style="z-index: 2;">
+                                    <img src="{{ asset('images') }}/{{ article.image.fileName }}" class="card-img custom_shadow custom_card_img_size_index" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body d-flex flex-column" style="height: 276px; padding-left: 0; padding-right: 0; padding-top: 0;">
+                                        <h5 class="bg-light text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3" >{{ article.title }}</h5>
+                                        <p class="card-text Light weight text custom_card_text_index pl-4 pr-2" style="flex-basis: 100%;">{{ article.description }}</p>
+                                        <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px;" ><small class="text-muted align-self-end">le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 {% endfor %}
-            </div>
+                </div>
         {% else %}
 
             <div class="jumbotron justify-content-center mt-4">
@@ -93,7 +89,20 @@
 
         {%  endif %}
 
-
+        <div class="card mb-3 custom_shadow">
+            <div class="row no-gutters">
+                <div class="col-md-4" style="z-index: 2;">
+                    <img src="{{ asset('images/1.jpg') }}" class="card-img custom_shadow custom_card_img_size_index" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body d-flex flex-column" style="height: 276px; padding-left: 0; padding-right: 0; padding-top: 0;">
+                        <h5 class="bg-light text-dark card-title font-weight-bold text-center pt-md-1 pt-4" style="padding-bottom: 2%; padding-top: 2%;: ">Card title</h5>
+                        <p class="card-text Light weight text custom_card_text_index pl-4 pr-2" style="flex-basis: 100%;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text border-top d-flex pl-4" style="padding-top: 10px;" ><small class="text-muted align-self-end">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 

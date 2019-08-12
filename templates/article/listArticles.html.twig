@@ -6,9 +6,14 @@
 {% endblock %}
 
 {%  block body %}
-    <div class="jumbotron mt-4">
-        <div class="container">
-            {{ form_start(formArticle) }}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="jumbotron mt-4 w-100">
+        <div class="container ">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#form_filters" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="form_filters">
+            {{ form_start(formArticle, {'attr': {'style':'width : 100%'}}) }}
             <div class="row">
 
                 <div class="col-md-4 col-sm-12">
@@ -37,9 +42,11 @@
             {{ form_row(formArticle.pageSelected) }}
             {{ form_row(formArticle._token) }}
             {{ form_end(formArticle, {'render_rest': false}) }}
+                </div>
     </div>
     </div>
-        <div class="container">
+    </nav>
+    <div class="container">
             <div id="card-parent" class="row">
             </div>
         </div>

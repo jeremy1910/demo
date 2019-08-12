@@ -11,13 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d315271-7ef1-4497-9e17-593b53526c62" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/demo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -101,7 +95,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="1856">
@@ -109,6 +103,15 @@
                   <folding>
                     <element signature="e#30#78#0#PHP" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="459">
+                  <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
                 </state>
               </provider>
             </entry>
@@ -225,7 +228,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/article/listArticles.html.twig" />
         <option value="$PROJECT_DIR$/config/routes/annotations.yaml" />
         <option value="$PROJECT_DIR$/src/Security/Voter/CategoryVoter.php" />
         <option value="$PROJECT_DIR$/assets/js/app.js" />
@@ -276,6 +278,7 @@
         <option value="$PROJECT_DIR$/src/Controller/TagsController/TagsController.php" />
         <option value="$PROJECT_DIR$/src/Controller/UserController/UserController.php" />
         <option value="$PROJECT_DIR$/src/DataFixtures/Article.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -592,7 +595,7 @@
       <workItem from="1561402579657" duration="4078000" />
       <workItem from="1561489596595" duration="4826000" />
       <workItem from="1561575099284" duration="4408000" />
-      <workItem from="1565595388638" duration="1716000" />
+      <workItem from="1565595388638" duration="1967000" />
     </task>
     <task id="LOCAL-00001" summary="avancement adminDashboard 30/05/19">
       <created>1559217600682</created>
@@ -696,7 +699,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="444439000" />
+    <option name="totallyTimeSpent" value="444690000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -709,8 +712,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8371212" visible="true" weight="0.13965885" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8371212" visible="true" weight="0.13965885" />
       <window_info id="Structure" order="1" sideWeight="0.16287878" side_tool="true" weight="0.14956245" />
       <window_info id="npm" order="2" sideWeight="0.28787878" side_tool="true" weight="0.14956245" />
       <window_info id="Favorites" order="3" sideWeight="0.083715595" side_tool="true" weight="0.11376293" />
@@ -724,7 +728,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.8496802" visible="true" weight="0.20260021" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.8496802" visible="true" weight="0.20260021" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.26311338" />
       <window_info active="true" anchor="bottom" id="Database Console" order="12" sideWeight="0.8489933" visible="true" weight="0.3843888" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.15031983" side_tool="true" visible="true" weight="0.20260021" />
@@ -812,13 +816,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Refonte Backend (filter)" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Form/Filter/FilterCategoryType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/tag" />
     <entry file="file://$PROJECT_DIR$/src/Entity/Category.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1142,6 +1139,13 @@
           <folding>
             <element signature="e#30#78#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>

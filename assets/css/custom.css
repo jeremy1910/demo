@@ -44,6 +44,19 @@
 .custom_card_text_index{
     color: dimgray;
     font-style: italic;
+    height: 6rem;
+    overflow: hidden;
+
+}
+
+.custom_carousel{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #f9f9f9 !important;
+}
+
+.custom_shadow{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
 }
 
 .custom_card_title{
@@ -55,10 +68,11 @@
     font-size: 1em;
 }
 .custom_card_title_index{
-    font-size: 1.01em;
+    font-size: 1.1rem;
     font-weight: bold;
-    text-align: center;
-    overflow: auto;
+    text-align: left;
+    overflow: hidden;
+    max-height: 2.9rem;
 
 }
 

@@ -15,11 +15,9 @@
 
         </div>
 
-        <div class="card-footer text-muted custom_card_footer_bg_color" style="padding-right: 0.1rem !important;">
-
-
-            <div  class="d-flex bd-highlight mb-3">
-                <small class="mr-auto p-2 bd-highlight">Catégorie : <strong id="card-category-#id#"></strong></small>
+        <div class="card-footer text-muted custom_card_footer_bg_color" style="padding-right: 0.1rem !important; border: 0 !important;">
+            <div  class="d-flex bd-highlight mb-3" style="font-size: 0.8rem">
+                <small class="mr-auto">le : <strong id="card-createdAt-#id#"></strong>  par <strong id="card-user-#id#"></strong> dans <strong id="card-category-#id#"></strong> </small>
                 <button id="card-TagsBtn-#id#" class="btn btn-secondary btn-sm dropdown-toggle p-2 bd-highlight" style="margin-top: 4px;" type="button" data-toggle="collapse" data-target="#collapseTags-#id#" aria-expanded="false" aria-controls="collapseExample">Tags</button>
                 <a id="card-popover-#id#" tabindex="0" class="p-2 bd-highlight" role="button" data-toggle="popover" data-placement="bottom"><img src="{{ asset('images/ellipsis-16.svg')}}"></a>
             </div>
@@ -27,9 +25,7 @@
 
 
         </div>
-        <div class="card-footer text-muted">
-            <small class="float-right">Créé le : <strong id="card-createdAt-#id#"></strong>  par <strong id="card-user-#id#"></strong></small>
-        </div>
+
     </div>
 
 

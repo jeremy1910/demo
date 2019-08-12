@@ -1,0 +1,59 @@
+
+
+<div id="card-{{ loop.index-1 }}" class=" col-sm-4 mt-4">
+
+    <div class="card custom-card-centered custom_card_index_hover_effet" style="margin-bottom: 5px; margin-top: 5px;">
+
+        <img id="card-img-{{ loop.index-1 }}" src="{{ asset('images') }}/{{ article.image.fileName }}" class="card-img-top custom_card_img_size" alt="...">
+        <div  class="card-body custom_card_body_size" style="position: relative">
+            <h5 id="card-title-{{ loop.index-1 }}" class="card-title custom_card_title_index">{{ article.title }}</h5>
+
+            <hr>
+            <p id="card-description-{{ loop.index-1 }}" class="card-text custom_card_text_index">{{ article.description }}</p>
+
+            <div class="btn-group" style="position: absolute; bottom: 10px; right: 0; left: 0; font-size: 0.8em">
+                <a id="btn-show-{{ loop.index-1 }}" href="{{ path('show_article', {'id': article.id})}}" class="btn btn-success"><img src="{{ asset('images/eye-glyph-16.svg')}}"><br> Voir </a>
+                {% if is_granted('ARTICLE_EDIT', article) %}
+                    <a id="btn-edit-{{ loop.index-1 }}" href="{{ path('edit_article', {'id': article.id})}}" class="btn btn-success"><img src="{{ asset('images/pencil-glyph-16.svg')}}"><br> Editer </a>
+                {% endif %}
+                {% if is_granted('ARTICLE_EDIT', article) %}
+
+                    <a id="btn-delete-{{ loop.index-1 }}" href="/delete/{{article.id}}"  class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete"><img src="{{ asset('/images/bin-glyph-16.svg')}}"><br> Supprimer </a>
+
+                {%  endif %}
+
+
+                <a  id="btn-info-{{ loop.index-1 }}" href="#"   role="button" data-html="true" class="btn btn-primary popover-test js-popover-article float-right" data-toggle="popover" title="{{ article.title }}" data-content="<img src='{{ asset('images') }}/{{ article.image.fileName }}' class='card-img-top'> <hr> {{ article.description }}."><img src="{{ asset('images/widget-glyph-16.svg')}}"><br> Aperçus</a>
+            </div>
+
+        </div>
+
+        <div class="card-footer text-muted">
+            <small>Catégorie : <strong id="card-category-{{ loop.index-1 }}">{{ article.numCategory.libele }}</strong></small><br>
+            <p>
+
+                <button class="btn btn-secondary btn-sm dropdown-toggle" style="margin-top: 4px;"{% if article.tags[0] is not defined %} disabled="disabled"  {% endif %} type="button" data-toggle="collapse" data-target="#collapseTags-{{ loop.index-1 }}" aria-expanded="false" aria-controls="collapseExample">
+                    Tags
+
+                </button>
+            </p>
+            <div class="collapse" style="overflow-x: hidden" id="collapseTags-{{ loop.index-1 }}">
+
+
+                {% for tag in article.tags %}
+                    <span class="badge badge-dark">{{ tag.tagName }}</span>
+                {% endfor %}
+
+            </div>
+
+
+
+        </div>
+        <div class="card-footer text-muted">
+            <small class="float-right">Créé le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small>
+        </div>
+    </div>
+</div>
+
+
+

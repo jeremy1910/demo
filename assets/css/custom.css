@@ -1,14 +1,39 @@
+.card-body > a:link {
+    text-decoration: none;
+    color: dimgray;
+}
+
+.card-body > a:visited {
+    text-decoration: none;
+}
+
+.card-body > a:hover {
+    text-decoration: none;
+}
+
+.card-body > a:active {
+    text-decoration: none;
+}
+
 .custom_card_img_size
 {
     height: 200px;
 }
 .custom_card_body_size
 {
-    height: 286px;
+    height: 200px;
 }
 
 .custom-card-centered{
 
+}
+
+.custom_card_without_border{
+    border: 0 !important;
+}
+
+.custom_card_footer_bg_color{
+    background-color: #f4f4f4 !important;
 }
 
 .custom_card_text{
@@ -32,7 +57,6 @@
 .custom_card_title_index{
     font-size: 1.01em;
     font-weight: bold;
-    height: 50px;
     text-align: center;
     overflow: auto;
 

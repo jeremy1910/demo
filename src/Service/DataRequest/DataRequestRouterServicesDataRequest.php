@@ -15,6 +15,7 @@ use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class DataRequestRouterServicesDataRequest
 {
@@ -22,11 +23,13 @@ class DataRequestRouterServicesDataRequest
     protected $target;
     protected $option;
     protected $em;
+    protected $security;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, Security $security)
     {
 
         $this->em = $em;
+        $this->security = $security;
     }
 
     public function getRoute(Request $request, string $type){
@@ -54,7 +57,7 @@ class DataRequestRouterServicesDataRequest
                     return new DataRequestUserService($this->em, $this->target, $this->option, User::class);
                     break;
                 case 'article':
-                    return new DataRequestArticleService($this->em, $this->target, $this->option, Article::class);
+                    return new DataRequestArticleService($this->em, $this->target, $this->option, Article::class, $this->security);
                     break;
                 case 'category':
                     return new DataRequestCategoryService($this->em, $this->target, $this->option, Category::class);

@@ -9,6 +9,7 @@ use App\Form\ArticleFilterNameType;
 use App\Service\ArticleFilterHandler;
 use App\Service\ImageArticleHandler;
 use App\Service\ImageProcessingHandler;
+use App\Service\session\flashMessage\flashMessage;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,14 +36,15 @@ class ArticleController extends AbstractController
      * @var ObjectManager
      */
     private $em;
-
-
+    private $flashMessage;
     private $entityManager;
 
-    public function __construct(ObjectManager $em, EntityManagerInterface $entityManager)
+    public function __construct(ObjectManager $em, EntityManagerInterface $entityManager, flashMessage $flashMessage)
     {
         $this->em = $em;
         $this->entityManager = $entityManager;
+        $this->flashMessage = $flashMessage;
+
     }
 
     /**
@@ -84,13 +86,13 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_article")
+     * @Route("/article/edit/{id}", name="edit_article")
      */
 
     public function editArticle(Article $article, Request $request, ImageArticleHandler $imageArticleHandler, ImageProcessingHandler $resizer)
     {
 
-        if($this->isGranted('EDIT', $article)) {
+        if($this->isGranted('ARTICLE_EDIT', $article)) {
             $form = $this->createForm(FormArticleType::class, $article);
 
             $form->handleRequest($request);
@@ -101,7 +103,6 @@ class ArticleController extends AbstractController
                 if ($image->getImageFile() !== null) {
 
                     $imageArticleHandler->save($image, $this->getParameter('kernel.project_dir') . "/public/images");
-
 
                     $resizer->resize($this->getParameter('kernel.project_dir') . "/public/images/" . $image->getFileName());
                 }
@@ -164,7 +165,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/filter", name="articleFilter")
      */
-    public function filter(Request  $request){
+    public function filter(Request $request){
         $articleFilter = new Article\Filter\ArticleFilter();
         $form = $this->createForm(ArticleFilterType::class, $articleFilter);
 
@@ -187,14 +188,9 @@ class ArticleController extends AbstractController
      * @Route("/delete/{id}", name="delete_article")
      */
     public function deleteArticle(Article $article){
-        if($this->isGranted('DELETE', $article)) {
-            $this->denyAccessUnlessGranted('DELETE', $article);
+        if($this->isGranted('ARTICLE_DELETE', $article)) {
             $this->em->remove($article);
             $this->em->flush();
-
-
-            //return $this->redirectToRoute('getResult');
-            return new JsonResponse('OK');
         }
 
     }
@@ -222,29 +218,17 @@ class ArticleController extends AbstractController
                 return new JsonResponse([false, $flashMessage]);
             }
 
-            if ($this->isGranted('DELETE', $article)) {
+            if ($this->isGranted('ARTICLE_DELETE', $article)) {
                 try {
-
-
                     $this->deleteArticle($article);
-                    $this->addFlash(
-                        'notice',
-                        'Categorie suprimmée !'
-                    );
-                    $flashMessage = $this->get('session')->getFlashBag()->all();
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Article supprimé avec succès');
+                    return new JsonResponse([false, $flashMessage]);
 
-                    return new JsonResponse([true, $flashMessage]);
                 }catch (\Exception $e){
                     return new JsonResponse($e->getMessage());
                 }
             } else {
-
-                $this->addFlash(
-                    'notice',
-                    "Suppression impossible ! Vous n'avaez pas les autoristaions necessaires"
-                );
-                $flashMessage = $this->get('session')->getFlashBag()->all();
-
+                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Vous n\'avaez pas les autoristaions necessaires');
                 return new JsonResponse([false, $flashMessage]);
             }
 
@@ -268,22 +252,22 @@ class ArticleController extends AbstractController
     public function listArticle(Request $request, ArticleFilterHandler $articleFilterHandler)
     {
 
-        $cat = new Filter();
-        $form = $this->createForm(ArticleFilterNameType::class, $cat);
+        $formArticle = $this->createForm(ArticleFilterType::class, null, array(
+            'action' => $this->generateUrl("articleFilter")));
 
-
-
-        $numberPages = $articleFilterHandler->setFilter(null)->getNumberPage();
-        $articles = $articleFilterHandler->getResult();
-        dump($articles);
 
         return $this->render('article/listArticles.html.twig', [
-            'numberPages' => $numberPages,
-            'pageActive' => 1,
-            'articles' => $articles,
-            'form' => $form->createView(),
+            'formArticle' => $formArticle->createView(),
             ]);
 
+    }
+
+
+    /**
+     * @Route("article/getCard", name="getCard")
+     */
+    public function getArticleCardTemplate(){
+        return $this->render('article/articleCardTemplate.html.twig');
     }
 
 

@@ -60,6 +60,7 @@ class Test_DataRequestRouterServiceController extends AbstractController
 
 
             $jsonContent = $serializer->serialize($response, 'json', SerializationContext::create()->enableMaxDepthChecks());
+
         }
         else{
 

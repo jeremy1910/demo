@@ -22,8 +22,8 @@ abstract class DataRequestClassService
     protected $permitedOptions;
     protected $validedOptions;
     protected $entity;
-    private $offset = NULL;
-    private $maxResult = NULL;
+    protected $offset = NULL;
+    protected $maxResult = NULL;
 
 
     public function __construct(EntityManagerInterface $em, $target, $option, $entity)
@@ -61,7 +61,6 @@ abstract class DataRequestClassService
         $nbElement = $repository->findByCondition($this->validedOptions, null, null, TRUE);
 
         $result['result'] = $repository->findByCondition($this->validedOptions, $this->maxResult, ($this->offset-1)*$this->maxResult);
-
 
         $nbPage = (int) ceil($nbElement[0]['1'] / $this->maxResult);
         $result['nbPage'] = $nbPage;

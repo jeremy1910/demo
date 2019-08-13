@@ -33,6 +33,15 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
+    public function find5lastArticles()
+    {
+        return $this->createQueryBuilder('a')
+            ->setMaxResults(5)
+            ->orderBy('a.created_at', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findNumberOfArticles(array $conditions = [])
     {
 

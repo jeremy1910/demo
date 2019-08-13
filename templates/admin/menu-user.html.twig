@@ -1,0 +1,67 @@
+{# @var formUser \App\Entity\User\Filter\UserFilter #}
+{# @var formUserAdd \App\Form\User\Add\UserAddType #}
+{{ form_start(formUser) }}
+<div class="row">
+
+    <div class="col-6">
+        {{ form_row(formUser.id) }}
+        {{form_row(formUser.enable) }}
+        {{form_row(formUser.adresseMail) }}
+
+
+        <div id="divAddNewCategory" class="row">
+            <div class="col-10">
+                <div class="form-group">
+                    <button id="addUserButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModel">
+                        Ajouter un utilisateur
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-6">
+        {{form_row(formUser.username) }}
+        {{form_row(formUser.roles) }}
+        {{form_row(formUser.submit) }}
+    </div>
+</div>
+
+
+{{ form_end(formUser) }}
+
+<div class="table-responsive mt-4">
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <tr id="title-lines">
+            <th scope="col">ID</th>
+            <th scope="col">Nom d'utilisateur</th>
+            <th scope="col">Role</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody id="table-body-user">
+
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-10">
+        <div id="pagination-user" style="width: min-content ; margin: auto;"></div>
+    </div>
+    <div class="col-2">
+        <select id="selecter-user">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+        </select>
+    </div>
+</div>
+
+
+<div id="modal_edt_user"></div>
+

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticleRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,7 +26,8 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        $articles = $this->repository->find10lastArticles();
+        $articles = $this->repository->find5lastArticles();
+
 
         return $this->render('index/index.html.twig', [
             'articles' => $articles,

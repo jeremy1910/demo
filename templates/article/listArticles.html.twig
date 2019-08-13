@@ -6,138 +6,68 @@
 {% endblock %}
 
 {%  block body %}
-
-
-    <div class="jumbotron mt-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="jumbotron mt-4 w-100">
         <div class="container">
-            {{ form_start(form) }}
-            <div class="form-row">
-                <div class="col">
-                    {{ form_row(form.category)}}
+                <button class="navbar-toggler mb-2" type="button" data-toggle="collapse" data-target="#form_filters" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="form_filters">
+            {{ form_start(formArticle, {'attr': {'style':'width : 100%'}}) }}
+            <div class="row">
+
+                <div class="col-md-4 col-sm-12">
+                    {{ form_row(formArticle.title) }}
+                    {{ form_row(formArticle.user) }}
+
                 </div>
-                <div class="col">
-                    {{ form_row(form.recherche) }}
+                <div class="col-md-4 col-sm-12">
+                    {{  form_row(formArticle.numCategory) }}
+                    {{ form_row(formArticle.tags) }}
+                    <div id="tagsList"></div>
                 </div>
+                <div class="col-md-4 col-sm-12">
+                    {{ form_row(formArticle.createdAtAfter) }}
+                    {{  form_row(formArticle.createdAtBefore) }}
+                    <div class="d-flex flex-sm-column flex-md-row justify-content-md-around align-items-sm-center">
+                    {{  form_row(formArticle.submit, {'attr': {'class' : 'btn-outline-success'}}) }}
+                        <div class="form-group">
+                         <a role="button" class="btn btn-outline-secondary" href="{{ path('create_article') }}">Ajouter un artcile</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <button id="searchButton" class="btn btn-primary"><img src="{{ asset('images/zoom-glyph-16.svg')}}">  Rechercher</button>
-            <button id="searchButtonLoading" class="btn btn-primary" style="display: none" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
-            </button>
-
-            {{ form_end(form) }}
-        </div>
+            {{ form_row(formArticle.nbResult) }}
+            {{ form_row(formArticle.pageSelected) }}
+            {{ form_row(formArticle._token) }}
+            {{ form_end(formArticle, {'render_rest': false}) }}
+                </div>
     </div>
-    <div class="div" style="background-image: url('https://programmingpot.com/wp-content/themes/programmingpot/style/img/flutter.png'); background-repeat: repeat-y;">
-        <div class="container">
+    </div>
+    </nav>
+    <div class="container">
             <div id="card-parent" class="row">
-                {% for article in articles %}
-                    <div id="card-{{ loop.index-1 }}" class=" col-sm-4 mt-4">
-
-                        <div class="card custom-card-centered custom_card_index_hover_effet" style="margin-bottom: 5px; margin-top: 5px;">
-
-                            <img id="card-img-{{ loop.index-1 }}" src="{{ asset('images') }}/{{ article.image.fileName }}" class="card-img-top custom_card_img_size" alt="...">
-                            <div  class="card-body custom_card_body_size" style="position: relative">
-                                <h5 id="card-title-{{ loop.index-1 }}" class="card-title custom_card_title_index">{{ article.title }}</h5>
-
-                                <hr>
-                                <p id="card-description-{{ loop.index-1 }}" class="card-text custom_card_text_index">{{ article.description }}</p>
-
-                                <div class="btn-group" style="position: absolute; bottom: 10px; right: 0; left: 0; font-size: 0.8em">
-                                    <a id="btn-show-{{ loop.index-1 }}" href="{{ path('show_article', {'id': article.id})}}" class="btn btn-success"><img src="{{ asset('images/eye-glyph-16.svg')}}"><br> Voir </a>
-                                    {% if is_granted('EDIT', article) %}
-                                        <a id="btn-edit-{{ loop.index-1 }}" href="{{ path('edit_article', {'id': article.id})}}" class="btn btn-success"><img src="{{ asset('images/pencil-glyph-16.svg')}}"><br> Editer </a>
-                                    {% endif %}
-                                    {% if is_granted('EDIT', article) %}
-                                        <a id="btn-delete-{{ loop.index-1 }}" href="/delete/{{article.id}}"  class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete"><img src="{{ asset('/images/bin-glyph-16.svg')}}"><br> Supprimer </a>
-                                    {%  endif %}
-                                    <a  id="btn-info-{{ loop.index-1 }}" href="#"   role="button" data-html="true" class="btn btn-primary popover-test js-popover-article float-right" data-toggle="popover" title="{{ article.title }}" data-content="<img src='{{ asset('images') }}/{{ article.image.fileName }}' class='card-img-top'> <hr> {{ article.description }}."><img src="{{ asset('images/widget-glyph-16.svg')}}"><br> Aperçus</a>
-                                </div>
-                            </div>
-
-                            <div class="card-footer text-muted">
-                                <small>Catégorie : <strong id="card-category-{{ loop.index-1 }}">{{ article.numCategory.libele }}</strong></small><br>
-                                <p>
-                                    <button class="btn btn-secondary btn-sm dropdown-toggle" style="margin-top: 4px;"{% if article.tags[0] is not defined %} disabled="disabled"  {% endif %} type="button" data-toggle="collapse" data-target="#collapseTags-{{ loop.index-1 }}" aria-expanded="false" aria-controls="collapseExample">
-                                        Tags
-                                    </button>
-                                </p>
-                                <div class="collapse" style="overflow-x: hidden" id="collapseTags-{{ loop.index-1 }}">
-
-
-                                    {% for tag in article.tags %}
-                                        <span class="badge badge-dark">{{ tag.tagName }}</span>
-                                    {% endfor %}
-
-                                </div>
-
-
-
-                            </div>
-                            <div class="card-footer text-muted">
-                                <small class="float-right">Créé le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endfor %}
             </div>
         </div>
 
-
-        <!--<div class="container ">
-        <div class="row justify-content-around">
-        {% for article in articles %}
-            <div id="card-{{ loop.index-1 }}" class="card card_custom_1 custom_card_list_hover_effet col-12" >
-                <div  id="card-category-{{ loop.index-1 }}" class="card-header" style="background-color: rgba(228, 228, 228, 0.72);">
-                    <strong>{{ article.numCategory.libele }}</strong>
-                    <span class="float-right blockquote-footer"> {% if article.user.username is defined %} Auteur : {{ article.user.username }} {%  endif %}</span>
-                </div>
-                <div class="card-body">
-                    <h4 id="card-title-{{ loop.index-1 }}" class="card-title text-center custom_card_title">{{ article.title }}</h4>
-
-                    <hr>
-                    <div class="row">
-                        <div class="col-10">
-                            <p id="card-description-{{ loop.index-1 }}" class="card-text custom_card_text">{{ article.description }}</p>
-                        </div>
-                        <div class="col-2">
-                            {% if article.tags[0] is defined %}
-                                <span class="badge badge-dark">{{ article.tags[0].tagName }}</span>
-                            {%  endif %}
-                        </div>
-                    </div>
-                    <hr>
-
-                        <a id="btn-show-{{ loop.index-1 }}" href="{{ path('show_article', {'id': article.id})}}" class="btn btn-success"> Voir </a>
-                        {% if is_granted('EDIT', article) %}
-                            <a id="btn-edit-{{ loop.index-1 }}" href="{{ path('edit_article', {'id': article.id})}}" class="btn btn-success"> Editer </a>
-                        {% endif %}
-                        {% if is_granted('EDIT', article) %}
-                            <a id="btn-delete-{{ loop.index-1 }}" href="/delete/{{article.id}}"  class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">  Supprimer </a>
-                        {%  endif %}
-                        <a  id="btn-info-{{ loop.index-1 }}" href="#"   role="button" data-html="true" class="btn btn-primary popover-test js-popover-article float-right" data-toggle="popover" title="{{ article.title }}" data-content="<img src='{{ asset('images') }}/{{ article.image.fileName }}' class='card-img-top'> <hr> {{ article.description }}.">Aperçus</a>
-
-                </div>
-            </div>
-
-        {% endfor %}
-        </div>
-    </div>-->
     </div>
 
     <div class="jumbotron">
-        <nav aria-label="Page navigation example">
-            <ul id="pagination" class="pagination" style="justify-content: center">
-                <li class="page-item"><a class="page-link" href="{{ path('getResult') }}?page={{ pageActive - 1 }}">Previous</a></li>
-                {% for i in 1 .. numberPages %}
-                    <li class="page-item {% if pageActive == loop.index %} active {% endif %}"> <a class="page-link" href={{ path('getResult') }}?page={{ loop.index }}>{{ loop.index }}</a></li>
-                {% endfor %}
-                <li class="page-item"><a class="page-link" href="{{ path('getResult') }}?page={{ pageActive + 1 }}">Next</a></li>
-            </ul>
-        </nav>
-    </div>
+        <div class="row">
+            <div class="col-10">
+                <div id="pagination-article" style="width: min-content ; margin: auto;"></div>
+            </div>
+            <div class="col-2">
+                <select id="selecter-article">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                </select>
+            </div>
+        </div>
     </div>
 
 
@@ -147,6 +77,6 @@
 {% block javascripts %}
 
     {{ parent() }}
-    <script src="{{ asset('listArticle.js') }}"></script>
+    {{ encore_entry_script_tags('listArticle') }}
 
 {% endblock %}

@@ -263,7 +263,6 @@ function eventLauncheModal(e) {
 function eventSuppr(e) {
     e.preventDefault();
 
-    console.log("suppreion de : " + hrefArtcileToDelete)
 
     let xhr = new XMLHttpRequest()
 

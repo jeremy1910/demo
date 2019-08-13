@@ -9,12 +9,15 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
@@ -53,6 +56,7 @@ class FormArticleType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'libele',
                 'label' => 'Catégorie',
+    //            'attr' => ['class' => 'selectpicker'],
 
             ])
             ->add('tags', CollectionType::class, [
@@ -67,8 +71,24 @@ class FormArticleType extends AbstractType
 
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();
+                if (!$data) {
+                    return;
+                }
+                // Do nothing if the category with the given ID exists
+                if ($this->em->getRepository(Category::class)->find($data['num_category'])) {
+                    return;
+                }
 
+                // Create the new category
+                $category = new Category();
+                $category->setLibele($data['num_category']);
+                $this->em->persist($category);
+                $this->em->flush();
 
+                $data['num_category'] = $category->getId();
+                $event->setData($data);
+                /*
+                dd($event);
                 if (!$data) {
                     return;
                 }
@@ -94,7 +114,7 @@ class FormArticleType extends AbstractType
                     $data['num_category'] = $category->getId();
                     $event->setData($data);
                 }
-
+            */
             });
         ;
     }
@@ -106,5 +126,14 @@ class FormArticleType extends AbstractType
         ]);
     }
 
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
 
+        $choices = $view->vars['form']->children['num_category']->vars['choices'];
+
+        $choices[] = new ChoiceView([], 'add', 'Ajouter une catégorie');
+        $view->vars['form']->children['num_category']->vars['choices'] = $choices;
+
+
+    }
 }

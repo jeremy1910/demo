@@ -16,6 +16,7 @@ use JMS\Serializer\Annotation as Serializer;
 use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -29,10 +30,10 @@ class Article
     {
         $this->created_at = new \DateTime();
         $this->tags = new ArrayCollection();
-
+        //$this->security = $security;
     }
 
-
+    //private $security;
 
     /**
      * @ORM\Id()
@@ -89,12 +90,15 @@ class Article
      */
     private $user;
 
+
+
     /**
      * @return User
      */
     public function getUser()
     {
         return $this->user;
+
     }
 
 
@@ -248,5 +252,6 @@ class Article
 
 
     }
+
 
 }

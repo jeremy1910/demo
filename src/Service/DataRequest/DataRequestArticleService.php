@@ -10,10 +10,20 @@ namespace App\Service\DataRequest;
 
 
 use App\Entity\Article;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class DataRequestArticleService extends DataRequestClassService
 {
 
+
+    public function __construct(EntityManagerInterface $em, $target, $option, $entity, Security $security)
+    {
+        parent::__construct($em, $target, $option, $entity);
+        $this->security = $security;
+
+    }
+    private $security;
     protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after', 'nbResult', 'pageSelected'];
 
     public function setFilter()
@@ -72,6 +82,26 @@ class DataRequestArticleService extends DataRequestClassService
 
     }
 
+    public function getResult(){
+        $repository = $this->em->getRepository($this->entity);
+
+        $nbElement = $repository->findByCondition($this->validedOptions, null, null, TRUE);
+
+        $result['result'] = $repository->findByCondition($this->validedOptions, $this->maxResult, ($this->offset-1)*$this->maxResult);
+        /**
+         * @var $article Article
+         */
+        foreach($result['result'] as $article){
+            $result['canEdit'][$article->getId()] = $this->security->isGranted('ARTICLE_EDIT', $article);
+            $result['canDelete'][$article->getId()] = $this->security->isGranted('ARTICLE_DELETE', $article);
+
+        }
+
+        $nbPage = (int) ceil($nbElement[0]['1'] / $this->maxResult);
+        $result['nbPage'] = $nbPage;
+
+        return $result;
+    }
 
 
 }

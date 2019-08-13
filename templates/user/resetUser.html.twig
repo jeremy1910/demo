@@ -1,0 +1,25 @@
+<!-- Modal réinitialisation mot de passe d'un utilisateur -->
+<div class="modal fade" id="resetUserModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUserModelLabel">Réinitilisation mot de passe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{ form_start(formUserAdd) }}
+            <div class="modal-body">
+                {{form_row(formUserAdd.password) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                {{form_row(formUserAdd.submit, {'label': 'Réinitialiser'}) }}
+                {{form_row(formUserAdd._token)}}
+
+
+            </div>
+            {{ form_end(formUserAdd, {'render_rest': false})}}
+        </div>
+    </div>
+</div>

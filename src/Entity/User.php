@@ -7,9 +7,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("username", message="Ce nom d'utilisateur existe déjà, merci d'en choisir un autre.")
+ *
  */
 class User implements UserInterface
 {
@@ -21,29 +25,37 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=254, unique=true)
+     * @Assert\NotBlank(message="Veuillez entrer un nom d'utilisateur")
+     * @Assert\Length(min="6", minMessage="Le nom d'utilisateur doit comporter au moins 6 caractères.", max="254", maxMessage="Le nom d'utilsateur doit comporter moins de 254 caractères")
      */
     private $username;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\ManyToMany(targetEntity="\App\Entity\Roles", inversedBy="users", cascade={"persist"})
+     *
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Serializer\Exclude()
+     * @Assert\NotBlank(message="New password can not be blank.")
+     * @Assert\Regex(pattern="/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", message="New password is required to be minimum 6 chars in length and to include at least one letter and one number.")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=false)
+     * @Assert\NotNull(message="Vous devez selectionner un choix.")
      */
     private $enable;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="L'adresse mail n'est pas valide.")
+     * @Assert\NotBlank(message="Veuillez entrer une adresse mail")
      */
     private $adresseMail;
 
@@ -53,8 +65,22 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     */
+    private $lastName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez entrer un prénom")
+     */
+    private $firstName;
+
+
     public function __construct() {
         $this->articles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
     }
 
     /**
@@ -131,31 +157,59 @@ class User implements UserInterface
         return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    /**
+     * @param $username string|null
+     * @return User
+     */
+    public function setUsername($username): self
     {
         $this->username = $username;
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+    public function getRoles()
+    {
+
+        $roles = $this->roles->toArray();
+        foreach ($roles as $key => $role)
+        {
+            /**
+             * @var $role Roles
+             */
+            $roles[$key] = $role->getRoleName();
+        }
+
+            $roles[] = "ROLE_USER";
+
+
+        return $roles;
+
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles($roles): self
     {
-        $this->roles = $roles;
+        $rolesArray = new ArrayCollection();
+        $rolesArray->add($roles);
+        $this->roles = $rolesArray;
 
         return $this;
     }
+
+
+
+    public function addRoles(Roles $role)
+    {
+        if (!$this->roles->contains($role))
+        {
+            $this->roles[] = $role;
+            $role->addUsers($this);
+
+        }
+        return $this;
+    }
+
 
     /**
      * @see UserInterface
@@ -165,7 +219,7 @@ class User implements UserInterface
         return (string) $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -188,6 +242,31 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName( $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName( $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
 
 
 

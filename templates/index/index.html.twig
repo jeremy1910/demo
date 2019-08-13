@@ -40,10 +40,10 @@
                 <div class="row">
                 {% for article in articles %}
                     <div class="col-12">
-                        <div class="card mb-3 mb-md-5 custom_shadow">
+                        <div class="card mb-3 mb-md-5 custom_shadow ">
                             <div class="row no-gutters" style="margin-left: -15px;">
-                                <div class="col-md-4" style="z-index: 2;">
-                                    <img src="{{ asset('images') }}/{{ article.image.fileName }}" style="margin-top: 10px;" class="card-img shadow-lg custom_card_img_size_index" alt="...">
+                                <div class="col-md-4 revealX" style="z-index: 2;">
+                                    <img src="{{ asset('images') }}/{{ article.image.fileName }}" style="margin-top: 10px;" class="card-img shadow-lg custom_card_img_size_index " alt="...">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body d-flex flex-column" style="height: 276px; padding-left: 0; padding-right: 0; padding-top: 0;">
@@ -72,26 +72,11 @@
 
         {%  endif %}
 
-        <div class="card mb-3 custom_shadow">
-            <div class="row no-gutters">
-                <div class="col-md-4" style="z-index: 2;">
-                    <img src="{{ asset('images/1.jpg') }}" class="card-img custom_shadow custom_card_img_size_index" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body d-flex flex-column" style="height: 276px; padding-left: 0; padding-right: 0; padding-top: 0;">
-                        <h5 class="bg-light text-dark card-title font-weight-bold text-center pt-md-1 pt-4" style="padding-bottom: 2%; padding-top: 2%;: ">Card title</h5>
-                        <p class="card-text Light weight text custom_card_text_index pl-4 pr-2" style="flex-basis: 100%;">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text border-top d-flex pl-4" style="padding-top: 10px;" ><small class="text-muted align-self-end">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 {% endblock %}
 {% block javascripts %}
 
     {{ parent() }}
-
+    {{ encore_entry_script_tags('index') }}
 {% endblock %}

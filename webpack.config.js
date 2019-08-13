@@ -25,6 +25,7 @@ Encore
     .addEntry('AdminDashboard-menu-user', './assets/js/AdminDashboard/AdminDashboard-menu-user.js')
     .addEntry('article', './assets/js/Article/article.js')
     .addEntry('listArticle', './assets/js/Article/listArticle.js')
+    .addEntry('index', './assets/js/index.js')
 
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')

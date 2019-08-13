@@ -69,12 +69,16 @@ $(document).ready(function () {
                 $.each(result.result, function (i, item) {
                     let cardTemplate = data.replace(regex, item.id);
                     $(cardTemplate).appendTo('#card-parent');
+                    //$('#card-' + item.id).addClass('revealX-visible');
                     customizeCard(item, result.canEdit, result.canDelete);
+
                 });
 
 
             });
 
+
+        /*
         $('.js-search-by-badge').each(function () {
             $(this).click(function () {
                 $('#inputsTagHiden').children().remove();
@@ -99,7 +103,7 @@ $(document).ready(function () {
                 menuArticleSendAjaxFormFilter();
             })
         });
-
+        */
 
         displayPagination(result.nbPage, pageActive, function (e) {
             e.preventDefault();
@@ -180,7 +184,10 @@ $(document).ready(function () {
 
             });
 
-        })
+        });
+
+        //$('#card-' + article.id).removeClass('revealX');
+        //$('#card-' + article.id).addClass('revealX-visible');
     }
 
     menuArticleSendAjaxFormFilter();

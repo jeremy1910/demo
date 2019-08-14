@@ -1,8 +1,13 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-select/sass/bootstrap-select.scss";
 @import "../../public/library/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css";
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Varela&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 body{
   color: #534d4d;
  /** background-color: #f9f9f9; **/
+  font-family: 'Montserrat', sans-serif !important;
+
 }

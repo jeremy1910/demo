@@ -138,14 +138,25 @@ $(document).ready(function () {
 
         $('<tr><th>'+ item.id +'</th>' +
             '<td>'+item.title+'</td>' +
-            '<td>'+ (item.num_category != undefined ? '<a class="badge badge-info js-menuArticle-badge-category" style="width: 100%;" href="'+ item.num_category.id +'">' + item.num_category.libele +'</a>': '')  +'</td>' +
-            '<td>'+ (item.user != undefined ? '<span class="badge badge-secondary js-menuArticle-badge-user" style="width: 100%;">' +item.user.username +'</span>': '') +'</td>' +
-            '<td>'+ createdDate +'</td>' +
-            '<td>'+ editDate +'</td>' +
-            '<td>'+ (item.description != undefined ? item.description : '') +'</td>'+
-            '<td>'+ tagHtml +'</td>' +
-            '<td><div class="btn-group"> <a href="/edit/'+ item.id +'" class="btn btn-secondary" role="link" >Editer</a><a href="/show/'+ item.id +'" class="btn btn-success">Voir</a><a href="/rmArticleA?id='+ item.id +'" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
-            '</tr>').appendTo($t).hide().fadeIn(500);
+            '<td class="d-none d-md-table-cell">'+ (item.num_category != undefined ? '<a class="badge badge-info js-menuArticle-badge-category" style="width: 100%;" href="'+ item.num_category.id +'">' + item.num_category.libele +'</a>': '')  +'</td>' +
+            '<td class="d-none d-md-table-cell">'+ (item.user != undefined ? '<span class="badge badge-secondary js-menuArticle-badge-user" style="width: 100%;">' +item.user.username +'</span>': '') +'</td>' +
+            '<td class="d-none d-md-table-cell">'+ createdDate +'</td>' +
+            '<td class="d-none d-md-table-cell">'+ editDate +'</td>' +
+            '<td class="d-none d-md-table-cell">'+ (item.description != undefined ? item.description : '') +'</td>'+
+            '<td class="d-none d-md-table-cell">'+ tagHtml +'</td>' +
+            '<td class="d-none d-md-table-cell"><div class="btn-group"> <a href="/edit/'+ item.id +'" class="btn btn-secondary" role="link" >Editer</a><a href="/show/'+ item.id +'" class="btn btn-success">Voir</a><a href="/rmArticleA?id='+ item.id +'" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
+            '<td class="d-md-none">' +
+            '                    <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +
+            '                        <span class="navbar-toggler-icon"></span>' +
+            '                    </button>' +
+            '</td>'+
+            '</tr>'+
+            '<tr class="d-md-none">'+
+            '<td id="lineTargetCollapse-'+ item.id +'" colspan="4" class="collapse hide"><div class="btn-group"> <a href="/edit/'+ item.id +'" class="btn btn-secondary" role="link" >Editer</a><a href="/show/'+ item.id +'" class="btn btn-success">Voir</a><a href="/rmArticleA?id='+ item.id +'" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
+            '</tr>'
+
+
+        ).appendTo($t).hide().fadeIn(500);
     }
 
 });

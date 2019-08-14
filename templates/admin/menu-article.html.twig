@@ -1,40 +1,43 @@
 {# @var formArticle \App\Entity\Article\Filter\ArticleFilter #}
 {{ form_start(formArticle) }}
+
 <div class="row">
-
-    <div class="col-sm-12 col-md-4">
-        {{ form_row(formArticle.title) }}
-        {{ form_row(formArticle.user) }}
-        <a class="btn btn-primary float-left" href="{{ path('create_article') }}">Ajouter un artcile</a>
-    </div>
-    <div class="col-sm-offset-0 col-sm-12 col-md-4">
-        {{  form_row(formArticle.numCategory) }}
-        {{ form_row(formArticle.tags) }}
-        <div id="tagsList"></div>
-    </div>
-    <div class="col-md-4">
-        {{ form_row(formArticle.createdAtAfter) }}
-        {{  form_row(formArticle.createdAtBefore) }}
-        {{  form_row(formArticle.submit) }}
-    </div>
-
+    <div class="col-md-4">{{ form_row(formArticle.title) }}</div>
+    <div class="col-md-4">{{  form_row(formArticle.numCategory) }}</div>
+    <div class="col-md-4">{{ form_row(formArticle.createdAtAfter) }}</div>
 </div>
+<div class="row">
+    <div class="col-md-4">{{ form_row(formArticle.user) }}</div>
+    <div class="col-md-4">{{ form_row(formArticle.tags) }}<div id="tagsList"></div></div>
+    <div class="col-md-4">{{  form_row(formArticle.createdAtBefore) }}</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-2 mb-md-0"><a class="btn btn-outline-primary w-100 float-left" href="{{ path('create_article') }}">Ajouter un article</a></div>
+    <div class="offset-md-7 col-md-2 ">{{  form_row(formArticle.submit, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}</div>
+</div>
+
+
+
+
 {{ form_row(formArticle.nbResult) }}
 {{ form_row(formArticle.pageSelected) }}
 {{ form_row(formArticle._token) }}
 {{ form_end(formArticle, {'render_rest': false}) }}
-<div class="table-responsive mt-4">
+
+
+<div class="table-responsive mt-5">
     <table class="table table-hover">
         <thead class="table-dark" style="background-color: #343a40;">
         <tr id="title-lines">
             <th scope="col">ID</th>
             <th scope="col">Titre</th>
-            <th scope="col">Category</th>
-            <th scope="col">Auteur</th>
-            <th scope="col">Date création</th>
-            <th scope="col">Date dernière modification</th>
-            <th scope="col">Description</th>
-            <th scope="col">Tags</th>
+            <th class="d-none d-md-table-cell" scope="col">Category</th>
+            <th class="d-none d-md-table-cell" scope="col" >Auteur</th>
+            <th class="d-none d-md-table-cell" scope="col">Date création</th>
+            <th class="d-none d-md-table-cell" scope="col">Date dernière modification</th>
+            <th class="d-none d-md-table-cell" scope="col">Description</th>
+            <th class="d-none d-md-table-cell" scope="col">Tags</th>
             <th scope="col">Action</th>
 
         </tr>

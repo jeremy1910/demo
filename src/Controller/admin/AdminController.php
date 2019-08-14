@@ -59,4 +59,12 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+     * @Route("/admin/test", name="admin_test")
+     */
+    public function admin_test(){
+
+        return $this->render('test/testTableStructure.html.twig');
+    }
+
 }

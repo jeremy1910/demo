@@ -6,6 +6,12 @@ const COL_WIDTH = 100/NB_COL;
 
 $(document).ready(function () {
 
+    $('#divAddNewTag').hide();
+
+    $('#addTagButton').click(function (e) {
+        e.preventDefault();
+        $('#divAddNewTag').slideToggle();
+    });
 
     $('#selecter-tag').selectpicker().change(function () {
         $('#tag_filter_nbResult').val('');
@@ -98,7 +104,6 @@ $(document).ready(function () {
                         });
                 });
                 $btn.appendTo($('<div class="col-2"></div></div>').appendTo($('<div class="row"><div class="col-10"><input id="inputNewTag'+ num +'" type="text" class="form-control" placeholder="'+ text +'"></div>').appendTo('#tagName'+num)));
-                //$('<a href="'+ href +'" class="btn btn-primary js-btn-valide-edit">Modifier</a>').appendTo('#categoryLibele'+num);
             })
         });
 

@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+
+    <div class="container" style="height: 100px">
+
+        <!--
+        <div class="row d-md-none">
+            <div class="col-12">
+                <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div id="navbarNavAltMarkup" class="row h-100 collapse" >
+            <div class="col-md-1 border border-dark h-100"></div>
+            <div class="col-md-2 border border-dark h-100"></div>
+            <div class="d-none col-md-2 border border-dark h-100 d-md-block"></div>
+            <div class="d-none col-md-1 border border-dark h-100 d-md-block"></div>
+            <div class="d-none col-md-1 border border-dark h-100 d-md-block"></div>
+            <div class="d-none col-md-1 border border-dark h-100 d-md-block"></div>
+            <div class="d-none col-md-1 border border-dark h-100 d-md-block"></div>
+            <div class="d-none col-md-1 border border-dark h-100 d-md-block"></div>
+            <div class="d-none col-md-2 border border-dark h-100"></div>
+
+        </div>
+
+    </div>
+-->
+        <div style="height: 100px;"></div>
+
+
+
+
+
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th class="d-none d-md-block" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td class="d-none d-md-block" ><button class="btn btn-primary">clic</button><button class="btn btn-danger">boom</button></td>
+                <td class="d-md-none">
+                    <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup-1" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </td>
+
+            </tr>
+            <tr>
+               <td id="navbarNavAltMarkup-1" colspan="4" class="collapse hide"><button class="btn btn-primary">clic</button><button class="btn btn-danger">boom</button></td>
+            </tr>
+            <tr>
+
+
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                <td class="d-none d-md-block" ><button class="btn btn-primary">clic</button><button class="btn btn-danger">boom</button></td>
+                <td class="d-md-none">
+                    <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup-2" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </td>
+
+            </tr>
+            <tr>
+                <td id="navbarNavAltMarkup-2" colspan="4" class="collapse hide"><button class="btn btn-primary">clic</button><button class="btn btn-danger">boom</button></td>
+            </tr>
+
+            <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                <td class="d-none d-md-block" ><button class="btn btn-primary">clic</button><button class="btn btn-danger">boom</button></td>
+                <td class="d-md-none">
+                    <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup-3" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </td>
+
+            </tr>
+            <tr>
+                <td id="navbarNavAltMarkup-3" colspan="4" class="collapse hide"><button class="btn btn-primary">clic</button><button class="btn btn-danger">boom</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <script>
+        $(document).ready(function () {
+
+            if ($(window).width() >= 768) {
+                $('#navbarNavAltMarkup').collapse('show');
+            }else {
+                $('#navbarNavAltMarkup').collapse('hide');
+            }
+            $(window).resize(function () {
+                if ($(this).width() < 768) {
+                    $('#navbarNavAltMarkup').collapse('hide');
+                    console.log('toto');
+                } else {
+                    $('#navbarNavAltMarkup').collapse('show');
+                    console.log('toto');
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

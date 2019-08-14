@@ -129,9 +129,20 @@ $(document).ready(function () {
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
             '<td style="width:' + COL_WIDTH + '%" id="categoryLibele' + item.id + '">' + item.libele + '</td>' +
-            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
+            '<td  class="d-none d-md-table-cell" style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
             '<a href="/rmCategoryA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
-            '</tr>').appendTo($t).hide().fadeIn(500);
+            '<td class="d-md-none">' +
+            '                    <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +
+            '                        <span class="navbar-toggler-icon"></span>' +
+            '                    </button>' +
+            '</td>'+
+            '</tr>'+
+            '<tr class="d-md-none">'+
+            ' <td id="lineTargetCollapse-'+ item.id +'" colspan="4" class="collapse hide"><div class="btn-group"><a href="/edtCategoryA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
+            '<a href="/rmCategoryA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
+            '</tr>'
+
+        ).appendTo($t).hide().fadeIn(500);
 
     }
 

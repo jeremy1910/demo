@@ -2,36 +2,40 @@
 {# @var formCategory.createCategory \App\Entity\Category#}
 {{ form_start(formCategory) }}
 
+<button class="btn border d-block d-md-none mb-3 w-100" type="button" data-toggle="collapse" data-target="#menu-category-collapse-form">
+    <span class="custom_background-btn navbar-toggler-icon"></span>Filtres
+</button>
 
-<div class="row">
-    <div class="col-sm-12 col-md-6">{{ form_row(formCategory.id) }}</div>
-    <div class="col-sm-offset-0 col-sm-12 col-md-6"> {{form_row(formCategory.libele) }}</div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-5">
-                <button id="addCategoryButton" class="btn btn-outline-primary mb-4 w-100">Ajouter une categorie</button>
+<div id="menu-category-collapse-form" class="collapse">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">{{ form_row(formCategory.id) }}</div>
+        <div class="col-sm-offset-0 col-sm-12 col-md-6"> {{form_row(formCategory.libele) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-5">
+                    <button id="addCategoryButton" class="btn btn-outline-primary mb-4 w-100">Ajouter une categorie</button>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div id="divAddNewCategory" class="col-12">
-                <div class="row">
-                    <div class="col-12">
-                        {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': false, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
-                    </div>
-                    <div class="col-md-3 offset-md-9">
-                        {{ form_row(formCategory.createCategory.submit, {'label': 'Ajouter', 'attr': {'class': 'btn btn-outline-success w-100'}}) }}
+            <div class="row">
+                <div id="divAddNewCategory" class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': false, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
+                        </div>
+                        <div class="col-md-3 offset-md-9">
+                            {{ form_row(formCategory.createCategory.submit, {'label': 'Ajouter', 'attr': {'class': 'btn btn-outline-success w-100'}}) }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-2 ml-auto">
-        {{ form_row(formCategory.search, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}
+        <div class="col-md-2 ml-auto">
+            {{ form_row(formCategory.search, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}
+        </div>
     </div>
 </div>
-
 
 {{ form_row(formCategory.nbResult) }}
 {{ form_row(formCategory.pageSelected) }}

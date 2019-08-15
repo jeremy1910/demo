@@ -1,23 +1,29 @@
 {# @var formArticle \App\Entity\Article\Filter\ArticleFilter #}
 {{ form_start(formArticle) }}
 
-<div class="row">
-    <div class="col-md-4">{{ form_row(formArticle.title) }}</div>
-    <div class="col-md-4">{{  form_row(formArticle.numCategory) }}</div>
-    <div class="col-md-4">{{ form_row(formArticle.createdAtAfter) }}</div>
-</div>
-<div class="row">
-    <div class="col-md-4">{{ form_row(formArticle.user) }}</div>
-    <div class="col-md-4">{{ form_row(formArticle.tags) }}<div id="tagsList"></div></div>
-    <div class="col-md-4">{{  form_row(formArticle.createdAtBefore) }}</div>
-</div>
+<button class="btn border d-block d-md-none mb-3 w-100" type="button" data-toggle="collapse" data-target="#menu-article-collapse-form">
+    <span class="custom_background-btn navbar-toggler-icon"></span>Filtres
+</button>
 
-<div class="row">
-    <div class="col-md-3 mb-2 mb-md-0"><a class="btn btn-outline-primary w-100 float-left" href="{{ path('create_article') }}">Ajouter un article</a></div>
-    <div class="offset-md-7 col-md-2 ">{{  form_row(formArticle.submit, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}</div>
+<div id="menu-article-collapse-form" class="collapse">
+
+    <div class="row">
+        <div class="col-md-4">{{ form_row(formArticle.title) }}</div>
+        <div class="col-md-4">{{  form_row(formArticle.numCategory) }}</div>
+        <div class="col-md-4">{{ form_row(formArticle.createdAtAfter) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(formArticle.user) }}</div>
+        <div class="col-md-4">{{ form_row(formArticle.tags) }}<div id="tagsList"></div></div>
+        <div class="col-md-4">{{  form_row(formArticle.createdAtBefore) }}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 mb-2 mb-md-0"><a class="btn btn-outline-primary w-100 float-left" href="{{ path('create_article') }}">Ajouter un article</a></div>
+        <div class="offset-md-7 col-md-2 ">{{  form_row(formArticle.submit, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}</div>
+    </div>
+
 </div>
-
-
 
 
 {{ form_row(formArticle.nbResult) }}

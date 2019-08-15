@@ -1,5 +1,5 @@
 import {eventSuppr} from "./AdminDashboard";
-import {displayFlashMessageSuccess, displayPagination} from '../globalFunctions';
+import {collapseOnWidthScreen, displayFlashMessageSuccess, displayPagination} from '../globalFunctions';
 
 const NB_COL = 3;
 const COL_WIDTH = 100/NB_COL;
@@ -44,8 +44,8 @@ $(document).ready(function () {
         }
 
     });
-    
 
+    collapseOnWidthScreen('#menu-tag-collapse-form', 768);
 
     function menuTagSendAjaxFormFilter() {
         let $form = $("form[name='tag_filter']");
@@ -131,9 +131,21 @@ $(document).ready(function () {
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
             '<td style="width:' + COL_WIDTH + '%" id="tagName' + item.id + '">' + item.tag_name + '</td>' +
-            '<td style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtTagA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-tag">Modifier le nom</a>' +
+            '<td class="d-none d-md-table-cell" style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtTagA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-tag">Modifier le nom</a>' +
             '<a href="/delTagA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-tag" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
-            '</tr>').appendTo($t).hide().fadeIn(500);
+            '<td class="d-md-none">' +
+            '                    <button class="btn " type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +
+            '                        <span class="custom_background-btn navbar-toggler-icon"></span>' +
+            '                    </button>' +
+            '</td>'+
+            '</tr>'+
+            '<tr class="d-md-none">'+
+            ' <td id="lineTargetCollapse-'+ item.id +'" colspan="4" class="collapse hide"><div class="btn-group"><a href="/edtTagA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit-tag">Modifier le nom</a>' +
+            '<a href="/delTagA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-tag" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
+            '</tr>'
+
+
+        ).appendTo($t).hide().fadeIn(500);
 
     }
 

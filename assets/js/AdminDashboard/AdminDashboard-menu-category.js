@@ -1,5 +1,6 @@
-import {displayFlashMessageSuccess, displayPagination} from '../globalFunctions';
+import {displayFlashMessageSuccess, displayPagination, collapseOnWidthScreen} from '../globalFunctions';
 import {eventSuppr} from "./AdminDashboard";
+
 
 const NB_COL = 3;
 const COL_WIDTH = 100/NB_COL;
@@ -33,6 +34,9 @@ $(document).ready(function () {
         $('#category_filter_nbResult').val($("#selecter-category option:selected").text());
         $('#category_filter_search').click();
     });
+
+
+    collapseOnWidthScreen('#menu-category-collapse-form', 768);
 
     function menuCategorySendAjaxFormFilter() {
         let $form = $("form[name='category_filter']");
@@ -132,8 +136,8 @@ $(document).ready(function () {
             '<td  class="d-none d-md-table-cell" style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
             '<a href="/rmCategoryA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
             '<td class="d-md-none">' +
-            '                    <button class="btn btn-danger " type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +
-            '                        <span class="navbar-toggler-icon"></span>' +
+            '                    <button class="btn" type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +
+            '                        <span class="custom_background-btn navbar-toggler-icon"></span>' +
             '                    </button>' +
             '</td>'+
             '</tr>'+

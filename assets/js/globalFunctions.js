@@ -64,3 +64,17 @@ export function displayPagination(nbPage, pageActive, callbackOnEventPage, callb
 }
 
 
+export function collapseOnWidthScreen(elementCollapseID, width) {
+    if ($(window).width() >= width) {
+        $(elementCollapseID).collapse('show');
+    }else {
+        $(elementCollapseID).collapse('hide');
+    }
+    $(window).resize(function () {
+        if ($(this).width() < width) {
+            $(elementCollapseID).collapse('hide');
+        } else {
+            $(elementCollapseID).collapse('show');
+        }
+    });
+}

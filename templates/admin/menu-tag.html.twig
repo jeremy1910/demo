@@ -1,26 +1,43 @@
 {{ form_start(formTag) }}
-<div class="row">
 
-    <div class="col-6">
-        {{ form_row(formTag.id) }}
+<button class="btn border d-block d-md-none mb-3 w-100" type="button" data-toggle="collapse" data-target="#menu-tag-collapse-form">
+    <span class="custom_background-btn navbar-toggler-icon"></span>Filtres
+</button>
 
-        <button id="addTagButton" class="btn btn-primary mb-4">Ajouter un tag</button>
-        <div id="divAddNewTag" class="row">
-            <div class="col-10">
-                <div class="form-group">
-                    <input id="input-create-new-tag" placeholder="Nom de la catégorie à crééer" class="form-control">
+<div id="menu-tag-collapse-form" class="collapse">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">{{ form_row(formTag.id) }}</div>
+        <div class="col-sm-offset-0 col-sm-12 col-md-6"> {{form_row(formTag.tagName) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-5">
+                    <button id="addTagButton" class="btn btn-outline-primary mb-4 w-100">Ajouter un tag</button>
                 </div>
             </div>
-            <div class="col-2">
-                <button id="btn-create-new-tag"  type="submit" class="btn btn-primary">Ajouter</button>
+            <div class="row">
+                <div id="divAddNewTag" class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input id="input-create-new-tag" placeholder="Nom du tag à créer" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3 offset-md-9">
+                            <div class="form-group">
+                                <button id="btn-create-new-tag"  type="submit" class="btn btn-outline-success w-100">Ajouter</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="col-md-2 ml-auto">
+            {{form_row(formTag.submit, {'attr': {'class': 'float-right btn btn-outline-success w-100' }})}}
+        </div>
+    </div>
 
-    </div>
-    <div class="col-6">
-        {{form_row(formTag.tagName) }}
-        {{form_row(formTag.submit) }}
-    </div>
 </div>
 
 

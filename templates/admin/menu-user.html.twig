@@ -1,31 +1,51 @@
 {# @var formUser \App\Entity\User\Filter\UserFilter #}
 {# @var formUserAdd \App\Form\User\Add\UserAddType #}
 {{ form_start(formUser) }}
-<div class="row">
 
-    <div class="col-6">
-        {{ form_row(formUser.id) }}
-        {{form_row(formUser.enable) }}
-        {{form_row(formUser.adresseMail) }}
+<button class="btn border d-block d-md-none mb-3 w-100" type="button" data-toggle="collapse" data-target="#menu-user-collapse-form">
+    <span class="custom_background-btn navbar-toggler-icon"></span>Filtres
+</button>
 
+<div id="menu-user-collapse-form" class="collapse">
 
-        <div id="divAddNewCategory" class="row">
-            <div class="col-10">
-                <div class="form-group">
-                    <button id="addUserButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModel">
-                        Ajouter un utilisateur
-                    </button>
-                </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(formUser.id) }}
+        </div>
+        <div class="col-md-6">
+            {{form_row(formUser.username) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{form_row(formUser.enable) }}
+        </div>
+        <div class="col-md-6">
+            {{form_row(formUser.roles) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{form_row(formUser.adresseMail) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 mr-auto">
+            <div class="form-group">
+                <button id="addUserButton" type="button" class="btn btn-outline-primary w-100" data-toggle="modal" data-target="#addUserModel">
+                    Ajouter un utilisateur
+                </button>
             </div>
         </div>
+        <div class="col-md-2 ml-auto">
+            {{form_row(formUser.submit, {'attr': {'class': 'btn-outline-success w-100'}}) }}
+        </div>
+    </div>
 
-    </div>
-    <div class="col-6">
-        {{form_row(formUser.username) }}
-        {{form_row(formUser.roles) }}
-        {{form_row(formUser.submit) }}
-    </div>
 </div>
+
+
+
 
 
 {{ form_end(formUser) }}
@@ -36,9 +56,9 @@
         <tr id="title-lines">
             <th scope="col">ID</th>
             <th scope="col">Nom d'utilisateur</th>
-            <th scope="col">Role</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Prénom</th>
+            <th class="d-none d-md-table-cell" scope="col">Role</th>
+            <th class="d-none d-md-table-cell" scope="col">Nom</th>
+            <th class="d-none d-md-table-cell" scope="col">Prénom</th>
             <th scope="col">Action</th>
         </tr>
         </thead>

@@ -117,6 +117,10 @@
     background-color: #fffffff0 !important;
 }
 
+.custom_jumbotron_bg{
+    background-color: #5c396f !important;
+}
+
 .js-card-translateEffect{
     animation: card_translate_effect 0.5s;
 }

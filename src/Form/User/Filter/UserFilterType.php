@@ -68,7 +68,10 @@ class UserFilterType extends AbstractType
             ->add('pageSelected', HiddenType::class, [
                 'data' => self::PAGE_SELECTED,
             ])
-            ->add('submit', SubmitType::class);
+            ->add('submit', SubmitType::class, [
+                'label' => 'Rechercher',
+
+            ]);
         ;
 
 

@@ -28,6 +28,11 @@ require('../../public/library/bootstrap-datetimepicker-master/js/bootstrap-datet
 require('bootstrap/js/dist/tooltip');
 require('bootstrap/js/dist/popover');
 
+
+var hljs = require('highlight.js');
+global.hljs = hljs;
+
+console.log(hljs);
 //global.$ = global.jQuery = $;
 
 

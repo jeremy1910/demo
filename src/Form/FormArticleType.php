@@ -22,6 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Validator\Constraints\Valid;
 
 class FormArticleType extends AbstractType
 {
@@ -46,8 +47,10 @@ class FormArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $req = $this->categoryRepository->getAllLibele();
-
+        /**
+         * @var $article Article
+         */
+        $article = $builder->getData();
 
         $builder
 
@@ -65,7 +68,12 @@ class FormArticleType extends AbstractType
                 'allow_add' => true,
                 'by_reference' => false
             ])
-            ->add('image', ImageArticleType::class, ['label' => false])
+            ->add('image', ImageArticleType::class,
+                [
+                    'label' => false,
+                    'required' => $article->getImage() != null ? false : true,
+                    'constraints' => array(new Valid()),
+                ])
             ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => ['placeholder' => 'Entrez une description']])
             ->add('body', CKEditorType::class, ['label' => 'Corp de l\'article'])
 
@@ -87,34 +95,7 @@ class FormArticleType extends AbstractType
 
                 $data['num_category'] = $category->getId();
                 $event->setData($data);
-                /*
-                dd($event);
-                if (!$data) {
-                    return;
-                }
-                if(substr_count($data['num_category'], '|') == 0)
-                {
-                    return;
-                }
-                else
-                {
-                    $categoryTab = explode('|', $data['num_category']);
 
-                    // Do nothing if the category with the given ID exists
-                    if ($this->em->getRepository(Category::class)->find($categoryTab[1])) {
-                        return;
-                    }
-
-                    // Create the new category
-                    $category = new Category();
-                    $category->setLibele($categoryTab[0]);
-                    $this->em->persist($category);
-                    $this->em->flush();
-
-                    $data['num_category'] = $category->getId();
-                    $event->setData($data);
-                }
-            */
             });
         ;
     }
@@ -123,6 +104,7 @@ class FormArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+
         ]);
     }
 

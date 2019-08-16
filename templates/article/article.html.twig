@@ -34,19 +34,13 @@
         <div class="row">
             <div class="col-9">
             <div id="form-image" class="form-group">
-                {{ form_label(form.image) }}
-                {{ form_errors(form.image) }}
-                {{ form_widget(form.image) }}
-                {{ form_help(form.image) }}
+                {{ form_row(form.image) }}
+
             </div>
 
             </div>
             <div class="col-3">
-
                     <img id="blah" class="img-fluid img-thumbnail" src="{{ form.image.vars.value.fileName is defined ? asset('images/' ~ form.image.vars.value.fileName)}}">
-
-
-
 
             </div>
         </div>

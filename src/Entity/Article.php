@@ -8,15 +8,10 @@ use Doctrine\Common\Collections\Collection;
 
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreFlushEventArgs;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-
-use JMS\Serializer\Annotation as Serializer;
-use JMS\Serializer\Annotation\MaxDepth;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Expose;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")

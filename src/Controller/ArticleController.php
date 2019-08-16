@@ -61,7 +61,7 @@ class ArticleController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-
+            dd($newArticle);
             $image = $newArticle->getImage();
 
             $imageArticleHandler->save($image,  $this->getParameter('kernel.project_dir')."/public/images");

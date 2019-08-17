@@ -86,7 +86,7 @@ class ArticleController extends AbstractController
                 'notice',
                 'Article créé !'
             );
-            return $this->redirectToRoute('list_article');
+            return $this->redirectToRoute('show_article', ['id' => $newArticle->getId()]);
         }
 
         return $this->render('article/article.html.twig', [
@@ -200,14 +200,39 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete_article")
+     * @Route("/article/delete/{id}", name="delete_article")
      */
-    public function deleteArticle(Article $article){
-        if($this->isGranted('ARTICLE_DELETE', $article)) {
-            $this->em->remove($article);
-            $this->em->flush();
+    public function deleteArticle(Article $article = null){
+
+        if($article === null){
+            try {
+                throw new \Exception("L'article que vous demandez n'existe pas");
+            }
+            catch (\Exception $e){
+                $this->addFlash(
+                    'error',
+                    $e->getMessage()
+                );
+            }
         }
 
+        $result = $this->delete($article);
+        if($result === true)
+        {
+            $this->addFlash(
+                'notice',
+                'OKKKK'
+            );
+
+        }
+        else{
+            $this->addFlash(
+                'alert',
+                $result
+            );
+
+        }
+        return $this->redirectToRoute('list_article');
     }
 
 
@@ -235,7 +260,7 @@ class ArticleController extends AbstractController
 
             if ($this->isGranted('ARTICLE_DELETE', $article)) {
                 try {
-                    $this->deleteArticle($article);
+                    $this->delete($article);
                     $flashMessage = $this->flashMessage->getFlashMessage('success', 'Article supprimé avec succès');
                     return new JsonResponse([false, $flashMessage]);
 
@@ -285,6 +310,23 @@ class ArticleController extends AbstractController
         return $this->render('article/articleCardTemplate.html.twig');
     }
 
+
+    private function delete($article)
+    {
+        try {
+            if ($this->isGranted('ARTICLE_DELETE', $article)) {
+
+                $this->em->remove($article);
+                $this->em->flush();
+                return true;
+
+            } else {
+                throw new \Exception("Impossible de supprimer l'article, merci de vérifier que vous avez les aurorisations suffisantes");
+            }
+        } catch (\Exception $e){
+            return $e->getMessage();
+        }
+    }
 
     private function allowNoImage(Article $article, Form $form){
 

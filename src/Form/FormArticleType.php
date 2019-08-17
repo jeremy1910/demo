@@ -70,7 +70,7 @@ class FormArticleType extends AbstractType
             ])
             ->add('image', ImageArticleType::class,
                 [
-                    'label' => false,
+                    'label' => null,
                     'required' => $article->getImage() != null ? false : true,
                     'constraints' => array(new Valid()),
                 ])
@@ -79,6 +79,8 @@ class FormArticleType extends AbstractType
 
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();
+
+
                 if (!$data) {
                     return;
                 }
@@ -96,7 +98,15 @@ class FormArticleType extends AbstractType
                 $data['num_category'] = $category->getId();
                 $event->setData($data);
 
-            });
+
+
+            })
+            ->addEventListener(FormEvents::SUBMIT, function(FormEvent $event){
+
+
+            })
+
+
         ;
     }
 

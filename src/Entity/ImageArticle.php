@@ -25,9 +25,8 @@ class ImageArticle
      */
     private $fileName;
 
-    /**
-     * @Assert\NotNull(message="Veuillez selectionner une image")
-     */
+
+
     private $imageFile;
 
     /**

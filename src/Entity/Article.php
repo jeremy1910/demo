@@ -187,7 +187,7 @@ class Article
         return $this->image;
     }
 
-    public function setImage(ImageArticle $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 

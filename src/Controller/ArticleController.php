@@ -13,6 +13,8 @@ use App\Service\session\flashMessage\flashMessage;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +28,7 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Imagick;
-
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 class ArticleController extends AbstractController
@@ -38,12 +40,14 @@ class ArticleController extends AbstractController
     private $em;
     private $flashMessage;
     private $entityManager;
+    private $validator;
 
-    public function __construct(ObjectManager $em, EntityManagerInterface $entityManager, flashMessage $flashMessage)
+    public function __construct(ObjectManager $em, EntityManagerInterface $entityManager, flashMessage $flashMessage, ValidatorInterface $validator)
     {
         $this->em = $em;
         $this->entityManager = $entityManager;
         $this->flashMessage = $flashMessage;
+        $this->validator = $validator;
 
     }
 
@@ -59,13 +63,18 @@ class ArticleController extends AbstractController
 
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid())
         {
-            dd($newArticle);
+
+            if(!$this->allowNoImage($newArticle, $form)){
+                return $this->render('article/article.html.twig', [
+                    'form' => $form->createView()
+                ]);
+            }
+
             $image = $newArticle->getImage();
-
             $imageArticleHandler->save($image,  $this->getParameter('kernel.project_dir')."/public/images");
-
 
             $resizer->resize($this->getParameter('kernel.project_dir')."/public/images/".$image->getFileName());
 
@@ -98,6 +107,12 @@ class ArticleController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+
+                if(!$this->allowNoImage($article, $form)){
+                    return $this->render('article/article.html.twig', [
+                        'form' => $form->createView()
+                    ]);
+                }
 
                 $image = $article->getImage();
                 if ($image->getImageFile() !== null) {
@@ -271,4 +286,16 @@ class ArticleController extends AbstractController
     }
 
 
+    private function allowNoImage(Article $article, Form $form){
+
+        if($article->getId() === null AND $article->getImage()->getImageFile() === null){
+
+            $form->get('image')->get('imageFile')->addError(new FormError('Veuillez selectionner une image'));
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
 }

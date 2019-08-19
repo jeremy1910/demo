@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Filter;
+use App\Entity\GeneralSearch\Generalsearch;
 use App\Form\Article\Filter\ArticleFilterType;
 use App\Form\ArticleFilterNameType;
+use App\Form\GeneralSearch\GeneralSearchType;
+use App\Repository\GeneralSearchRepository;
 use App\Service\ArticleFilterHandler;
 use App\Service\ImageArticleHandler;
 use App\Service\ImageProcessingHandler;
@@ -311,6 +314,26 @@ class ArticleController extends AbstractController
     }
 
 
+    /**
+     * @Route("article/generalSearch", name="generalSearch")
+     */
+    public function genralSearch(Request $request, GeneralSearchRepository $generalSearchRepository){
+
+        $generalSearch = new Generalsearch();
+        $form = $this->createForm(GeneralSearchType::class, $generalSearch);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $result = $generalSearchRepository->searchAll($generalSearch->getSearchString());
+            return new JsonResponse($result);
+        }
+
+        return new JsonResponse();
+
+    }
+
+
     private function delete($article)
     {
         try {
@@ -327,6 +350,8 @@ class ArticleController extends AbstractController
             return $e->getMessage();
         }
     }
+
+
 
     private function allowNoImage(Article $article, Form $form){
 

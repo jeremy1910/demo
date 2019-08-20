@@ -29,8 +29,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults(10)
             ->orderBy('a.created_at', 'DESC')
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
     public function find5lastArticles()
@@ -45,14 +44,12 @@ class ArticleRepository extends ServiceEntityRepository
     public function findNumberOfArticles(array $conditions = [])
     {
 
-        if (sizeof($conditions) == 0)
-        {
+        if (sizeof($conditions) == 0) {
             return $this->createQueryBuilder('a')
                 ->select('COUNT(a)')
                 ->getQuery()
                 ->getResult();
-        }
-        else{
+        } else {
             $req = $this->createQueryBuilder('a')
                 ->select('COUNT(a)');
 
@@ -61,9 +58,7 @@ class ArticleRepository extends ServiceEntityRepository
                 if ($key != 'title') {
                     $req->andWhere('a.' . $key . ' = :' . $key);
                     $req->setParameter($key, $condition);
-                }
-                else
-                {
+                } else {
                     dump($key);
                     $req->andWhere('a.' . $key . ' LIKE :' . $key);
                     $req->setParameter($key, $condition);
@@ -77,21 +72,19 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    public function getByTags($tag){
+    public function getByTags($tag)
+    {
         $query = $this->_em->createQueryBuilder()
-
             ->select('a')
             ->from($this->_entityName, 'a');
 
         $query->leftJoin('a.tags', 'tags');
 
 
-
         $query = $query->add('where', $query->expr()->in('tags.tagName', ':tags'))
             ->setParameter('tags', $tag)
             ->groupBy('a.id')
             ->having('count(a.id) = 2')
-
             ->getQuery()
             ->getResult();
 
@@ -102,16 +95,15 @@ class ArticleRepository extends ServiceEntityRepository
     public function findByCondition($conditions, $maxResult = NULL, $offset = NULL, $count = false)
     {
 
-        if($count){
+        if ($count) {
             $req = $this->createQueryBuilder('a')
                 ->select('count(a.id)');
-        }
-        else {
+        } else {
             $req = $this->createQueryBuilder('a')
                 ->select('a');
         }
 
-        if($conditions !== NULL) {
+        if ($conditions !== NULL) {
             foreach ($conditions as $key => $condition) {
                 if ($key == 'user') {
 
@@ -148,66 +140,21 @@ class ArticleRepository extends ServiceEntityRepository
 
     }
 
-
-
-    public function findArticleByCondition2(array $conditions = NULL, $maxResult = NULL, $offset = NULL)
+    public function searchAll($getSearchString)
     {
-
-        if (sizeof($conditions) == 0)
-        {
-            return $this->createQueryBuilder('a')
-                ->select('a')
-                ->setFirstResult($offset)->setMaxResults($maxResult)
-                ->orderBy('a.created_at', 'DESC')
-                ->getQuery()
-                ->getResult();
-        }
-        else{
-            $req = $this->createQueryBuilder('a')
-                ->select('a');
-
-            foreach ($conditions as $key => $condition) {
-
-                if ($key != 'title') {
-                    $req->andWhere('a.' . $key . ' = :' . $key);
-                    $req->setParameter($key, $condition);
-                }
-                else
-                {
-                    dump($key);
-                    $req->andWhere('a.' . $key . ' LIKE :' . $key);
-                    $req->setParameter($key, $condition);
-                }
-            }
-
-            return $req->setFirstResult($offset)->setMaxResults($maxResult)->orderBy('a.created_at', 'DESC')->getQuery()
-                ->getResult();
-
-
-        }
+        $this->createQueryBuilder('p')
+            ->addSelect("MATCH_AGAINST (p.name, :searchterm ) as score")
+            ->addSelect("MATCH_AGAINST (p.description_s, :searchterm ) as score1")
+            ->addSelect("MATCH_AGAINST (p.description_l, :searchterm ) as score2")
+            ->andWhere('MATCH_AGAINST(p.name, :searchterm) > 0')
+            ->orWhere('MATCH_AGAINST(p.description_s, :searchterm) > 0')
+            ->orWhere('MATCH_AGAINST(p.description_l, :searchterm) > 0')
+            ->setParameter('searchterm', "pompier")
+            ->orderBy('score+score1*0.5+score2*0.3', 'desc')
+            ->getQuery()
+            ->getResult();
     }
-    /*
- public function findNumberOfArticles($condition=NULL)
- {
-     if ($condition == NULL)
-     {
-         return $this->createQueryBuilder('a')
-             ->select('COUNT(a)')
-             ->getQuery()
-             ->getResult();
-     }
-     else{
-             $req = $this->createQueryBuilder('a')
-             ->select('COUNT(a)');
-             $req->andWhere('a.num_category = :opt')
-             ->setParameter('opt', "$condition")
-             ->getQuery()
-             ->getResult();
 
-             return $req;
-     }
- }
-*/
     public function findRangeArticles($numberArticle, $offset)
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -217,6 +164,66 @@ class ArticleRepository extends ServiceEntityRepository
         $stmt->execute(['numberArticle' => $numberArticle, 'offsett' => $offset]);
         return $stmt->fetchAll();
     }
+
+    /*
+        public function findArticleByCondition2(array $conditions = NULL, $maxResult = NULL, $offset = NULL)
+        {
+
+            if (sizeof($conditions) == 0)
+            {
+                return $this->createQueryBuilder('a')
+                    ->select('a')
+                    ->setFirstResult($offset)->setMaxResults($maxResult)
+                    ->orderBy('a.created_at', 'DESC')
+                    ->getQuery()
+                    ->getResult();
+            }
+            else{
+                $req = $this->createQueryBuilder('a')
+                    ->select('a');
+
+                foreach ($conditions as $key => $condition) {
+
+                    if ($key != 'title') {
+                        $req->andWhere('a.' . $key . ' = :' . $key);
+                        $req->setParameter($key, $condition);
+                    }
+                    else
+                    {
+                        dump($key);
+                        $req->andWhere('a.' . $key . ' LIKE :' . $key);
+                        $req->setParameter($key, $condition);
+                    }
+                }
+
+                return $req->setFirstResult($offset)->setMaxResults($maxResult)->orderBy('a.created_at', 'DESC')->getQuery()
+                    ->getResult();
+
+
+            }
+        }
+        /*
+     public function findNumberOfArticles($condition=NULL)
+     {
+         if ($condition == NULL)
+         {
+             return $this->createQueryBuilder('a')
+                 ->select('COUNT(a)')
+                 ->getQuery()
+                 ->getResult();
+         }
+         else{
+                 $req = $this->createQueryBuilder('a')
+                 ->select('COUNT(a)');
+                 $req->andWhere('a.num_category = :opt')
+                 ->setParameter('opt', "$condition")
+                 ->getQuery()
+                 ->getResult();
+
+                 return $req;
+         }
+     }
+    */
 
     /*
     public function findOneBySomeField($value): ?Article

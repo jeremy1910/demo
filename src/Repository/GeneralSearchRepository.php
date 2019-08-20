@@ -27,18 +27,5 @@ class GeneralSearchRepository extends ServiceEntityRepository
         parent::__construct($registry, Generalsearch::class);
     }
 
-    public function searchAll($getSearchString)
-    {
-        $this->createQueryBuilder('p')
-            ->addSelect("MATCH_AGAINST (p.name, :searchterm ) as score")
-            ->addSelect("MATCH_AGAINST (p.description_s, :searchterm ) as score1")
-            ->addSelect("MATCH_AGAINST (p.description_l, :searchterm ) as score2")
-            ->andWhere('MATCH_AGAINST(p.name, :searchterm) > 0')
-            ->orWhere('MATCH_AGAINST(p.description_s, :searchterm) > 0')
-            ->orWhere('MATCH_AGAINST(p.description_l, :searchterm) > 0')
-            ->setParameter('searchterm', "pompier")
-            ->orderBy('score+score1*0.5+score2*0.3', 'desc')
-            ->getQuery()
-            ->getResult();
-    }
+
 }

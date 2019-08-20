@@ -8,6 +8,7 @@ use App\Entity\GeneralSearch\Generalsearch;
 use App\Form\Article\Filter\ArticleFilterType;
 use App\Form\ArticleFilterNameType;
 use App\Form\GeneralSearch\GeneralSearchType;
+use App\Repository\ArticleRepository;
 use App\Repository\GeneralSearchRepository;
 use App\Service\ArticleFilterHandler;
 use App\Service\ImageArticleHandler;
@@ -317,7 +318,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("article/generalSearch", name="generalSearch")
      */
-    public function genralSearch(Request $request, GeneralSearchRepository $generalSearchRepository){
+    public function genralSearch(Request $request, ArticleRepository $articleRepository){
 
         $generalSearch = new Generalsearch();
         $form = $this->createForm(GeneralSearchType::class, $generalSearch);
@@ -325,11 +326,13 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $result = $generalSearchRepository->searchAll($generalSearch->getSearchString());
+            $result = $articleRepository->searchAll($generalSearch->getSearchString());
             return new JsonResponse($result);
         }
 
-        return new JsonResponse();
+        return $this->render("test/testTableStructure.html.twig", [
+            'form' => $form->createView(),
+        ]);
 
     }
 

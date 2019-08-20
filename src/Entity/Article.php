@@ -16,7 +16,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
-
+ * @ORM\Table(
+ *     indexes={
+ *     @ORM\Index(columns={"title"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"description"}, flags={"fulltext"}),
+ *     @ORM\Index(columns={"body"}, flags={"fulltext"})
+ *     }
+ * )
  */
 class Article
 {

@@ -16,6 +16,8 @@ use App\Service\ImageProcessingHandler;
 use App\Service\session\flashMessage\flashMessage;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
@@ -327,7 +329,8 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             $result = $articleRepository->searchAll($generalSearch->getSearchString());
-            return new JsonResponse($result);
+            $serializer = SerializerBuilder::create()->build();
+            return new JsonResponse($serializer->serialize($result, 'json', SerializationContext::create()->enableMaxDepthChecks()));
         }
 
         return $this->render("test/testTableStructure.html.twig", [

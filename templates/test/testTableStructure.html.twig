@@ -1,9 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {%  block body %}
-    {{ form_start(form) }}
-    {{ form_row(form.searchString) }}
-    {{ form_end(form) }}
+    <div class="container mt-5">
+        {{ form_start(form, {'attr': {"autocomplete":"off"}}) }}
+        {{ form_widget(form.searchString, {'attr': {'data-toggle': 'dropdown'}}) }}
+        <div id="dropDownGeneralSearch" class="dropdown-menu">
+            <a class="dropdown-item" href="#">Regular link</a>
+        </div>
+        {{ form_end(form) }}
 
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Regular link</a>
+            <a class="dropdown-item disabled" href="#">Disabled link</a>
+            <a class="dropdown-item" href="#">Another link</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        let $form = $("form[name='general_search']");
+        $('#general_search_searchString').on('input', function (e) {
+            console.log($(this).val());
+            if ($(this).val().length >= 3) {
+                $('#dropDownGeneralSearch').dropdown('show')
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: 'POST',
+                    data: $form.serialize()
+                }).done(function (data) {
+                    $('#dropDownGeneralSearch').empty();
+                    let parsedData = JSON.parse(data);
+
+                    $.each(parsedData, function (i, element) {
+                        console.log(element);
+                        $('<a class="dropdown-item" href="/show/'+ element.id +'">' + element.title + '</a>').appendTo($('#dropDownGeneralSearch'));
+                    })
+                })
+            }
+        });
+
+    </script>
 {% endblock %}
 

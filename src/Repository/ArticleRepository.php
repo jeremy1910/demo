@@ -142,15 +142,18 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function searchAll($getSearchString)
     {
-        $this->createQueryBuilder('p')
-            ->addSelect("MATCH_AGAINST (p.name, :searchterm ) as score")
-            ->addSelect("MATCH_AGAINST (p.description_s, :searchterm ) as score1")
-            ->addSelect("MATCH_AGAINST (p.description_l, :searchterm ) as score2")
-            ->andWhere('MATCH_AGAINST(p.name, :searchterm) > 0')
-            ->orWhere('MATCH_AGAINST(p.description_s, :searchterm) > 0')
-            ->orWhere('MATCH_AGAINST(p.description_l, :searchterm) > 0')
-            ->setParameter('searchterm', "pompier")
-            ->orderBy('score+score1*0.5+score2*0.3', 'desc')
+        return $this->createQueryBuilder('p')
+            ->select('p.id')
+            ->addSelect('p.title')
+            ->addSelect("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') as score")
+            //->addSelect("MATCH_AGAINST (p.description, :searchterm ) as score1")
+            //->addSelect("MATCH_AGAINST (p.body, :searchterm ) as score2")
+            ->andWhere("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') > 0")
+            //->orWhere('MATCH_AGAINST(p.description, :searchterm) > 0')
+            //->orWhere('MATCH_AGAINST(p.body, :searchterm) > 0')
+            ->setParameter('searchterm', "*$getSearchString*")
+            ->orderBy('score', 'desc')
+            ->setMaxResults(5)
             ->getQuery()
             ->getResult();
     }

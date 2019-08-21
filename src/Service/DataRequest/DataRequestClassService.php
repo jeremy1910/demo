@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jeje
- * Date: 16/05/19
- * Time: 13:17
- */
 
 namespace App\Service\DataRequest;
 

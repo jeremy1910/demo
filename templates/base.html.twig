@@ -30,15 +30,18 @@
             </li>
         </ul>
         <ul class="nav navbar-nav dropdown">
-        <form class="form-inline my-2 my-lg-0 mr-md-3">
-            <input class="form-control mr-sm-2" type="search" id="general_search_searchString" placeholder="Rechercher" data-toggle="dropdown" aria-label="Search">
-            <div id="dropDownGeneralSearch" class="dropdown-menu">
-                <div class="list-group">
+            <form class="form-inline my-2 my-lg-0 mr-md-3">
+                <input class="form-control mr-sm-2"   type="search" id="general_search_searchString" placeholder="Rechercher" data-toggle="dropdown" aria-label="Search">
+                <div id="dropDownGeneralSearch" class="dropdown-menu shadow w-100">
+                    <div id="spinnerLoadingGeneralSearch" class="spinner-border text-info mr-auto ml-auto" style="display: none;"  role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div id="ListResultsGeneralSearch" class="list-group">
 
+                    </div>
                 </div>
-            </div>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
-        </form>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+            </form>
         </ul>
 
         {% if not is_granted('ROLE_USER') %}
@@ -112,30 +115,37 @@
             console.log($(this).val());
             if ($(this).val().length <=0)
             {
-                $('#dropDownGeneralSearch').empty();
+                $('#ListResultsGeneralSearch').empty();
                 $('#dropDownGeneralSearch').dropdown('hide');
             }
             if ($(this).val().length >= 3) {
-                $('#dropDownGeneralSearch').dropdown('show')
+                $('#dropDownGeneralSearch').dropdown('show');
                 $.ajax({
                     // url: $form.attr('action'),
                     url: '/article/generalSearch?search='+$(this).val(),
                     type: 'POST',
+                    beforeSend: function () {
+                        $('#spinnerLoadingGeneralSearch').addClass('d-block');
+                        $('#spinnerLoadingGeneralSearch').show();
+
+                    }
 
                 }).done(function (data) {
-                    $('#dropDownGeneralSearch').empty();
+                    $('#spinnerLoadingGeneralSearch').removeClass('d-block');
+                    $('#spinnerLoadingGeneralSearch').hide();
+                    $('#ListResultsGeneralSearch').empty();
                     let parsedData = JSON.parse(data);
                     $.each(parsedData, function (i, element) {
                         console.log(element);
                         let lementMenu =
-                            '<a href="/show/'+ element.id +'" class="list-group-item list-group-item-action flex-column align-items-start">' +
+                            '<a href="/show/'+ element.id +'" class="list-group-item list-group-item-action flex-column align-items-start border-0">' +
                             '   <div class="row">'+
                             '       <div class="col-md-9"><span class="font-weight-bold" >' + element.title + '</span></div>'+
-                            '       <div class="col-md-3"><span class="badge badge-pill badge-info">'+ element.libele +'</span></div> '+
+                            '       <div class="col-md-3"><span class="badge badge-pill badge-info float-right">'+ element.libele +'</span></div> '+
                             '       <div class="col-xs-12 w-100 ml-md-3"><span style="font-size: 0.8rem;">' + element.description + '</span></div> '+
                             '    </div>' +
                             '  </a>';
-                        $(lementMenu).appendTo($('#dropDownGeneralSearch'));
+                        $(lementMenu).appendTo($('#ListResultsGeneralSearch'));
                     })
                 })
             }
@@ -149,7 +159,7 @@
             if ($(this).val().length <= 0)
             {
 
-                $('#dropDownGeneralSearch').empty();
+                $('#ListResultsGeneralSearch').empty();
                 $('#dropDownGeneralSearch').dropdown('hide');
 
             }

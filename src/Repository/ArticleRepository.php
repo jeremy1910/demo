@@ -140,14 +140,34 @@ class ArticleRepository extends ServiceEntityRepository
 
     }
 
+    public function searchAll($getSearchString){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT a.id, a.title, substring(a.description, 1, 50) AS description, c.libele, MATCH(title, description, body) AGAINST(:searchterm IN BOOLEAN MODE)  AS  score 
+                FROM article as a 
+                INNER JOIN category c on c.id = a.num_category_id
+                WHERE MATCH(title, description, body) AGAINST(:searchterm IN BOOLEAN MODE) 
+                ORDER BY (score) DESC';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue('searchterm', "''*$getSearchString*'");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    /*
     public function searchAll($getSearchString)
     {
-        return $this->createQueryBuilder('p')
-            ->select('p.id')
+        $qb = $this->createQueryBuilder('p');
+           $req =  $qb->select('p.id')
             ->addSelect('p.title')
+            ->addSelect($qb->expr()->substring('p.description', 1, 50))
+
             ->addSelect("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') as score")
             //->addSelect("MATCH_AGAINST (p.description, :searchterm ) as score1")
             //->addSelect("MATCH_AGAINST (p.body, :searchterm ) as score2")
+
             ->andWhere("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') > 0")
             //->orWhere('MATCH_AGAINST(p.description, :searchterm) > 0')
             //->orWhere('MATCH_AGAINST(p.body, :searchterm) > 0')
@@ -156,8 +176,9 @@ class ArticleRepository extends ServiceEntityRepository
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
+        return $req;
     }
-
+*/
     public function findRangeArticles($numberArticle, $offset)
     {
         $conn = $this->getEntityManager()->getConnection();

@@ -32,7 +32,6 @@ require('bootstrap/js/dist/popover');
 var hljs = require('highlight.js');
 global.hljs = hljs;
 
-console.log(hljs);
-//global.$ = global.jQuery = $;
+
 
 

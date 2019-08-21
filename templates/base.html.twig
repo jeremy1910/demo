@@ -28,8 +28,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('create_article') }}">Créer un article <span class="sr-only">(current)</span></a>
             </li>
-
         </ul>
+        <ul class="nav navbar-nav dropdown">
+        <form class="form-inline my-2 my-lg-0 mr-md-3">
+            <input class="form-control mr-sm-2" type="search" id="general_search_searchString" placeholder="Rechercher" data-toggle="dropdown" aria-label="Search">
+            <div id="dropDownGeneralSearch" class="dropdown-menu">
+                <div class="list-group">
+
+                </div>
+            </div>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+        </form>
+        </ul>
+
         {% if not is_granted('ROLE_USER') %}
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item"><a  class="nav-link" href="{{ path('subscribe') }}">Créer un compte</a></li>
@@ -51,8 +62,6 @@
                     </div>
                 </li>
             </ul>
-
-
         {%  endif %}
     </div>
 
@@ -95,6 +104,57 @@
             $('[data-toggle="popover"]').popover();
         });
         $(".js-popover-article").popover({ trigger: "hover" });
+
+        /*******/
+
+
+        $('#general_search_searchString').on('input', function (e) {
+            console.log($(this).val());
+            if ($(this).val().length <=0)
+            {
+                $('#dropDownGeneralSearch').empty();
+                $('#dropDownGeneralSearch').dropdown('hide');
+            }
+            if ($(this).val().length >= 3) {
+                $('#dropDownGeneralSearch').dropdown('show')
+                $.ajax({
+                    // url: $form.attr('action'),
+                    url: '/article/generalSearch?search='+$(this).val(),
+                    type: 'POST',
+
+                }).done(function (data) {
+                    $('#dropDownGeneralSearch').empty();
+                    let parsedData = JSON.parse(data);
+                    $.each(parsedData, function (i, element) {
+                        console.log(element);
+                        let lementMenu =
+                            '<a href="/show/'+ element.id +'" class="list-group-item list-group-item-action flex-column align-items-start">' +
+                            '   <div class="row">'+
+                            '       <div class="col-md-9"><span class="font-weight-bold" >' + element.title + '</span></div>'+
+                            '       <div class="col-md-3"><span class="badge badge-pill badge-info">'+ element.libele +'</span></div> '+
+                            '       <div class="col-xs-12 w-100 ml-md-3"><span style="font-size: 0.8rem;">' + element.description + '</span></div> '+
+                            '    </div>' +
+                            '  </a>';
+                        $(lementMenu).appendTo($('#dropDownGeneralSearch'));
+                    })
+                })
+            }
+        });
+        $('#dropDownGeneralSearch').on('show', function () {
+            console.log('tototo');
+        });
+
+        $('#general_search_searchString').focus(function (e) {
+
+            if ($(this).val().length <= 0)
+            {
+
+                $('#dropDownGeneralSearch').empty();
+                $('#dropDownGeneralSearch').dropdown('hide');
+
+            }
+        });
+
     </script>
 
 

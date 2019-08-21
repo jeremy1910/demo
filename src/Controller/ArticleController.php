@@ -320,6 +320,24 @@ class ArticleController extends AbstractController
     /**
      * @Route("article/generalSearch", name="generalSearch")
      */
+
+
+    public function genralSearch(Request $request, ArticleRepository $articleRepository)
+    {
+
+       $search = $request->get('search');
+       if(strlen($search) >= 3)
+       {
+           $result = $articleRepository->searchAll($search);
+           $serializer = SerializerBuilder::create()->build();
+           return new JsonResponse($serializer->serialize($result, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+       }
+
+        return $this->render("test/testTableStructure.html.twig", [
+            //'form' => $form->createView(),
+        ]);
+    }
+    /*
     public function genralSearch(Request $request, ArticleRepository $articleRepository){
 
         $generalSearch = new Generalsearch();
@@ -338,7 +356,7 @@ class ArticleController extends AbstractController
         ]);
 
     }
-
+*/
 
     private function delete($article)
     {

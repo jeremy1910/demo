@@ -96,6 +96,12 @@ if (document.getElementById('form_article_tags').children)
 
 }
 
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+
+    return div.firstChild;
+}
 
 /**************
  * Mise en form du selecteur d'image

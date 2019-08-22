@@ -1,7 +1,11 @@
 import { eventSuppr } from '../AdminDashboard/AdminDashboard.js';
 import { displayPagination } from '../globalFunctions';
+import { $_GET } from '../globalFunctions';
+
 
 $(document).ready(function () {
+    let urlParam = $_GET();
+
 
     let menuArticleTagPrototype = $('#article_filter_tags').attr('data-prototype');
     menuArticleTagPrototype = $(menuArticleTagPrototype).find('input').prop('outerHTML');
@@ -25,11 +29,15 @@ $(document).ready(function () {
         }
     });
 
+
     $("form[name='article_filter']").submit(function (e) {
         e.preventDefault();
         menuArticleSendAjaxFormFilter();
 
     });
+
+
+
 
 
     function menuArticleCreateTagHTML(value) {
@@ -189,8 +197,16 @@ $(document).ready(function () {
         //$('#card-' + article.id).removeClass('revealX');
         //$('#card-' + article.id).addClass('revealX-visible');
     }
+    if (Object.entries(urlParam).length > 0 && urlParam.constructor === Object) {
+        if (urlParam['content']){
+            $('#article_filter_content').val(urlParam['content']);
+            menuArticleSendAjaxFormFilter();
+        }
 
-    menuArticleSendAjaxFormFilter();
+    }else{
+        menuArticleSendAjaxFormFilter();
+    }
+
 });
 
 

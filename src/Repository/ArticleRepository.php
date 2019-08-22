@@ -94,7 +94,7 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findByCondition($conditions, $maxResult = NULL, $offset = NULL, $count = false)
     {
-
+        $orderByDate = true;
         if ($count) {
             $req = $this->createQueryBuilder('a')
                 ->select('count(a.id)');
@@ -113,10 +113,12 @@ class ArticleRepository extends ServiceEntityRepository
                         ->setParameter('user', '%' . $condition . '%');
 
                 } else if ($key == 'content') {
-                    $req->addSelect("MATCH_AGAINST (a.title, a.description, a.body, :searchterm 'IN BOOLEAN MODE') as score")
-                        ->andWhere("MATCH_AGAINST (a.title, a.description, a.body, :searchterm 'IN BOOLEAN MODE') > 0")
+                    $req->andWhere("MATCH_AGAINST (a.title, :searchterm 'IN BOOLEAN MODE') > 0")
+                        ->orWhere("MATCH_AGAINST (a.description, :searchterm 'IN BOOLEAN MODE') > 0")
+                        ->orWhere("MATCH_AGAINST (a.body, :searchterm 'IN BOOLEAN MODE') > 0")
                         ->setParameter('searchterm', "*$condition*")
-                        ->addOrderBy('score', 'desc');
+                        ->addOrderBy("(MATCH_AGAINST (a.title, :searchterm 'IN BOOLEAN MODE')) + ((MATCH_AGAINST (a.description, :searchterm 'IN BOOLEAN MODE'))*0.5) + ((MATCH_AGAINST (a.body, :searchterm 'IN BOOLEAN MODE'))*0.2)", 'desc');
+                        $orderByDate = false;
                 } else if ($key == 'tags') {
 
 
@@ -140,7 +142,11 @@ class ArticleRepository extends ServiceEntityRepository
                 }
             }
         }
-        $querry = $req->orderBy('a.created_at', 'DESC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
+
+        if($orderByDate){
+            $req->orderBy('a.created_at', 'DESC');
+        }
+        $querry = $req->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 
         return $querry->getResult();
 
@@ -149,11 +155,18 @@ class ArticleRepository extends ServiceEntityRepository
     public function searchAll($getSearchString){
         $conn = $this->getEntityManager()->getConnection();
 
-        $sql = 'SELECT a.id, a.title, substring(a.description, 1, 50) AS description, c.libele, MATCH(title, description, body) AGAINST(:searchterm IN BOOLEAN MODE)  AS  score 
-                FROM article as a 
-                INNER JOIN category c on c.id = a.num_category_id
-                WHERE MATCH(title, description, body) AGAINST(:searchterm IN BOOLEAN MODE) 
-                ORDER BY (score) DESC';
+        $sql = 'SELECT a.id, a.title, substring(a.description, 1, 50) AS description, c.libele, 
+       MATCH(title) AGAINST(:searchterm IN BOOLEAN MODE)  AS  score_title,
+       MATCH(description) AGAINST(:searchterm IN BOOLEAN MODE)  AS  score_description,
+       MATCH(body) AGAINST(:searchterm IN BOOLEAN MODE)  AS  score_body
+        FROM article as a
+             inner join category c on c.id = a.num_category_id
+        WHERE
+        MATCH(title) AGAINST(:searchterm IN BOOLEAN MODE) OR
+        MATCH(description) AGAINST(:searchterm IN BOOLEAN MODE) OR
+        MATCH(body) AGAINST(:searchterm IN BOOLEAN MODE)
+        ORDER BY (score_title + score_description * 0.5 + score_body * 0.1) DESC;';
+
         $stmt = $conn->prepare($sql);
         $stmt->bindValue('searchterm', "''*$getSearchString*'");
 

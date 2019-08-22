@@ -33,13 +33,12 @@ class ArticleFilterType extends AbstractType
     {
 
         $builder
-
             ->add('title', TextType::class, [
                 'required' => false,
                 'label' => 'Titre',
+
                 'attr' => ['placeholder' => 'Recherche par titre'],
             ])
-
             ->add('content', TextType::class, [
                 'required' => false,
                 'label' => 'Contenu',

@@ -111,6 +111,12 @@ class ArticleRepository extends ServiceEntityRepository
                         //->addSelect('user.username')
                         ->andWhere('user.username LIKE :user')
                         ->setParameter('user', '%' . $condition . '%');
+
+                } else if ($key == 'content') {
+                    $req->addSelect("MATCH_AGAINST (a.title, a.description, a.body, :searchterm 'IN BOOLEAN MODE') as score")
+                        ->andWhere("MATCH_AGAINST (a.title, a.description, a.body, :searchterm 'IN BOOLEAN MODE') > 0")
+                        ->setParameter('searchterm', "*$condition*")
+                        ->addOrderBy('score', 'desc');
                 } else if ($key == 'tags') {
 
 

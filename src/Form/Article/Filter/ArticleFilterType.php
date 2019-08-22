@@ -39,6 +39,12 @@ class ArticleFilterType extends AbstractType
                 'label' => 'Titre',
                 'attr' => ['placeholder' => 'Recherche par titre'],
             ])
+
+            ->add('content', TextType::class, [
+                'required' => false,
+                'label' => 'Contenu',
+                'attr' => ['placeholder' => 'Recherche dans le titre, description ...']
+            ])
             ->add('createdAtBefore', DateType::class, [
             'required' => false,
                 'widget' => 'single_text',

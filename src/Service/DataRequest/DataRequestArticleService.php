@@ -24,7 +24,7 @@ class DataRequestArticleService extends DataRequestClassService
 
     }
     private $security;
-    protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after', 'nbResult', 'pageSelected'];
+    protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after', 'nbResult', 'pageSelected', 'content'];
 
     public function setFilter()
     {
@@ -38,6 +38,12 @@ class DataRequestArticleService extends DataRequestClassService
                 if ($key == 'title') {
                     if (\preg_match("/[A-Za-z0-9]+/", $line)) {
                         $this->validedOptions['title'] = $line;
+                    } else {
+                        dd('argument username : ' . $line . ' invalide');
+                    }
+                } elseif ($key == 'content') {
+                    if (\preg_match("/[A-Za-z0-9]+/", $line)) {
+                        $this->validedOptions['content'] = $line;
                     } else {
                         dd('argument username : ' . $line . ' invalide');
                     }
@@ -91,6 +97,7 @@ class DataRequestArticleService extends DataRequestClassService
         /**
          * @var $article Article
          */
+        dd($result);
         foreach($result['result'] as $article){
             $result['canEdit'][$article->getId()] = $this->security->isGranted('ARTICLE_EDIT', $article);
             $result['canDelete'][$article->getId()] = $this->security->isGranted('ARTICLE_DELETE', $article);

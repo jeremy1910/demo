@@ -28,6 +28,12 @@ class ArticleFilter implements EntityFilterInterface
     private $title;
 
     /**
+     * @var string|null
+     */
+    private $content;
+
+
+    /**
      * @var \DateTime|null
      */
     private $created_at_before;
@@ -264,6 +270,25 @@ class ArticleFilter implements EntityFilterInterface
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string|null $content
+     * @return ArticleFilter
+     */
+    public function setContent(?string $content): ArticleFilter
+    {
+        $this->content = $content;
+        return $this;
+    }
+
 
     public function iterate() {
         $tab = array();

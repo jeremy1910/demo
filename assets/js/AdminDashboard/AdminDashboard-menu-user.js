@@ -104,13 +104,24 @@ $(document).ready(function () {
 
     function menuUserSendAjaxFormFilter() {
         let $form = $("form[name='user_filter']");
-
+        let tableBodyUserHeight = $('#table-body-user').css('height') === "0px" ? 150 : $('#table-body-user').css('height');
         $.ajax({
             url: $form.attr('action'),
             method: 'POST',
-            data: $form.serialize()
+            data: $form.serialize(),
+            beforeSend: function () {
+                $('#table-body-user').fadeOut(400, function () {
+                    $('#spinnerLoadingGeneralSearch-adminDashboardUser').addClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-adminDashboardUser .loading-medium').css('height', tableBodyUserHeight)
+                    $('#spinnerLoadingGeneralSearch-adminDashboardUser').show();
+                });
+
+            }
         })
             .done(function (data, textStatus, jqXDR) {
+                $('#spinnerLoadingGeneralSearch-adminDashboardUser').removeClass('d-block');
+                $('#spinnerLoadingGeneralSearch-adminDashboardUser').hide();
+                $('#table-body-user').show()
                 menuUserDisplayResult(data)
             });
     }

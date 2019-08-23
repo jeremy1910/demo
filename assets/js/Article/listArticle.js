@@ -59,14 +59,19 @@ $(document).ready(function () {
             method: 'POST',
             data: $form.serialize(),
             beforeSend: function () {
-                $('#spinnerLoadingGeneralSearch-list').addClass('d-block');
-                $('#spinnerLoadingGeneralSearch-list').show();
+                $('#card-parent').fadeOut(400, function () {
+                    $('#spinnerLoadingGeneralSearch-list').addClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-list').show();
+                })
+
             }
 
         })
             .done(function (data) {
                 $('#spinnerLoadingGeneralSearch-list').removeClass('d-block');
                 $('#spinnerLoadingGeneralSearch-list').hide();
+                $('#card-parent').empty();
+                $('#card-parent').show();
                 menuArticleDisplayResult(data)
             });
     }
@@ -81,7 +86,7 @@ $(document).ready(function () {
             .done(function (data, textStatus, jqXDR) {
 
                 let regex = /#id#/gi;
-                $('#card-parent').empty();
+
                 $.each(result.result, function (i, item) {
                     let cardTemplate = data.replace(regex, item.id);
                     $(cardTemplate).appendTo('#card-parent');

@@ -33,7 +33,8 @@
 
 
 <div class="table-responsive mt-5">
-    <table class="table table-hover">
+
+    <table id="table-admindashBoardArticle" class="table table-hover">
         <thead class="table-dark" style="background-color: #343a40;">
         <tr id="title-lines">
             <th scope="col">ID</th>
@@ -45,14 +46,15 @@
             <th class="d-none d-md-table-cell" scope="col">Description</th>
             <th class="d-none d-md-table-cell" scope="col">Tags</th>
             <th scope="col">Action</th>
-
         </tr>
         </thead>
-        <tbody id="table-body">
+        <tbody id="table-admindashBoardArticle-body">
 
         </tbody>
     </table>
-
+    <div id="spinnerLoadingGeneralSearch-adminDashboardArticle" class="mr-auto ml-auto" style="display: none;">
+        {{ include('divers/animation/loading-medium.html.twig') }}
+    </div>
 
 
 </div>

@@ -57,8 +57,16 @@ $(document).ready(function () {
         $.ajax({
             url: $form.attr('action'),
             method: 'POST',
-            data: $form.serialize()})
-            .done(function (data, textStatus, jqXDR) {
+            data: $form.serialize(),
+            beforeSend: function () {
+                $('#spinnerLoadingGeneralSearch-list').addClass('d-block');
+                $('#spinnerLoadingGeneralSearch-list').show();
+            }
+
+        })
+            .done(function (data) {
+                $('#spinnerLoadingGeneralSearch-list').removeClass('d-block');
+                $('#spinnerLoadingGeneralSearch-list').hide();
                 menuArticleDisplayResult(data)
             });
     }

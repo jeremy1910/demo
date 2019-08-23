@@ -13,6 +13,8 @@ $(document).ready(function () {
         $('#article_filter_nbResult').val('');
 
         $('#article_filter_nbResult').val($("#selecter-article option:selected").text());
+        $('#article_filter_pageSelected').val(1);
+
         menuArticleSendAjaxFormFilter();
     });
 
@@ -44,12 +46,23 @@ $(document).ready(function () {
 
     function menuArticleSendAjaxFormFilter(){
         let $form = $("form[name='article_filter']");
-
+        let tableBodyCategoryHeight = $('#table-admindashBoardArticle-body').css('height') === "0px" ? 150 : $('#table-admindashBoardArticle-body').css('height');
         $.ajax({
             url: $form.attr('action'),
             method: 'POST',
-            data: $form.serialize()})
-            .done(function (data, textStatus, jqXDR) {
+            data: $form.serialize(),
+            beforeSend: function () {
+                $('#table-admindashBoardArticle-body').fadeOut(400, function () {
+                    $('#spinnerLoadingGeneralSearch-adminDashboardArticle').addClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-adminDashboardArticle .loading-medium').css('height', tableBodyCategoryHeight)
+                    $('#spinnerLoadingGeneralSearch-adminDashboardArticle').show();
+                });
+            }
+        })
+            .done(function (data) {
+                $('#spinnerLoadingGeneralSearch-adminDashboardArticle').removeClass('d-block');
+                $('#spinnerLoadingGeneralSearch-adminDashboardArticle').hide();
+                $('#table-admindashBoardArticle-body').show()
                 menuArticleDisplayResult(data)
             });
     }
@@ -59,7 +72,7 @@ $(document).ready(function () {
 
         let result = JSON.parse(data);
 
-        $('#table-body').empty();
+        $('#table-admindashBoardArticle-body').empty();
         $.each(result.result, function (i, item) {
             menuArticleCreateTableLine(item);
 
@@ -119,7 +132,7 @@ $(document).ready(function () {
 
 
     function menuArticleCreateTableLine(item) {
-        let $t = $('#table-body');
+        let $t = $('#table-admindashBoardArticle-body');
         let tagHtml = '';
         let createdDate = new Date(item.created_at);
         createdDate = createdDate.getDate() + '/' + createdDate.getMonth() + '/' + createdDate.getFullYear();

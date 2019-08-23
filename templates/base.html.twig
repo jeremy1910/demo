@@ -31,10 +31,10 @@
         </ul>
         <ul class="nav navbar-nav dropdown">
             <form class="form-inline my-2 my-lg-0 mr-md-3" name="generalSearch">
-                <input class="form-control mr-sm-2"   type="search" id="general_search_searchString" placeholder="Rechercher" data-toggle="dropdown" aria-label="Search">
+                <input class="form-control mr-sm-2"   type="search" id="general_search_searchString" placeholder="Recherche Rapide" data-toggle="dropdown" aria-label="Search">
                 <div id="dropDownGeneralSearch" class="dropdown-menu shadow w-100">
-                    <div id="spinnerLoadingGeneralSearch" class="spinner-border text-info mr-auto ml-auto" style="display: none;"  role="status">
-                        <span class="sr-only">Loading...</span>
+                    <div id="spinnerLoadingGeneralSearch" class="mr-auto ml-auto" style="display: none">
+                        {{ include('divers/animation/loading.html.twig') }}
                     </div>
                     <div id="ListResultsGeneralSearch" class="list-group">
 

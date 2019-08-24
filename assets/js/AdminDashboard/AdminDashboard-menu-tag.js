@@ -64,10 +64,13 @@ $(document).ready(function () {
             }
         })
             .done(function (data) {
-                $('#spinnerLoadingGeneralSearch-adminDashboardTag').removeClass('d-block');
-                $('#spinnerLoadingGeneralSearch-adminDashboardTag').hide();
-                $('#table-body-tag').show()
-                menuTagDisplayResult(data)
+                setTimeout(function () {
+                    $('#spinnerLoadingGeneralSearch-adminDashboardTag').removeClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-adminDashboardTag').hide();
+                    $('#table-body-tag').show();
+                    menuTagDisplayResult(data)
+                },420);
+
             });
     }
 

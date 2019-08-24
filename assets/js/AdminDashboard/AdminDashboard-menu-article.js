@@ -53,6 +53,7 @@ $(document).ready(function () {
             data: $form.serialize(),
             beforeSend: function () {
                 $('#table-admindashBoardArticle-body').fadeOut(400, function () {
+                    console.log('toto2');
                     $('#spinnerLoadingGeneralSearch-adminDashboardArticle').addClass('d-block');
                     $('#spinnerLoadingGeneralSearch-adminDashboardArticle .loading-medium').css('height', tableBodyCategoryHeight)
                     $('#spinnerLoadingGeneralSearch-adminDashboardArticle').show();
@@ -60,10 +61,13 @@ $(document).ready(function () {
             }
         })
             .done(function (data) {
-                $('#spinnerLoadingGeneralSearch-adminDashboardArticle').removeClass('d-block');
-                $('#spinnerLoadingGeneralSearch-adminDashboardArticle').hide();
-                $('#table-admindashBoardArticle-body').show()
-                menuArticleDisplayResult(data)
+                setTimeout(function () {
+                    $('#spinnerLoadingGeneralSearch-adminDashboardArticle').removeClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-adminDashboardArticle').hide();
+                    $('#table-admindashBoardArticle-body').show();
+                    menuArticleDisplayResult(data)
+                }, 400);
+
             });
     }
 

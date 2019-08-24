@@ -68,11 +68,14 @@ $(document).ready(function () {
 
         })
             .done(function (data) {
-                $('#spinnerLoadingGeneralSearch-list').removeClass('d-block');
-                $('#spinnerLoadingGeneralSearch-list').hide();
-                $('#card-parent').empty();
-                $('#card-parent').show();
-                menuArticleDisplayResult(data)
+                setTimeout(function () {
+                    $('#spinnerLoadingGeneralSearch-list').removeClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-list').hide();
+                    $('#card-parent').empty();
+                    $('#card-parent').show();
+                    menuArticleDisplayResult(data)
+                },420);
+
             });
     }
 

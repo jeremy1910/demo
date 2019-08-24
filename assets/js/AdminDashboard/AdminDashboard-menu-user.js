@@ -119,10 +119,13 @@ $(document).ready(function () {
             }
         })
             .done(function (data, textStatus, jqXDR) {
-                $('#spinnerLoadingGeneralSearch-adminDashboardUser').removeClass('d-block');
-                $('#spinnerLoadingGeneralSearch-adminDashboardUser').hide();
-                $('#table-body-user').show()
-                menuUserDisplayResult(data)
+                setTimeout(function () {
+                    $('#spinnerLoadingGeneralSearch-adminDashboardUser').removeClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-adminDashboardUser').hide();
+                    $('#table-body-user').show()
+                    menuUserDisplayResult(data)
+                }, 420);
+
             });
     }
 

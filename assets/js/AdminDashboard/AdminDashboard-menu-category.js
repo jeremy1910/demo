@@ -60,10 +60,13 @@ $(document).ready(function () {
                 $('#category_filter_search').click();
             }
             else {
-                $('#spinnerLoadingGeneralSearch-adminDashboardCategory').removeClass('d-block');
-                $('#spinnerLoadingGeneralSearch-adminDashboardCategory').hide();
-                $('#table-body-category').show()
-                menuCategoryDisplayResult(data);
+                setTimeout(function () {
+                    $('#spinnerLoadingGeneralSearch-adminDashboardCategory').removeClass('d-block');
+                    $('#spinnerLoadingGeneralSearch-adminDashboardCategory').hide();
+                    $('#table-body-category').show()
+                    menuCategoryDisplayResult(data);
+                },420);
+
             }
             $('#category_filter_clickedButton').val('');
             $('#divAddNewCategory').hide();

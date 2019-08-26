@@ -33,7 +33,17 @@ class Tag
      */
     private $article;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created_at;
 
+
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified_at;
 
     public function __construct()
     {
@@ -54,6 +64,42 @@ class Tag
     {
         $this->tagName = $tagName;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     * @return Tag
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModifiedAt()
+    {
+        return $this->modified_at;
+    }
+
+    /**
+     * @param mixed $modified_at
+     * @return Tag
+     */
+    public function setModifiedAt($modified_at)
+    {
+        $this->modified_at = $modified_at;
         return $this;
     }
 

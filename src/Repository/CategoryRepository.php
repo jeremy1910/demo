@@ -67,6 +67,26 @@ class CategoryRepository extends ServiceEntityRepository
         return $querry->getResult();
     }
 
+    public function getLastCreatedCategory(){
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.created_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getLastModifiedCategory(){
+        $query = $this->createQueryBuilder('c')
+            ->orderBy('c.modified_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getNumberOfCategory(){
+        $query = $this->createQueryBuilder('c')
+            ->select("COUNT(c.id)");
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
     /*
     public function findOneBySomeField($value): ?Category
     {

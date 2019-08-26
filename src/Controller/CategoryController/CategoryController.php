@@ -116,6 +116,7 @@ class CategoryController extends AbstractController
 
     }
     private function createCategory(Category $category){
+        $category->setCreatedUser($this->getUser());
         $this->entityManager->persist($category);
         $this->entityManager->flush();
 
@@ -213,6 +214,7 @@ class CategoryController extends AbstractController
     }
 
     private function editCategory(Category $category, string $newLibele){
+        $category->setModifiedUser($this->getUser());
         $category->setLibele($newLibele);
         $this->entityManager->flush();
     }

@@ -18,6 +18,7 @@ use App\Form\User\Add\UserAddType;
 use App\Form\User\Filter\UserFilterType;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,10 +29,12 @@ class AdminController extends AbstractController
 {
 
     private $articleRepository;
+    private $categoryRepository;
 
-    public function __construct(ArticleRepository $articleRepository)
+    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository)
     {
         $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -58,8 +61,15 @@ class AdminController extends AbstractController
         ));
 
 
-        $lastCreatedArticle = $this->articleRepository->getLastCreatedArticle();
-        $lastEditArticle = $this->articleRepository->getLastEditArticle();
+        $lastCreatedArticle = $this->articleRepository->getLastCreatedArticle()[0];
+        $lastEditArticle = $this->articleRepository->getLastEditArticle()[0];
+        $nbArticles = $this->articleRepository->findNumberOfArticles()[0][1];
+
+        $nbCategory = $this->categoryRepository->getNumberOfCategory();
+        $lastCreatedCategory = $this->categoryRepository->getLastCreatedCategory()[0];
+        $lastEditCategory = $this->categoryRepository->getLastModifiedCategory()[0];
+
+
 
 
         return $this->render('admin/admin.html.twig', [
@@ -67,7 +77,14 @@ class AdminController extends AbstractController
             'formCategory' => $formCategory->createView(),
             'formUser' => $formUser->createView(),
             'formTag' => $formTag->createView(),
-            'formUserAdd' => $formUserAdd->createView()
+            'formUserAdd' => $formUserAdd->createView(),
+            'lastCreatedArticle' => $lastCreatedArticle,
+            'lastEditArticle' => $lastEditArticle,
+            'nbArticles' => $nbArticles,
+            'nbCategory' => $nbCategory,
+            'lastCreatedCategory' => $lastCreatedCategory,
+            'lastEditCategory' => $lastEditCategory,
+
         ]);
 
     }

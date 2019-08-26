@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -29,6 +30,31 @@ class Category
      * @Serializer\Exclude()
      */
     private $articles;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created_at;
+
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified_at;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $created_user;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $modified_user;
+
 
     public function __construct()
     {
@@ -51,6 +77,82 @@ class Category
 
         return $this;
     }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     * @return Category
+     */
+    public function setCreatedAt($created_at)
+    {
+        $this->created_at = $created_at;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModifiedAt()
+    {
+        return $this->modified_at;
+    }
+
+    /**
+     * @param mixed $modified_at
+     * @return Category
+     */
+    public function setModifiedAt($modified_at)
+    {
+        $this->modified_at = $modified_at;
+        return $this;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedUser()
+    {
+        return $this->created_user;
+    }
+
+    /**
+     * @param mixed $created_user
+     * @return Category
+     */
+    public function setCreatedUser($created_user)
+    {
+        $this->created_user = $created_user;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModifiedUser()
+    {
+        return $this->modified_user;
+    }
+
+    /**
+     * @param mixed $modified_user
+     * @return Category
+     */
+    public function setModifiedUser($modified_user)
+    {
+        $this->modified_user = $modified_user;
+        return $this;
+    }
+
 
     /**
      * @return Collection|Article[]
@@ -81,5 +183,18 @@ class Category
         }
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function setDate(){
+
+        if(is_null($this->id)){
+            $this->created_at = new \DateTime();
+        }
+        else{
+            $this->modified_at = new \DateTime();
+        }
     }
 }

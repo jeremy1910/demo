@@ -1,3 +1,7 @@
+{# @var lastEditArticle \App\Entity\Article #}
+{# @var lastCreatedArticle \App\Entity\Article #}
+{# @var lastEditCategory \App\Entity\Category #}
+{# @var lastCreatedCategory \App\Entity\Category #}
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -6,15 +10,15 @@
                     Articles
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre :</span> 140</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article modifié :</span><br> nom du dernier article modifier
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span> {{ nbArticles }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article modifié :</span><br><a class="text-muted text-decoration-none" href="{{ path('show_article', {'id': lastEditArticle.id }) }}">{{ lastEditArticle.title is null ? "Non défini" :  lastEditArticle.title}}</a>
                         <div class="w-100 text-right">
-                            <small>Par : <strong>admin</strong> le 10/10/2019</small>
+                            <small>Par : <strong>{{ lastEditArticle.lastEditUser is null ? "Non défini" : lastEditArticle.lastEditUser.username}}</strong> le {{ lastEditArticle.lastEdit is null ? "Non défini" : lastEditArticle.lastEdit|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article créé :</span><br> nom du dernier article créé
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article créé :</span><br><a class="text-decoration-none text-muted" href="{{ path('show_article', {'id': lastCreatedArticle.id }) }}">{{ lastCreatedArticle.title is null ? "Non défini" : lastCreatedArticle.title}}</a>
                         <div class="w-100 text-right">
-                            <small>Par : <strong>admin</strong> le 10/10/2019</small>
+                            <small>Par : <strong>{{ lastCreatedArticle.user is null ? "Non défini" : lastCreatedArticle.user.username}}</strong> le {{ lastCreatedArticle.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
                 </div>
@@ -23,18 +27,18 @@
         <div class="offset-md-1 col-md-3">
             <div class="card shadow">
                 <div class="card-header text-white font-weight-bold" style="background-color: #4e9a87; ">
-                    Categorie
+                    Categories
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre :</span> 10</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégorie modifiée :</span><br> PHP
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span>{{ nbCategory }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégorie modifiée :</span><br> {{ lastEditCategory.libele }}
                         <div class="w-100 text-right">
-                            <small>Par : <strong>admin</strong> le 10/10/2019</small>
+                            <small>Par : <strong>{{ lastEditCategory.modifiedUser is null ? "Non défini" : lastEditCategory.modifiedUser.username }}</strong> le {{ lastEditCategory.modifiedAt is null ? "Non défini" : lastEditCategory.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégory créée :</span><br> JavaScript
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégory créée :</span><br> {{ lastCreatedCategory.libele }}
                         <div class="w-100 text-right">
-                            <small>Par : <strong>admin</strong> le 10/10/2019</small>
+                            <small>Par : <strong>{{ lastCreatedCategory.createdUser is null ? "Non défini" : lastCreatedCategory.createdUser.username }}</strong> le {{ lastCreatedCategory.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
                 </div>

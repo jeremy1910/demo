@@ -29,7 +29,7 @@ class Article
 
     public function __construct()
     {
-        $this->created_at = new \DateTime();
+
         $this->tags = new ArrayCollection();
         //$this->security = $security;
     }
@@ -91,7 +91,29 @@ class Article
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $last_edit_User;
 
+
+    /**
+     * @return mixed
+     */
+    public function getLastEditUser()
+    {
+        return $this->last_edit_User;
+    }
+
+    /**
+     * @param mixed $last_edit_User
+     * @return Article
+     */
+    public function setLastEditUser($last_edit_User)
+    {
+        $this->last_edit_User = $last_edit_User;
+        return $this;
+    }
 
     /**
      * @return User
@@ -252,6 +274,19 @@ class Article
         }
 
 
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function setDate(){
+
+        if(is_null($this->id)){
+            $this->created_at = new \DateTime();
+        }
+        else{
+            $this->last_edit = new \DateTime();
+        }
     }
 
 

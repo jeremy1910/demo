@@ -72,6 +72,8 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+
+
     public function getByTags($tag)
     {
         $query = $this->_em->createQueryBuilder()
@@ -175,29 +177,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-    /*
-    public function searchAll($getSearchString)
-    {
-        $qb = $this->createQueryBuilder('p');
-           $req =  $qb->select('p.id')
-            ->addSelect('p.title')
-            ->addSelect($qb->expr()->substring('p.description', 1, 50))
 
-            ->addSelect("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') as score")
-            //->addSelect("MATCH_AGAINST (p.description, :searchterm ) as score1")
-            //->addSelect("MATCH_AGAINST (p.body, :searchterm ) as score2")
-
-            ->andWhere("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') > 0")
-            //->orWhere('MATCH_AGAINST(p.description, :searchterm) > 0')
-            //->orWhere('MATCH_AGAINST(p.body, :searchterm) > 0')
-            ->setParameter('searchterm', "*$getSearchString*")
-            ->orderBy('score', 'desc')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult();
-        return $req;
-    }
-*/
     public function findRangeArticles($numberArticle, $offset)
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -208,75 +188,45 @@ class ArticleRepository extends ServiceEntityRepository
         return $stmt->fetchAll();
     }
 
-    /*
-        public function findArticleByCondition2(array $conditions = NULL, $maxResult = NULL, $offset = NULL)
-        {
 
-            if (sizeof($conditions) == 0)
-            {
-                return $this->createQueryBuilder('a')
-                    ->select('a')
-                    ->setFirstResult($offset)->setMaxResults($maxResult)
-                    ->orderBy('a.created_at', 'DESC')
-                    ->getQuery()
-                    ->getResult();
-            }
-            else{
-                $req = $this->createQueryBuilder('a')
-                    ->select('a');
+    public function getLastEditArticle(){
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.last_edit', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
 
-                foreach ($conditions as $key => $condition) {
-
-                    if ($key != 'title') {
-                        $req->andWhere('a.' . $key . ' = :' . $key);
-                        $req->setParameter($key, $condition);
-                    }
-                    else
-                    {
-                        dump($key);
-                        $req->andWhere('a.' . $key . ' LIKE :' . $key);
-                        $req->setParameter($key, $condition);
-                    }
-                }
-
-                return $req->setFirstResult($offset)->setMaxResults($maxResult)->orderBy('a.created_at', 'DESC')->getQuery()
-                    ->getResult();
-
-
-            }
-        }
-        /*
-     public function findNumberOfArticles($condition=NULL)
-     {
-         if ($condition == NULL)
-         {
-             return $this->createQueryBuilder('a')
-                 ->select('COUNT(a)')
-                 ->getQuery()
-                 ->getResult();
-         }
-         else{
-                 $req = $this->createQueryBuilder('a')
-                 ->select('COUNT(a)');
-                 $req->andWhere('a.num_category = :opt')
-                 ->setParameter('opt', "$condition")
-                 ->getQuery()
-                 ->getResult();
-
-                 return $req;
-         }
-     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Article
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
-    */
+
+
+    public function getLastCreatedArticle(){
+        $query = $this->createQueryBuilder('a')
+            ->orderBy('a.created_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    /*
+public function searchAll($getSearchString)
+{
+    $qb = $this->createQueryBuilder('p');
+       $req =  $qb->select('p.id')
+        ->addSelect('p.title')
+        ->addSelect($qb->expr()->substring('p.description', 1, 50))
+
+        ->addSelect("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') as score")
+        //->addSelect("MATCH_AGAINST (p.description, :searchterm ) as score1")
+        //->addSelect("MATCH_AGAINST (p.body, :searchterm ) as score2")
+
+        ->andWhere("MATCH_AGAINST (p.title, p.description, p.body, :searchterm 'IN BOOLEAN MODE') > 0")
+        //->orWhere('MATCH_AGAINST(p.description, :searchterm) > 0')
+        //->orWhere('MATCH_AGAINST(p.body, :searchterm) > 0')
+        ->setParameter('searchterm', "*$getSearchString*")
+        ->orderBy('score', 'desc')
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+    return $req;
+}
+*/
+
 }

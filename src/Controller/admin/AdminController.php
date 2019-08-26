@@ -17,6 +17,7 @@ use App\Form\Category\Filter\CategoryFilterType;
 use App\Form\User\Add\UserAddType;
 use App\Form\User\Filter\UserFilterType;
 use App\Form\UserType;
+use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +26,13 @@ use App\Form\Tag\TagFilterType;
 
 class AdminController extends AbstractController
 {
+
+    private $articleRepository;
+
+    public function __construct(ArticleRepository $articleRepository)
+    {
+        $this->articleRepository = $articleRepository;
+    }
 
     /**
      * @Route("/admin", name="admin_page")
@@ -48,6 +56,11 @@ class AdminController extends AbstractController
         $formUserAdd = $this->createForm(UserAddType::class, null, array(
             'action' => $this->generateUrl("addUserA")
         ));
+
+
+        $lastCreatedArticle = $this->articleRepository->getLastCreatedArticle();
+        $lastEditArticle = $this->articleRepository->getLastEditArticle();
+
 
         return $this->render('admin/admin.html.twig', [
             'formArticle' => $formArticle->createView(),

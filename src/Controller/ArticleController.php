@@ -128,7 +128,7 @@ class ArticleController extends AbstractController
                     $resizer->resize($this->getParameter('kernel.project_dir') . "/public/images/" . $image->getFileName());
                 }
 
-                $article->setLastEdit(new \DateTime());
+                $article->setLastEditUser($this->getUser());
                 $this->em->flush();
             }
 
@@ -322,7 +322,7 @@ class ArticleController extends AbstractController
      */
 
 
-    public function genralSearch(Request $request, ArticleRepository $articleRepository)
+    public function generalSearch(Request $request, ArticleRepository $articleRepository)
     {
 
        $search = $request->get('search');

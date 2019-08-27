@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -42,7 +43,6 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      * @Serializer\Exclude()
      * @Assert\NotBlank(message="New password can not be blank.")
-     * @Assert\Regex(pattern="/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", message="New password is required to be minimum 6 chars in length and to include at least one letter and one number.")
      */
     private $password;
 
@@ -379,6 +379,19 @@ class User implements UserInterface
         }
     }
 
+    /**
+     * @Assert\Callback()
+     */
+    public function ValidePassword(ExecutionContextInterface $context, $payload){
+
+        if(is_null($this->id)){
+            if(!preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", $this->password)){
+                $context->buildViolation("New password is required to be minimum 6 chars in length and to include at least one letter and one number.")
+                    ->atPath('password')
+                    ->addViolation();
+            }
+        }
+    }
 
 
 }

@@ -89,6 +89,7 @@ class UserController extends AbstractController
                 }
 
             } else {
+
                 return $this->render('user/addUser.html.twig', array(
                     'formUserAdd' => $form->createView(),
                 ));
@@ -173,7 +174,7 @@ class UserController extends AbstractController
                 return new JsonResponse([true, $flashMessage]);
 
             } else {
-                dd($form->getErrors(true));
+
                 return $this->render('user/edtUser.html.twig', array(
                     'formUserAdd' => $form->createView(),
                 ));

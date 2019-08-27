@@ -19,6 +19,8 @@ use App\Form\User\Filter\UserFilterType;
 use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+
+use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,11 +32,13 @@ class AdminController extends AbstractController
 
     private $articleRepository;
     private $categoryRepository;
+    private $tagRepository;
 
-    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository)
+    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
@@ -69,6 +73,10 @@ class AdminController extends AbstractController
         $lastCreatedCategory = $this->categoryRepository->getLastCreatedCategory()[0];
         $lastEditCategory = $this->categoryRepository->getLastModifiedCategory()[0];
 
+        $nbTag = $this->tagRepository->getNumberOfTag();
+        $lastCreatedTag = $this->tagRepository->getLastCreatedTag()[0];
+        $lastEditTag = $this->tagRepository->getLastModifiedTag()[0];
+
 
 
 
@@ -84,6 +92,9 @@ class AdminController extends AbstractController
             'nbCategory' => $nbCategory,
             'lastCreatedCategory' => $lastCreatedCategory,
             'lastEditCategory' => $lastEditCategory,
+            'nbTag' => $nbTag,
+            'lastCreatedTag' => $lastCreatedTag,
+            'lastEditTag' => $lastEditTag,
 
         ]);
 

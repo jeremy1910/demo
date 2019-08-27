@@ -2,6 +2,11 @@
 {# @var lastCreatedArticle \App\Entity\Article #}
 {# @var lastEditCategory \App\Entity\Category #}
 {# @var lastCreatedCategory \App\Entity\Category #}
+{# @var lastCreatedTag \App\Entity\Tag #}
+{# @var lastEditTag \App\Entity\Tag #}
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -47,12 +52,20 @@
         <div class="offset-md-1 col-md-3">
             <div class="card shadow">
                 <div class="card-header text-white font-weight-bold" style="background-color: #f1bc5f;">
-                    Tag
+                    Tags
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre :</span> 140</li>
-                    <li class="list-group-item">Dernière article modifier : nom du dernier article modifier</li>
-                    <li class="list-group-item">Dernier artiucle créer : nom</li>
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span>{{  nbTag }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier tag modifié :</span><br> {{ lastEditTag.tagName }}
+                        <div class="w-100 text-right">
+                            <small>Par : <strong>{{ lastEditTag.modifiedUser is null ? "Non défini" : lastEdittag.modifiedUser.username }}</strong> le {{ lastEditTag.modifiedAt is null ? "Non défini" : lastEditTag.modifiedAt|date("d/m/y H:i:s") }}</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier Tag créé :</span><br> {{ lastCreatedTag.tagName }}
+                        <div class="w-100 text-right">
+                            <small>Par : <strong>{{ lastCreatedTag.createdUser is null ? "Non défini" : lastCreatedTag.createdUser.username }}</strong> le {{ lastCreatedTag.createdAt|date("d/m/y H:i:s") }}</small>
+                        </div>
+                    </li>
                 </div>
             </div>
         </div>

@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username", message="Ce nom d'utilisateur existe déjà, merci d'en choisir un autre.")
- *
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -78,10 +78,39 @@ class User implements UserInterface
     private $firstName;
 
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $created_at;
+
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modified_at;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $created_user;
+
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $modified_user;
+
+
     public function __construct() {
         $this->articles = new ArrayCollection();
         $this->roles = new ArrayCollection();
     }
+
+
+
 
     /**
      * @return Collection|Article[]
@@ -212,6 +241,76 @@ class User implements UserInterface
 
 
     /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param mixed $created_at
+     */
+    public function setCreatedAt($created_at): void
+    {
+        $this->created_at = $created_at;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModifiedAt()
+    {
+        return $this->modified_at;
+    }
+
+    /**
+     * @param mixed $modified_at
+     */
+    public function setModifiedAt($modified_at): void
+    {
+        $this->modified_at = $modified_at;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedUser()
+    {
+        return $this->created_user;
+    }
+
+    /**
+     * @param mixed $created_user
+     * @return User
+     */
+    public function setCreatedUser($created_user)
+    {
+        $this->created_user = $created_user;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModifiedUser()
+    {
+        return $this->modified_user;
+    }
+
+    /**
+     * @param mixed $modified_user
+     * @return User
+     */
+    public function setModifiedUser($modified_user)
+    {
+        $this->modified_user = $modified_user;
+        return $this;
+    }
+
+
+    /**
      * @see UserInterface
      */
     public function getPassword(): string
@@ -267,7 +366,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @ORM\PreFlush()
+     */
+    public function setDate(){
 
+        if(is_null($this->id)){
+            $this->created_at = new \DateTime();
+        }
+        else{
+            $this->modified_at = new \DateTime();
+        }
+    }
 
 
 

@@ -45,6 +45,17 @@ class Tag
      */
     private $modified_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $created_user;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $modified_user;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -103,6 +114,43 @@ class Tag
         return $this;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedUser()
+    {
+        return $this->created_user;
+    }
+
+    /**
+     * @param mixed $created_user
+     * @return Tag
+     */
+    public function setCreatedUser($created_user)
+    {
+        $this->created_user = $created_user;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModifiedUser()
+    {
+        return $this->modified_user;
+    }
+
+    /**
+     * @param mixed $modified_user
+     * @return Tag
+     */
+    public function setModifiedUser($modified_user)
+    {
+        $this->modified_user = $modified_user;
+        return $this;
+    }
+
     /**
      * @return Collection|Article[]
      */
@@ -150,6 +198,19 @@ class Tag
 
 
 
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function setDate(){
+
+        if(is_null($this->id)){
+            $this->created_at = new \DateTime();
+        }
+        else{
+            $this->modified_at = new \DateTime();
+        }
     }
 
 }

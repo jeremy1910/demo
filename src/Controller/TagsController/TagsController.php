@@ -85,6 +85,7 @@ class TagsController extends AbstractController
     }
 
     private function createTag(Tag $tag){
+        $tag->setCreatedUser($this->getUser());
         $this->entityManager->persist($tag);
         $this->entityManager->flush();
     }
@@ -105,7 +106,7 @@ class TagsController extends AbstractController
 
             if ($this->isGranted('TAG_DELETE', $tag)) {
                 try {
-                    $this->deleteCategory($tag);
+                    $this->deleteTag($tag);
 
                     $flashMessage = $this->flashMessage->getFlashMessage('success', 'Tag supprimé !');
 
@@ -123,8 +124,9 @@ class TagsController extends AbstractController
 
     }
 
-    private function deleteCategory(Tag $tag)
+    private function deleteTag(Tag $tag)
     {
+
         $this->entityManager->remove($tag);
         $this->entityManager->flush();
     }
@@ -163,6 +165,7 @@ class TagsController extends AbstractController
 
     private function editCategory(Tag $tag, string $name)
     {
+        $tag->setModifiedUser($this->getUser());
         $tag->setTagName($name);
         $this->entityManager->flush();
     }

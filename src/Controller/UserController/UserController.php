@@ -106,6 +106,7 @@ class UserController extends AbstractController
     }
 
     private function createUser(User $user){
+        $user->setCreatedUser($this->getUser());
         $this->entityManager->persist($user);
         $this->entityManager->flush();
     }
@@ -166,11 +167,13 @@ class UserController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
 
 
-                $this->entityManager->flush();
+                //$this->entityManager->flush();
+                $this->editUser($user);
                 $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
                 return new JsonResponse([true, $flashMessage]);
 
             } else {
+                dd($form->getErrors(true));
                 return $this->render('user/edtUser.html.twig', array(
                     'formUserAdd' => $form->createView(),
                 ));
@@ -213,9 +216,9 @@ class UserController extends AbstractController
         }
     }
 
-    private function editCategory(User $user, string $name)
+    private function editUser(User $user)
     {
-        $user->setUserName($name);
+        $user->setModifiedUser($this->getUser());
         $this->entityManager->flush();
     }
 }

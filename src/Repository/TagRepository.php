@@ -48,6 +48,28 @@ class TagRepository extends ServiceEntityRepository
             ->getResult();
 
     }
+
+
+    public function getLastCreatedTag(){
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.created_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getLastModifiedTag(){
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.modified_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getNumberOfTag(){
+        $query = $this->createQueryBuilder('t')
+            ->select("COUNT(t.id)");
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Tag[] Returns an array of Tag objects
     //  */

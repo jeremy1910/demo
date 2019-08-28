@@ -386,9 +386,12 @@ class User implements UserInterface
 
         if(is_null($this->id)){
             if(!preg_match("/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,50}$/", $this->password)){
+
                 $context->buildViolation("New password is required to be minimum 6 chars in length and to include at least one letter and one number.")
                     ->atPath('password')
                     ->addViolation();
+
+
             }
         }
     }

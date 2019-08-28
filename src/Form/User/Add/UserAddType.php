@@ -108,9 +108,9 @@ class UserAddType extends AbstractType
 
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
 
-                if (!isset($user['password'])) {
-                    $form = $event->getForm();
-                    $form->remove('password');
+                if(! key_exists('password', $event->getData())) {
+                   $form = $event->getForm();
+                   $form->remove('password');
                 }
             })
         ;

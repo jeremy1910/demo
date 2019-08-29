@@ -12,6 +12,7 @@ namespace App\Controller\test;
 use App\Entity\Article;
 use App\Form\AdminDashboard\ArticleDashboardFilterType;
 use App\Service\DataRequest\DataRequestRouterServicesDataRequest;
+use App\Service\History\HistorySearchArticleService;
 use App\Service\Test\ServiceTest;
 
 use JMS\Serializer\SerializationContext;
@@ -55,6 +56,7 @@ class Test_DataRequestRouterServiceController extends AbstractController
         $serializer = SerializerBuilder::create()->build();
         if($route !== null){
             $route->setFilter();
+
             $route->handelMaxAndOffsetResult();
             $response = $route->getResult();
 

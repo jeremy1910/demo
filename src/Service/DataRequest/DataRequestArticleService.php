@@ -10,6 +10,7 @@ namespace App\Service\DataRequest;
 
 
 use App\Entity\Article;
+use App\Service\History\HistorySearchArticleService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -17,13 +18,15 @@ class DataRequestArticleService extends DataRequestClassService
 {
 
 
-    public function __construct(EntityManagerInterface $em, $target, $option, $entity, Security $security)
+    public function __construct(EntityManagerInterface $em, $target, $option, $entity, Security $security, HistorySearchArticleService $historySearchArticleService)
     {
         parent::__construct($em, $target, $option, $entity);
         $this->security = $security;
+        $this->historySearchArticleService = $historySearchArticleService;
 
     }
     private $security;
+    private $historySearchArticleService;
     protected $permitedOptions = ['title', 'user', 'tags[0-9]+', 'num_category[0-9]+', 'created_at_before', 'created_at_after', 'nbResult', 'pageSelected', 'content'];
 
     public function setFilter()
@@ -90,7 +93,10 @@ class DataRequestArticleService extends DataRequestClassService
 
     public function getResult(){
         $repository = $this->em->getRepository($this->entity);
-
+        if(!empty($this->validedOptions))
+        {
+            $this->historySearchArticleService->createSearchHistory($this->validedOptions);
+        }
         $nbElement = $repository->findByCondition($this->validedOptions, null, null, TRUE);
 
         $result['result'] = $repository->findByCondition($this->validedOptions, $this->maxResult, ($this->offset-1)*$this->maxResult);
@@ -109,6 +115,7 @@ class DataRequestArticleService extends DataRequestClassService
 
         return $result;
     }
+
 
 
 }

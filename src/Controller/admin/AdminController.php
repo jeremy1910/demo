@@ -84,6 +84,9 @@ class AdminController extends AbstractController
         $lastCreatedUser = $this->userRepository->getLastCreatedUser()[0];
         $lastEditUser = $this->userRepository->getLastModifiedUser()[0];
 
+        $topArticle = $this->articleRepository->getTop10MostViewed();
+
+
 
 
 
@@ -105,7 +108,7 @@ class AdminController extends AbstractController
             'nbUser' => $nbUser,
             'lastCreatedUser' => $lastCreatedUser,
             'lastEditUser' => $lastEditUser,
-
+            'topArticle' => $topArticle,
         ]);
 
     }

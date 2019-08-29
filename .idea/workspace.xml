@@ -15,14 +15,17 @@
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/60b96e82-174a-432b-a2a1-4cc92bf15bb8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/60b96e82-174a-432b-a2a1-4cc92bf15bb8.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/admin/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/admin/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DataFixtures/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/Article.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Article.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ArticleRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin/dashboard.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/dashboard.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,19 +55,6 @@
         <item name="demo@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="demo@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="demo: schema" type="76f4a085:MysqlImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="demo@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="demo: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="user: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
     </expand>
     <select />
   </component>
@@ -73,56 +63,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/UserController/UserController.php">
+      <file leaf-file-name="dashboard.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/admin/dashboard.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="170" column="33" selection-start-line="170" selection-start-column="33" selection-end-line="170" selection-end-column="33" />
+            <state relative-caret-position="1341">
+              <caret line="104" column="52" selection-start-line="104" selection-start-column="52" selection-end-line="104" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Form/User/Add/UserAddType.php">
+      <file leaf-file-name="ArticleController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Controller/ArticleController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="114" selection-start-line="114" selection-end-line="114" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DataFixtures/Article.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="1025">
+              <caret line="199" lean-forward="true" selection-start-line="199" selection-end-line="199" />
               <folding>
-                <element signature="e#37#61#0#PHP" expanded="true" />
+                <element signature="e#4856#4880#0#PHP" expanded="true" />
+                <element signature="e#6092#6102#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
+      <file leaf-file-name="Test_DataRequestRouterServiceController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/test/Test_DataRequestRouterServiceController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="366" column="5" selection-start-line="366" selection-start-column="5" selection-end-line="366" selection-end-column="5" />
+            <state relative-caret-position="465">
+              <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repository/UserRepository.php">
+      <file leaf-file-name="DataRequestTagService.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Service/DataRequest/DataRequestTagService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="786">
-              <caret line="76" column="20" selection-start-line="76" selection-start-column="20" selection-end-line="76" selection-end-column="20" />
+            <state relative-caret-position="195">
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/user">
+      <file leaf-file-name="DataRequestClassService.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Service/DataRequest/DataRequestClassService.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="DataRequestRouterServicesDataRequest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Service/DataRequest/DataRequestRouterServicesDataRequest.php">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="article" pinned="false" current-in-tab="false">
+        <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/article">
           <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
             <state>
               <filtering enabled="true" />
@@ -130,20 +122,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/admin/dashboard.html.twig">
+      <file leaf-file-name="Article.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Entity/Article.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="82" column="136" selection-start-line="82" selection-start-column="124" selection-end-line="82" selection-end-column="136" />
+            <state relative-caret-position="1055">
+              <caret line="281" selection-start-line="281" selection-end-line="281" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repository/CategoryRepository.php">
+      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/admin/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
+            <state relative-caret-position="1575">
+              <caret line="110" column="40" selection-start-line="110" selection-start-column="40" selection-end-line="110" selection-end-column="40" />
+              <folding>
+                <element signature="e#121#141#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ArticleRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Repository/ArticleRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1340">
+              <caret line="212" column="32" selection-start-line="212" selection-start-column="32" selection-end-line="212" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -218,8 +222,6 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
         <option value="$PROJECT_DIR$/templates/test/testTableStructure.html.twig" />
         <option value="$PROJECT_DIR$/assets/js/app.js" />
-        <option value="$PROJECT_DIR$/src/DataFixtures/Article.php" />
-        <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/src/Entity/Article/Filter/ArticleFilter.php" />
         <option value="$PROJECT_DIR$/src/Service/DataRequest/DataRequestArticleService.php" />
         <option value="$PROJECT_DIR$/src/Form/Article/Filter/ArticleFilterType.php" />
@@ -244,9 +246,6 @@
         <option value="$PROJECT_DIR$/assets/js/Article/listArticle.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/templates/admin/admin.html.twig" />
-        <option value="$PROJECT_DIR$/src/Repository/ArticleRepository.php" />
-        <option value="$PROJECT_DIR$/src/Controller/ArticleController.php" />
-        <option value="$PROJECT_DIR$/src/Entity/Article.php" />
         <option value="$PROJECT_DIR$/src/Entity/Category.php" />
         <option value="$PROJECT_DIR$/src/Controller/CategoryController/CategoryController.php" />
         <option value="$PROJECT_DIR$/src/Repository/CategoryRepository.php" />
@@ -256,13 +255,31 @@
         <option value="$PROJECT_DIR$/templates/user/edtUser.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/User/Add/UserAddType.php" />
         <option value="$PROJECT_DIR$/src/Repository/UserRepository.php" />
-        <option value="$PROJECT_DIR$/src/Controller/admin/AdminController.php" />
-        <option value="$PROJECT_DIR$/templates/admin/dashboard.html.twig" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/60b96e82-174a-432b-a2a1-4cc92bf15bb8/console.sql" />
         <option value="$PROJECT_DIR$/src/Entity/User.php" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/src/DataFixtures/Article.php" />
         <option value="$PROJECT_DIR$/src/Controller/UserController/UserController.php" />
+        <option value="$PROJECT_DIR$/src/Entity/Article.php" />
+        <option value="$PROJECT_DIR$/src/Controller/ArticleController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/admin/AdminController.php" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/60b96e82-174a-432b-a2a1-4cc92bf15bb8/console.sql" />
+        <option value="$PROJECT_DIR$/src/Repository/ArticleRepository.php" />
+        <option value="$PROJECT_DIR$/templates/admin/dashboard.html.twig" />
       </list>
     </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+      <path value="$PROJECT_DIR$/public/bundles/fosckeditor/package.json" />
+      <path value="$PROJECT_DIR$/public/library/bootstrap-datetimepicker-master/package.json" />
+    </packageJsonPaths>
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
@@ -420,24 +437,6 @@
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="AdminDashboard" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -451,18 +450,20 @@
               <item name="demo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Controller" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Service" type="462c0819:PsiDirectoryNode" />
+              <item name="DataRequest" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -472,7 +473,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="TagR&#9;null&#9;null&#10;TagContr&#9;null&#9;null&#10;ArticleRe&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/ArticleRepository.php&#10;CategoryRe&#9;null&#9;null&#10;ArticleContr&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;Article&#9;null&#9;null&#10;Articlerepo&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/ArticleRepository.php&#10;articleContr&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;secur&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;article&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;sec&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;user&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/templates/admin/menu-user.html.twig&#10;adminC&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/admin/AdminController.php&#10;Roles&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Entity/Roles.php&#10;securit&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;UserC&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;User&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Entity/User.php&#10;userAdd&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Add/UserAddType.php&#10;userContr&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;userC&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;user type&#9;null&#9;null&#10;TagCon&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/TagsController/TagsController.php&#10;userController&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;userRepo&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/UserRepository.php&#10;repla&#9;ACTION&#9;Replace&#10;userre&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/UserRepository.php&#10;dataUser&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Service/DataRequest/DataRequestUserService.php&#10;userfil&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Filter/UserFilterType.php&#10;Datar&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Service/DataRequest/DataRequestUserService.php&#10;userContro&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;userFilter&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Filter/UserFilterType.php&#10;-&gt;iterate&#9;null&#9;null&#10;userFilterTy&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Filter/UserFilterType.php&#10;PostAuthenticationGuardToken&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/vendor/symfony/security-guard/Token/PostAuthenticationGuardToken.php&#10;secu&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;adminCon&#9;FILE&#9;file://C:/Users/user/PhpstormProjects/demo/demo/src/Controller/admin/AdminController.php&#10;CategoryCon&#9;FILE&#9;file://C:/Users/user/PhpstormProjects/demo/demo/src/Controller/CategoryController/CategoryController.php&#10;CategoryFil&#9;null&#9;null&#10;security&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;bundle&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/bundles.php&#10;auto&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/vendor/autoload.php&#10;securi&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;base&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/templates/base.html.twig" />
+    <property name="SearchEverywhereHistoryKey" value="Articlere&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/ArticleRepository.php&#10;Arti&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;Article&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Entity/Article.php&#10;dashbo&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/templates/admin/dashboard.html.twig&#10;TagR&#9;null&#9;null&#10;TagContr&#9;null&#9;null&#10;ArticleRe&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/ArticleRepository.php&#10;CategoryRe&#9;null&#9;null&#10;ArticleContr&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;Articlerepo&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/ArticleRepository.php&#10;articleContr&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;secur&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;article&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/ArticleController.php&#10;sec&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;user&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/templates/admin/menu-user.html.twig&#10;adminC&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/admin/AdminController.php&#10;Roles&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Entity/Roles.php&#10;securit&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;UserC&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;User&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Entity/User.php&#10;userAdd&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Add/UserAddType.php&#10;userContr&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;userC&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;user type&#9;null&#9;null&#10;TagCon&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/TagsController/TagsController.php&#10;userController&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;userRepo&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/UserRepository.php&#10;repla&#9;ACTION&#9;Replace&#10;userre&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Repository/UserRepository.php&#10;dataUser&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Service/DataRequest/DataRequestUserService.php&#10;userfil&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Filter/UserFilterType.php&#10;Datar&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Service/DataRequest/DataRequestUserService.php&#10;userContro&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Controller/UserController/UserController.php&#10;userFilter&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Filter/UserFilterType.php&#10;-&gt;iterate&#9;null&#9;null&#10;userFilterTy&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/src/Form/User/Filter/UserFilterType.php&#10;PostAuthenticationGuardToken&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/vendor/symfony/security-guard/Token/PostAuthenticationGuardToken.php&#10;secu&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;adminCon&#9;FILE&#9;file://C:/Users/user/PhpstormProjects/demo/demo/src/Controller/admin/AdminController.php&#10;CategoryCon&#9;FILE&#9;file://C:/Users/user/PhpstormProjects/demo/demo/src/Controller/CategoryController/CategoryController.php&#10;CategoryFil&#9;null&#9;null&#10;security&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;bundle&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/bundles.php&#10;auto&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/vendor/autoload.php&#10;securi&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/config/packages/security.yaml&#10;base&#9;FILE&#9;file:///home/jeje/lab/dev/symfony/demo/templates/base.html.twig" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
@@ -480,7 +481,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="database.console.LAST_STATE" value="false" />
+    <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="C:/lab/symfony/testFull-text" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -503,6 +504,124 @@
       <recent name="$PROJECT_DIR$/src/Entity/Article" />
     </key>
   </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.env</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/dataSources/60b96e82-174a-432b-a2a1-4cc92bf15bb8.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Controller/UserController/UserController.php</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Controller/admin/AdminController.php</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/DataFixtures/Article.php</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Entity/User.php</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/Repository/UserRepository.php</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/templates/admin/dashboard.html.twig</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -516,7 +635,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="build" type="js.build_tools.npm" factoryName="npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -524,7 +643,6 @@
       </scripts>
       <node-interpreter value="project" />
       <envs />
-      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
@@ -624,8 +742,8 @@
       <workItem from="1561575099284" duration="4408000" />
       <workItem from="1565595388638" duration="1967000" />
       <workItem from="1566765877123" duration="20067000" />
-      <workItem from="1567020199446" duration="2139000" />
-      <workItem from="1567092126566" duration="2578000" />
+      <workItem from="1567020199446" duration="2756000" />
+      <workItem from="1567096899849" duration="4140000" />
     </task>
     <task id="LOCAL-00001" summary="avancement adminDashboard 30/05/19">
       <created>1559217600682</created>
@@ -802,11 +920,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566940701554</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="commit du 28/08/19 00:00">
+      <created>1567025193027</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1567025193027</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="586116000" />
+    <option name="totallyTimeSpent" value="590234000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -818,60 +943,57 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="3840" y="27" width="1440" height="2467" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.93016344" weight="0.11140725" />
-      <window_info id="Structure" order="1" sideWeight="0.16287878" side_tool="true" weight="0.14956245" />
-      <window_info id="npm" order="2" sideWeight="0.06983655" side_tool="true" visible="true" weight="0.2112" />
-      <window_info id="Favorites" order="3" sideWeight="0.083715595" side_tool="true" weight="0.11376293" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49920446" weight="0.2340195" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7704853" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49960223" weight="0.32719395" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.849642" weight="0.38244852" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.26218852" />
-      <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.84765315" weight="0.25893825" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.15035799" side_tool="true" weight="0.28680202" />
-      <window_info anchor="right" id="JSON Viewer" />
-      <window_info anchor="right" id="Json Parser" />
-      <window_info anchor="right" id="JSON Utils" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7704853" weight="0.32936078" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.26194614" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.849642" weight="0.24543875" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.32889125" />
+      <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.84765315" visible="true" weight="0.2589053" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.93016344" visible="true" weight="0.17073171" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.16427547" />
+      <window_info id="Structure" order="1" sideWeight="0.16287878" side_tool="true" weight="0.14956245" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="3" sideWeight="0.083715595" side_tool="true" weight="0.11376293" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="npm" order="2" sideWeight="0.06983655" side_tool="true" visible="true" weight="0.2112" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.32889125" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.25053304" />
+      <window_info anchor="bottom" id="Messages" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49920446" weight="0.23501304" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.84765315" weight="0.25893825" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info id="npm" order="2" sideWeight="0.06983655" side_tool="true" visible="true" weight="0.2112" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7704853" weight="0.32936078" />
+      <window_info anchor="right" id="Remote Host" order="3" weight="0.32889125" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.93016344" visible="true" weight="0.18436155" />
       <window_info id="Structure" order="1" sideWeight="0.16287878" side_tool="true" weight="0.14956245" />
-      <window_info id="npm" order="2" sideWeight="0.06983655" side_tool="true" visible="true" weight="0.2112" />
-      <window_info id="Favorites" order="3" sideWeight="0.083715595" side_tool="true" weight="0.11376293" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49920446" weight="0.04821894" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7704853" weight="0.32936078" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49960223" weight="0.32719395" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.849642" visible="true" weight="0.21589921" />
-      <window_info anchor="bottom" id="Version Control" order="11" weight="0.26218852" />
-      <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.84765315" weight="0.25893825" />
-      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.15035799" side_tool="true" weight="0.28680202" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Remote Host" order="3" weight="0.32889125" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49960223" weight="0.32719395" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49920446" weight="0.04821894" />
       <window_info active="true" anchor="right" id="Database" order="4" visible="true" weight="0.16427547" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.849642" visible="true" weight="0.21589921" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.15035799" side_tool="true" weight="0.28680202" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.26218852" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Messages" order="8" />
+      <window_info id="Favorites" order="3" sideWeight="0.083715595" side_tool="true" weight="0.11376293" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -902,20 +1024,6 @@
         </entry>
       </map>
     </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list />
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="avancement adminDashboard 30/05/19" />
@@ -931,7 +1039,8 @@
     <MESSAGE value="commit du 26/08/19 13:50" />
     <MESSAGE value="commit du 26/08/19 00:00" />
     <MESSAGE value="commit du 27/08/19 00:00" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit du 27/08/19 00:00" />
+    <MESSAGE value="commit du 28/08/19 00:00" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit du 28/08/19 00:00" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/templates/article/articleCardTemplate.html.twig">
@@ -1018,6 +1127,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/article/listArticles.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="52" column="32" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/js/AdminDashboard/AdminDashboard-menu-article.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -1058,13 +1174,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="59" selection-start-line="13" selection-start-column="59" selection-end-line="13" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/symfony/var-dumper/Resources/functions/dump.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -1100,27 +1209,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/article">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Article.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="773">
-          <caret line="289" column="5" selection-start-line="278" selection-start-column="3" selection-end-line="289" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repository/ArticleRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2760">
-          <caret line="186" column="62" selection-start-line="186" selection-start-column="62" selection-end-line="186" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/category">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1135,17 +1223,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Entity/Tag.php">
+    <entry file="file://$PROJECT_DIR$/src/Repository/CategoryRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2865">
-          <caret line="196" column="13" selection-start-line="196" selection-start-column="13" selection-end-line="196" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/TagsController/TagsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="1275">
+          <caret line="87" column="5" selection-start-line="69" selection-start-column="3" selection-end-line="87" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1156,24 +1237,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/ArticleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1560">
-          <caret line="136" column="45" selection-start-line="136" selection-start-column="45" selection-end-line="136" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/dashboard/DashboardController.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/tag">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/user_roles">
+    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -1189,108 +1263,140 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/Category.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2460">
+        <state relative-caret-position="872">
           <caret line="167" column="41" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user/addUser.html.twig">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/article/listArticles.html.twig">
+    <entry file="file://$PROJECT_DIR$/src/Controller/UserController/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="884">
-          <caret line="52" column="32" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/form/FormEvent.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="58" column="20" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin/dashboard.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="82" column="136" selection-start-line="82" selection-start-column="124" selection-end-line="82" selection-end-column="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/60b96e82-174a-432b-a2a1-4cc92bf15bb8/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="76" column="45" selection-start-line="76" selection-start-column="45" selection-end-line="76" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/admin/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="84" column="61" selection-start-line="84" selection-start-column="61" selection-end-line="84" selection-end-column="61" />
-          <folding>
-            <element signature="e#121#141#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/doctrine/persistence/lib/Doctrine/Common/Persistence/ObjectManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="100" column="20" selection-start-line="100" selection-start-column="20" selection-end-line="100" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/User/Add/UserAddType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="114" selection-start-line="114" selection-end-line="114" />
+        <state relative-caret-position="364">
+          <caret line="170" selection-start-line="170" selection-end-line="170" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DataFixtures/Article.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="e#37#61#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
-    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/user">
+    <entry file="file://$PROJECT_DIR$/src/Form/User/Add/UserAddType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="113" column="17" selection-start-line="113" selection-start-column="17" selection-end-line="113" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/user_roles">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repository/CategoryRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="70" column="47" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Repository/UserRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="786">
-          <caret line="76" column="20" selection-start-line="76" selection-start-column="20" selection-end-line="76" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="366" column="5" selection-start-line="366" selection-start-column="5" selection-end-line="366" selection-end-column="5" />
+        <state relative-caret-position="1280">
+          <caret line="368" selection-start-line="368" selection-end-line="368" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/UserController/UserController.php">
+    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/tag">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/TagsController/TagsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="170" column="33" selection-start-line="170" selection-start-column="33" selection-end-line="170" selection-end-column="33" />
+        <state relative-caret-position="1185">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/60b96e82-174a-432b-a2a1-4cc92bf15bb8/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="29" lean-forward="true" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://60b96e82-174a-432b-a2a1-4cc92bf15bb8/schema/demo/table/article">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/admin/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="110" column="40" selection-start-line="110" selection-start-column="40" selection-end-line="110" selection-end-column="40" />
+          <folding>
+            <element signature="e#121#141#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Tag.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1655">
+          <caret line="196" column="13" selection-start-line="196" selection-start-column="13" selection-end-line="196" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Entity/Article.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1055">
+          <caret line="281" selection-start-line="281" selection-end-line="281" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Repository/ArticleRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1340">
+          <caret line="212" column="32" selection-start-line="212" selection-start-column="32" selection-end-line="212" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin/dashboard.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1341">
+          <caret line="104" column="52" selection-start-line="104" selection-start-column="52" selection-end-line="104" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/DataRequest/DataRequestRouterServicesDataRequest.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/DataRequest/DataRequestClassService.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/DataRequest/DataRequestTagService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/test/Test_DataRequestRouterServiceController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/ArticleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1025">
+          <caret line="199" lean-forward="true" selection-start-line="199" selection-end-line="199" />
+          <folding>
+            <element signature="e#4856#4880#0#PHP" expanded="true" />
+            <element signature="e#6092#6102#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

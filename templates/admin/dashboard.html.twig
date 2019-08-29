@@ -17,13 +17,13 @@
                     Articles
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span> {{ nbArticles }}</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article modifié :</span><br><a class="text-muted text-decoration-none" href="{{ path('show_article', {'id': lastEditArticle.id }) }}">{{ lastEditArticle.title is null ? "Non défini" :  lastEditArticle.title}}</a>
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre </span> {{ nbArticles }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article modifié</span><br><a class="text-muted text-decoration-none" href="{{ path('show_article', {'id': lastEditArticle.id }) }}">{{ lastEditArticle.title is null ? "Non défini" :  lastEditArticle.title}}</a>
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastEditArticle.lastEditUser is null ? "Non défini" : lastEditArticle.lastEditUser.username}}</strong> le {{ lastEditArticle.lastEdit is null ? "Non défini" : lastEditArticle.lastEdit|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article créé :</span><br><a class="text-decoration-none text-muted" href="{{ path('show_article', {'id': lastCreatedArticle.id }) }}">{{ lastCreatedArticle.title is null ? "Non défini" : lastCreatedArticle.title}}</a>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article créé</span><br><a class="text-decoration-none text-muted" href="{{ path('show_article', {'id': lastCreatedArticle.id }) }}">{{ lastCreatedArticle.title is null ? "Non défini" : lastCreatedArticle.title}}</a>
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastCreatedArticle.user is null ? "Non défini" : lastCreatedArticle.user.username}}</strong> le {{ lastCreatedArticle.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
@@ -37,13 +37,13 @@
                     Categories
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span>{{ nbCategory }}</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégorie modifiée :</span><br> {{ lastEditCategory.libele }}
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre </span>{{ nbCategory }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégorie modifiée</span><br> {{ lastEditCategory.libele }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastEditCategory.modifiedUser is null ? "Non défini" : lastEditCategory.modifiedUser.username }}</strong> le {{ lastEditCategory.modifiedAt is null ? "Non défini" : lastEditCategory.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégory créée :</span><br> {{ lastCreatedCategory.libele }}
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégory créée</span><br> {{ lastCreatedCategory.libele }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastCreatedCategory.createdUser is null ? "Non défini" : lastCreatedCategory.createdUser.username }}</strong> le {{ lastCreatedCategory.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
@@ -57,13 +57,13 @@
                     Tags
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span>{{  nbTag }}</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier tag modifié :</span><br> {{ lastEditTag.tagName }}
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre </span>{{  nbTag }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier tag modifié </span><br> {{ lastEditTag.tagName }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastEditTag.modifiedUser is null ? "Non défini" : lastEdittag.modifiedUser.username }}</strong> le {{ lastEditTag.modifiedAt is null ? "Non défini" : lastEditTag.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier Tag créé :</span><br> {{ lastCreatedTag.tagName }}
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier Tag créé </span><br> {{ lastCreatedTag.tagName }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastCreatedUser.createdUser is null ? "Non défini" : lastCreatedUser.createdUser.username }}</strong> le {{ lastCreatedUser.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
@@ -79,13 +79,13 @@
                     Utilisateurs
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span>{{ nbUser }}</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur modifié :</span><br> {{ lastEditUser.username }}
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre </span>{{ nbUser }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur modifié </span><br> {{ lastEditUser.username }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastEditUser.modifiedUser is null ? "Non défini" : lastEditUser.modifiedUser.username }}</strong> le {{ lastEditUser.modifiedAt is null ? "Non défini" : lastEditUser.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur créé :</span><br> {{ lastCreatedUser.username }}
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur créé </span><br> {{ lastCreatedUser.username }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastCreatedUser.createdUser is null ? "Non défini" : lastCreatedUser.createdUser.username }}</strong> le {{ lastCreatedUser.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
@@ -100,7 +100,16 @@
                 </div>
                 <div class="list-group list-group-flush">
                     <li class="list-group-item"><span class="font-weight-bold">Top 10 des posts les plus vus :</span></li>
-
+                    {%  if topArticle is defined %}
+                    {% for article in topArticle %}
+                        <li class="list-group-item">
+                            {{ article.title }}
+                            <div class="w-100 text-right">
+                                <small>vue <strong>{{ article.nb_view }}</strong></small>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>

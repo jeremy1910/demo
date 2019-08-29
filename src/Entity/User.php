@@ -366,14 +366,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function setDate(){
-        if(is_null($this->id)){
-            $this->created_at = new \DateTime();
-        }
-        else{
-            $this->modified_at = new \DateTime();
-        }
-    }
+
 
     /**
      * @Assert\Callback()

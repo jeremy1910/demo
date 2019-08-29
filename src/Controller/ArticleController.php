@@ -150,7 +150,8 @@ class ArticleController extends AbstractController
     public function showArticle(Article $article)
     {
 
-
+        $article->addView();
+        $this->getDoctrine()->getManager()->flush();
         return $this->render('article/show.html.twig', [
             'article' => $article,
 

@@ -166,9 +166,9 @@ class UserController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
+                $user->setModifiedAt(new \DateTime());
                 $this->editUser($user);
-                $user->setDate();
+
                 $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
                 return new JsonResponse([true, $flashMessage]);
 

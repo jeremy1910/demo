@@ -96,6 +96,10 @@ class Article
      */
     private $last_edit_User;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nb_view;
 
     /**
      * @return mixed
@@ -257,6 +261,30 @@ class Article
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNbView()
+    {
+        return $this->nb_view;
+    }
+
+    /**
+     * @param mixed $nb_view
+     * @return Article
+     */
+    public function setNbView($nb_view)
+    {
+        $this->nb_view = $nb_view;
+        return $this;
+    }
+
+
+    public function addView(){
+        $this->nb_view++;
+    }
+
 
     /**
      * @ORM\PrePersist()

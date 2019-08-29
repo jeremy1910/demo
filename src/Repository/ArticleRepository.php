@@ -120,7 +120,7 @@ class ArticleRepository extends ServiceEntityRepository
                         ->orWhere("MATCH_AGAINST (a.body, :searchterm 'IN BOOLEAN MODE') > 0")
                         ->setParameter('searchterm', "*$condition*")
                         ->addOrderBy("(MATCH_AGAINST (a.title, :searchterm 'IN BOOLEAN MODE')) + ((MATCH_AGAINST (a.description, :searchterm 'IN BOOLEAN MODE'))*0.5) + ((MATCH_AGAINST (a.body, :searchterm 'IN BOOLEAN MODE'))*0.2)", 'desc');
-                        $orderByDate = false;
+                    $orderByDate = false;
                 } else if ($key == 'tags') {
 
 
@@ -202,6 +202,16 @@ class ArticleRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('a')
             ->orderBy('a.created_at', 'desc')
             ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getTop10MostViewed(){
+        $query = $this->createQueryBuilder('a')
+            ->select('a.id')
+            ->addSelect('a.title')
+            ->addSelect('a.nb_view')
+            ->orderBy('a.nb_view', 'desc')
+            ->setMaxResults(10);
         return $query->getQuery()->getResult();
     }
 

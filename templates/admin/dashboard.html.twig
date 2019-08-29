@@ -4,6 +4,8 @@
 {# @var lastCreatedCategory \App\Entity\Category #}
 {# @var lastCreatedTag \App\Entity\Tag #}
 {# @var lastEditTag \App\Entity\Tag #}
+{# @var lastEditUser \App\Entity\User#}
+{# @var lastCreatedUser \App\Entity\User#}
 
 
 
@@ -63,7 +65,7 @@
                     </li>
                     <li class="list-group-item"><span class="font-weight-bold ">Dernier Tag créé :</span><br> {{ lastCreatedTag.tagName }}
                         <div class="w-100 text-right">
-                            <small>Par : <strong>{{ lastCreatedTag.createdUser is null ? "Non défini" : lastCreatedTag.createdUser.username }}</strong> le {{ lastCreatedTag.createdAt|date("d/m/y H:i:s") }}</small>
+                            <small>Par : <strong>{{ lastCreatedUser.createdUser is null ? "Non défini" : lastCreatedUser.createdUser.username }}</strong> le {{ lastCreatedUser.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
                 </div>
@@ -77,15 +79,15 @@
                     Utilisateurs
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre :</span> 5</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur modifié :</span><br> Jérémy
+                    <li class="list-group-item"><span class="font-weight-bold">Nombre : </span>{{ nbUser }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur modifié :</span><br> {{ lastEditUser.username }}
                         <div class="w-100 text-right">
-                            <small>Par : <strong>admin</strong> le 10/10/2019</small>
+                            <small>Par : <strong>{{ lastEditUser.modifiedUser is null ? "Non défini" : lastEditUser.modifiedUser.username }}</strong> le {{ lastEditUser.modifiedAt is null ? "Non défini" : lastEditUser.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur créée :</span><br> Jérémy
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernier utilisateur créé :</span><br> {{ lastCreatedUser.username }}
                         <div class="w-100 text-right">
-                            <small>Par : <strong>admin</strong> le 10/10/2019</small>
+                            <small>Par : <strong>{{ lastCreatedUser.createdUser is null ? "Non défini" : lastCreatedUser.createdUser.username }}</strong> le {{ lastCreatedUser.createdAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
                 </div>

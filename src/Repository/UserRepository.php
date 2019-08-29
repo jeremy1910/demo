@@ -67,6 +67,27 @@ class UserRepository extends ServiceEntityRepository
     }
 
 
+    public function getLastCreatedUser(){
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.created_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getLastModifiedUser(){
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.modified_at', 'desc')
+            ->setMaxResults(1);
+        return $query->getQuery()->getResult();
+    }
+
+    public function getNumberOfUser(){
+        $query = $this->createQueryBuilder('u')
+            ->select("COUNT(u.id)");
+        return $query->getQuery()->getSingleScalarResult();
+    }
+
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

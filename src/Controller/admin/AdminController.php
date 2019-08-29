@@ -21,6 +21,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 
 use App\Repository\TagRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,12 +34,14 @@ class AdminController extends AbstractController
     private $articleRepository;
     private $categoryRepository;
     private $tagRepository;
+    private $userRepository;
 
-    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository)
+    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository, UserRepository $userRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagRepository = $tagRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -77,6 +80,10 @@ class AdminController extends AbstractController
         $lastCreatedTag = $this->tagRepository->getLastCreatedTag()[0];
         $lastEditTag = $this->tagRepository->getLastModifiedTag()[0];
 
+        $nbUser = $this->userRepository->getNumberOfUser();
+        $lastCreatedUser = $this->userRepository->getLastCreatedUser()[0];
+        $lastEditUser = $this->userRepository->getLastModifiedUser()[0];
+
 
 
 
@@ -95,6 +102,9 @@ class AdminController extends AbstractController
             'nbTag' => $nbTag,
             'lastCreatedTag' => $lastCreatedTag,
             'lastEditTag' => $lastEditTag,
+            'nbUser' => $nbUser,
+            'lastCreatedUser' => $lastCreatedUser,
+            'lastEditUser' => $lastEditUser,
 
         ]);
 

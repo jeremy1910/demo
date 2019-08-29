@@ -167,9 +167,8 @@ class UserController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
 
-
-                //$this->entityManager->flush();
                 $this->editUser($user);
+                $user->setDate();
                 $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
                 return new JsonResponse([true, $flashMessage]);
 
@@ -220,6 +219,7 @@ class UserController extends AbstractController
     private function editUser(User $user)
     {
         $user->setModifiedUser($this->getUser());
+
         $this->entityManager->flush();
     }
 }

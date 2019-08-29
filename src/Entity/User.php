@@ -366,11 +366,7 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @ORM\PreFlush()
-     */
     public function setDate(){
-
         if(is_null($this->id)){
             $this->created_at = new \DateTime();
         }

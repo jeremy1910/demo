@@ -68,7 +68,7 @@ class HistorySearchArticle
     private $search_date;
 
     /**
-     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="searched_articles")
      */
     private $by_user;
 
@@ -199,6 +199,25 @@ class HistorySearchArticle
         $this->search_date = $search_date;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getByUser()
+    {
+        return $this->by_user;
+    }
+
+    /**
+     * @param mixed $by_user
+     * @return HistorySearchArticle
+     */
+    public function setByUser($by_user)
+    {
+        $this->by_user = $by_user;
+        return $this;
+    }
+
 
 
     /**

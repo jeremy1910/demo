@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\History\HistorySearchArticle;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class User implements UserInterface
 {
+
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -104,12 +107,44 @@ class User implements UserInterface
     private $modified_user;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\History\HistorySearchArticle", mappedBy="by_user")
+     */
+    private $searched_articles;
+
+
+
     public function __construct() {
         $this->articles = new ArrayCollection();
         $this->roles = new ArrayCollection();
+        $this->searched_articles = new ArrayCollection();
     }
 
 
+    public function getSearchedArticles()
+    {
+        return $this->searched_articles;
+    }
+
+
+    public function setSearchedArticles($searched_articles)
+    {
+        $this->searched_articles = $searched_articles;
+        return $this;
+    }
+
+
+
+    public function addSearchedArticles(HistorySearchArticle $searched_articles)
+    {
+        if (!$this->searched_articles->contains($searched_articles))
+        {
+            $this->searched_articles->add($searched_articles);
+            $searched_articles->setByUser($this);
+
+        }
+        return $this;
+    }
 
 
     /**

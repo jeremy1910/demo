@@ -9,14 +9,26 @@
 namespace App\Entity\History;
 
 
+
+use App\Service\History\HistorySearchArticleService;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HistorySearchArticleRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 
 class HistorySearchArticle
 {
+
+    private $historySearchArticleService;
+
+    public function __construct(HistorySearchArticleService $historySearchArticleService = null)
+    {
+        $this->historySearchArticleService = $historySearchArticleService;
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -54,6 +66,11 @@ class HistorySearchArticle
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $search_date;
+
+    /**
+     *
+     */
+    private $by_user;
 
     /**
      * @return mixed
@@ -184,7 +201,12 @@ class HistorySearchArticle
     }
 
 
-
+    /**
+     * @ORM\PreFlush()
+     */
+    public function purgeTable(){
+       $this->historySearchArticleService->purgeHistory();
+    }
 
 
 

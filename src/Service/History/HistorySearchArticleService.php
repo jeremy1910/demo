@@ -29,7 +29,7 @@ class HistorySearchArticleService extends HistorySearchAbstractService
     public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag, HistorySearchArticleRepository $historySearchArticleRepository)
     {
 
-        $this->historySearchArticle = new HistorySearchArticle();
+        $this->historySearchArticle = new HistorySearchArticle($this);
         $this->entityManager = $entityManager;
         $this->parameterBag = $parameterBag;
         $this->historySearchArticleRepository = $historySearchArticleRepository;
@@ -82,8 +82,8 @@ class HistorySearchArticleService extends HistorySearchAbstractService
 
             for ($i = $delta ; $i < $maxConservation; $i++)
             {
-
-                $lastline = '';
+                $lastline = $this->historySearchArticleRepository->FindMostOlderRecord();
+                $this->entityManager->remove($lastline);
             }
         }
 

@@ -5,7 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    max_keep_article_history: 30
+    max_keep_article_history: 4
 
 services:
     # default configuration for services in *this* file

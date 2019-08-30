@@ -30,8 +30,16 @@ class HistorySearchArticleRepository extends ServiceEntityRepository
 
     public function getNumberOfRecords(){
         $query = $this->createQueryBuilder('h')
-            ->select('COUNT(h.id');
+            ->select('COUNT(h.id)');
         return $query->getQuery()->getSingleScalarResult();
+    }
+
+    public function FindMostOlderRecord(){
+        $query = $this->createQueryBuilder('h')
+            ->setMaxResults(1)
+            ->orderBy('h.search_date');
+        return $query->getQuery()->getResult()[0];
+
     }
 }
 

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190829170744 extends AbstractMigration
+final class Version20190830140951 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,6 +22,7 @@ final class Version20190829170744 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('CREATE TABLE history_search_article (id INT AUTO_INCREMENT NOT NULL, content TINYTEXT DEFAULT NULL, author TINYTEXT DEFAULT NULL, created_after DATETIME DEFAULT NULL, created_before DATETIME DEFAULT NULL, tag TINYTEXT DEFAULT NULL, search_date DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE article ADD nb_view INT NOT NULL');
     }
 
@@ -30,6 +31,7 @@ final class Version20190829170744 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DROP TABLE history_search_article');
         $this->addSql('ALTER TABLE article DROP nb_view');
     }
 }

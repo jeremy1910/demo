@@ -12,7 +12,7 @@ namespace App\Entity\History;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SearchHistoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\HistorySearchArticleRepository")
  */
 
 class HistorySearchArticle

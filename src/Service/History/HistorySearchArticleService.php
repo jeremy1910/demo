@@ -10,6 +10,8 @@ namespace App\Service\History;
 
 
 use App\Entity\History\HistorySearchArticle;
+use App\Repository\CategoryRepository;
+use App\Repository\HistorySearchArticleRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
@@ -22,13 +24,15 @@ class HistorySearchArticleService extends HistorySearchAbstractService
     private $historySearchArticle;
     private $entityManager;
     private $parameterBag;
+    private $historySearchArticleRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag)
+    public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag, HistorySearchArticleRepository $historySearchArticleRepository)
     {
 
         $this->historySearchArticle = new HistorySearchArticle();
         $this->entityManager = $entityManager;
         $this->parameterBag = $parameterBag;
+        $this->historySearchArticleRepository = $historySearchArticleRepository;
 
     }
 
@@ -68,8 +72,20 @@ class HistorySearchArticleService extends HistorySearchAbstractService
 
     }
 
-    private function purgeHistory(){
+    public function purgeHistory(){
         $maxConservation = $this->parameterBag->get('max_keep_article_history');
+        $numberOfRecords = $this->historySearchArticleRepository->getNumberOfRecords();
+
+        if ($numberOfRecords >= $maxConservation){
+
+            $delta = $numberOfRecords - $maxConservation;
+
+            for ($i = $delta ; $i < $maxConservation; $i++)
+            {
+
+                $lastline = '';
+            }
+        }
 
 
     }

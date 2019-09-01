@@ -41,6 +41,30 @@ class HistorySearchArticleRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult()[0];
 
     }
+
+    public function purgeOlderRecordsByDay($limitDayToDelete){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+          DELETE
+          from history_search_article
+          where DATEDIFF(CURDATE(), search_date) > :limitDayToDelete;
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue('limitDayToDelete', $limitDayToDelete);
+        $stmt->execute();
+
+
+    }
+
+
+    public function getRecords($nb){
+
+        $query = $this->createQueryBuilder('h')
+            ->setMaxResults($nb)
+            ->orderBy('h.search_date', 'desc');
+        return $query->getQuery()->getResult();
+    }
 }
 
 

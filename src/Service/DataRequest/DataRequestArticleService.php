@@ -103,7 +103,7 @@ class DataRequestArticleService extends DataRequestClassService
         /**
          * @var $article Article
          */
-
+        dd($result);
         foreach($result['result'] as $article){
             $result['canEdit'][$article->getId()] = $this->security->isGranted('ARTICLE_EDIT', $article);
             $result['canDelete'][$article->getId()] = $this->security->isGranted('ARTICLE_DELETE', $article);

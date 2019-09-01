@@ -9,7 +9,7 @@
 
     <div class="container-fluid">
         <div class="row" style="margin-top: 6rem;">
-            <div class="col-sm-12 col-md-2">
+            <div class="col-sm-12 col-lg-2">
                 <div class="jumbotron shadow-lg bg-light">
                 <div class="nav flex-column nav-pills" id="v-menu" role="tablist" aria-orientation="vertical">
                     <a class="nav-link active" id="v-menu-1" data-toggle="pill" href="" role="tab" aria-controls="v-pills-home" aria-selected="true">Tableau de bord</a>
@@ -19,7 +19,7 @@
                 </div>
                 </div>
             </div>
-            <div class="offset-sm-0 col-sm-12 offset-md-1 col-md-8 mt-4 mt-md-0">
+            <div class="offset-sm-0 col-sm-12 offset-lg-1 col-lg-8 mt-4 mt-lg-0">
                 <div class="tab-content" id="v-menu-tabContent">
                     <div class="tab-pane" id="v-menu-1-content" role="tabpanel" aria-labelledby="v-pills-home-tab">{% include('admin/dashboard.html.twig') %}</div>
                     <div class="tab-pane" id="v-menu-2-content" role="tabpanel" aria-labelledby="v-pills-profile-tab">
@@ -35,7 +35,7 @@
                                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#menu-2-content-1-h-menu-content-3" role="tab" aria-controls="pills-contact" aria-selected="false">Tags</a>
                                 </li>
                             </ul>
-                            <div class="tab-content mt-md-5" id="pills-tabContent">
+                            <div class="tab-content mt-lg-5" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="menu-2-content-1-h-menu-content-1" role="tabpanel" aria-labelledby="pills-home-tab">{%  include('admin/menu-article.html.twig') %}</div>
                                 <div class="tab-pane fade" id="menu-2-content-1-h-menu-content-2" role="tabpanel" aria-labelledby="pills-profile-tab">{% include('admin/menu-category.html.twig') %}</div>
                                 <div class="tab-pane fade" id="menu-2-content-1-h-menu-content-3" role="tabpanel" aria-labelledby="pills-contact-tab">{% include('admin/menu-tag.html.twig') %}</div>

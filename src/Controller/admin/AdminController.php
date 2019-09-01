@@ -20,6 +20,7 @@ use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 
+use App\Repository\HistorySearchArticleRepository;
 use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,13 +36,15 @@ class AdminController extends AbstractController
     private $categoryRepository;
     private $tagRepository;
     private $userRepository;
+    private $historySearchArticleRepository;
 
-    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository, UserRepository $userRepository)
+    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository, UserRepository $userRepository, HistorySearchArticleRepository $historySearchArticleRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagRepository = $tagRepository;
         $this->userRepository = $userRepository;
+        $this->historySearchArticleRepository = $historySearchArticleRepository;
     }
 
     /**
@@ -86,7 +89,7 @@ class AdminController extends AbstractController
 
         $topArticle = $this->articleRepository->getTop10MostViewed();
 
-
+        $historySearchArticle = $this->historySearchArticleRepository->getRecords(30);
 
 
 
@@ -109,6 +112,7 @@ class AdminController extends AbstractController
             'lastCreatedUser' => $lastCreatedUser,
             'lastEditUser' => $lastEditUser,
             'topArticle' => $topArticle,
+            'historySearchArticles' => $historySearchArticle,
         ]);
 
     }

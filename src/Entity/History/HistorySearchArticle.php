@@ -48,6 +48,11 @@ class HistorySearchArticle
     private $author;
 
     /**
+     * @ORM\Column(type="text", length=255, nullable=true)
+     */
+    private $category;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_after;
@@ -71,6 +76,8 @@ class HistorySearchArticle
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="searched_articles")
      */
     private $by_user;
+
+
 
     /**
      * @return mixed
@@ -109,6 +116,26 @@ class HistorySearchArticle
         $this->content = $content;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     * @return HistorySearchArticle
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+
 
     /**
      * @return mixed

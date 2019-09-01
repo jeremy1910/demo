@@ -16,6 +16,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Security\Core\Security;
 
 
 class HistorySearchArticleService extends HistorySearchAbstractService
@@ -25,14 +26,18 @@ class HistorySearchArticleService extends HistorySearchAbstractService
     private $entityManager;
     private $parameterBag;
     private $historySearchArticleRepository;
+    private $security;
+    private $categoryRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag, HistorySearchArticleRepository $historySearchArticleRepository)
+    public function __construct(EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag, HistorySearchArticleRepository $historySearchArticleRepository, Security $security, CategoryRepository $categoryRepository)
     {
 
         $this->historySearchArticle = new HistorySearchArticle($this);
         $this->entityManager = $entityManager;
         $this->parameterBag = $parameterBag;
         $this->historySearchArticleRepository = $historySearchArticleRepository;
+        $this->security = $security;
+        $this->categoryRepository = $categoryRepository;
 
     }
 
@@ -41,6 +46,7 @@ class HistorySearchArticleService extends HistorySearchAbstractService
 
         $this->map($search);
         $this->historySearchArticle->setSearchDate(new \DateTime());
+        $this->historySearchArticle->setByUser($this->security->getUser());
         $this->entityManager->persist($this->historySearchArticle);
         $this->entityManager->flush();
     }
@@ -57,15 +63,24 @@ class HistorySearchArticleService extends HistorySearchAbstractService
                     $this->historySearchArticle->setAuthor($element);
                     break;
                 case 'created_at_before' :
-                    $this->historySearchArticle->setCreatedBefore($element);
+                    $this->historySearchArticle->setCreatedBefore(new \DateTime($element));
                     break;
                 case 'created_at_after' :
                     $this->historySearchArticle->setCreatedAfter($element);
                     break;
-                case preg_match('/^tags[0-9]+$/', $key):
-                    $this->historySearchArticle->setTag($this->historySearchArticle->getTag().','.$element);
+                case 'tags':
+                    foreach ($element as $tag){
+                        $this->historySearchArticle->setTag($this->historySearchArticle->getTag() === null ? $tag : $this->historySearchArticle->getTag().','.$tag);
+                    }
                     break;
-
+                case 'num_category':
+                    foreach ($element as $categoryID){
+                        $category = $this->categoryRepository->find($categoryID);
+                        $this->historySearchArticle->setCategory($this->historySearchArticle->getCategory() === null ? $category->getLibele() : $this->historySearchArticle->getCategory().','.$category->getLibele());
+                    }
+                    break;
+                default:
+                    break;
 
             }
         }
@@ -74,19 +89,7 @@ class HistorySearchArticleService extends HistorySearchAbstractService
 
     public function purgeHistory(){
         $maxConservation = $this->parameterBag->get('max_keep_article_history');
-        $numberOfRecords = $this->historySearchArticleRepository->getNumberOfRecords();
 
-        if ($numberOfRecords >= $maxConservation){
-
-            $delta = $numberOfRecords - $maxConservation;
-
-            for ($i = $delta ; $i < $maxConservation; $i++)
-            {
-                $lastline = $this->historySearchArticleRepository->FindMostOlderRecord();
-                $this->entityManager->remove($lastline);
-            }
-        }
-
-
+        $this->historySearchArticleRepository->purgeOlderRecordsByDay($maxConservation);
     }
 }

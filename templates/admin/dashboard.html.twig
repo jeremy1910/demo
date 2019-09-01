@@ -6,20 +6,20 @@
 {# @var lastEditTag \App\Entity\Tag #}
 {# @var lastEditUser \App\Entity\User#}
 {# @var lastCreatedUser \App\Entity\User#}
-
+{# @var historySearchArticle \App\Entity\History\HistorySearchArticle#}
 
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-5">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white font-weight-bold">
                     Articles
                 </div>
                 <div class="list-group list-group-flush">
-                    <li class="list-group-item"><span class="font-weight-bold">Nombre </span> {{ nbArticles }}</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernier article modifié</span><br><a class="text-muted text-decoration-none" href="{{ path('show_article', {'id': lastEditArticle.id }) }}">{{ lastEditArticle.title is null ? "Non défini" :  lastEditArticle.title}}</a>
-                        <div class="w-100 text-right">
+                    <li class="list-group-item text-truncate"><span class="font-weight-bold">Nombre </span> {{ nbArticles }}</li>
+                    <li class="list-group-item"><span class="font-weight-bold d-block text-truncate">Dernier article modifié</span><a class="text-muted text-decoration-none" href="{{ path('show_article', {'id': lastEditArticle.id }) }}">{{ lastEditArticle.title is null ? "Non défini" :  lastEditArticle.title}}</a>
+                        <div class="w-100 text-right text-truncate">
                             <small>Par : <strong>{{ lastEditArticle.lastEditUser is null ? "Non défini" : lastEditArticle.lastEditUser.username}}</strong> le {{ lastEditArticle.lastEdit is null ? "Non défini" : lastEditArticle.lastEdit|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
@@ -31,14 +31,14 @@
                 </div>
             </div>
         </div>
-        <div class="offset-md-1 col-md-3">
+        <div class="offset-lg-1 col-lg-5">
             <div class="card shadow">
                 <div class="card-header text-white font-weight-bold" style="background-color: #4e9a87; ">
                     Categories
                 </div>
                 <div class="list-group list-group-flush">
                     <li class="list-group-item"><span class="font-weight-bold">Nombre </span>{{ nbCategory }}</li>
-                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégorie modifiée</span><br> {{ lastEditCategory.libele }}
+                    <li class="list-group-item"><span class="font-weight-bold ">Dernière catégorie modifiée</span> {{ lastEditCategory.libele }}
                         <div class="w-100 text-right">
                             <small>Par : <strong>{{ lastEditCategory.modifiedUser is null ? "Non défini" : lastEditCategory.modifiedUser.username }}</strong> le {{ lastEditCategory.modifiedAt is null ? "Non défini" : lastEditCategory.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
@@ -51,7 +51,9 @@
                 </div>
             </div>
         </div>
-        <div class="offset-md-1 col-md-3">
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-5">
             <div class="card shadow">
                 <div class="card-header text-white font-weight-bold" style="background-color: #f1bc5f;">
                     Tags
@@ -71,9 +73,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-5">
-        <div class="offset-md-1 col-md-3">
+        <div class="offset-lg-1 col-lg-5">
             <div class="card shadow">
                 <div class="card-header text-white font-weight-bold" style="background-color: #2c4344;">
                     Utilisateurs
@@ -93,7 +93,9 @@
                 </div>
             </div>
         </div>
-        <div class="offset-md-1 col-md-3">
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-5">
             <div class="card shadow">
                 <div class="card-header text-white font-weight-bold" style="background-color: #fc242c;">
                     Top des Posts
@@ -101,28 +103,71 @@
                 <div class="list-group list-group-flush">
                     <li class="list-group-item"><span class="font-weight-bold">Top 10 des posts les plus vus :</span></li>
                     {%  if topArticle is defined %}
-                    {% for article in topArticle %}
-                        <li class="list-group-item">
-                            {{ article.title }}
-                            <div class="w-100 text-right">
-                                <small>vue <strong>{{ article.nb_view }}</strong></small>
-                            </div>
-                        </li>
-                    {% endfor %}
+                        {% for article in topArticle %}
+                            <li class="list-group-item">
+                                {{ article.title }}
+                                <div class="w-100 text-right">
+                                    <small><strong>{{ article.nb_view }}</strong> {% if article.nb_view > 1 %} Vues {% else %} Vue {% endif %}</small>
+                                </div>
+                            </li>
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
         </div>
-        <div class="offset-md-1 col-md-3">
+        <div class="offset-lg-1 col-lg-5">
             <div class="card">
                 <div class="card-header  text-white font-weight-bold" style="background-color: #9907cf;">
                     Historique des recherches
                 </div>
                 <div class="list-group list-group-flush">
+                    {% if historySearchArticles is defined %}
+                        {% for historySearchArticle in historySearchArticles %}
+                            <li class="list-group-item">
+                                <p class="text-truncate"><small>Recherche éffectué le <span class="font-weight-bold">{{ historySearchArticle.searchDate|date("d/m/Y H:i", "Europe/Paris") }}</span> par <span class="font-weight-bold"> {% if historySearchArticle.byUser is not null %} {{ historySearchArticle.byUser.username }} {% else %} Visiteur {% endif %}</span></small></p>
+                                <p>Terme(s) de la recherche :</p>
+                                <ul class="list-group list-group-flush rounded">
+                                {% if historySearchArticle.content is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">contenu : </span>{{ historySearchArticle.content }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.category is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Categorie(s) : </span>{{ historySearchArticle.category }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.tag is not null %}
+                                    {% set tags = historySearchArticle.tag|split(',') %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Tag(s) : </span>
+                                        {% for tag in tags %}
+                                            <span class="badge badge-success">{{ tag }}</span>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                {% if historySearchArticle.category is not null %}
+                                    {% set categories = historySearchArticle.category|split(',') %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">categorie(s) : </span>
+                                        {% for category in categories %}
+                                            <span class="badge badge-secondary">{{ category }}</span>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                {% if historySearchArticle.createdAfter is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé apres : </span>{{ historySearchArticle.createdAfter|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.createdBefore is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé avant : </span>{{ historySearchArticle.createdBefore|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.createdAfter is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé apres : </span>{{ historySearchArticle.createdAfter|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
                     <li class="list-group-item">...</li>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 

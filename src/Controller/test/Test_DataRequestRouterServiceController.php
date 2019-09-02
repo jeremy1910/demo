@@ -59,8 +59,6 @@ class Test_DataRequestRouterServiceController extends AbstractController
 
             $route->handelMaxAndOffsetResult();
             $response = $route->getResult();
-
-
             $jsonContent = $serializer->serialize($response, 'json', SerializationContext::create()->enableMaxDepthChecks());
 
         }

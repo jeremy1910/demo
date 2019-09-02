@@ -25,6 +25,8 @@ use App\Repository\TagRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Form\Tag\TagFilterType;
@@ -37,14 +39,17 @@ class AdminController extends AbstractController
     private $tagRepository;
     private $userRepository;
     private $historySearchArticleRepository;
+    private $parameterBag;
+    const NB_RECORDS_BY_PAGE = 15;
 
-    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository, UserRepository $userRepository, HistorySearchArticleRepository $historySearchArticleRepository)
+    public function __construct(ArticleRepository $articleRepository, CategoryRepository $categoryRepository, TagRepository $tagRepository, UserRepository $userRepository, HistorySearchArticleRepository $historySearchArticleRepository, ParameterBagInterface $parameterBag)
     {
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagRepository = $tagRepository;
         $this->userRepository = $userRepository;
         $this->historySearchArticleRepository = $historySearchArticleRepository;
+        $this->parameterBag = $parameterBag;
     }
 
     /**
@@ -70,7 +75,6 @@ class AdminController extends AbstractController
             'action' => $this->generateUrl("addUserA")
         ));
 
-
         $lastCreatedArticle = $this->articleRepository->getLastCreatedArticle()[0];
         $lastEditArticle = $this->articleRepository->getLastEditArticle()[0];
         $nbArticles = $this->articleRepository->findNumberOfArticles()[0][1];
@@ -89,9 +93,7 @@ class AdminController extends AbstractController
 
         $topArticle = $this->articleRepository->getTop10MostViewed();
 
-        $historySearchArticle = $this->historySearchArticleRepository->getRecords(30);
-
-
+        $historySearchArticle = $this->historySearchArticleRepository->getRecords($this->parameterBag->get('nb_search_history_records_admin_dashbord_to_show'));
 
         return $this->render('admin/admin.html.twig', [
             'formArticle' => $formArticle->createView(),
@@ -118,10 +120,35 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/search-history", name="admin-search-article-hystory")
+     */
+    public function search_history(Request $request){
+        if($request->query->has('page')){
+            $nbRecords = $this->historySearchArticleRepository->getNumberOfRecords();
+            $page = $request->query->get('page');
+            $nbPageTotal = ceil($nbRecords/self::NB_RECORDS_BY_PAGE);
+
+            $from = ($page-1)*self::NB_RECORDS_BY_PAGE;
+            $to = $page*self::NB_RECORDS_BY_PAGE;
+
+            $historySearchArticles  = $this->historySearchArticleRepository->getRecordsFromTo($from, $to);
+            return $this->render('admin/searchHistory.html.twig', [
+                'historySearchArticles' => $historySearchArticles,
+                'nbPage' => $nbPageTotal,
+                'pageActuel' => $page,
+            ]);
+        }
+
+    }
+
+    /**
      * @Route("/admin/test", name="admin_test")
      */
     public function admin_test(){
+        $user = $this->userRepository->find(1);
+        $cat = $this->categoryRepository->find(1);
 
+        dd($cat->getArticles());
         return $this->render('test/testTableStructure.html.twig');
     }
 

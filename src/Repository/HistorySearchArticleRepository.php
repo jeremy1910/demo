@@ -11,6 +11,8 @@ namespace App\Repository;
 
 use App\Entity\History\HistorySearchArticle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -57,7 +59,16 @@ class HistorySearchArticleRepository extends ServiceEntityRepository
 
     }
 
+    public function getRecordsFromTo($from, $to){
 
+
+        $query = $this->createQueryBuilder('h')
+
+            ->orderBy('h.search_date', 'desc')
+            ->setFirstResult($from)
+            ->setMaxResults($to);
+        return $query->getQuery()->getResult();
+    }
     public function getRecords($nb){
 
         $query = $this->createQueryBuilder('h')

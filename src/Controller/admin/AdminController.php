@@ -124,20 +124,25 @@ class AdminController extends AbstractController
      */
     public function search_history(Request $request){
         if($request->query->has('page')){
-            $nbRecords = $this->historySearchArticleRepository->getNumberOfRecords();
             $page = $request->query->get('page');
-            $nbPageTotal = ceil($nbRecords/self::NB_RECORDS_BY_PAGE);
-
-            $from = ($page-1)*self::NB_RECORDS_BY_PAGE;
-            $to = $page*self::NB_RECORDS_BY_PAGE;
-
-            $historySearchArticles  = $this->historySearchArticleRepository->getRecordsFromTo($from, $to);
-            return $this->render('admin/searchHistory.html.twig', [
-                'historySearchArticles' => $historySearchArticles,
-                'nbPage' => $nbPageTotal,
-                'pageActuel' => $page,
-            ]);
         }
+        else{
+            $page = 1;
+        }
+        $nbRecords = $this->historySearchArticleRepository->getNumberOfRecords();
+
+        $nbPageTotal = ceil($nbRecords/self::NB_RECORDS_BY_PAGE);
+
+        $from = ($page-1)*self::NB_RECORDS_BY_PAGE;
+        $to = $page*self::NB_RECORDS_BY_PAGE;
+
+        $historySearchArticles  = $this->historySearchArticleRepository->getRecordsFromTo($from, $to);
+        return $this->render('admin/searchHistory.html.twig', [
+            'historySearchArticles' => $historySearchArticles,
+            'nbPage' => $nbPageTotal,
+            'pageActuel' => $page,
+        ]);
+
 
     }
 
@@ -145,10 +150,10 @@ class AdminController extends AbstractController
      * @Route("/admin/test", name="admin_test")
      */
     public function admin_test(){
-        $user = $this->userRepository->find(1);
-        $cat = $this->categoryRepository->find(1);
 
-        dd($cat->getArticles());
+        $user = $this->userRepository->find(12);
+
+        dd($user->getSearchedArticles()->getValues());
         return $this->render('test/testTableStructure.html.twig');
     }
 

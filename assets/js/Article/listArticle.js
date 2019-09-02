@@ -83,6 +83,8 @@ $(document).ready(function () {
         let pageActive = $('#article_filter_pageSelected').val();
         let result = JSON.parse(data)
 
+        console.log(result);
+
         $.ajax({
             url: 'article/getCard',
             method: 'POST'})
@@ -102,32 +104,6 @@ $(document).ready(function () {
             });
 
 
-        /*
-        $('.js-search-by-badge').each(function () {
-            $(this).click(function () {
-                $('#inputsTagHiden').children().remove();
-                $('#tagsList').children().remove();
-                menuArticleCreateTagHTML($(this).text());
-                menuArticleSendAjaxFormFilter();
-
-
-            })
-        });
-        $('.js-menuArticle-badge-user').each(function () {
-            $(this).click(function () {
-                $('#article_filter_user').val($(this).text());
-                menuArticleSendAjaxFormFilter();
-            })
-        });
-
-        $('.js-menuArticle-badge-category').each(function () {
-            $(this).click(function (e) {
-                e.preventDefault();
-                $('#article_filter_numCategory').selectpicker('val', $(this).attr('href'));
-                menuArticleSendAjaxFormFilter();
-            })
-        });
-        */
 
         displayPagination(result.nbPage, pageActive, function (e) {
             e.preventDefault();
@@ -183,7 +159,7 @@ $(document).ready(function () {
         if (canDelete[article.id]) {
             popoverContent += '<a  role="button" data-toggle="modal" data-target="#modalValiddelete" href="/rmArticleA/?id=' + article.id + '" class="btn btn-danger btn-sm w-100 js-btn-suppr" >Supprimer</a><br>'
         }
-        console.log(popoverContent);
+
         $('#card-popover-' + article.id).popover({
             html: true,
             content: popoverContent,

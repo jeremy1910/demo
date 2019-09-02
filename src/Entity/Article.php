@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -61,12 +62,12 @@ class Article
 
     /**
      * @ORM\Column(type="text")
+     * @Serializer\Exclude()
      */
     private $body;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true)
      */
     private $num_category;
 

@@ -132,6 +132,7 @@ $(document).ready(function () {
     function menuUserDisplayResult(data) {
         let pageActive = $('#user_filter_pageSelected').val();
         let result = JSON.parse(data);
+        console.log(result);
 
         $('#table-body-user').empty();
         $.each(result.result, function (i, item) {

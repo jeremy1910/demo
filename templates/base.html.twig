@@ -70,6 +70,12 @@
 
 </nav>
 
+{{ dump(app.request.requestUri) }}
+
+
+{% if app.request.requestUri matches '/^\/show\/[0-9]+$/' %}
+    toto
+{% endif %}
 
 {% block flash_messages %}
     <div id="flash-message">

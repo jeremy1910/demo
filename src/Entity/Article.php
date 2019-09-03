@@ -98,7 +98,7 @@ class Article
     private $last_edit_User;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_view;
 

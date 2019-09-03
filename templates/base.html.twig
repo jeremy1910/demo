@@ -29,6 +29,20 @@
                 <a class="nav-link" href="{{ path('create_article') }}">Créer un article <span class="sr-only">(current)</span></a>
             </li>
         </ul>
+
+        {% if app.request.attributes.get('_route') == 'show_article' %}
+            {% if  is_granted('ARTICLE_DELETE', article) %}
+        <ul class="navbar-nav ml-auto mr-4">
+            <li class="nav-item mr-2">
+            <a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-success">Editer</a>
+            </li>
+            <li class="nav-item">
+            <a href="{{ path('delete_article', {'id': article.id}) }}" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">Supprimer</a>
+            </li>
+
+        </ul>
+                {% endif %}
+        {% endif %}
         <ul class="nav navbar-nav dropdown">
             <form class="form-inline my-2 my-lg-0 mr-md-3" name="generalSearch">
                 <input class="form-control mr-sm-2"   type="search" id="general_search_searchString" placeholder="Recherche Rapide" data-toggle="dropdown" aria-label="Search">
@@ -70,12 +84,6 @@
 
 </nav>
 
-{{ dump(app.request.requestUri) }}
-
-
-{% if app.request.requestUri matches '/^\/show\/[0-9]+$/' %}
-    toto
-{% endif %}
 
 {% block flash_messages %}
     <div id="flash-message">
@@ -178,6 +186,17 @@
                 $('#dropDownGeneralSearch').dropdown('hide');
 
             }
+        });
+
+        $('.js-btn-suppr').each(function () {
+            $(this).click(function () {
+                $('#buttonValidDelete').attr('href', $(this).attr('href'));
+                $('#buttonValidDelete').click(function (e) {
+                    e.preventDefault();
+                    document.location.href= $('#buttonValidDelete').attr('href');
+
+                });
+            });
         });
 
     </script>

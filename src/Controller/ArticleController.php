@@ -227,7 +227,7 @@ class ArticleController extends AbstractController
         {
             $this->addFlash(
                 'notice',
-                'OKKKK'
+                'Suppression de l\'article'
             );
 
         }

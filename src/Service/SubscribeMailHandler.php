@@ -39,7 +39,7 @@ class SubscribeMailHandler
                 ),
                 'text/html'
             );
-        dump($token->getUser()->getAdresseMail());
+
         return $this;
     }
 

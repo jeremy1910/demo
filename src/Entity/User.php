@@ -112,6 +112,11 @@ class User implements UserInterface
      */
     private $searched_articles;
 
+    /**
+     * @ORM\OneToOne(targetEntity="\App\Entity\Security\ForgottenPassword", mappedBy="user", cascade={"persist"})
+     */
+    private $forgottenPassword;
+
 
 
     public function __construct() {
@@ -400,6 +405,25 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getForgottenPassword()
+    {
+        return $this->forgottenPassword;
+    }
+
+    /**
+     * @param mixed $forgottenPassword
+     * @return User
+     */
+    public function setForgottenPassword($forgottenPassword)
+    {
+        $this->forgottenPassword = $forgottenPassword;
+        return $this;
+    }
+
 
 
 

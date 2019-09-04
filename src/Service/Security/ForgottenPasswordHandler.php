@@ -13,6 +13,7 @@ use App\Entity\Security\ForgottenPassword;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 class ForgottenPasswordHandler
@@ -55,18 +56,22 @@ class ForgottenPasswordHandler
     }
 
     public function sendMail(ForgottenPassword $forgottenPassword){
-        $message = (new \Swift_Message('Mot de passe oublié'))
-            ->setFrom('jeremy1910@gmail.com')
-            ->setTo($forgottenPassword->getUser()->getAdresseMail())
-            ->setBody($this->twig_Environment->render('security/forgottenPasswordEmail.html.twig', [
+        try {
+            $message = (new \Swift_Message('Mot de passe oublié'))
+                ->setFrom('jerambaud05@gmail.com')
+                ->setTo($forgottenPassword->getUser()->getAdresseMail())
+                ->setBody($this->twig_Environment->render('security/forgottenPasswordEmail.html.twig', [
                         'token' => $forgottenPassword->getHash(),
                         'user' => $forgottenPassword->getUser(),
                     ]
-            ), 'text/html');
-
-        $this->swift_Mailer->send($message);
-
-        dd($message);
+                ), 'text/html');
+            $this->swift_Mailer->send($message);
+        }catch (\Exception $e){
+            $this->entityManager->remove($forgottenPassword);
+            $this->entityManager->flush();
+            throw new \Exception("L'email n'a pas pu être envoyé, merci de revenir plus tard ...");
+        }
+        return new Response('toto');
     }
 
 }

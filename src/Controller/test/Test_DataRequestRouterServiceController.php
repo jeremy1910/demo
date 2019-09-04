@@ -34,11 +34,9 @@ class Test_DataRequestRouterServiceController extends AbstractController
      */
     public function main(){
 
-        $form = $this->createForm(ArticleDashboardFilterType::class);
 
-        return $this->render('test/view.html.twig', [
-            'form' => $form->createView()
-        ]);
+
+        return $this->render('security/forgottenPasswordModalSucces.html.twig');
 
     }
 

@@ -54,6 +54,7 @@ class AuthController extends AbstractController
             try{
                 $forgottenPasswordHandler->add($forgottenPassword);
                 $forgottenPasswordHandler->sendMail($forgottenPassword);
+
             }
             catch (\Exception $exception){
                 $form->get('email')->addError(new FormError($exception->getMessage()));
@@ -62,6 +63,13 @@ class AuthController extends AbstractController
         return $this->render('security/forgottenPasswordModal.html.twig', [
             'form' => $form->createView()
         ]);
+
+    }
+
+    /**
+     * @Route("/forgottenPasswordID/{token}", name="forgottenPasswordID")
+     */
+    public function forgottenPasswordID($token = null){
 
     }
 }

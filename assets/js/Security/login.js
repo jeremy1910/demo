@@ -1,8 +1,11 @@
 
 
+
 $('#submitForgottenPassword').click(submitFormModal);
 
-function submitFormModal() {
+
+function submitFormModal(e) {
+    e.preventDefault();
     let $form = $("form[name='forgotten_password']");
     $.ajax({
         url: $form.attr('action'),
@@ -13,12 +16,20 @@ function submitFormModal() {
 
         }
     }).done(function (data) {
-        $('#modalForgotPassword').modal('dispose');
-        $('#modalForgottenPasswordHook').empty();
-        $(data).appendTo('#modalForgottenPasswordHook');
-        $('#modalForgotPassword').modal();
-        $('#modalForgotPassword').modal('show');
-        $('#submitForgottenPassword').click(submitFormModal);
+        $('#modalForgotPassword').modal('hide');
+
+        $('#modalForgotPassword').on('hidden.bs.modal', function (e) {
+            $('#modalForgottenPasswordHook > *').replaceWith(data);
+            $('#modalForgotPassword').modal('show');
+            $('#submitForgottenPassword').click(submitFormModal);
+        })
+
+
+
+        //$(data).appendTo('#modalForgottenPasswordHook');
+        //$('#modalForgotPassword').modal();
+
+
 
     })
 }

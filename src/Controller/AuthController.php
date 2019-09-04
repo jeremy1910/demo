@@ -44,14 +44,16 @@ class AuthController extends AbstractController
      */
     public function forgottenPassword(Request $request, ForgottenPasswordHandler $forgottenPasswordHandler){
         $forgottenPassword = new ForgottenPassword();
-        $form = $this->createForm(ForgottenPasswordType::class, $forgottenPassword);
+        $form = $this->createForm(ForgottenPasswordType::class, $forgottenPassword, [
+            'action' => $this->generateUrl('forgottenPassword'),
+        ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             try{
                 $forgottenPasswordHandler->add($forgottenPassword);
-                dd('OK');
+                $forgottenPasswordHandler->sendMail($forgottenPassword);
             }
             catch (\Exception $exception){
                 $form->get('email')->addError(new FormError($exception->getMessage()));

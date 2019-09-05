@@ -52,9 +52,9 @@ class AuthController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             try{
-                $forgottenPasswordHandler->add($forgottenPassword);
-                $forgottenPasswordHandler->sendMail($forgottenPassword);
-
+                //$forgottenPasswordHandler->add($forgottenPassword);
+                //$forgottenPasswordHandler->sendMail($forgottenPassword);
+                return $this->render('security/forgottenPasswordModalSucces.html.twig');
             }
             catch (\Exception $exception){
                 $form->get('email')->addError(new FormError($exception->getMessage()));

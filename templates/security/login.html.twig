@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
+
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
@@ -56,10 +61,13 @@
 
 
         </form>
-        <div id="modalForgottenPasswordHook">
-            {% include 'security/forgottenPasswordModal.html.twig' %}
+        <div class="modal fade" id="modalForgotPassword" tabindex="-1" role="dialog" aria-labelledby="modalForgotPassword" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div id="modalForgottenPasswordHook" class="modal-content">
+                        {% include 'security/forgottenPasswordModal.html.twig' %}
+                </div>
+            </div>
         </div>
-
     </div>
 
 

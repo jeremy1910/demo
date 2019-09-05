@@ -1,4 +1,4 @@
-
+require('../../css/Security/login.scss');
 
 
 $('#submitForgottenPassword').click(submitFormModal);
@@ -13,23 +13,19 @@ function submitFormModal(e) {
         data: $form.serialize(),
         beforeSend: function () {
             /*make som animation*/
+            let height = $('#modalForgottenPasswordHook').attr('height');
+            $('#modalForgottenPasswordHook').empty();
+            $( '<div class="spinner" style="height: ' + '600px' + '">' +
+                '  <div class="bounce1"></div>' +
+                '  <div class="bounce2"></div>' +
+                '  <div class="bounce3"></div>' +
+                '</div>').appendTo('#modalForgottenPasswordHook');
 
         }
     }).done(function (data) {
-        $('#modalForgotPassword').modal('hide');
 
-        $('#modalForgotPassword').on('hidden.bs.modal', function (e) {
-            $('#modalForgottenPasswordHook > *').replaceWith(data);
-            $('#modalForgotPassword').modal('show');
+            $('#modalForgottenPasswordHook').empty();
+            $(data).appendTo('#modalForgottenPasswordHook');
             $('#submitForgottenPassword').click(submitFormModal);
-        })
-
-
-
-        //$(data).appendTo('#modalForgottenPasswordHook');
-        //$('#modalForgotPassword').modal();
-
-
-
     })
 }

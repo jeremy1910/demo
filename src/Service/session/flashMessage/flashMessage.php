@@ -26,8 +26,11 @@ class flashMessage
 
     public function getFlashMessage($type, $message)
     {
-        $this->flashBag->add($type, $message);
+        $this->createFlashMessage($type, $message);
         return $this->flashBag->all();
     }
 
+    public function createFlashMessage($type, $message){
+        $this->flashBag->add($type, $message);
+    }
 }

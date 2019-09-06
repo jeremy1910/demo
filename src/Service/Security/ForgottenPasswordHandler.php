@@ -74,4 +74,10 @@ class ForgottenPasswordHandler
         return new Response('toto');
     }
 
+    public function validateToken(ForgottenPassword $forgottenPassword){
+
+        $interval = new \DateInterval('PT6H');
+        return $forgottenPassword->getCreatedAt()->add($interval) > new \DateTime();
+    }
+
 }

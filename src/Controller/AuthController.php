@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Security\ForgottenPassword;
 use App\Form\ForgottenPasswordType;
+use App\Form\User\Add\UserAddType;
+use App\Form\User\ResetPassword\ResetPasswordUserType;
+use App\Repository\forgottenPasswordRepository;
 use App\Service\Security\ForgottenPasswordHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
@@ -52,8 +55,8 @@ class AuthController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             try{
-                //$forgottenPasswordHandler->add($forgottenPassword);
-                //$forgottenPasswordHandler->sendMail($forgottenPassword);
+                $forgottenPasswordHandler->add($forgottenPassword);
+                $forgottenPasswordHandler->sendMail($forgottenPassword);
                 return $this->render('security/forgottenPasswordModalSucces.html.twig');
             }
             catch (\Exception $exception){
@@ -63,13 +66,26 @@ class AuthController extends AbstractController
         return $this->render('security/forgottenPasswordModal.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
 
     /**
      * @Route("/forgottenPasswordID/{token}", name="forgottenPasswordID")
      */
-    public function forgottenPasswordID($token = null){
+    public function forgottenPasswordID($token = null, forgottenPasswordRepository $forgottenPasswordRepository, ForgottenPasswordHandler $forgottenPasswordHandler){
+        if($token !== null){
+            $forgottenPassword = $forgottenPasswordRepository->findOneBy(['hash' => $token]);
+            if($forgottenPasswordHandler->validateToken($forgottenPassword)){
+                $user = $forgottenPassword->getUser();
+                $form = $this->createForm(ResetPasswordUserType::class, null, [
+                    'action' => $this->generateUrl('resetUser', ['id' => $user->getId()])
+                ]);
+                return $this->render('security/resetPasswordPage.html.twig', [
+                    'form' => $form->createView(),
+                    'user' => $user,
+                ]);
+            }
+            return $this->render('security/resetPasswordPage.html.twig');
+        }
 
     }
 }

@@ -13,9 +13,10 @@ function submitFormModal(e) {
         data: $form.serialize(),
         beforeSend: function () {
             /*make som animation*/
-            let height = $('#modalForgottenPasswordHook').attr('height');
+            let height = $('#modalForgottenPasswordHook').css('height');
+            console.log(height);
             $('#modalForgottenPasswordHook').empty();
-            $( '<div class="spinner" style="height: ' + '600px' + '">' +
+            $( '<div class="spinner" style="height: ' + height + '">' +
                 '  <div class="bounce1"></div>' +
                 '  <div class="bounce2"></div>' +
                 '  <div class="bounce3"></div>' +

@@ -20,6 +20,7 @@ use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -190,22 +191,16 @@ class UserController extends AbstractController
      * @Route("/resetUserA/{id}", name="resetUserA")
      */
     public function resetUserA(User $user, Request $request){
-        if($this->isGranted('USER_EDIT', $user)){
+        if($this->canEditUser($user)){
             $form = $this->createForm(ResetPasswordUserType::class, null, [
                 'action' => $this->generateUrl('resetUserA', ['id' => $user->getId()])
             ]);
-            $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->formResetPasswordIsValide($form, $request, $user)) {
 
-                $data = $form->getData();
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
-                $this->entityManager->flush();
                 $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
                 return new JsonResponse([true, $flashMessage]);
-
             } else {
-
                 return $this->render('user/resetUser.html.twig', array(
                     'formUserAdd' => $form->createView(),
                 ));
@@ -213,6 +208,52 @@ class UserController extends AbstractController
         }else{
             $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Modification impossible ! Vous n\'avez pas des autorisations suffisantes');
             return new JsonResponse([false, $flashMessage]);
+        }
+    }
+
+    /**
+     * @Route("/resetUser/{id}", name="resetUser")
+     */
+    public function resetUser(User $user, Request $request){
+
+            $form = $this->createForm(ResetPasswordUserType::class, null, [
+                'action' => $this->generateUrl('resetUser', ['id' => $user->getId()])
+            ]);
+
+            if ($this->formResetPasswordIsValide($form, $request, $user)) {
+
+                $this->flashMessage->createFlashMessage('success', 'Utilisateur modifié');
+                return $this->render('security/resetPasswordPage.html.twig', array(
+                    'resetSucces' => true,
+                ));
+            } else {
+                return $this->render('security/resetPasswordPage.html.twig', array(
+                    'form' => $form->createView(),
+                    'user' => $user,
+                ));
+            }
+
+    }
+
+    private function formResetPasswordIsValide(FormInterface $form, Request $request, User $user){
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $data = $form->getData();
+                $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
+                $this->entityManager->flush();
+                return true;
+            } else {
+               return false;
+            }
+    }
+
+    private function canEditUser(User $user){
+        if($this->isGranted('USER_EDIT', $user)){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

@@ -15,7 +15,9 @@ use App\Form\User\Add\UserAddType;
 use App\Form\User\Filter\UserFilterType;
 use App\Form\User\ResetPassword\ResetPasswordUserType;
 use App\Form\UserType;
+use App\Repository\forgottenPasswordRepository;
 use App\Repository\RolesRepository;
+use App\Service\Security\ForgottenPasswordHandler;
 use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -118,30 +120,30 @@ class UserController extends AbstractController
      */
     public function delUserA(User $user, Request $request){
 
-            if($user === NULL)
-            {
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! L\'utilisateur n\'existe pas.');
-                return new JsonResponse([false, $flashMessage]);
-            }
-            if($user->getId() == 1 OR $user->getUsername() === 'admin'){
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'L\'utilisateur admin ne peut pas être supprimé !');
-                return new JsonResponse([false, $flashMessage]);
-            }
-            if ($this->isGranted('USER_DELETE', $user)) {
-                try {
-                    $this->deleteCategory($user);
+        if($user === NULL)
+        {
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! L\'utilisateur n\'existe pas.');
+            return new JsonResponse([false, $flashMessage]);
+        }
+        if($user->getId() == 1 OR $user->getUsername() === 'admin'){
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'L\'utilisateur admin ne peut pas être supprimé !');
+            return new JsonResponse([false, $flashMessage]);
+        }
+        if ($this->isGranted('USER_DELETE', $user)) {
+            try {
+                $this->deleteCategory($user);
 
-                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur supprimé !');
+                $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur supprimé !');
 
-                    return new JsonResponse([true, $flashMessage]);
-                }catch (\Exception $e){
-                    return new JsonResponse($e->getMessage());
-                }
-            } else {
-
-                $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Vous n\'avaez pas les autoristaions necessaires');
-                return new JsonResponse([false, $flashMessage]);
+                return new JsonResponse([true, $flashMessage]);
+            }catch (\Exception $e){
+                return new JsonResponse($e->getMessage());
             }
+        } else {
+
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Suppression impossible ! Vous n\'avaez pas les autoristaions necessaires');
+            return new JsonResponse([false, $flashMessage]);
+        }
 
 
 
@@ -196,8 +198,9 @@ class UserController extends AbstractController
                 'action' => $this->generateUrl('resetUserA', ['id' => $user->getId()])
             ]);
 
-            if ($this->formResetPasswordIsValide($form, $request, $user)) {
-
+            if ($this->formResetPasswordIsValide($form, $request)) {
+                $data = $form->getData();
+                $this->doChangePassword($data['password'], $user);
                 $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
                 return new JsonResponse([true, $flashMessage]);
             } else {
@@ -212,40 +215,72 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/resetUser/{id}", name="resetUser")
+     * @Route("/resetUserByToken/{token}", name="resetUser")
      */
-    public function resetUser(User $user, Request $request){
+    public function resetUserPasswordByToken(string $token, Request $request, forgottenPasswordRepository $forgottenPasswordRepository, ForgottenPasswordHandler $forgottenPasswordHandler){
 
-            $form = $this->createForm(ResetPasswordUserType::class, null, [
-                'action' => $this->generateUrl('resetUser', ['id' => $user->getId()])
-            ]);
+        $form = $this->createForm(ResetPasswordUserType::class, null, [
+            'action' => $this->generateUrl('resetUser', ['token' => $token])
+        ]);
 
-            if ($this->formResetPasswordIsValide($form, $request, $user)) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
 
-                $this->flashMessage->createFlashMessage('success', 'Utilisateur modifié');
-                return $this->render('security/resetPasswordPage.html.twig', array(
-                    'resetSucces' => true,
-                ));
-            } else {
+            if($form->isValid()) {
+
+                $forgottenPassword = $forgottenPasswordRepository->findOneBy(['hash' => $token]);
+                $user = $forgottenPassword->getUser();
+
+                if($forgottenPasswordHandler->validateToken($forgottenPassword)) {
+                    $data = $form->getData();
+                    $this->doChangePassword($data['password'], $user);
+                    $this->entityManager->remove($forgottenPassword);
+                    $this->entityManager->flush();
+                    $this->flashMessage->createFlashMessage('success', 'Utilisateur modifié');
+                    return $this->render('security/resetPasswordPage.html.twig', array(
+                        'resetSuccess' => true,
+                    ));
+                }else{
+
+                    return $this->render('security/resetPasswordPage.html.twig', array(
+                        'tokenValid' => false,
+                    ));
+                }
+
+            }else{
+
                 return $this->render('security/resetPasswordPage.html.twig', array(
                     'form' => $form->createView(),
-                    'user' => $user,
+                    'formValid' => false,
+                    'formSubmitted' => true,
+
                 ));
             }
+
+
+        } else {
+
+            return $this->render('security/resetPasswordPage.html.twig', array(
+                'formSubmitted' => false,
+            ));
+        }
 
     }
 
-    private function formResetPasswordIsValide(FormInterface $form, Request $request, User $user){
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
+    private function doChangePassword(string $password, User $user){
 
-                $data = $form->getData();
-                $user->setPassword($this->passwordEncoder->encodePassword($user, $data['password']));
-                $this->entityManager->flush();
-                return true;
-            } else {
-               return false;
-            }
+        $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
+        $this->entityManager->flush();
+    }
+
+    private function formResetPasswordIsValide(FormInterface $form, Request $request){
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private function canEditUser(User $user){

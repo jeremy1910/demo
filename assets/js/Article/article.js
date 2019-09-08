@@ -27,6 +27,17 @@ $('#submitHiden').click(function (e) {
 });
 
 
+$('.js-btn-suppr').each(function () {
+    $(this).click(function () {
+        $('#buttonValidDelete').attr('href', $(this).attr('href'));
+        $('#buttonValidDelete').click(function (e) {
+            e.preventDefault();
+            document.location.href= $('#buttonValidDelete').attr('href');
+
+        });
+    });
+});
+
 /*****************************************
 Gestion des Tags
 ******************************************/

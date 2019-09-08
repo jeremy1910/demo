@@ -11,8 +11,10 @@ namespace App\Service\Security;
 
 use App\Entity\Security\ForgottenPassword;
 use App\Entity\User;
+use App\Repository\forgottenPasswordRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use MongoDB\Driver\Exception\ExecutionTimeoutException;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
@@ -23,37 +25,52 @@ class ForgottenPasswordHandler
     private $entityManager;
     private $swift_Mailer;
     private $twig_Environment;
+    private $forgottenPasswordRepository;
 
 
-    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager, \Swift_Mailer $swift_Mailer, Environment $twig_Environment)
+    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager, \Swift_Mailer $swift_Mailer, Environment $twig_Environment, forgottenPasswordRepository $forgottenPasswordRepository)
     {
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
         $this->swift_Mailer = $swift_Mailer;
         $this->twig_Environment = $twig_Environment;
+        $this->forgottenPasswordRepository = $forgottenPasswordRepository;
     }
 
     public function add(ForgottenPassword $forgottenPassword){
 
-        /**
-         * @var $user User[]
-         */
-        $user = $this->userRepository->findBy(['adresseMail' => $forgottenPassword->getEmail()]);
-        if(count($user) == 1){
 
-            $forgottenPassword->setHash(uniqid());
-            $forgottenPassword->setCreatedAt(new \DateTime());
-            $forgottenPassword->setUser($user[0]);
-
-            $this->entityManager->persist($forgottenPassword);
-            $this->entityManager->flush();
-        }else if(count($user) > 1){
-            throw new \Exception("Plusieur utilisateur ont cette adresse mail, merci de contacter l'administrateur");
-        }else{
+        $user = $this->userRepository->findOneBy(['adresseMail' => $forgottenPassword->getEmail()]);
+        if($user === null){
             throw new \Exception("L'adresse mail ne correspond à aucun utlisteur connu");
         }
+        $doublon = $this->forgottenPasswordRepository->findOneBy(['user' => $user]);
+        if($doublon !== null){
+            if($this->validateToken($doublon)){
+                throw new \Exception("Une demande de réinitialisation est dejà en cours pour cette adresse mail, merci de valider cette demande ou d'attendre 6h pour en faire une nouvelle");
+            }
+            else{
+
+                $this->entityManager->remove($doublon);
+                $this->entityManager->flush();
+                $this->entityManager->clear();
+
+            }
+
+        }
+
+        $forgottenPassword->setHash(uniqid());
+        $forgottenPassword->setCreatedAt(new \DateTime());
+        $forgottenPassword->setUser($user);
+
+        $this->entityManager->merge($forgottenPassword);
+
+        $this->entityManager->flush();
+
 
     }
+
+
 
     public function sendMail(ForgottenPassword $forgottenPassword){
         try {

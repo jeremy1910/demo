@@ -74,18 +74,25 @@ class AuthController extends AbstractController
     public function forgottenPasswordID($token = null, forgottenPasswordRepository $forgottenPasswordRepository, ForgottenPasswordHandler $forgottenPasswordHandler){
         if($token !== null){
             $forgottenPassword = $forgottenPasswordRepository->findOneBy(['hash' => $token]);
-            if($forgottenPasswordHandler->validateToken($forgottenPassword)){
-                $user = $forgottenPassword->getUser();
-                $form = $this->createForm(ResetPasswordUserType::class, null, [
-                    'action' => $this->generateUrl('resetUser', ['id' => $user->getId()])
-                ]);
-                return $this->render('security/resetPasswordPage.html.twig', [
-                    'form' => $form->createView(),
-                    'user' => $user,
-                ]);
+            if(!is_null($forgottenPassword)){
+                if($forgottenPasswordHandler->validateToken($forgottenPassword)){
+                    $user = $forgottenPassword->getUser();
+                    $form = $this->createForm(ResetPasswordUserType::class, null, [
+                        'action' => $this->generateUrl('resetUser', ['token' => $token])
+                    ]);
+
+                    return $this->render('security/resetPasswordPage.html.twig', [
+                        'form' => $form->createView(),
+                        'formSubmitted' => true,
+                    ]);
+                }
             }
-            return $this->render('security/resetPasswordPage.html.twig');
+
         }
+        return $this->render('security/resetPasswordPage.html.twig', [
+            'tokenValid' => false,
+
+        ]);
 
     }
 }

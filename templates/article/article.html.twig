@@ -69,13 +69,15 @@
             {% if form.vars.value.id is not null %}
                 {% if is_granted('ARTICLE_DELETE', form.vars.value) %}
 
-                    <a class="btn btn-outline-danger" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
+                    <a class="btn btn-outline-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
 
                 {% endif %}
             {% endif %}
         </div>
         {{ form_end(form) }}
     </div>
+
+    {% include 'article/modalValideDelete.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

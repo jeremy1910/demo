@@ -9,22 +9,21 @@
 namespace App\Controller\test;
 
 
-use App\Entity\Article;
-use App\Form\AdminDashboard\ArticleDashboardFilterType;
+
+use App\Entity\User;
+
 use App\Service\DataRequest\DataRequestRouterServicesDataRequest;
-use App\Service\History\HistorySearchArticleService;
-use App\Service\Test\ServiceTest;
+
 
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Finder\Finder;
 
 class Test_DataRequestRouterServiceController extends AbstractController
 {
@@ -32,12 +31,59 @@ class Test_DataRequestRouterServiceController extends AbstractController
     /**
      * @Route("/test", name="test")
      */
-    public function main(){
+    public function main(Request $request){
+
+        /**
+         * @var UploadedFile $image
+         */
+        $image = $request->files->get('upload');
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $username = $user->getUsername();
+        $function_number = $request->query->get('CKEditorFuncNum');
+        $imageName = md5(uniqid()) . '.' . $image->guessExtension();
+        $directory = "/public/images/" . $username;
+        $url = "/images/".$username."/".$imageName;
+        $message = '';
+
+        $image->move($this->getParameter('kernel.project_dir') . $directory, $imageName);
+
+        return new Response("<script  type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('$function_number', '$url', '$message'); </script>");
+
+    }
 
 
+    /**
+     * @Route("/test2", name="test2")
+     */
+    public function main2(Request $request)
+    {
 
-        return $this->render('security/forgottenPasswordModalSucces.html.twig');
+        $finder = new Finder();
+        $user = $this->getUser();
+        $username = $user->getUsername();
+        $directory = "/public/images/" . $username;
+        $baseUrl = "/images/".$username."/";
+        $finder->files()->in($this->getParameter('kernel.project_dir') . $directory);
 
+        if ($finder->hasResults()) {
+            // ...
+        }
+
+        foreach ($finder as $file) {
+
+            $fileNameWithExtension[] = $file->getRelativePathname();
+
+
+        }
+
+        return $this->render('CKEditor/fileBrowser.html.twig', [
+            'files' => $fileNameWithExtension,
+            'baseUrl' => $baseUrl,
+        ]);
     }
 
     /**

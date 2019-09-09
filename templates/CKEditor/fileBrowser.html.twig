@@ -16,8 +16,8 @@
     {% else %}
     <div class="fileBrowserContainer">
         {% for file in files %}
-            <a  id="test" class="text-decoration-none text-reset img-popover" data-toggle="popover">
-                <img  class="fileBrowserItem js-uploaded-file mt-2 ml-2 shadow" src="{{ baseUrl ~ file}}" alt="">
+            <a id="img-{{ loop.index }}" class="fileBrowserItem  section shadow text-decoration-none text-reset js-popover-filbrowser" tabindex="0" data-trigger="focus" role="button" data-toggle="popover" title="Action" data-html="true" data-content="<a role='button' href='{{ baseUrl ~ file}}' class='btn btn-secondary js-select-img d-block w-100'>Selectionner</a><a role='button' href='{{ loop.index }}' class='btn btn-danger js-delete-img d-block w-100 mt-2'>Supprimer</a>">
+                <img  class=" js-uploaded-file " src="{{ baseUrl ~ file}}" alt="">
             </a>
         {%  endfor %}
     </div>

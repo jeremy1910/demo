@@ -18,6 +18,7 @@ use App\Service\DataRequest\DataRequestRouterServicesDataRequest;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -63,23 +64,27 @@ class Test_DataRequestRouterServiceController extends AbstractController
     {
 
         $finder = new Finder();
+        $filesystem = new Filesystem();
+
         $user = $this->getUser();
         $username = $user->getUsername();
         $directory = "/public/images/" . $username;
         $baseUrl = "/images/".$username."/";
+
+        if(!$filesystem->exists($this->getParameter('kernel.project_dir') . $directory)){
+            return $this->render('CKEditor/fileBrowser.html.twig', [
+                'empty' => true,
+            ]);
+        }
+
+
         $finder->files()->in($this->getParameter('kernel.project_dir') . $directory);
 
-        if ($finder->hasResults()) {
-            // ...
-        }
-
         foreach ($finder as $file) {
-
             $fileNameWithExtension[] = $file->getRelativePathname();
-
-
         }
 
+        array_splice($fileNameWithExtension, 20);
         return $this->render('CKEditor/fileBrowser.html.twig', [
             'files' => $fileNameWithExtension,
             'baseUrl' => $baseUrl,

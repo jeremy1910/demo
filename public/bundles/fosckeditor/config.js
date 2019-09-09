@@ -12,14 +12,13 @@ CKEDITOR.editorConfig = function( config ) {
     config.skin = 'bootstrapck';
     config.extraPlugins = 'easyimage';
     config.extraPlugins = 'imagebase';
-    config.extraPlugins = 'filebrowser';
+    //config.extraPlugins = 'filebrowser';
     config.extraPlugins = 'popup';
-    config.extraPlugins = 'filetools';
+    //config.extraPlugins = 'filetools';
     //config.extraPlugins = 'uploadfile';
     //config.extraPlugins = 'uploadwidget';
     //config.extraPlugins = 'uploadimage';
     config.filebrowserUploadUrl = '/test';
-
     config.filebrowserUploadMethod = 'form';
     config.filebrowserBrowseUrl = '/test2'
 

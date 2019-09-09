@@ -1,42 +1,33 @@
 
 {%  extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('fileBrowser') }}
+{% endblock %}
 
 {% block body %}
-    <div class="d-flex flex-row flex-wrap justify-content-around">
+    {% if empty is defined and empty == true %}
+        <div class="alert alert-secondary center-block-page" role="alert">
+            <h4 class="alert-heading w-100 text-center">Il n'y a pas d'image ...</h4>
+            <hr>
+            <p>Uploader d'abord une image, et vous la retrouverez ici</p>
+        </div>
+    {% else %}
+    <div class="fileBrowserContainer">
         {% for file in files %}
-
-                <img  style="height: 200px; width: 200px" class="js-uploaded-file" src="{{ baseUrl ~ file}}" alt="">
-
+            <a  id="test" class="text-decoration-none text-reset img-popover" data-toggle="popover">
+                <img  class="fileBrowserItem js-uploaded-file mt-2 ml-2 shadow" src="{{ baseUrl ~ file}}" alt="">
+            </a>
         {%  endfor %}
     </div>
+    {% endif %}
 {%  endblock %}
 
 
 {%  block javascripts %}
     {{ parent() }}
-    <script>
 
-        function getUrlParam( paramName ) {
-            var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
-            var match = window.location.search.match( reParam );
-
-            return ( match && match.length > 1 ) ? match[1] : null;
-        }
-
-        function returnFileUrl() {
-
-            var funcNum = getUrlParam( 'CKEditorFuncNum' );
-            var fileUrl = $(this).attr('src');
-
-
-            console.log('toto');
-            window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl, '');
-            window.close();
-        }
-
-        $('.js-uploaded-file').click(returnFileUrl);
-
-    </script>
+    {{ encore_entry_script_tags('fileBrowser') }}
 
 {% endblock %}

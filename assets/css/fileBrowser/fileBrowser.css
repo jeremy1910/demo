@@ -1,0 +1,12 @@
+.fileBrowserContainer{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: space-between;
+}
+
+
+.fileBrowserItem {
+    height: 200px;
+    width: 200px;
+}

@@ -84,7 +84,7 @@ class Test_DataRequestRouterServiceController extends AbstractController
             $fileNameWithExtension[] = $file->getRelativePathname();
         }
 
-        array_splice($fileNameWithExtension, 20);
+
         return $this->render('CKEditor/fileBrowser.html.twig', [
             'files' => $fileNameWithExtension,
             'baseUrl' => $baseUrl,

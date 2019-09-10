@@ -6,6 +6,12 @@
     {{ encore_entry_link_tags('fileBrowser') }}
 {% endblock %}
 
+{%  block navBare %}
+
+{% endblock %}
+
+
+
 {% block body %}
     {% if empty is defined and empty == true %}
         <div class="alert alert-secondary center-block-page" role="alert">
@@ -14,10 +20,10 @@
             <p>Uploader d'abord une image, et vous la retrouverez ici</p>
         </div>
     {% else %}
-    <div class="fileBrowserContainer">
+    <div class="fileBrowserContainer mt-5">
         {% for file in files %}
-            <a id="img-{{ loop.index }}" class="fileBrowserItem  section shadow text-decoration-none text-reset js-popover-filbrowser" tabindex="0" data-trigger="focus" role="button" data-toggle="popover" title="Action" data-html="true" data-content="<a role='button' href='{{ baseUrl ~ file}}' class='btn btn-secondary js-select-img d-block w-100'>Selectionner</a><a role='button' href='{{ loop.index }}' class='btn btn-danger js-delete-img d-block w-100 mt-2'>Supprimer</a>">
-                <img  class=" js-uploaded-file " src="{{ baseUrl ~ file}}" alt="">
+            <a id="img-{{ loop.index }}" class="fileBrowserItem  section shadow text-decoration-none text-reset js-popover-filbrowser ml-2 mt-2 scale-up-center" tabindex="0" data-trigger="focus" role="button" data-toggle="popover" title="Action" data-html="true" data-content="<a role='button' href='{{ baseUrl ~ file}}' class='btn btn-secondary js-select-img d-block w-100'>Selectionner</a><a role='button' href='{{ loop.index }}' class='btn btn-danger js-delete-img d-block w-100 mt-2'>Supprimer</a>">
+                <img  class=" js-uploaded-file " style="height: 200px; width: 200px;" src="{{ baseUrl ~ file}}" alt="">
             </a>
         {%  endfor %}
     </div>

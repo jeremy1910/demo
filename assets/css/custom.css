@@ -147,18 +147,32 @@
 
 .center-block-page{
     position: absolute;
-
     width: 600px;
-
     top: 50%;
-
     height: 200px;
-
     left: 50%;
-
     margin-left: -300px;
-
     margin-top: -100px;
+}
+
+.jumbotron label{
+    color: #909090;
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+.jumbotron input{
+    background-color: #f8f9fa;
+    border: 0;
+    color: #999;
+}
+
+.custom_bg_gray{
+    background-color: #eaeaea !important;
+}
+.custom_bg_gray_dark{
+    background-color: #454545 !important;
 }
 
 @keyframes animateDefRevealX {
@@ -201,3 +215,5 @@
     }
 
 }
+
+

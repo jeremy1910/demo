@@ -2,11 +2,10 @@
 
     color: #e6e6e6 !important;
     font-weight: bold;
-    background-color: #a74243 !important;
+    background-color: #4e9a87 !important;
 }
-
-.nav-link{
-    color: #534d4d !important;
+#v-menu a{
+    color:#f8f9fa;
 }
 
 #menu-2-content-1 a.active{

@@ -40,7 +40,6 @@ class FormArticleType extends AbstractType
     {
 
         $this->categoryRepository = $categoryRepository;
-
         $this->em = $em;
     }
 
@@ -70,7 +69,7 @@ class FormArticleType extends AbstractType
             ])
             ->add('image', ImageArticleType::class,
                 [
-                    'label' => null,
+                    'label' => false,
                     'required' => $article->getImage() != null ? false : true,
                     'constraints' => array(new Valid()),
                 ])
@@ -105,8 +104,6 @@ class FormArticleType extends AbstractType
 
 
             })
-
-
         ;
     }
 

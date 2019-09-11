@@ -13,78 +13,78 @@
 <body>
 
 {%  block navBare %}
-<nav class="navbar navbar-expand-lg navbar-light" style="position: sticky; top: 0px; box-shadow: 0px 0px 4px 5px rgba(0,0,0,0.3); z-index: 1000; padding-bottom: 0; background-color: #000000ba !important;">
-    <a class="navbar-brand" href="{{ path('index') }}"><h2 class=" text-light font-weight-bold">Memo</h2></a><
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-light" style="position: sticky; top: 0px; box-shadow: 0px 0px 4px 5px rgba(0,0,0,0.3); z-index: 1000; padding-bottom: 0; background-color: #000000ba !important;">
+        <a class="navbar-brand" href="{{ path('index') }}"><h2 class=" text-light font-weight-bold">Memo</h2></a><
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ path('index') }}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ path('list_article') }}">liste des articles <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-light" href="{{ path('create_article') }}">Créer un article <span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-
-        {% if app.request.attributes.get('_route') == 'show_article' %}
-            {% if  is_granted('ARTICLE_DELETE', article) %}
-        <ul class="navbar-nav ml-auto mr-4">
-            <li class="nav-item mr-2">
-            <a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-success">Editer</a>
-            </li>
-            <li class="nav-item">
-            <a href="{{ path('delete_article', {'id': article.id}) }}" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">Supprimer</a>
-            </li>
-
-        </ul>
-                {% endif %}
-        {% endif %}
-        <ul class="nav navbar-nav dropdown">
-            <form class="form-inline my-2 my-lg-0 mr-md-3" name="generalSearch">
-                <input class="form-control mr-sm-2"   type="search" id="general_search_searchString" placeholder="Recherche Rapide" data-toggle="dropdown" aria-label="Search">
-                <div id="dropDownGeneralSearch" class="dropdown-menu shadow w-100">
-                    <div id="spinnerLoadingGeneralSearch" class="mr-auto ml-auto" style="display: none">
-                        {{ include('divers/animation/loading.html.twig') }}
-                    </div>
-                    <div id="ListResultsGeneralSearch" class="list-group">
-
-                    </div>
-                </div>
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
-            </form>
-        </ul>
-
-        {% if not is_granted('ROLE_USER') %}
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item"><a class="nav-link text-light" href="{{ path('subscribe') }}">Créer un compte</a></li>
-                <li class="nav-item"><a  class="nav-link text-light" href="{{ path('app_login') }}">Se connecter</a></li>
-            </ul>
-        {% else %}
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{ app.user.username }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" style="background-color: #000000ba !important;" aria-labelledby="navbarDropdown">
-                        {% if app.user.username == 'admin' %}
-                            <a class="dropdown-item text-light" href="{{ path('admin_page') }}">Admin Dashboard</a>
-                        {% else %}
-                            <a class="dropdown-item text-light" href="#">Profil</a>
-                        {% endif %}
-                        <a class="dropdown-item text-light" href="{{ path('logout') }}">Déconnexion</a>
-                    </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ path('index') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ path('list_article') }}">liste des articles <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{{ path('create_article') }}">Créer un article <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-        {%  endif %}
-    </div>
 
-</nav>
+            {% if app.request.attributes.get('_route') == 'show_article' %}
+                {% if  is_granted('ARTICLE_DELETE', article) %}
+                    <ul class="navbar-nav ml-auto mr-4">
+                        <li class="nav-item mr-2">
+                            <a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-success">Editer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('delete_article', {'id': article.id}) }}" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">Supprimer</a>
+                        </li>
+
+                    </ul>
+                {% endif %}
+            {% endif %}
+            <ul class="nav navbar-nav dropdown">
+                <form class="form-inline my-2 my-lg-0 mr-md-3" name="generalSearch">
+                    <input class="form-control mr-sm-2"   type="search" id="general_search_searchString" placeholder="Recherche Rapide" data-toggle="dropdown" aria-label="Search">
+                    <div id="dropDownGeneralSearch" class="dropdown-menu shadow w-100">
+                        <div id="spinnerLoadingGeneralSearch" class="mr-auto ml-auto" style="display: none">
+                            {{ include('divers/animation/loading.html.twig') }}
+                        </div>
+                        <div id="ListResultsGeneralSearch" class="list-group">
+
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+            </ul>
+
+            {% if not is_granted('ROLE_USER') %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item"><a class="nav-link text-light" href="{{ path('subscribe') }}">Créer un compte</a></li>
+                    <li class="nav-item"><a  class="nav-link text-light" href="{{ path('app_login') }}">Se connecter</a></li>
+                </ul>
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.username }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" style="background-color: #000000ba !important;" aria-labelledby="navbarDropdown">
+                            {% if app.user.username == 'admin' %}
+                                <a class="dropdown-item text-light" href="{{ path('admin_page') }}">Admin Dashboard</a>
+                            {% else %}
+                                <a class="dropdown-item text-light" href="#">Profil</a>
+                            {% endif %}
+                            <a class="dropdown-item text-light" href="{{ path('logout') }}">Déconnexion</a>
+                        </div>
+                    </li>
+                </ul>
+            {%  endif %}
+        </div>
+
+    </nav>
 {%  endblock %}
 
 {% block flash_messages %}
@@ -126,15 +126,15 @@
 
         /*******/
 
-        
+
         $("form[name='generalSearch']").submit(function (e) {
             e.preventDefault();
             if ( $('#general_search_searchString').val().length > 0){
                 window.location.replace("/list?content=" + $('#general_search_searchString').val());
             }
         });
-        
-        
+
+
 
         $('#general_search_searchString').on('input', function (e) {
             console.log($(this).val());
@@ -204,6 +204,32 @@
     </script>
 
 
+{% endblock %}
+
+{% block footer %}
+    <div class="jumbotron  shadow mt-4" style="width: 99%; margin: auto; background-color: #000000ba !important;">
+        <nav class="nav">
+            <a class="nav-link text-light font-weight-bold text-decoration-none" href="{{ path('index') }}">Accueil</a>
+            <a class="nav-link text-light font-weight-bold text-decoration-none" href="{{ path('list_article') }}">Les articles</a>
+            <a class="nav-link text-light font-weight-bold text-decoration-none" href="{{ path('list_article') }}">Créer un article</a>
+
+            {% if not is_granted('ROLE_USER') %}
+
+                <a class="nav-link text-light font-weight-bold text-decoration-none ml-auto" href="{{ path('subscribe') }}">Créer un compte</a>
+               <a  class="nav-link text-light font-weight-bold text-decoration-none" href="{{ path('app_login') }}">Se connecter</a>
+
+            {% else %}
+                {% if app.user.username == 'admin' %}
+                    <a class="nav-link text-light font-weight-bold text-decoration-none ml-auto" href="{{ path('admin_page') }}">Admin Dashboard</a>
+                {% else %}
+                    <a class="nav-link text-light font-weight-bold text-decoration-none" href="#">Profil</a>
+                {% endif %}
+                <a class="nav-link text-light font-weight-bold text-decoration-none" href="{{ path('logout') }}">Déconnexion</a>
+            {% endif %}
+        </nav>
+
+
+    </div>
 {% endblock %}
 </body>
 </html>

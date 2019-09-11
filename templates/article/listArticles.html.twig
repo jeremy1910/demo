@@ -56,13 +56,12 @@
 
     </div>
 
-    <div class="jumbotron custom_bg_blue shadow mt-4" style="width: 99%; margin: auto">
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-10">
                 <div id="pagination-article" style="width: min-content ; margin: auto;"></div>
             </div>
             <div class="col-2">
-                <select id="selecter-article">
+                <select id="selecter-article" class="shadow border rounded bg-light">
                     <option>10</option>
                     <option>20</option>
                     <option>30</option>
@@ -71,7 +70,7 @@
                 </select>
             </div>
         </div>
-    </div>
+
 
 
 {% include 'article/modalValideDelete.html.twig' %}

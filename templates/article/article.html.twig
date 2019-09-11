@@ -4,86 +4,113 @@
 
 {% block body %}
 
-<div class="container">
-    {{ form_start(form, {'attr': {'id': 'form'}}) }}
-    <div id="form_article" class="jumbotron shadow custom_bg_green p-1rem mt-4">
+    <div class="container-fluid">
+        {{ form_start(form, {'attr': {'id': 'form'}}) }}
+
         <div class="row">
-            <div class="col-md-6" style="padding-right: 5px; padding-left: 10px;">
-
-
-                <div class="row">
-                    <div class="col-md-6" style="padding-right: 5px; padding-left: 10px;">
-                        <div id="form-category" class="form-group col">
-                            {{ form_label(form.num_category) }}
-                            {{ form_errors(form.num_category) }}
-                            {{ form_widget(form.num_category) }}
-                            <input type="text" id="selectHiden"  class="form-control mt-4" style="display: none">
-                            <button type="button" id="submitHiden"  class="form-control" style="display: none">Ajouter</button>
-
-                            {{ form_help(form.num_category) }}
-                        </div>
-                    </div>
-                    <div class="col-md-6" style="padding-right: 10px; padding-left: 10px;">
-                        <div class="form-group">
-                            {{ form_label(form.tags) }}
-                            {{ form_errors(form.tags) }}
-                            {{ form_widget(form.tags) }}
-                            {{ form_help(form.tags) }}
-                            <div id="tag-container" ></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="form-image" class="form-group">
-                    {{ form_label(form.image) }}
-                    {{ form_errors(form.image) }}
-                    {{ form_widget(form.image) }}
-                    {{ form_help(form.image) }}
-                </div>
-                <img id="blah" class="img-fluid img-thumbnail" style="max-width: 75px" src="{{ form.image.vars.value.fileName is defined ? asset('images/' ~ form.image.vars.value.fileName)}}">
-            </div>
-            <div class="col-md-6" style="padding-right: 5px; padding-left: 10px;">
-
+            <div class="offset-md-4 col-md-7">
                 <div class="form-group">
-                    {{ form_label(form.description) }}
-                    {{ form_errors(form.description) }}
-                    {{ form_widget(form.description, {'attr': {'style': 'height: 150px;'}}) }}
-                    {{ form_help(form.description) }}
+                    {{ form_errors(form.title) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'invisible_input'}}) }}
+                    {{ form_help(form.title) }}
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div id="form_article" class="jumbotron shadow custom_bg_green p-1rem">
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="form-category" class="form-group col">
+                                {{ form_label(form.num_category) }}
+                                {{ form_errors(form.num_category) }}
+                                {{ form_widget(form.num_category) }}
+                                <input type="text" id="selectHiden"  class="form-control mt-4" style="display: none">
+                                <button type="button" id="submitHiden"  class="form-control" style="display: none">Ajouter</button>
+
+                                {{ form_help(form.num_category) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_label(form.tags) }}
+                                {{ form_errors(form.tags) }}
+                                {{ form_widget(form.tags) }}
+                                {{ form_help(form.tags) }}
+                                <div id="tag-container" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form_label(form.description) }}
+                                {{ form_errors(form.description) }}
+                                {{ form_widget(form.description, {'attr': {'style': 'height: 150px;'}}) }}
+                                {{ form_help(form.description) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div id="form-image" class="form-group">
+                                {{ form_label(form.image) }}
+                                {{ form_errors(form.image) }}
+                                {{ form_widget(form.image) }}
+                                {{ form_help(form.image) }}
+                            </div>
+
+                        </div>
+                        <div class="col-md-2">
+                            <img id="blah" class="img-fluid " style="max-width: 75px" src="{{ form.image.vars.value.fileName is defined ? asset('images/' ~ form.image.vars.value.fileName)}}">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+
+                    {% if form.vars.value.id is not null %}
+                        {% if is_granted('ARTICLE_DELETE', form.vars.value) %}
+                            <a class="btn btn-danger js-btn-suppr float-right ml-1" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
+                        {% endif %}
+                    {% endif %}
+                    <button class="btn btn-primary float-right">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
+                </div>
+            </div>
+
+
+            <div class="col-md-7">
+
+                <div class="form-group shadow">
+
+                    {{ form_errors(form.body) }}
+                    {{ form_widget(form.body) }}
+                    {{ form_help(form.body) }}
                 </div>
             </div>
 
         </div>
-    </div>
 
 
-            <button class="btn btn-primary d-block ml-auto">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
-            {% if form.vars.value.id is not null %}
-                {% if is_granted('ARTICLE_DELETE', form.vars.value) %}
 
-                    <a class="btn btn-outline-danger js-btn-suppr d-block ml-auto" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
 
-                {% endif %}
-            {% endif %}
-
-        <div class="form-group">
-
-            {{ form_errors(form.title) }}
-            {{ form_widget(form.title, {'attr': {'class': 'invisible_input'}}) }}
-            {{ form_help(form.title) }}
-        </div>
-
-        <div class="form-group">
-
-            {{ form_errors(form.body) }}
-            {{ form_widget(form.body) }}
-            {{ form_help(form.body) }}
-        </div>
 
 
         {{ form_end(form) }}
     </div>
 
     {% include 'article/modalValideDelete.html.twig' %}
-    {% endblock %}
+{% endblock %}
 
     {% block javascripts %}
         {{ parent() }}

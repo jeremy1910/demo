@@ -33,7 +33,6 @@ $('#modalValiddelete').click(function (e) {
 
 export function eventSuppr(targetToDelete) {
     let url = $('#buttonValidDelete').attr('href');
-    console.log("suppression de : " + url);
     $.get(url)
         .done(function (data, textStatus, jqXDR) {
             displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');

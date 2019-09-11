@@ -7,7 +7,7 @@
 
 {%  block body %}
     <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="jumbotron mt-4 w-100 shadow custom_bg_gray" style=" background-color: #eaeaea  !important;">
+    <div class="jumbotron mt-4 w-100 shadow custom_bg_blue">
         <div class="container">
                 <button class="navbar-toggler mb-2" type="button" data-toggle="collapse" data-target="#form_filters" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,9 +30,9 @@
                     {{ form_row(formArticle.createdAtAfter) }}
                     {{  form_row(formArticle.createdAtBefore) }}
                     <div class="d-flex flex-sm-column flex-md-row justify-content-md-around align-items-sm-center">
-                    {{  form_row(formArticle.submit, {'attr': {'class' : 'btn-outline-success'}}) }}
+                    {{  form_row(formArticle.submit, {'attr': {'class' : 'btn btn-outline-light font-weight-bold'}}) }}
                         <div class="form-group">
-                         <a role="button" class="btn btn-outline-secondary" href="{{ path('create_article') }}">Ajouter un artcile</a>
+                         <a role="button" class="btn btn-outline-light font-weight-bold" href="{{ path('create_article') }}">Ajouter un artcile</a>
                         </div>
                     </div>
                 </div>

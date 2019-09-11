@@ -6,6 +6,7 @@
 
     <div class="container">
         {{ form_start(form, {'attr': {'id': 'form'}}) }}
+        <div class="jumbotron shadow custom_bg_gray mt-4">
         <div class="form-group mt-4">
             {{ form_label(form.title) }}
             {{ form_errors(form.title) }}
@@ -28,7 +29,7 @@
                 {{ form_errors(form.tags) }}
                 {{ form_widget(form.tags) }}
                 {{ form_help(form.tags) }}
-                <div id="tag-container" style="height: 100px" class="container-fluid border rounded"></div>
+                <div id="tag-container" style="height: 100px" class="container-fluid border rounded bg-light"></div>
 
             </div>
         </div>
@@ -53,10 +54,10 @@
         <div class="form-group">
             {{ form_label(form.description) }}
             {{ form_errors(form.description) }}
-            {{ form_widget(form.description) }}
+            {{ form_widget(form.description, {'attr': {'style': 'height: 250px;'}}) }}
             {{ form_help(form.description) }}
         </div>
-
+        </div>
         <div class="form-group">
             {{ form_label(form.body) }}
             {{ form_errors(form.body) }}

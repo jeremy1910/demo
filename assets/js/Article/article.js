@@ -57,7 +57,7 @@ function enterTag(e) {
         e.preventDefault();
         if ($(this).val() !== ''){
 
-            $('<span class="badge badge-pill badge-primary">'+ $(this).val() +'</span>').appendTo('#tag-container');
+            $('<span class="badge badge-info scale-in-center p-1 m-1">'+ $(this).val() +'</span>').appendTo('#tag-container');
 
 
             let inputTagHiden = inputTeamplate.replace(/__name__/g, index);

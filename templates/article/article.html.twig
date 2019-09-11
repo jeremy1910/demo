@@ -6,9 +6,9 @@
 
     <div class="container">
         {{ form_start(form, {'attr': {'id': 'form'}}) }}
-        <div class="jumbotron shadow custom_bg_gray mt-4">
-        <div class="form-group mt-4">
-            {{ form_label(form.title) }}
+        <div id="form_article" class="jumbotron shadow custom_bg_green p-1rem mt-4">
+        <div class="form-group">
+            <h2>{{ form_label(form.title) }}</h2>
             {{ form_errors(form.title) }}
             {{ form_widget(form.title) }}
             {{ form_help(form.title) }}

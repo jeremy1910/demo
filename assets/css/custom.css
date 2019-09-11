@@ -180,9 +180,14 @@
     color: #f8f9fa;
     font-weight: bold;
 }
+
+.p-1rem{
+    padding: 1rem 1rem !important;
+}
 .custom_bg_gray{
     background-color: #eaeaea !important;
 }
+
 .custom_bg_gray_dark{
     background-color: #454545 !important;
 }
@@ -195,6 +200,26 @@
     animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
+.custom_bg_green{
+    background-color: #6fa939  !important;
+}
+
+.custom_bg_green label, .custom_bg_green legend{
+    border: 0;
+    color: #f8f9fa;
+
+}
+
+.custom_bg_green input, .custom_bg_green textarea{
+    background-color: #f8f9fa;
+    border: 0;
+    color: #f8f9fa !important;
+
+}
+
+#form_article .form-group{
+    margin-bottom: 0.5rem !important;
+}
 
 @keyframes scale-in-center {
     0% {

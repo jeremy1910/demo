@@ -18,7 +18,6 @@ require('../css/custom.css');
 const $ = require('jquery');
 
 global.$ = global.jQuery = $;
-
 require('bootstrap');
 require('bootstrap-select');
 require('../../public/library/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min');

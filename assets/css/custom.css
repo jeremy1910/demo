@@ -211,14 +211,29 @@
 }
 
 .custom_bg_green input, .custom_bg_green textarea{
-    background-color: #f8f9fa;
+    background-color: #f3f3f3;;
     border: 0;
-    color: #f8f9fa !important;
+    color: #343a40 !important;
 
 }
 
 #form_article .form-group{
     margin-bottom: 0.5rem !important;
+}
+
+.invisible_input{
+    border: 0;
+    background-color: #f8f9fa;
+    text-align: center;
+    font-size: 2.6rem;
+
+}
+.invisible_input:focus{
+    color: #495057;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    outline: 0;
+    box-shadow: 0 0 0 0 #f8f9fa;
 }
 
 @keyframes scale-in-center {

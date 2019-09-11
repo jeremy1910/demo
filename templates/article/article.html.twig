@@ -4,20 +4,15 @@
 
 {% block body %}
 
-<div class="container-fluid">
+<div class="container">
     {{ form_start(form, {'attr': {'id': 'form'}}) }}
     <div id="form_article" class="jumbotron shadow custom_bg_green p-1rem mt-4">
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ form_label(form.title) }}
-                    {{ form_errors(form.title) }}
-                    {{ form_widget(form.title) }}
-                    {{ form_help(form.title) }}
-                </div>
+            <div class="col-md-6" style="padding-right: 5px; padding-left: 10px;">
+
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="padding-right: 5px; padding-left: 10px;">
                         <div id="form-category" class="form-group col">
                             {{ form_label(form.num_category) }}
                             {{ form_errors(form.num_category) }}
@@ -28,8 +23,8 @@
                             {{ form_help(form.num_category) }}
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group col">
+                    <div class="col-md-6" style="padding-right: 10px; padding-left: 10px;">
+                        <div class="form-group">
                             {{ form_label(form.tags) }}
                             {{ form_errors(form.tags) }}
                             {{ form_widget(form.tags) }}
@@ -44,38 +39,46 @@
                     {{ form_widget(form.image) }}
                     {{ form_help(form.image) }}
                 </div>
-                <img id="blah" class="img-fluid img-thumbnail" src="{{ form.image.vars.value.fileName is defined ? asset('images/' ~ form.image.vars.value.fileName)}}">
+                <img id="blah" class="img-fluid img-thumbnail" style="max-width: 75px" src="{{ form.image.vars.value.fileName is defined ? asset('images/' ~ form.image.vars.value.fileName)}}">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding-right: 5px; padding-left: 10px;">
 
                 <div class="form-group">
                     {{ form_label(form.description) }}
                     {{ form_errors(form.description) }}
-                    {{ form_widget(form.description, {'attr': {'style': 'height: 250px;'}}) }}
+                    {{ form_widget(form.description, {'attr': {'style': 'height: 150px;'}}) }}
                     {{ form_help(form.description) }}
                 </div>
             </div>
 
         </div>
     </div>
-    <div class="container">
+
+
+            <button class="btn btn-primary d-block ml-auto">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
+            {% if form.vars.value.id is not null %}
+                {% if is_granted('ARTICLE_DELETE', form.vars.value) %}
+
+                    <a class="btn btn-outline-danger js-btn-suppr d-block ml-auto" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
+
+                {% endif %}
+            {% endif %}
+
         <div class="form-group">
-            {{ form_label(form.body) }}
+
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title, {'attr': {'class': 'invisible_input'}}) }}
+            {{ form_help(form.title) }}
+        </div>
+
+        <div class="form-group">
+
             {{ form_errors(form.body) }}
             {{ form_widget(form.body) }}
             {{ form_help(form.body) }}
         </div>
 
-        <div class="form-group">
-            <button class="btn btn-primary">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
-            {% if form.vars.value.id is not null %}
-                {% if is_granted('ARTICLE_DELETE', form.vars.value) %}
 
-                    <a class="btn btn-outline-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
-
-                {% endif %}
-            {% endif %}
-        </div>
         {{ form_end(form) }}
     </div>
 

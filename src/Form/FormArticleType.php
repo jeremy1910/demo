@@ -53,7 +53,7 @@ class FormArticleType extends AbstractType
 
         $builder
 
-            ->add('title', TextType::class, ['label' => 'Titre de l\'article', 'attr' => ['placeholder' => 'Entrez un titre']])
+            ->add('title', TextType::class, ['label' => 'Titre de l\'article', 'attr' => ['placeholder' => 'Titre de l\'article']])
             ->add('num_category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'libele',
@@ -62,7 +62,7 @@ class FormArticleType extends AbstractType
 
             ])
             ->add('tags', CollectionType::class, [
-
+                'label_attr' => ['style' =>'padding-top: 0'],
                 'entry_type' => TagType::class,
                 'allow_add' => true,
                 'by_reference' => false

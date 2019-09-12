@@ -25,7 +25,7 @@ export function displayPagination(nbPage, pageActive, callbackOnEventPage, callb
 
     let paginationLayoutHTMLElement = $(
         '<nav aria-label="Page navigation example">' +
-        '  <ul class="pagination" id="paginationElement-'+ encre +'">' +
+        '  <ul class="pagination justify-content-center" id="paginationElement-'+ encre +'">' +
         '  </ul>' +
         '</nav>');
 

@@ -47,13 +47,13 @@ class ArticleFilterType extends AbstractType
             ->add('createdAtBefore', DateType::class, [
             'required' => false,
                 'widget' => 'single_text',
-                'label' => 'créé avant le :',
+                'label' => 'Créé avant le',
 
             ])
             ->add('createdAtAfter', DateType::class, [
                 'required' => false,
                 'widget' => 'single_text',
-                'label' => 'créé apres le :',
+                'label' => 'Créé apres le',
             ])
             ->add('last_edit', DateType::class, [
                 'required' => false,

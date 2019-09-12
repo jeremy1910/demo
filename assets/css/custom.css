@@ -236,6 +236,13 @@
     box-shadow: 0 0 0 0 #f8f9fa;
 }
 
+.footer{
+
+    margin: auto;
+    background-color: rgba(0,0,0,0.73) !important;
+    padding: 2rem 1rem;
+}
+
 @keyframes scale-in-center {
     0% {
         transform: scale(0);

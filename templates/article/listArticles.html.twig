@@ -7,73 +7,73 @@
 
 {%  block body %}
     <nav class="navbar navbar-expand-lg navbar-light">
-    <div  class="jumbotron mt-4 w-100 shadow custom_bg_green p-1rem">
-        <div class="container">
+        <div  class="jumbotron mt-4 w-100 shadow custom_bg_green p-1rem">
+            <div class="container">
                 <button class="navbar-toggler mb-2" type="button" data-toggle="collapse" data-target="#form_filters" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="form_filters">
-            {{ form_start(formArticle, {'attr': {'style':'width : 100%'}}) }}
-            <div class="row">
+                    {{ form_start(formArticle, {'attr': {'style':'width : 100%'}}) }}
+                    <div class="row">
 
-                <div class="col-md-4 col-sm-12">
-                    {{ form_row(formArticle.content) }}
-                    {{ form_row(formArticle.user) }}
+                        <div class="col-md-4 col-sm-12">
+                            {{ form_row(formArticle.content) }}
+                            {{ form_row(formArticle.user) }}
 
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    {{  form_row(formArticle.numCategory) }}
-                    {{ form_row(formArticle.tags) }}
-                    <div id="tagsList"></div>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    {{ form_row(formArticle.createdAtAfter) }}
-                    {{  form_row(formArticle.createdAtBefore) }}
-                    <div class="d-flex flex-sm-column flex-md-row justify-content-md-around align-items-sm-center">
-                    {{  form_row(formArticle.submit, {'attr': {'class' : 'btn btn-outline-light font-weight-bold'}}) }}
-                        <div class="form-group">
-                         <a role="button" class="btn btn-outline-light font-weight-bold" href="{{ path('create_article') }}">Ajouter un article</a>
                         </div>
-                    </div>
-                </div>
+                        <div class="col-md-4 col-sm-12">
+                            {{  form_row(formArticle.numCategory) }}
+                            {{ form_row(formArticle.tags) }}
+                            <div id="tagsList"></div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            {{ form_row(formArticle.createdAtAfter) }}
+                            {{  form_row(formArticle.createdAtBefore) }}
+                            <div class="d-flex flex-sm-column flex-md-row justify-content-md-around align-items-sm-center">
+                                {{  form_row(formArticle.submit, {'attr': {'class' : 'btn btn-outline-light font-weight-bold'}}) }}
+                                <div class="form-group">
+                                    <a role="button" class="btn btn-outline-light font-weight-bold" href="{{ path('create_article') }}">Ajouter un article</a>
+                                </div>
+                            </div>
+                        </div>
 
-            </div>
-            {{ form_row(formArticle.nbResult) }}
-            {{ form_row(formArticle.pageSelected) }}
-            {{ form_row(formArticle._token) }}
-            {{ form_end(formArticle, {'render_rest': false}) }}
+                    </div>
+                    {{ form_row(formArticle.nbResult) }}
+                    {{ form_row(formArticle.pageSelected) }}
+                    {{ form_row(formArticle._token) }}
+                    {{ form_end(formArticle, {'render_rest': false}) }}
                 </div>
-    </div>
-    </div>
+            </div>
+        </div>
     </nav>
     <div class="container">
         <div id="spinnerLoadingGeneralSearch-list" class="mr-auto ml-auto" style="display: none">
             {{ include('divers/animation/loading-medium.html.twig') }}
         </div>
-            <div id="card-parent" class="row">
-            </div>
+        <div id="card-parent" class="row">
         </div>
-
     </div>
 
-        <div class="row mt-4">
-            <div class="col-10">
-                <div id="pagination-article" style="width: min-content ; margin: auto;"></div>
-            </div>
-            <div class="col-2">
-                <select id="selecter-article" class="shadow border rounded bg-light">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>30</option>
-                    <option>40</option>
-                    <option>50</option>
-                </select>
-            </div>
+
+
+    <div class="d-flex flex-row mt-4">
+        <div class="col-10">
+            <div id="pagination-article" style="width: min-content ; margin: auto;"></div>
         </div>
+        <div class="col-2">
+            <select id="selecter-article" class="shadow border rounded bg-light">
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+            </select>
+        </div>
+    </div>
 
 
 
-{% include 'article/modalValideDelete.html.twig' %}
+    {% include 'article/modalValideDelete.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}

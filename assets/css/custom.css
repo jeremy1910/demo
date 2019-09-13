@@ -237,10 +237,10 @@
 }
 
 .footer{
-
+    font-size: small;
     margin: auto;
     background-color: rgba(0,0,0,0.73) !important;
-    padding: 2rem 1rem;
+    padding: 0rem 1rem;
 }
 
 @keyframes scale-in-center {

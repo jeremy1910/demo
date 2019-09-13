@@ -109,6 +109,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\History\HistorySearchArticle", mappedBy="by_user")
+     * @Serializer\Exclude()
      */
     private $searched_articles;
 

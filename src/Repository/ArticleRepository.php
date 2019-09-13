@@ -102,16 +102,23 @@ class ArticleRepository extends ServiceEntityRepository
                 ->select('count(a.id)');
         } else {
             $req = $this->createQueryBuilder('a')
-                ->select('a');
+                ->select('a.id')
+                ->addSelect('a.title')
+                ->addSelect('a.description')
+                ->addSelect('a.created_at')
+                ->addSelect('a.last_edit');
+
+
         }
+        $req->innerJoin('a.user', 'user')
+            ->leftJoin('a.tags', 'tags')
+        ->addSelect('user.id as userID');
 
         if ($conditions !== NULL) {
             foreach ($conditions as $key => $condition) {
                 if ($key == 'user') {
-
-                    $req->innerJoin('a.user', 'user')
                         //->addSelect('user.username')
-                        ->andWhere('user.username LIKE :user')
+                        $req->andWhere('user.username LIKE :user')
                         ->setParameter('user', '%' . $condition . '%');
 
                 } else if ($key == 'content') {
@@ -123,9 +130,7 @@ class ArticleRepository extends ServiceEntityRepository
                     $orderByDate = false;
                 } else if ($key == 'tags') {
 
-
-                    $req->leftJoin('a.tags', 'tags')
-                        ->andWhere($req->expr()->in('tags.tagName', ':tags'))
+                    $req->andWhere($req->expr()->in('tags.tagName', ':tags'))
                         ->setParameter('tags', $condition);
 
                 } else if ($key == 'title') {
@@ -150,6 +155,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
         $querry = $req->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 
+        dd($querry->getResult());
         return $querry->getResult();
 
     }

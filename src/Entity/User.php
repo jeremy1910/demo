@@ -114,6 +114,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(targetEntity="\App\Entity\Security\ForgottenPassword", mappedBy="user", cascade={"persist"})
+     * @Serializer\Exclude()
      */
     private $forgottenPassword;
 

@@ -99,6 +99,7 @@ class DataRequestArticleService extends DataRequestClassService
         }
         $nbElement = $repository->findByCondition($this->validedOptions, null, null, TRUE);
 
+
         $result['result'] = $repository->findByCondition($this->validedOptions, $this->maxResult, ($this->offset-1)*$this->maxResult);
 
         /**

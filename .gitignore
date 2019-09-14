@@ -3,7 +3,7 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-
+/public/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -24,7 +24,7 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
-idea/workspace.xml
+
 .env
 .idea/workspace.xml
 env

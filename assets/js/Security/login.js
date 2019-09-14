@@ -14,7 +14,6 @@ function submitFormModal(e) {
         beforeSend: function () {
             /*make som animation*/
             let height = $('#modalForgottenPasswordHook').css('height');
-            console.log(height);
             $('#modalForgottenPasswordHook').empty();
             $( '<div class="spinner" style="height: ' + height + '">' +
                 '  <div class="bounce1"></div>' +

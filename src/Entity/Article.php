@@ -45,7 +45,8 @@ class Article
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Merci d'entrer un titre")
      */
     private $title;
 
@@ -63,22 +64,28 @@ class Article
     /**
      * @ORM\Column(type="text")
      * @Serializer\Exclude()
+     * @Assert\NotBlank(message="Merci d'entrer du contenu")
      */
     private $body;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Merci de choisir une image")
      */
     private $num_category;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\ImageArticle", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Merci de choisir une image")
      */
     private $image;
 
     /**
-     * @ORM\Column(type="text", length=255)
+     * @ORM\Column(type="text", length=255, nullable=false)
+     * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Merci d'entrer une description")
      */
     private $description;
 

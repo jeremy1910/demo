@@ -65,7 +65,7 @@ class FormArticleType extends AbstractType
                 'label_attr' => ['style' =>'padding-top: 0'],
                 'entry_type' => TagType::class,
                 'allow_add' => true,
-                'by_reference' => false
+                'by_reference' => false,
             ])
             ->add('image', ImageArticleType::class,
                 [

@@ -1,3 +1,13 @@
+
+$('#create_edt_article').click(function (e) {
+    $("form[name='form_article']").submit();
+});
+
+CKEDITOR.on('instanceReady', function() {
+    $('#animation_loading_editor').hide();
+    $('#article_editor').fadeIn(1000);
+});
+
 /*****************************************
  Gestion de la liste déroulante des catégorie
  ******************************************/
@@ -43,7 +53,7 @@ Gestion des Tags
 ******************************************/
 
 
-$("<div class=\"form-group\"><input id='input_enter_new_tag' class=\"form-control\" placeholder=\"Ajoutez des tags\"></div>").insertBefore('#tag-container');
+$("<div class=\"form-group\"><input id='input_enter_new_tag' class=\"form-control invisible_input\" placeholder=\"Ajoutez des tags\"></div>").insertBefore('#tag-container');
 $('#input_enter_new_tag').keypress(enterTag);
 let index = 0;
 let teamplate = $('#form_article_tags').attr('data-prototype');
@@ -57,7 +67,7 @@ function enterTag(e) {
         e.preventDefault();
         if ($(this).val() !== ''){
 
-            $('<span class="badge badge-info scale-in-center p-1 m-1">'+ $(this).val() +'</span>').appendTo('#tag-container');
+            $('<span class="badge badge-success scale-in-center p-2 m-1">'+ $(this).val() +'</span>').appendTo('#tag-container');
 
 
             let inputTagHiden = inputTeamplate.replace(/__name__/g, index);

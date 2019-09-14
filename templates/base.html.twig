@@ -32,6 +32,16 @@
                 </li>
             </ul>
 
+
+            {% if app.request.attributes.get('_route') == 'create_article' or app.request.attributes.get('_route') == 'edit_article' %}
+                {% if form.vars.value.id is not null %}
+                    {% if is_granted('ARTICLE_DELETE', form.vars.value) %}
+                        <a class="btn btn-sm btn-danger js-btn-suppr float-right mr-1" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
+                    {% endif %}
+                {% endif %}
+                <button id="create_edt_article" class="btn btn-sm btn-success float-right mr-4">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
+            {% endif %}
+
             {% if app.request.attributes.get('_route') == 'show_article' %}
                 {% if  is_granted('ARTICLE_DELETE', article) %}
                     <ul class="navbar-nav ml-auto mr-4">
@@ -45,6 +55,7 @@
                     </ul>
                 {% endif %}
             {% endif %}
+
             <ul class="nav navbar-nav dropdown">
                 <form class="form-inline my-2 my-lg-0 mr-md-3" name="generalSearch">
                     <input class="form-control form-control-sm mr-sm-2"   type="search" id="general_search_searchString" placeholder="Recherche Rapide" data-toggle="dropdown" aria-label="Search">
@@ -110,10 +121,10 @@
     </div>
 {%  endblock %}
 <div style="flex :1; ">
-{% block body %}
+    {% block body %}
 
 
-{% endblock %}
+    {% endblock %}
 </div>
 
 {% block footer %}
@@ -126,7 +137,7 @@
             {% if not is_granted('ROLE_USER') %}
 
                 <a class="nav-link text-light text-decoration-none ml-auto" href="{{ path('subscribe') }}">Créer un compte</a>
-               <a  class="nav-link text-light text-decoration-none" href="{{ path('app_login') }}">Se connecter</a>
+                <a  class="nav-link text-light text-decoration-none" href="{{ path('app_login') }}">Se connecter</a>
 
             {% else %}
                 {% if app.user.username == 'admin' %}

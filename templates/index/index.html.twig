@@ -5,47 +5,101 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    {{ encore_entry_link_tags('index') }}
 {% endblock %}
 
 {% block body %}
+
+    <div class="container-fluid">
+        <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom" style="color: #6c757d;">LES DERNIERS POSTS PAR CATEGORIE</h2>
+    </div>
     <div class="container">
-        <div class="row">
-            <div class="offset-md-1 col-md-10">
-                <div id="carouselExampleIndicators" class="carousel slide p-3 mb-5 bg-white rounded custom_carousel" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {% for article in articles %}
-                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index -1 }}" {% if loop.first %}class="active" {% endif %}></li>
-                        {% endfor %}
-                    </ol>
-                    <div class="carousel-inner custom_shadow" >
-                        {% for article in articles %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img src="{{ asset('images') }}/{{ article.image.fileName }}" class="d-block w-100" style="height: 500px" alt="...">
-                                <div class="carousel-caption d-none d-md-block custom_carousel_caption">
-                                    <h5>{{ article.title }}</h5>
-                                    <p>{{ article.description }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
+
+        <div class="row mt-4">
+            {% for category in categories %}
+                <div id="col-{{ loop.index }}" class="col-lg-4 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}">
+                    <div class="d-flex">
+                        {%  if loop.first %}
+                            <img src="{{ asset('images/icones/left-arrow-48.png') }}" alt="">
+                        {% endif %}
+
+                        <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
+
+                        {% if loop.last %}
+                            <img src="{{ asset('images/icones/right-arrow-48.png') }}" alt="">
+                        {% endif %}
+
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    {% for i in 0..6 %}
+                        {% if category.articles[i] is defined %}
+
+                            <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
+                            <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 250px">
+                                    <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
+                                    <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden">{{ category.articles[i].description }}</p>
+                                    <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
+
+                                </div></a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            </div>
+            {% endfor %}
         </div>
 
-        {% if articles %}
-            <div class="row">
-                {% for article in articles %}
-                    <div class="col-12">
-                        <div class="card mb-3 mb-md-5 shadow-lg" style="border: 0 !important;">
-                            <a href="{{ path('show_article', {'id': article.id }) }}" class="text-decoration-none">
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="row">
+        <div class="offset-md-1 col-md-10">
+            <div id="carouselExampleIndicators" class="carousel slide p-3 mb-5 bg-white rounded custom_carousel" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for article in articles %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index -1 }}" {% if loop.first %}class="active" {% endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner custom_shadow" >
+                    {% for article in articles %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <img src="{{ asset('images') }}/{{ article.image.fileName }}" class="d-block w-100" style="height: 500px" alt="...">
+                            <div class="carousel-caption d-none d-md-block custom_carousel_caption">
+                                <h5>{{ article.title }}</h5>
+                                <p>{{ article.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if articles %}
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-12">
+                    <div class="card mb-3 mb-md-5 shadow-lg" style="border: 0 !important;">
+                        <a href="{{ path('show_article', {'id': article.id }) }}" class="text-decoration-none">
                             <div class="row no-gutters" style="margin-left: -15px;">
                                 <div class="col-md-4 revealX" style="z-index: 2;">
                                     <img src="{{ asset('images') }}/{{ article.image.fileName }}" style="margin-top: 10px;" class="card-img shadow-lg custom_card_img_size_index " alt="...">
@@ -58,25 +112,25 @@
                                     </div>
                                 </div>
                             </div>
-                            </a>
-                        </div>
+                        </a>
                     </div>
-                {% endfor %}
-            </div>
-        {% else %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
 
-            <div class="jumbotron justify-content-center mt-4">
-                <h1 class="display-4">Oupsss !</h1>
-                <p class="lead">Il n'y a pas d'article à afficher !</p>
-                <hr class="my-4">
-                {% if is_granted('ROLE_WRITER') %}
-                    <a class="btn btn-primary btn-lg" href="{{ path('create_article') }}" role="button">Créer un article</a>
-                {% else %}
-                    <p><a href="{{ path('app_login') }}">connectez vous</a>{% if is_granted('ROLE_VIEWER') %} avec un utilisateur "rédacteur" {% endif %}pour écrire un article. </p>
-                {% endif %}
-            </div>
+        <div class="jumbotron justify-content-center mt-4">
+            <h1 class="display-4">Oupsss !</h1>
+            <p class="lead">Il n'y a pas d'article à afficher !</p>
+            <hr class="my-4">
+            {% if is_granted('ROLE_WRITER') %}
+                <a class="btn btn-primary btn-lg" href="{{ path('create_article') }}" role="button">Créer un article</a>
+            {% else %}
+                <p><a href="{{ path('app_login') }}">connectez vous</a>{% if is_granted('ROLE_VIEWER') %} avec un utilisateur "rédacteur" {% endif %}pour écrire un article. </p>
+            {% endif %}
+        </div>
 
-        {%  endif %}
+    {%  endif %}
 
     </div>
 

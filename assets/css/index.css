@@ -1,0 +1,26 @@
+.offset-img{
+
+    bottom: -3em;
+    transition: bottom 0.6s;
+}
+
+.offset-img-none{
+    bottom: 0;
+    transition: bottom 0.6s cubic-bezier(.5, 0, 0, 1);
+}
+
+
+.section {
+    overflow: hidden;
+
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 100%;
+    transition: flex-basis 0.3s ease-out, margin-left 0.3s ease-out, margin-right 0.3s ease-out;
+}
+.section.collapsed {
+    flex-basis: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+}

@@ -1,5 +1,73 @@
 require('../css/index.css')
 
+
+
+let listCategory = $('#category-container').data('category-list').split(',');
+console.log(listCategory);
+let actualCategory = 2;
+
+let chargedCategory = [0, 1, 2];
+let posOffset = 0;
+
+$('#arrow-next').click(function (e) {
+
+
+
+    if (listCategory[actualCategory+1] !== undefined && chargedCategory[actualCategory+1] === undefined) {
+        $.ajax({
+            url: '/index/getCategoryCards/' + listCategory[actualCategory+1],
+            method: 'POST',
+            data: '',
+            beforeSend: function () {
+
+            }
+        }).done(function (data) {
+            chargedCategory.push(actualCategory);
+            posOffset += 33.33;
+            $('#category-container-card').append(data);
+            $('.js-index-card').animate({
+                right: posOffset+'%'
+            }, 300);
+
+            actualCategory++;
+
+            //setTimeout(function () {
+           //     $('#col-1').remove();
+           // }, 300)
+        })
+
+    }else if (listCategory[actualCategory+1] !== undefined && chargedCategory[actualCategory+1] !== undefined){
+        posOffset += 33.33;
+        $('.js-index-card').animate({
+            right: posOffset+'%'
+        }, 300);
+        actualCategory++;
+    }
+});
+
+$('#arrow-previous').click(function (e) {
+    if (listCategory[actualCategory-3] !== undefined) {
+        posOffset -= 33.33;
+        $('.js-index-card').animate({
+            right: posOffset+'%'
+        }, 300);
+        actualCategory--;
+    }
+});
+
+$('.js-index-card').hover(function (e) {
+    $(this).prev().children().first().removeClass('offset-img');
+    $(this).prev().children().first().addClass('offset-img-none');
+}, function (e) {
+    $(this).prev().children().first().removeClass('offset-img-none');
+    $(this).prev().children().first().addClass('offset-img');
+});
+
+
+
+
+
+
 const ratio = .2;
 const options = {
     root: null,
@@ -8,12 +76,12 @@ const options = {
 };
 
 const handleIntersect = function (entries, observer){
- entries.forEach(function (entry) {
-     if (entry.intersectionRatio > ratio){
-         entry.target.classList.add('revealX-visible');
-         observer.unobserve(entry.target)
-     }
- });
+    entries.forEach(function (entry) {
+        if (entry.intersectionRatio > ratio){
+            entry.target.classList.add('revealX-visible');
+            observer.unobserve(entry.target)
+        }
+    });
 };
 
 let observer = new IntersectionObserver(handleIntersect, options);
@@ -21,24 +89,4 @@ let observer = new IntersectionObserver(handleIntersect, options);
 document.querySelectorAll('.revealX').forEach(function (r) {
     observer.observe(r);
 });
-
-$('#toto').click(function (e) {
-    $('#col-4').removeClass('collapsed');
-    $('#col-1').addClass('collapsed');
-
-});
-
-$('.js-index-card').hover(function (e) {
-
-    console.log();
-
-    $(this).prev().children().first().removeClass('offset-img');
-    $(this).prev().children().first().addClass('offset-img-none');
-}, function (e) {
-    $(this).prev().children().first().removeClass('offset-img-none');
-    $(this).prev().children().first().addClass('offset-img');
-
-});
-
-
 

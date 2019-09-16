@@ -67,6 +67,13 @@ class CategoryRepository extends ServiceEntityRepository
         return $querry->getResult();
     }
 
+    public function getAllId(){
+        $query = $this->createQueryBuilder('c')
+            ->select('c.id')
+            ->orderBy('c.created_at');
+        return $query->getQuery()->getResult();
+    }
+
     public function getLastCreatedCategory(){
         $query = $this->createQueryBuilder('c')
             ->orderBy('c.created_at', 'desc')
@@ -86,6 +93,7 @@ class CategoryRepository extends ServiceEntityRepository
             ->select("COUNT(c.id)");
         return $query->getQuery()->getSingleScalarResult();
     }
+
 
     /*
     public function findOneBySomeField($value): ?Category

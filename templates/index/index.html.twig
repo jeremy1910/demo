@@ -10,26 +10,18 @@
 
 {% block body %}
 
-    <div class="container-fluid">
+    <div class="container-fluid" >
         <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom" style="color: #6c757d;">LES DERNIERS POSTS PAR CATEGORIE</h2>
     </div>
-    <button id="toto">PUSH</button>
-    <div class="container">
 
-        <div class="row mt-4">
+    <div id="category-container" class="container overflow-hidden" data-category-list={% for categoryID in allIdCategory %}{{ categoryID.id}}{%  if not loop.last %}{{ ',' }}{% endif %}{% endfor %}>
+        <img id="arrow-previous" src="{{ asset('images/icones/left-arrow-48.png') }}" alt="arrow-previous">
+        <img id="arrow-next" class="float-right" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
+        <div id="category-container-card" class="row flex-nowrap">
             {% for category in categories %}
-                <div id="col-{{ loop.index }}" class=" d-flex flex-column {%  if not  loop.last %} border-right{% endif %} section">
+                <div id="col-{{ loop.index }}" class="js-index-card d-flex flex-column {%  if not  loop.last %} border-right{% endif %} section position-relative">
                     <div class="d-flex">
-                        {%  if loop.first %}
-                            <img src="{{ asset('images/icones/left-arrow-48.png') }}" alt="">
-                        {% endif %}
-
                         <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
-
-                        {% if loop.last %}
-                            <img src="{{ asset('images/icones/right-arrow-48.png') }}" alt="">
-                        {% endif %}
-
                     </div>
                     {% for i in 0..6 %}
                         {% if category.articles[i] is defined %}
@@ -43,27 +35,9 @@
                     {% endfor %}
                 </div>
             {% endfor %}
-            <div id="col-4" class=" d-flex flex-column  border-right section collapsed">
-                <div class="d-flex">
 
-
-                    <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">TOTO</h3>
-
-                </div>
-
-                <a href="#"><img id="col-4-img" src="#" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
-                <a class="js-index-card text-decoration-none" href="#"><div id="col-4-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 250px">
-                        <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >BABA</h5>
-                        <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden">BOBO</p>
-                        <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>BUBU </strong></small></p>
-                    </div></a>
-
-            </div>
         </div>
-
     </div>
-
-
     </div>
 
 

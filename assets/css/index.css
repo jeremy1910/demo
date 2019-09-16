@@ -14,7 +14,7 @@
     overflow: hidden;
     padding: 0 15px;
     flex-grow: 0;
-    flex-shrink: 1;
+    flex-shrink: 0;
     flex-basis: 33.33%;
     transition: flex-basis 0.3s ease-out, margin-left 0.3s ease-out, margin-right 0.3s ease-out;
 

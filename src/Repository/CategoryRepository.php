@@ -62,7 +62,7 @@ class CategoryRepository extends ServiceEntityRepository
 
             }
         }
-        $querry = $req->orderBy('a.libele', 'DESC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
+        $querry = $req->orderBy('a.created_at', 'ASC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 
         return $querry->getResult();
     }

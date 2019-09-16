@@ -22,6 +22,11 @@ document.querySelectorAll('.revealX').forEach(function (r) {
     observer.observe(r);
 });
 
+$('#toto').click(function (e) {
+    $('#col-4').removeClass('collapsed');
+    $('#col-1').addClass('collapsed');
+
+});
 
 $('.js-index-card').hover(function (e) {
 

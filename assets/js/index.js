@@ -1,17 +1,16 @@
 require('../css/index.css')
 
 
-
 let listCategory = $('#category-container').data('category-list').split(',');
-console.log(listCategory);
+
 let actualCategory = 2;
 
 let chargedCategory = [0, 1, 2];
 let posOffset = 0;
 
+
+
 $('#arrow-next').click(function (e) {
-
-
 
     if (listCategory[actualCategory+1] !== undefined && chargedCategory[actualCategory+1] === undefined) {
         $.ajax({
@@ -20,6 +19,8 @@ $('#arrow-next').click(function (e) {
             data: '',
             beforeSend: function () {
 
+                $('#arrow-next').hide();
+                $('#animation_loading_column').show()
             }
         }).done(function (data) {
             chargedCategory.push(actualCategory);
@@ -30,10 +31,8 @@ $('#arrow-next').click(function (e) {
             }, 300);
 
             actualCategory++;
-
-            //setTimeout(function () {
-           //     $('#col-1').remove();
-           // }, 300)
+            $('#animation_loading_column').hide();
+            $('#arrow-next').show();
         })
 
     }else if (listCategory[actualCategory+1] !== undefined && chargedCategory[actualCategory+1] !== undefined){

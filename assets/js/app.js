@@ -9,6 +9,7 @@
 require('../css/app.scss');
 require('../css/custom.css');
 
+
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 //const $ = require('jquery');
 
@@ -31,6 +32,8 @@ require('bootstrap/js/dist/popover');
 var hljs = require('highlight.js');
 global.hljs = hljs;
 
+var ResponsiveBootstrapToolkit = require('responsive-toolkit/dist/bootstrap-toolkit');
+global.ResponsiveBootstrapToolkit = ResponsiveBootstrapToolkit;
 
 
 

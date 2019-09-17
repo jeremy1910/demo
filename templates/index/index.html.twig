@@ -15,11 +15,16 @@
     </div>
 
     <div id="category-container" class="container overflow-hidden" data-category-list={% for categoryID in allIdCategory %}{{ categoryID.id}}{%  if not loop.last %}{{ ',' }}{% endif %}{% endfor %}>
+        <div id="animation_loading_column" class="spinner m-0 float-right" style="display: none">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
         <img id="arrow-previous" src="{{ asset('images/icones/left-arrow-48.png') }}" alt="arrow-previous">
         <img id="arrow-next" class="float-right" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
         <div id="category-container-card" class="row flex-nowrap">
             {% for category in categories %}
-                <div id="col-{{ loop.index }}" class="js-index-card d-flex flex-column {%  if not  loop.last %} border-right{% endif %} section position-relative">
+                <div id="col-{{ loop.index }}" class="js-index-card col-lg-4 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
                     <div class="d-flex">
                         <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
                     </div>
@@ -54,36 +59,7 @@
 
 
 
-    <div class="row">
-        <div class="offset-md-1 col-md-10">
-            <div id="carouselExampleIndicators" class="carousel slide p-3 mb-5 bg-white rounded custom_carousel" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    {% for article in articles %}
-                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index -1 }}" {% if loop.first %}class="active" {% endif %}></li>
-                    {% endfor %}
-                </ol>
-                <div class="carousel-inner custom_shadow" >
-                    {% for article in articles %}
-                        <div class="carousel-item {% if loop.first %}active{% endif %}">
-                            <img src="{{ asset('images') }}/{{ article.image.fileName }}" class="d-block w-100" style="height: 500px" alt="...">
-                            <div class="carousel-caption d-none d-md-block custom_carousel_caption">
-                                <h5>{{ article.title }}</h5>
-                                <p>{{ article.description }}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
-    </div>
+
 
     {% if articles %}
         <div class="row">

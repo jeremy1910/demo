@@ -35,7 +35,6 @@ class CategoryRepository extends ServiceEntityRepository
 
     public function findByCondition(array $conditions = NULL, $maxResult = NULL, $offset = NULL, $count = false){
 
-
         if($count){
             $req = $this->createQueryBuilder('a')
                 ->select('count(a.id)');
@@ -63,9 +62,9 @@ class CategoryRepository extends ServiceEntityRepository
             }
         }
         $querry = $req->orderBy('a.created_at', 'ASC')->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
-
         return $querry->getResult();
     }
+
 
     public function getAllId(){
         $query = $this->createQueryBuilder('c')

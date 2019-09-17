@@ -6,8 +6,10 @@ use App\Entity\Category;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
@@ -48,14 +50,20 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/index/getCategoryCards/{id}", name="getCategoryCards")
+     * @Route("/index/getCategoryCards", name="getCategoryCards")
      */
-    public function getCategoryCards(Category $category = null){
-        if($category === null){
+    public function getCategoryCards(Request $request){
+        $categoriesGiven = $request->query->get('categories');
+        $categoriesGivenArray = explode(',', $categoriesGiven);
+        if($categoriesGiven === null){
             return new JsonResponse([false, 'Category introuvable']);
         }else{
+
+            $categories = $this->categoryRepository->findBy(['id' => $categoriesGivenArray]);
+
+            dd($categories);
             return $this->render('index/index-category-column.html.twig', [
-                'category' => $category,
+                'categories' => $categories,
             ]);
         }
 

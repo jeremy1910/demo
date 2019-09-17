@@ -32,7 +32,7 @@ require('bootstrap/js/dist/popover');
 var hljs = require('highlight.js');
 global.hljs = hljs;
 
-var ResponsiveBootstrapToolkit = require('responsive-toolkit/dist/bootstrap-toolkit');
+var ResponsiveBootstrapToolkit = require('responsive-toolkit/src/bootstrap-toolkit');
 global.ResponsiveBootstrapToolkit = ResponsiveBootstrapToolkit;
 
 

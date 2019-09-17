@@ -61,7 +61,7 @@ class IndexController extends AbstractController
 
             $categories = $this->categoryRepository->findBy(['id' => $categoriesGivenArray]);
 
-            dd($categories);
+
             return $this->render('index/index-category-column.html.twig', [
                 'categories' => $categories,
             ]);

@@ -1,193 +1,186 @@
 require('../css/index.css')
 
 
-let allowedCategories = $('#category-container').data('category-list').split(',');
+$(document).ready(function () {
+    let allowedCategories = $('#category-container').data('category-list').split(',');
 
-let chargedCategory = [allowedCategories[0], allowedCategories[1], allowedCategories[2]];
-let displayedCategory = [allowedCategories[0], allowedCategories[1], allowedCategories[2]];
+    let cursor = 0;
+    let nbColumnShowed = null;
+    let posOffset = 0;
+    let chargedCategories = [];
+    let offset = 0;
+    setNbColumnShowed();
+    initChargedCategories();
+
+    console.log(nbColumnShowed);
 
 
-let selected = 0;
-let selectedWidth;
-let posOffset = 0;
 
-$(window).resize(
-    ResponsiveBootstrapToolkit.changed(function() {
+    function setNbColumnShowed(){
         if (ResponsiveBootstrapToolkit.is('<lg')){
-            selectedWidth = 1;
+            nbColumnShowed = 1;
         }
         else{
-            selectedWidth = 3
-        }
-        console.log(selectedWidth);
-    })
-);
-
-
-function setColumnId(){
-    $('#category-container-card').children().each(function (loop, element) {
-        $(element).attr('id', 'col-'+Number(loop+1));
-    });
-}
-
-
-$('#arrow-next').click(function (e) {
-
-
-    if (allowedCategories[selected+selectedWidth] !== undefined && chargedCategory[selected+selectedWidth] === undefined) {
-
-        let needdedCategory = [];
-        for (let i=0; i<3 ; i++ ){
-            if (allowedCategories[selected+selectedWidth+i] !== undefined){
-                needdedCategory += allowedCategories[selected+selectedWidth+i]+','
-            }
+            nbColumnShowed = 3;
         }
 
-        $.ajax({
-            url: '/index/getCategoryCards',
-            method: 'GET',
-            data: 'categories='+needdedCategory,
-            beforeSend: function () {
+        $(window).resize(
+            ResponsiveBootstrapToolkit.changed(function() {
+                if (ResponsiveBootstrapToolkit.is('<lg')){
+                    nbColumnShowed = 1;
+                }
+                else{
+                    nbColumnShowed = 3;
+                }
 
-                $('#arrow-next').hide();
-                $('#animation_loading_column').show()
-            }
-        }).done(function (data) {
+            })
+        );
+    }
 
-            chargedCategory.push(allowedCategories[selected+selectedWidth]);
-            chargedCategory.push(allowedCategories[selected+1+selectedWidth]);
-            chargedCategory.push(allowedCategories[selected+2+selectedWidth]);
-            
-            displayedCategory = [allowedCategories[selected+selectedWidth], allowedCategories[selected+1+selectedWidth], allowedCategories[selected+2+selectedWidth]];
-
-            posOffset += 100;
-
-            $('#category-container-card').append(data);
-
-            $('.js-index-card').animate({
-                right: '100%'
-            }, 300, function () {
-                chargedCategory.forEach(function (element) {
-                    console.log(element);
-                    if (!displayedCategory.includes(element)){
-                        $('#col-'+element).attr("style", "display: none !important");
-                    }
-                    $('.js-index-card').animate({
-                        right: '0%'
-                    }, 0);
-                })
-            });
+    function initChargedCategories(){
+        for (let i=0; i<3; i++){
+            chargedCategories.push(allowedCategories[i]);
+        }
+    }
 
 
-            $('#animation_loading_column').hide();
-            $('#arrow-next').show();
 
-            
+    function addChargedCategory(categoryToAdd){
+        if (allowedCategories[cursor+nbColumnShowed] !== undefined) {
+            chargedCategories.push(categoryToAdd);
+        }
+    }
 
-            if (ResponsiveBootstrapToolkit.is('<lg')){
-                selected++
+    function setCursorNextPosition(direction){
+
+        if (direction === 'next'){
+            if (nbColumnShowed == 3) {
+                cursor += 3;
             }else{
-                selected += 3;
+                cursor++;
             }
+        }else{
+            if (nbColumnShowed == 3) {
+                cursor -= 3;
+            }else{
+                cursor--;
+            }
+        }
+
+    }
+
+
+
+    $('#arrow-next').click(function (e) {
+
+        if (allowedCategories[cursor+nbColumnShowed] !== undefined && chargedCategories[cursor+nbColumnShowed] === undefined) {
+
+            let needdedCategory = [];
+            for (let i=0; i<3 ; i++ ){
+                if (allowedCategories[cursor+nbColumnShowed+i] !== undefined){
+                    needdedCategory += allowedCategories[cursor+nbColumnShowed+i]+','
+                }
+            }
+
+            $.ajax({
+                url: '/index/getCategoryCards',
+                method: 'GET',
+                data: 'categories='+needdedCategory,
+                beforeSend: function () {
+
+                    $('#arrow-next').hide();
+                    $('#animation_loading_column').show()
+                }
+            }).done(function (data) {
+
+                for (let i=0; i<3;i++){
+                    addChargedCategory(allowedCategories[cursor+nbColumnShowed+i]);
+                }
+
+                $('#category-container-card').append(data);
+                offset+=100;
+                $('.js-index-card').animate({
+                    right: offset+'%'
+                }, 300);
+
+                $('#animation_loading_column').hide();
+                $('#arrow-next').show();
+
+                setCursorNextPosition('next');
+
+                console.log(allowedCategories);
+                console.log(chargedCategories);
+                console.log(cursor);
+            })
+
+        }else if (allowedCategories[cursor+nbColumnShowed] !== undefined && chargedCategories[cursor+nbColumnShowed] !== undefined){
+            offset+=100;
+            $('.js-index-card').animate({
+                right: offset+'%'
+            }, 300);
+
+
+            setCursorNextPosition('next');
+
 
             console.log(allowedCategories);
-            console.log(chargedCategory);
-            console.log(selected);
-        })
+            console.log(chargedCategories);
+            console.log(cursor);
 
-    }else if (allowedCategories[selected+selectedWidth] !== undefined && chargedCategory[selected+selectedWidth] !== undefined){
-        if (ResponsiveBootstrapToolkit.is('<lg')){
-            displayedCategory = [allowedCategories[selected+selectedWidth]];
-        }else{
-            displayedCategory = [allowedCategories[selected+selectedWidth], allowedCategories[selected+1+selectedWidth], allowedCategories[selected+2+selectedWidth]];
         }
 
 
-        $('.js-index-card').animate({
-            right: '100%'
-        }, 300, function () {
-            chargedCategory.forEach(function (element) {
 
-                if (!displayedCategory.includes(element)){
-                    $('#col-'+element).attr("style", "display: none !important");
-                }
-                $('.js-index-card').animate({
-                    right: '0%'
-                }, 0);
-            })
-        });
-        if (ResponsiveBootstrapToolkit.is('<lg')){
-            selected++
-        }else{
-            selected += 3;
+    });
+
+    $('#arrow-previous').click(function (e) {
+        if (allowedCategories[cursor-nbColumnShowed] !== undefined) {
+            offset-=100;
+            $('.js-index-card').animate({
+                right: offset+'%'
+            }, 300);
+
+            setCursorNextPosition('prev');
         }
         console.log(allowedCategories);
-        console.log(chargedCategory);
-        console.log(selected);
-        console.log(displayedCategory);
-    }
-
-
-
-});
-
-$('#arrow-previous').click(function (e) {
-    if (allowedCategories[selected-selectedWidth] !== undefined) {
-        posOffset -= 100;
-        $('.js-index-card').animate({
-            right: posOffset+'%'
-        }, 300, function () {
-            for (let i=selected+selectedWidth;i<=selected+selectedWidth+3;i++){
-                $('#col-'+i).attr("style", "display: flex !important");
-            }
-            $('.js-index-card').animate({
-                right: posOffset+'%'
-            }, 0);
-            posOffset=0;
-        });
-        if (ResponsiveBootstrapToolkit.is('<lg')){
-            selected--
-        }else{
-            selected -= 3;
-        }
-    }
-    console.log(allowedCategories);
-    console.log(chargedCategory);
-    console.log(selected);
-});
-
-$('.js-index-card').hover(function (e) {
-    $(this).prev().children().first().removeClass('offset-img');
-    $(this).prev().children().first().addClass('offset-img-none');
-}, function (e) {
-    $(this).prev().children().first().removeClass('offset-img-none');
-    $(this).prev().children().first().addClass('offset-img');
-});
-
-
-
-
-
-
-const ratio = .2;
-const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: ratio,
-};
-
-const handleIntersect = function (entries, observer){
-    entries.forEach(function (entry) {
-        if (entry.intersectionRatio > ratio){
-            entry.target.classList.add('revealX-visible');
-            observer.unobserve(entry.target)
-        }
+        console.log(chargedCategories);
+        console.log(cursor);
     });
-};
 
-let observer = new IntersectionObserver(handleIntersect, options);
+    $('.js-index-card').hover(function (e) {
+        $(this).prev().children().first().removeClass('offset-img');
+        $(this).prev().children().first().addClass('offset-img-none');
+    }, function (e) {
+        $(this).prev().children().first().removeClass('offset-img-none');
+        $(this).prev().children().first().addClass('offset-img');
+    });
 
-document.querySelectorAll('.revealX').forEach(function (r) {
-    observer.observe(r);
+
+
+
+
+
+    const ratio = .2;
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: ratio,
+    };
+
+    const handleIntersect = function (entries, observer){
+        entries.forEach(function (entry) {
+            if (entry.intersectionRatio > ratio){
+                entry.target.classList.add('revealX-visible');
+                observer.unobserve(entry.target)
+            }
+        });
+    };
+
+    let observer = new IntersectionObserver(handleIntersect, options);
+
+    document.querySelectorAll('.revealX').forEach(function (r) {
+        observer.observe(r);
+    });
 });
+
 

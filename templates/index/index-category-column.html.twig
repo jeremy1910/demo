@@ -1,18 +1,25 @@
 
 {% for category in categories %}
-<div  id="col-{{ category.id }}" class="js-index-card col-lg-4 d-flex flex-column border-right position-relative">
+<div  id="col-{{ category.id }}" class="js-index-card col-lg-4 d-flex flex-column flex-grow-1 flex-shrink-0 border-right position-relative">
     <div class="d-flex">
         <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
     </div>
-    {% for i in 0..6 %}
-        {% if category.articles[i] is defined %}
-            <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
-            <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 250px">
-                    <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
-                    <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden">{{ category.articles[i].description }}</p>
-                    <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
-                </div></a>
-        {% endif %}
-    {% endfor %}
+
+    {% if category.articles is empty %}
+        <div class="w-100"><h1 class="text-gray vericaltext font-weight-bold mr-auto ml-auto mt-4">PAS D ARTICLE</h1></div>
+    {% else %}
+            {% for i in 0..6 %}
+                {% if category.articles[i] is defined %}
+                    <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
+                    <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 250px">
+                            <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
+                            <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden">{{ category.articles[i].description }}</p>
+                            <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
+                        </div></a>
+                {% endif %}
+
+            {% endfor %}
+    {% endif %}
+
 </div>
 {% endfor %}

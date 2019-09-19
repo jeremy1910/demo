@@ -12,7 +12,7 @@ $(document).ready(function () {
     setNbColumnShowed();
     initChargedCategories();
 
-    console.log(nbColumnShowed);
+    console.log('largeur colone : '+nbColumnShowed);
 
 
 
@@ -28,9 +28,32 @@ $(document).ready(function () {
             ResponsiveBootstrapToolkit.changed(function() {
                 if (ResponsiveBootstrapToolkit.is('<lg')){
                     nbColumnShowed = 1;
+                    offset = cursor*100;
+                    $('.js-index-card').animate({
+                        right: offset+'%'
+                    }, 0);
                 }
                 else{
                     nbColumnShowed = 3;
+
+
+                    if (offset%3 === 0){
+                        cursor = offset/100;
+                        offset = offset/3;
+                        $('.js-index-card').animate({
+                            right: offset+'%'
+                        }, 0);
+
+                    }else{
+                        cursor = cursor-(offset%3);
+                        offset = 100*(offset%3);
+
+                        console.log('curseur :'+cursor);
+                        console.log('offset: '+offset);
+                        $('.js-index-card').animate({
+                            right: offset+'%'
+                        }, 0);
+                    }
                 }
 
             })
@@ -108,9 +131,13 @@ $(document).ready(function () {
 
                 setCursorNextPosition('next');
 
-                console.log(allowedCategories);
-                console.log(chargedCategories);
-                console.log(cursor);
+                console.log('');
+                console.log('');
+                console.log('');
+                console.log('largeur colone : '+nbColumnShowed);
+                console.log('categorie autorisée : '+allowedCategories);
+                console.log('categories : '+chargedCategories);
+                console.log('curseur : '+cursor);
             })
 
         }else if (allowedCategories[cursor+nbColumnShowed] !== undefined && chargedCategories[cursor+nbColumnShowed] !== undefined){
@@ -123,9 +150,13 @@ $(document).ready(function () {
             setCursorNextPosition('next');
 
 
-            console.log(allowedCategories);
-            console.log(chargedCategories);
-            console.log(cursor);
+            console.log('');
+            console.log('');
+            console.log('');
+            console.log('largeur colone : '+nbColumnShowed);
+            console.log('categorie autorisée : '+allowedCategories);
+            console.log('categories : '+chargedCategories);
+            console.log('curseur : '+cursor);
 
         }
 
@@ -142,9 +173,14 @@ $(document).ready(function () {
 
             setCursorNextPosition('prev');
         }
-        console.log(allowedCategories);
-        console.log(chargedCategories);
-        console.log(cursor);
+        console.log('');
+        console.log('');
+        console.log('');
+        console.log('largeur colone : '+nbColumnShowed);
+        console.log('offset : '+offset);
+        console.log('categorie autorisée : '+allowedCategories);
+        console.log('categories : '+chargedCategories);
+        console.log('curseur : '+cursor);
     });
 
     $('.js-index-card').hover(function (e) {

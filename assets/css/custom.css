@@ -175,6 +175,10 @@
 
 }
 
+.text-gray{
+    color: #6c757d;
+}
+
 .custom_bg_blue label, .custom_bg_blue legend{
     border: 0;
     color: #f8f9fa;
@@ -240,6 +244,12 @@
     margin: auto;
     background-color: rgba(0,0,0,0.73) !important;
     padding: 0rem 1rem;
+}
+
+.vericaltext{
+    width:1px;
+    word-wrap: break-word;
+    white-space:pre-wrap;
 }
 
 @keyframes scale-in-center {

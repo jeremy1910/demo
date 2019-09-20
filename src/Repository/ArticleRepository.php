@@ -205,9 +205,7 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function getTop10MostViewed(){
         $query = $this->createQueryBuilder('a')
-            ->select('a.id')
-            ->addSelect('a.title')
-            ->addSelect('a.nb_view')
+
             ->orderBy('a.nb_view', 'desc')
             ->setMaxResults(10);
         return $query->getQuery()->getResult();

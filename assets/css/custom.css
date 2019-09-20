@@ -208,6 +208,9 @@
     background-color: #6fa939  !important;
 }
 
+.text_green{
+    color: #6fa939;
+}
 .custom_bg_green label, .custom_bg_green legend{
     border: 0;
     color: #f8f9fa;

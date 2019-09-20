@@ -10,82 +10,8 @@
 
 {% block body %}
 
-    <div class="container-fluid" >
-        <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom" style="color: #6c757d;">LES DERNIERS POSTS PAR CATEGORIE</h2>
-    </div>
-
-    <div id="category-container" class="container overflow-hidden" data-category-list={% for categoryID in allIdCategory %}{{ categoryID.id}}{%  if not loop.last %}{{ ',' }}{% endif %}{% endfor %}>
-        <div id="animation_loading_column" class="spinner m-0 float-right" style="display: none">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-        <img id="arrow-previous" src="{{ asset('images/icones/left-arrow-48.png') }}" alt="arrow-previous">
-        <img id="arrow-next" class="float-right" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
-        <div id="category-container-card" class="row flex-nowrap">
-            {% for category in categories %}
-                <div id="col-{{ category.id }}" class="js-index-card col-lg-4 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
-                    <div class="d-flex">
-                        <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
-                    </div>
-                    {% for i in 0..6 %}
-                        {% if category.articles[i] is defined %}
-                            <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
-                            <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 250px">
-                                    <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
-                                    <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden">{{ category.articles[i].description }}</p>
-                                    <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
-                                </div></a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% endfor %}
-
-        </div>
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {% if articles %}
-        <div class="row">
-            {% for article in articles %}
-                <div class="col-12">
-                    <div class="card mb-3 mb-md-5 shadow-lg" style="border: 0 !important;">
-                        <a href="{{ path('show_article', {'id': article.id }) }}" class="text-decoration-none">
-                            <div class="row no-gutters" style="margin-left: -15px;">
-                                <div class="col-md-4 revealX" style="z-index: 2;">
-                                    <img src="{{ asset('images') }}/{{ article.image.fileName }}" style="margin-top: 10px;" class="card-img shadow-lg custom_card_img_size_index " alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body d-flex flex-column" style="height: 276px; padding-left: 0; padding-right: 0; padding-top: 0;">
-                                        <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded" >{{ article.title }}</h5>
-                                        <p class="card-text Light weight text custom_card_text_index pl-4 pr-2" style="flex-basis: 100%;">{{ article.description }}</p>
-                                        <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px;" ><small class="text-muted align-self-end">le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-
+    {% if nbArticles == 0 %}
+        <div class="container">
         <div class="jumbotron justify-content-center mt-4">
             <h1 class="display-4">Oupsss !</h1>
             <p class="lead">Il n'y a pas d'article à afficher !</p>
@@ -93,13 +19,84 @@
             {% if is_granted('ROLE_WRITER') %}
                 <a class="btn btn-primary btn-lg" href="{{ path('create_article') }}" role="button">Créer un article</a>
             {% else %}
-                <p><a href="{{ path('app_login') }}">connectez vous</a>{% if is_granted('ROLE_VIEWER') %} avec un utilisateur "rédacteur" {% endif %}pour écrire un article. </p>
+                <p><a href="{{ path('app_login') }}">connectez vous </a>{% if is_granted('ROLE_VIEWER') %} avec un utilisateur "rédacteur" {% endif %}pour écrire un article. </p>
             {% endif %}
         </div>
+        </div>
 
-    {%  endif %}
+    {% else %}
 
-    </div>
+        <div class="container-fluid" >
+            <h1 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">Le MeMo</h1>
+        </div>
+
+        <div class="container w-100 border-right border-left p-4 d-flex flex-column align-items-center mb-5">
+            <h5 class="text-gray">Créer un Post</h5>
+            <h5 class="text-gray">Rechercher un Post</h5>
+            <h5 class="text-gray">Se connecter</h5>
+        </div>
+
+        <div class="container-fluid" >
+            <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">LES DERNIERS POSTS PAR CATEGORIE</h2>
+        </div>
+
+        <div id="category-container" class="container overflow-hidden" data-category-list={% for categoryID in allIdCategory %}{{ categoryID.id}}{%  if not loop.last %}{{ ',' }}{% endif %}{% endfor %}>
+            <div id="animation_loading_column" class="spinner m-0 float-right" style="display: none">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <img id="arrow-previous" src="{{ asset('images/icones/left-arrow-48.png') }}" alt="arrow-previous">
+            <img id="arrow-next" class="float-right" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
+            <div id="category-container-card" class="row flex-nowrap">
+                {% for category in categories %}
+                    <div id="col-{{ category.id }}" class="js-index-card col-lg-4 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
+                        <div class="d-flex">
+                            <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
+                        </div>
+                        {% for i in 0..6 %}
+                            {% if category.articles[i] is defined %}
+                                <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
+                                <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 200px">
+                                        <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
+                                        <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden m-0">{{ category.articles[i].description }}</p>
+                                        <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
+                                    </div></a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <div class="container-fluid" >
+            <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">LES POSTS LES PLUS CONSULTES</h2>
+        </div>
+
+        <div class="container">
+            <div class="d-flex flex-row flex-nowrap w-100">
+                <img id="arrow-previous" src="{{ asset('images/icones/left-arrow-48.png') }}" alt="arrow-previous">
+                <img id="arrow-next" class="ml-auto" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
+            </div>
+            <div class="d-flex flex-row flex-nowrap">
+                {% for article in topArticle %}
+                    <div class="js-index-card col-lg-4 d-flex flex-column position-relative">
+
+                        <a href="{{ path('show_article', {'id': article.id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ article.image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
+                        <a class="js-index-card-top text-decoration-none" href="{{ path('show_article', {'id': article.id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 200px">
+                                <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ article.title }}</h5>
+                                <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden m-0">{{ article.description }}</p>
+                                <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small></p>
+                            </div></a>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
+    {% endif %}
+
 
 {% endblock %}
 {% block javascripts %}

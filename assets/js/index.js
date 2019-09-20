@@ -46,7 +46,7 @@ $(document).ready(function () {
 
                     }else{
                         cursor = cursor-(offset%3);
-                        offset = 100*(offset%3);
+                        offset -= 100*(offset%3);
 
                         console.log('curseur :'+cursor);
                         console.log('offset: '+offset);

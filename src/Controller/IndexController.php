@@ -36,16 +36,17 @@ class IndexController extends AbstractController
     {
         $articles = $this->repository->find5lastArticles();
 
-        $nbCategory = $this->categoryRepository->getNumberOfCategory();
+        $nbArticles = $this->repository->findNumberOfArticles();
         $categories = $this->categoryRepository->findByCondition(null, 3, 0);
         $allIdCategory = $this->categoryRepository->getAllId();
-
-
+        $topArticle = $this->repository->getTop10MostViewed();
 
         return $this->render('index/index.html.twig', [
+            'nbArticles' => $nbArticles[0]['1'],
             'articles' => $articles,
             'categories' => $categories,
             'allIdCategory' => $allIdCategory,
+            'topArticle' => $topArticle,
         ]);
     }
 

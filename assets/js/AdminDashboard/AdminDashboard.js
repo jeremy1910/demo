@@ -3,6 +3,9 @@ import {displayListCategory} from "./AdminDashboard-menu-category";
 
 require('../../css/admin/adminDashboard-custom.css');
 
+
+$('#v-menu-1-content').show();
+
 $('#v-menu > a').each(function () {
     $(this).click(function (e) {
         e.preventDefault();

@@ -179,6 +179,11 @@
     color: #6c757d;
 }
 
+.badge-success-custom{
+    color: #fff;
+    background-color: #6fa939  !important;
+}
+
 .custom_bg_blue label, .custom_bg_blue legend{
     border: 0;
     color: #f8f9fa;
@@ -216,6 +221,20 @@
     color: #f8f9fa;
 
 }
+
+.btn-success-custom{
+    color: #fff;
+    background-color: #6fa939;
+    border-color: #6fa939;
+}
+
+.btn-success-custom:hover{
+    color: #fff;
+    background-color: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+
 
 .custom_bg_green input, .custom_bg_green textarea{
     background-color: #f3f3f3;;

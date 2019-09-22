@@ -36,7 +36,7 @@ $(document).ready(function () {
     function menuArticleCreateTagHTML(value) {
         let tagIndex = $('#inputsTagHiden').children().length;
         $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val(value).hide().appendTo('#inputsTagHiden');
-        let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning scale-in-center p-1 m-1"></a>').click(function (e) {
+        let $tag = $('<a href="'+ tagIndex +'" class="badge badge-success-custom scale-in-center p-1 m-1"></a>').click(function (e) {
             e.preventDefault();
             $(this).remove();
             $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
@@ -150,7 +150,7 @@ $(document).ready(function () {
 
         if (item.tags !== undefined){
             item.tags.forEach(function (tag, index, array) {
-                tagHtml += '<span class="badge badge-warning scale-in-center p-1 m-1 js-search-by-badge">'+ tag.tag_name +'</span>';
+                tagHtml += '<span class="badge badge-success-custom scale-in-center p-1 m-1 js-search-by-badge">'+ tag.tag_name +'</span>';
             });
         }
 

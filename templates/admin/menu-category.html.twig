@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-5">
-                    <button id="addCategoryButton" class="btn btn-outline-primary mb-4 w-100">Ajouter une categorie</button>
+                    <button id="addCategoryButton" class="btn badge-success-custom mb-4 w-100">Ajouter une categorie</button>
                 </div>
             </div>
             <div class="row">
@@ -25,14 +25,14 @@
                             {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': false, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
                         </div>
                         <div class="col-md-3 offset-md-9">
-                            {{ form_row(formCategory.createCategory.submit, {'label': 'Ajouter', 'attr': {'class': 'btn btn-outline-success w-100'}}) }}
+                            {{ form_row(formCategory.createCategory.submit, {'label': 'Ajouter', 'attr': {'class': 'btn badge-success-custom w-100'}}) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-2 ml-auto">
-            {{ form_row(formCategory.search, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}
+            {{ form_row(formCategory.search, {'attr': {'class': 'float-right badge-success-custom w-100'}}) }}
         </div>
     </div>
 </div>

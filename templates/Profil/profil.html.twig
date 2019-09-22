@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+    {{ encore_entry_link_tags('profil') }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row">
+            {% for article in created_articles %}
+                <div class="col-12 col-lg-4 mt-4 animateRevealX"  >
+                    <div class="card custom-card-centered custom_card_index_hover_effet custom_card_without_border custom_shadow" style="margin-bottom: 5px; margin-top: 5px;">
+
+                        <img src="{{ asset('images/'~article.image.fileName) }}" class="card-img-top custom_card_img_size" alt="...">
+                        <div  class="card-body custom_card_body_size" style="position: relative">
+                            <a id="btn-show-#id#" href="{{ path('show_article', {'id': article.id}) }}" class="text-decoration-none text-reset"><h5 id="card-title-#id#" class="card-title custom_card_title_index">{{ article.title }}</h5></a>
+
+                            <p id="card-description-#id#" class="card-text custom_card_text_list">{{ article.description }}</p>
+                            <div class="btn-group" style="position: absolute; bottom: 10px; right: 0; left: 0; font-size: 0.8em">
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer text-muted custom_card_footer_bg_color" style="padding-right: 0.1rem !important; border: 0 !important;">
+                            <div  class="d-flex bd-highlight mb-3" style="font-size: 0.8rem">
+                                <small class="mr-auto">le : <strong>{{ article.createdAt|date("d/m/Y H:i:s") }}</strong>  par <strong>{{ article.user.username }}</strong> dans <strong class="text-nowrap">{{ article.numCategory.libele }}</strong> </small>
+                                <button {% if article.tags is empty %} disabled='disabled' {% endif %}class="btn btn-secondary btn-sm dropdown-toggle p-2 bd-highlight" style="margin-top: 4px;" type="button" data-toggle="collapse" data-target="#collapseTags-{{ article.id }}" aria-expanded="false" aria-controls="collapseExample">Tags</button>
+
+                                <a id="popover-{{ article.id }}" tabindex="0" class="p-2 bd-highlight js-popover" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="bottom" data-content="<a role='button' href='/article/edit/{{ article.id }}' class='btn btn-secondary btn-sm w-100 mb-1 d-block'>Editer</a> <a role='button' data-toggle='modal' data-target='#modalValiddelete' href='/rmArticleA/?id={{ article.id }}' class='btn btn-danger btn-sm w-100 js-btn-suppr' >Supprimer</a>"><img src="{{ asset('images/ellipsis-16.svg')}}"></a>
+                            </div>
+                            <div class="collapse" style="overflow-x: hidden" id="collapseTags-{{ article.id }}">{% if article.tags is not empty %}{% for tag in article.tags %}<span class="badge badge-success-custom mr-1">{{ tag.tagName }}</span>{% endfor %} {% endif %}</div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="card">
+            <div class="card-header  text-white font-weight-bold custom_bg_gray_dark">
+                Historique des recherches
+            </div>
+            <div class="list-group list-group-flush">
+                {% if historySearchArticles is defined %}
+                    {% for historySearchArticle in historySearchArticles %}
+                        <li class="list-group-item">
+                            <p class="text-truncate"><small>Recherche éffectué le <span class="font-weight-bold">{{ historySearchArticle.searchDate|date("d/m/Y H:i", "Europe/Paris") }}</span> par <span class="font-weight-bold"> {% if historySearchArticle.byUser is not null %} {{ historySearchArticle.byUser.username }} {% else %} Visiteur {% endif %}</span></small></p>
+                            <p>Terme(s) de la recherche :</p>
+                            <ul class="list-group list-group-flush rounded">
+                                {% if historySearchArticle.content is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">contenu : </span>{{ historySearchArticle.content }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.category is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Categorie(s) : </span>{{ historySearchArticle.category }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.tag is not null %}
+                                    {% set tags = historySearchArticle.tag|split(',') %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Tag(s) : </span>
+                                        {% for tag in tags %}
+                                            <span class="badge badge-success">{{ tag }}</span>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                {% if historySearchArticle.category is not null %}
+                                    {% set categories = historySearchArticle.category|split(',') %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">categorie(s) : </span>
+                                        {% for category in categories %}
+                                            <span class="badge badge-secondary">{{ category }}</span>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                {% if historySearchArticle.createdAfter is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé apres : </span>{{ historySearchArticle.createdAfter|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.createdBefore is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé avant : </span>{{ historySearchArticle.createdBefore|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.createdAfter is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé apres : </span>{{ historySearchArticle.createdAfter|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+
+                            </ul>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+                <li class="list-group-item"><a class="text-decoration-none text-reset" href="{{ path('admin-search-article-hystory') }}">Voir plus ...</a></li>
+            </div>
+        </div>
+        {{ include('article/modalValideDelete.html.twig') }}
+    </div>
+{%  endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+    {{ encore_entry_script_tags('profil') }}
+
+{% endblock %}

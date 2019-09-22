@@ -2,15 +2,13 @@
 
     color: #e6e6e6 !important;
     font-weight: bold;
-    background-color: #4e9a87 !important;
-}
-#v-menu a{
-    color:#f8f9fa;
+    background-color: #6fa939 !important;
 }
 
-#menu-2-content-1 a.active{
-
-    background-color: #2babc6 !important;
+.nav-link:hover{
+    background-color: rgba(111, 170, 56, 0.61);
+     transition: background-color 0.5s;
+    color: #fff !important;
 }
 
 .custom_border_shadow_admin_content{

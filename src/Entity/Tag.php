@@ -185,26 +185,14 @@ class Tag
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist()
-     */
-    public function uniqueTag(LifecycleEventArgs $eventArgs){
-        $entityManager = $eventArgs->getEntityManager();
-        $repository    = $entityManager->getRepository(Tag::class);
-            $find = $repository->findBy(['tagName' => $this->tagName]);
-            if ($find != null){
-               throw new \Exception('Tag déja existant');
-            }
 
-
-
-    }
 
     /**
      * @ORM\PreFlush()
      */
     public function setDate(){
 
+        $this->tagName = strtoupper($this->tagName);
         if(is_null($this->id)){
             $this->created_at = new \DateTime();
         }

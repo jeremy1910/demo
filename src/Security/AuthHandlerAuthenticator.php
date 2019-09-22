@@ -77,7 +77,8 @@ class AuthHandlerAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+
+        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']) && $user->getEnable();
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)

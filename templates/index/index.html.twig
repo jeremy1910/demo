@@ -26,16 +26,29 @@
 
     {% else %}
 
+
+
         <div class="container-fluid" >
             <h1 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">Le MeMo</h1>
         </div>
 
         <div class="container w-100 border-right border-left p-4 d-flex flex-column align-items-center mb-5">
-            <h5 class="text-gray">Créer un Post</h5>
-            <h5 class="text-gray">Rechercher un Post</h5>
-            <h5 class="text-gray">Se connecter</h5>
+            <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('create_article') }}" role="button"><h5 class="text-light">Créer un Post</h5></a>
+            <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('list_article') }}" role="button"><h5 class="text-light">Rechercher un Post</h5></a>
+            {% if not is_granted('ROLE_USER') %}
+            <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('app_login') }}" role="button"><h5 class="text-light">Se connecter</h5></a>
+
+            {% endif %}
         </div>
 
+        <div class="container-fluid" >
+            <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">LES TAGS LES PLUS UTILISES</h2>
+        </div>
+        <div class="container">
+        {% for tag in mostUsedtags %}
+            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center p-2 m-1"><h6>{{ tag.tagName }}</h6></span></a>
+        {% endfor %}
+        </div>
         <div class="container-fluid" >
             <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">LES DERNIERS POSTS PAR CATEGORIE</h2>
         </div>
@@ -75,19 +88,14 @@
         </div>
 
         <div class="container">
-            <div class="d-flex flex-row flex-nowrap w-100">
-                <img id="arrow-previous" src="{{ asset('images/icones/left-arrow-48.png') }}" alt="arrow-previous">
-                <img id="arrow-next" class="ml-auto" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
-            </div>
-            <div class="d-flex flex-row flex-nowrap">
-                {% for article in topArticle %}
-                    <div class="js-index-card col-lg-4 d-flex flex-column position-relative">
 
-                        <a href="{{ path('show_article', {'id': article.id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ article.image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
-                        <a class="js-index-card-top text-decoration-none" href="{{ path('show_article', {'id': article.id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 200px">
-                                <h5 class="bg-white text-dark card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ article.title }}</h5>
-                                <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden m-0">{{ article.description }}</p>
-                                <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ article.CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if article.user.username is defined %} par <strong>{{ article.user.username }} </strong>{% endif %}</small></p>
+            <div class="d-flex flex-row flex-wrap mt-4">
+                {% for article in topArticle %}
+                    <div class="js-index-card col-lg-2 d-flex flex-column custom_shadow mr-4 p-0 mb-4">
+
+                        <a href="{{ path('show_article', {'id': article.id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ article.image.fileName }}" style="height: 150px" class="js-index-card-img  d-block mr-auto ml-auto w-100" alt="..."></a>
+                        <a class="js-index-card-top text-decoration-none" href="{{ path('show_article', {'id': article.id}) }}"><div id="col-{{ loop.index }}-card" class="card w-100 align-self-center d-flex flex-column border-0" style="height: 75px">
+                                <h6 class="bg-white text-dark card-title  text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" ><small>{{ article.title }}</small></h6>
                             </div></a>
                     </div>
                 {% endfor %}

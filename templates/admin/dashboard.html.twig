@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-lg-5">
             <div class="card shadow">
-                <div class="card-header bg-primary text-white font-weight-bold">
+                <div class="card-header custom_bg_gray_dark text-white font-weight-bold">
                     Articles
                 </div>
                 <div class="list-group list-group-flush">
@@ -33,7 +33,7 @@
         </div>
         <div class="offset-lg-1 col-lg-5 mt-4 mt-lg-0">
             <div class="card shadow ">
-                <div class="card-header text-white font-weight-bold" style="background-color: #4e9a87; ">
+                <div class="card-header text-white font-weight-bold custom_bg_gray_dark">
                     Categories
                 </div>
                 <div class="list-group list-group-flush">
@@ -55,14 +55,14 @@
     <div class="row mt-4">
         <div class="col-lg-5">
             <div class="card shadow">
-                <div class="card-header text-white font-weight-bold" style="background-color: #f1bc5f;">
+                <div class="card-header text-white font-weight-bold custom_bg_green">
                     Tags
                 </div>
                 <div class="list-group list-group-flush">
                     <li class="list-group-item"><span class="font-weight-bold">Nombre </span>{{  nbTag }}</li>
                     <li class="list-group-item"><span class="font-weight-bold ">Dernier tag modifié </span><br> {{ lastEditTag.tagName }}
                         <div class="w-100 text-right">
-                            <small>Par : <strong>{{ lastEditTag.modifiedUser is null ? "Non défini" : lastEdittag.modifiedUser.username }}</strong> le {{ lastEditTag.modifiedAt is null ? "Non défini" : lastEditTag.modifiedAt|date("d/m/y H:i:s") }}</small>
+                            <small>Par : <strong>{{ lastEditTag.modifiedUser is null ? "Non défini" : lastEditTag.modifiedUser.username }}</strong> le {{ lastEditTag.modifiedAt is null ? "Non défini" : lastEditTag.modifiedAt|date("d/m/y H:i:s") }}</small>
                         </div>
                     </li>
                     <li class="list-group-item"><span class="font-weight-bold ">Dernier Tag créé </span><br> {{ lastCreatedTag.tagName }}
@@ -75,7 +75,7 @@
         </div>
         <div class="offset-lg-1 col-lg-5 mt-4 mt-lg-0">
             <div class="card shadow">
-                <div class="card-header text-white font-weight-bold" style="background-color: #2c4344;">
+                <div class="card-header text-white font-weight-bold custom_bg_green">
                     Utilisateurs
                 </div>
                 <div class="list-group list-group-flush">
@@ -97,7 +97,7 @@
     <div class="row mt-4">
         <div class="col-lg-5">
             <div class="card shadow">
-                <div class="card-header text-white font-weight-bold" style="background-color: #fc242c;">
+                <div class="card-header text-white font-weight-bold custom_bg_gray_dark">
                     Top des Posts
                 </div>
                 <div class="list-group list-group-flush">
@@ -107,7 +107,7 @@
                             <li class="list-group-item">
                                 {{ article.title }}
                                 <div class="w-100 text-right">
-                                    <small><strong>{{ article.nb_view }}</strong> {% if article.nb_view > 1 %} Vues {% else %} Vue {% endif %}</small>
+                                    <small><strong>{{ article.nbView }}</strong> {% if article.nbView > 1 %} Vues {% else %} Vue {% endif %}</small>
                                 </div>
                             </li>
                         {% endfor %}
@@ -117,7 +117,7 @@
         </div>
         <div class="offset-lg-1 col-lg-5 mt-4 mt-lg-0">
             <div class="card">
-                <div class="card-header  text-white font-weight-bold" style="background-color: #9907cf;">
+                <div class="card-header  text-white font-weight-bold custom_bg_gray_dark">
                     Historique des recherches
                 </div>
                 <div class="list-group list-group-flush">

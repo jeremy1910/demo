@@ -87,6 +87,7 @@ class AdminController extends AbstractController
         $lastCreatedTag = $this->tagRepository->getLastCreatedTag()[0];
         $lastEditTag = $this->tagRepository->getLastModifiedTag()[0];
 
+
         $nbUser = $this->userRepository->getNumberOfUser();
         $lastCreatedUser = $this->userRepository->getLastCreatedUser()[0];
         $lastEditUser = $this->userRepository->getLastModifiedUser()[0];

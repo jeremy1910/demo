@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -295,9 +296,9 @@ class Article
 
 
     /**
-     * @ORM\PrePersist()
+     * @ORM\PreFlush()
      */
-    public function uniqueTag(LifecycleEventArgs $eventArgs){
+    public function uniqueTag(PreFlushEventArgs$eventArgs){
         $entityManager = $eventArgs->getEntityManager();
         $repository    = $entityManager->getRepository(Tag::class);
 

@@ -39,14 +39,14 @@
                         <a class="btn btn-sm btn-danger js-btn-suppr float-right mr-1" data-toggle="modal" data-target="#modalValiddelete" href="{{ path('delete_article', {'id': form.vars.value.id } ) }}">Supprimer</a>
                     {% endif %}
                 {% endif %}
-                <button id="create_edt_article" class="btn btn-sm btn-success float-right mr-4">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
+                <button id="create_edt_article" class="btn btn-sm btn-success-custom float-right mr-4">{% if form.vars.value.id is null %}Créer {% else %} Modifier {% endif %}</button>
             {% endif %}
 
             {% if app.request.attributes.get('_route') == 'show_article' %}
                 {% if  is_granted('ARTICLE_DELETE', article) %}
                     <ul class="navbar-nav ml-auto mr-4">
                         <li class="nav-item mr-2">
-                            <a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-success">Editer</a>
+                            <a href="{{ path('edit_article', {'id': article.id}) }}" class="btn btn-success-custom">Editer</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ path('delete_article', {'id': article.id}) }}" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">Supprimer</a>
@@ -67,7 +67,7 @@
 
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-success my-2 my-sm-0" type="submit">Rechercher</button>
+                    <button class="btn btn-sm btn-success-custom my-2 my-sm-0" type="submit">Rechercher</button>
                 </form>
             </ul>
 

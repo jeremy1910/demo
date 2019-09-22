@@ -65,15 +65,15 @@ let inputTeamplate = $(teamplate).find('input').css('display', 'none').prop('out
 function enterTag(e) {
     if (e.code === 'Enter'){
         e.preventDefault();
-        if ($(this).val() !== ''){
+        let newTag = $(this).val().toUpperCase();
 
-            $('<span class="badge badge-success scale-in-center p-2 m-1">'+ $(this).val() +'</span>').appendTo('#tag-container');
-
+        if (newTag !== '' && find_duplicate_tag(newTag) === false){
+            $('<span class="badge badge-success-custom scale-in-center p-2 m-1">'+ newTag +'</span>').appendTo('#tag-container');
 
             let inputTagHiden = inputTeamplate.replace(/__name__/g, index);
 
             inputTagHiden = $(inputTagHiden);
-            inputTagHiden.val($(this).val());
+            inputTagHiden.val(newTag);
             $(inputTagHiden).insertAfter('#tag-container');
             this.value = '';
             index++;
@@ -82,6 +82,18 @@ function enterTag(e) {
     }
 }
 
+function find_duplicate_tag(tag){
+    let find = false;
+    $('#tag-container').children().each(function (i, item) {
+
+
+        if (item.innerText === tag){
+
+            find = true;
+        }
+    });
+    return find === true;
+}
 
 if (document.getElementById('form_article_tags').children)
 {
@@ -91,8 +103,11 @@ if (document.getElementById('form_article_tags').children)
     {
         let tag = document.createElement('span');
         tag.classList.add('badge');
-        tag.classList.add('badge-pill');
-        tag.classList.add('badge-primary');
+        tag.classList.add('scale-in-center');
+        tag.classList.add('badge-success-custom');
+        tag.classList.add('p-2');
+        tag.classList.add('m-1');
+
         tag.innerText = document.getElementById('form_article_tags_'+index+'_tagName').value;
 
 

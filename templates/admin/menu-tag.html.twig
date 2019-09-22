@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-5">
-                    <button id="addTagButton" class="btn btn-outline-primary mb-4 w-100">Ajouter un tag</button>
+                    <button id="addTagButton" class="btn btn-success-custom mb-4 w-100">Ajouter un tag</button>
                 </div>
             </div>
             <div class="row">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-3 offset-md-9">
                             <div class="form-group">
-                                <button id="btn-create-new-tag"  type="submit" class="btn btn-outline-success w-100">Ajouter</button>
+                                <button id="btn-create-new-tag"  type="submit" class="btn btn-success-custom w-100">Ajouter</button>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-md-2 ml-auto">
-            {{form_row(formTag.submit, {'attr': {'class': 'float-right btn btn-outline-success w-100' }})}}
+            {{form_row(formTag.submit, {'attr': {'class': 'float-right btn btn-success-custom w-100' }})}}
         </div>
     </div>
 
@@ -56,8 +56,12 @@
 
         </tbody>
     </table>
-    <div id="spinnerLoadingGeneralSearch-adminDashboardTag" class="mr-auto ml-auto" style="display: none">
-        {{ include('divers/animation/loading-medium.html.twig') }}
+
+
+    <div id="spinnerLoadingGeneralSearch-adminDashboardTag" class="spinner m-0 mr-auto ml-auto" style="display: none">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
     </div>
 </div>
 <div class="row">

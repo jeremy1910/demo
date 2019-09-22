@@ -49,6 +49,15 @@ class TagRepository extends ServiceEntityRepository
 
     }
 
+    public function getMostUsedTag(){
+        $query = $this->createQueryBuilder('t')
+
+            ->innerJoin('t.article', 'a')
+            ->groupBy('t.id')
+            ->orderBy("count('t.id')", "desc");
+
+        return $query->getQuery()->getResult();
+    }
 
     public function getLastCreatedTag(){
         $query = $this->createQueryBuilder('t')

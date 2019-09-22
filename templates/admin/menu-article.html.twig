@@ -19,8 +19,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3 mb-2 mb-md-0"><a class="btn btn-outline-primary w-100 float-left" href="{{ path('create_article') }}">Ajouter un article</a></div>
-        <div class="offset-md-7 col-md-2 ">{{  form_row(formArticle.submit, {'attr': {'class': 'float-right btn-outline-success w-100'}}) }}</div>
+        <div class="col-md-3 mb-2 mb-md-0"><a class="btn btn-success-custom w-100 float-left" href="{{ path('create_article') }}">Ajouter un article</a></div>
+        <div class="offset-md-7 col-md-2 ">{{  form_row(formArticle.submit, {'attr': {'class': 'float-right btn-success-custom w-100'}}) }}</div>
     </div>
 
 </div>
@@ -52,10 +52,12 @@
 
         </tbody>
     </table>
-    <div id="spinnerLoadingGeneralSearch-adminDashboardArticle" class="mr-auto ml-auto" style="display: none;">
-        {{ include('divers/animation/loading-medium.html.twig') }}
-    </div>
 
+    <div id="spinnerLoadingGeneralSearch-adminDashboardArticle" class="spinner m-0 mr-auto ml-auto" style="display: none">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
 
 </div>
 <div class="row">

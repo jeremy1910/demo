@@ -7,8 +7,16 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid" >
+        <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">MES INFORMATIONS</h2>
+    </div>
+<div class="container">
+</div>
 
+    <div class="container-fluid" >
+        <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">MES DERNIERS POSTS</h2>
+    </div>
+    <div class="container">
         <div class="row">
             {% for article in created_articles %}
                 <div class="col-12 col-lg-4 mt-4 animateRevealX"  >
@@ -41,18 +49,25 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
 
+    <div class="container-fluid" >
+        <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">MES DERNIERES RECHERCHES</h2>
+    </div>
+
+    <div class="container">
         <div class="card">
             <div class="card-header  text-white font-weight-bold custom_bg_gray_dark">
                 Historique des recherches
             </div>
-            <div class="list-group list-group-flush">
+            <div class="d-flex flex-row flex-wrap">
                 {% if historySearchArticles is defined %}
                     {% for historySearchArticle in historySearchArticles %}
-                        <li class="list-group-item">
+                        <li class="list-group-item col-lg-6">
                             <p class="text-truncate"><small>Recherche éffectué le <span class="font-weight-bold">{{ historySearchArticle.searchDate|date("d/m/Y H:i", "Europe/Paris") }}</span> par <span class="font-weight-bold"> {% if historySearchArticle.byUser is not null %} {{ historySearchArticle.byUser.username }} {% else %} Visiteur {% endif %}</span></small></p>
                             <p>Terme(s) de la recherche :</p>
                             <ul class="list-group list-group-flush rounded">
+
                                 {% if historySearchArticle.content is not null %}
                                     <li class="list-group-item bg-light"><span class="font-weight-bold">contenu : </span>{{ historySearchArticle.content }}</li>
                                 {% endif %}
@@ -63,7 +78,7 @@
                                     {% set tags = historySearchArticle.tag|split(',') %}
                                     <li class="list-group-item bg-light"><span class="font-weight-bold">Tag(s) : </span>
                                         {% for tag in tags %}
-                                            <span class="badge badge-success">{{ tag }}</span>
+                                            <span class="badge badge-success-custom">{{ tag }}</span>
                                         {% endfor %}
                                     </li>
                                 {% endif %}
@@ -89,8 +104,10 @@
                         </li>
                     {% endfor %}
                 {% endif %}
-                <li class="list-group-item"><a class="text-decoration-none text-reset" href="{{ path('admin-search-article-hystory') }}">Voir plus ...</a></li>
+
             </div>
+
+            <li class="list-group-item"><a class="text-decoration-none btn btn-success-custom text-light mr-auto ml-auto w-100" href="{{ path('admin-search-article-hystory') }}">Voir plus ...</a></li>
         </div>
         {{ include('article/modalValideDelete.html.twig') }}
     </div>

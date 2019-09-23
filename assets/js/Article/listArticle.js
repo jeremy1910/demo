@@ -142,7 +142,7 @@ $(document).ready(function () {
         if (article.tags.length > 0) {
             for (let tag of article.tags) {
 
-                let span = $('<span></span>').text(tag.tag_name).addClass("badge badge-dark");
+                let span = $('<span></span>').text(tag.tag_name).addClass("badge badge-success-custom mr-1");
                 $('#collapseTags-' + article.id).append(span);
             }
         }

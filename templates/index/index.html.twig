@@ -33,8 +33,8 @@
         </div>
 
         <div class="container w-100 border-right border-left p-4 d-flex flex-column align-items-center mb-5">
-            <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('create_article') }}" role="button"><h5 class="text-light">Créer un Post</h5></a>
-            <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('list_article') }}" role="button"><h5 class="text-light">Rechercher un Post</h5></a>
+            <a class="btn btn-success-custom shadow mb-1" href="{{ path('create_article') }}" role="button"><h5 class="text-light">Créer un Post</h5></a>
+            <a class="btn btn-success-custom shadow mb-1" href="{{ path('list_article') }}" role="button"><h5 class="text-light">Rechercher un Post</h5></a>
             {% if not is_granted('ROLE_USER') %}
             <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('app_login') }}" role="button"><h5 class="text-light">Se connecter</h5></a>
 
@@ -46,7 +46,7 @@
         </div>
         <div class="container">
         {% for tag in mostUsedtags %}
-            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center p-2 m-1"><h6>{{ tag.tagName }}</h6></span></a>
+            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center p-2 m-1 shadow"><h6>{{ tag.tagName }}</h6></span></a>
         {% endfor %}
         </div>
         <div class="container-fluid" >
@@ -93,9 +93,9 @@
                 {% for article in topArticle %}
                     <div class="js-index-card col-lg-2 d-flex flex-column custom_shadow mr-4 p-0 mb-4">
 
-                        <a href="{{ path('show_article', {'id': article.id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ article.image.fileName }}" style="height: 150px" class="js-index-card-img  d-block mr-auto ml-auto w-100" alt="..."></a>
-                        <a class="js-index-card-top text-decoration-none" href="{{ path('show_article', {'id': article.id}) }}"><div id="col-{{ loop.index }}-card" class="card w-100 align-self-center d-flex flex-column border-0" style="height: 75px">
-                                <h6 class="bg-white text-dark card-title  text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" ><small>{{ article.title }}</small></h6>
+                        <a href="{{ path('show_article', {'id': article.id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ article.image.fileName }}" style="height: 125px" class="js-index-card-img  d-block mr-auto ml-auto w-100" alt="..."></a>
+                        <a class="js-index-card-top text-decoration-none" href="{{ path('show_article', {'id': article.id}) }}"><div id="col-{{ loop.index }}-card" class="card w-100 align-self-center d-flex flex-column border-0" style="height: 100px">
+                                <h6 class="bg-white text-dark card-title  text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded overflow-hidden" ><small>{{ article.title }}</small></h6>
                             </div></a>
                     </div>
                 {% endfor %}

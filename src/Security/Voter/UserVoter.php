@@ -34,7 +34,7 @@ class UserVoter extends Voter
 
         switch ($attribute) {
             case 'USER_EDIT':
-                return $this->canEdit($user);
+                return $this->canEdit($user, $subject);
                 break;
             case 'USER_CREATE':
                 return $this->canCreate($user);
@@ -54,10 +54,10 @@ class UserVoter extends Voter
     private function canDelete(User $user){
         return in_array('ROLE_ADMIN', $user->getRoles());
     }
-    private function canEdit(User $user)
+    private function canEdit(User $user, User $subject)
     {
 
-        return in_array('ROLE_ADMIN', $user->getRoles());
+        return in_array('ROLE_ADMIN', $user->getRoles()) OR $user->getId() === $subject->getId();
     }
 
 }

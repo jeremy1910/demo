@@ -11,6 +11,46 @@
         <h2 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold" style="color: #6c757d;">MES INFORMATIONS</h2>
     </div>
 <div class="container">
+
+    <div class="card text-gray mb-3">
+        <div class="card-header custom_bg_gray_dark text-light font-weight-bold">Information</div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6 border-bottom">
+                    <h5 class="card-title border-right font-weight-bold">Nom</h5>
+                </div>
+                <div class="col-6 border-bottom">
+                    <p class="card-text">{{ user.lastName }}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6 border-bottom">
+                    <h5 class="card-title border-right font-weight-bold">Prénom</h5>
+                </div>
+                <div class="col-6 border-bottom">
+                    <p class="card-text">{{ user.firstName }}</p>
+                </div>
+            </div>
+            <div class="row mt-2 ">
+                <div class="col-6 border-bottom">
+                    <h5 class="card-title border-right font-weight-bold">Adresse mail</h5>
+                </div>
+                <div class="col-6 border-bottom d-flex flex-wrap">
+                    <p class="card-text">{{ user.adresseMail }}</p><button class="btn btn-success-custom d-block ml-auto position-relative" style="bottom: 4px;">Modifier</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <h5 class="card-title border-right font-weight-bold">Mot de passe</h5>
+                </div>
+                <div class="col-6">
+                    <a type="button" href="{{ path('resetUserA', {'id': user.id}) }}" class="btn btn-success-custom d-block ml-auto mr-auto position-relative js-btn-reset-user" style="bottom: 4px;">Changer de mot de passe</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
     <div class="container-fluid" >

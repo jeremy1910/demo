@@ -193,6 +193,7 @@ class UserController extends AbstractController
      * @Route("/resetUserA/{id}", name="resetUserA")
      */
     public function resetUserA(User $user, Request $request){
+
         if($this->canEditUser($user)){
             $form = $this->createForm(ResetPasswordUserType::class, null, [
                 'action' => $this->generateUrl('resetUserA', ['id' => $user->getId()])

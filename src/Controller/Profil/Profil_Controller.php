@@ -47,6 +47,7 @@ class Profil_Controller extends AbstractController
             return $this->render('Profil/profil.html.twig', [
                 'historySearchArticles' => $historySearchArticles,
                 'created_articles' => $created_articles,
+                'user' => $user,
             ]);
 
         }

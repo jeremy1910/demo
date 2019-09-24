@@ -198,7 +198,7 @@
 }
 
 .custom_bg_gray_dark{
-    background-color: #454545 !important;
+    background-color: #434343 !important;
 }
 
 .custom_bg_blue{
@@ -232,6 +232,17 @@
     color: #fff;
     background-color: #218838 !important;
     border-color: #1e7e34 !important;
+}
+.btn-primary-custom{
+    color: #fff;
+    background-color: #008cba;
+    border-color: #008cba;
+}
+
+.btn-primary-custom:hover{
+    color: #fff;
+    background-color: #005d85 !important;
+    border-color: #005D85 !important;
 }
 
 

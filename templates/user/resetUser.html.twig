@@ -1,20 +1,23 @@
 <!-- Modal réinitialisation mot de passe d'un utilisateur -->
 <div class="modal fade" id="resetUserModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModelLabel">Réinitilisation mot de passe</h5>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content bg-light">
+            <div class="modal-header custom_bg_gray_dark">
+                <h4 class="modal-title text-light" id="addUserModelLabel">Réinitilisation mot de passe</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="font-weight-bold text-white">x</span>
                 </button>
             </div>
             {{ form_start(formUserAdd) }}
             <div class="modal-body">
-                {{form_row(formUserAdd.password) }}
+                {{form_row(formUserAdd.password.first) }}
+                {{form_row(formUserAdd.password.second) }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                {{form_row(formUserAdd.submit, {'label': 'Réinitialiser'}) }}
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+                {{form_row(formUserAdd.submit, {'label': 'Réinitialiser', 'attr': {'class': 'btn btn-success-custom'}}) }}
                 {{form_row(formUserAdd._token)}}
 
 

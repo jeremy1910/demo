@@ -148,7 +148,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
         $querry = $req->setFirstResult($offset)->setMaxResults($maxResult)->getQuery();
 
-        return $querry->getResult();
+        return $count ? $querry->getSingleScalarResult() : $querry->getResult();
 
     }
 

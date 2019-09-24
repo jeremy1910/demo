@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            {% if posts is not empty %}
+                {% for post in posts %}
+                    <div class="col-12 col-lg-4 mt-4 animateRevealX"  >
+                        <div class="card custom-card-centered custom_card_index_hover_effet custom_card_without_border custom_shadow" style="margin-bottom: 5px; margin-top: 5px;">
+
+                            <img src="{{ asset('images/'~post.image.fileName) }}" class="card-img-top custom_card_img_size" alt="...">
+                            <div  class="card-body custom_card_body_size" style="position: relative">
+                                <a id="btn-show-#id#" href="{{ path('show_article', {'id': post.id}) }}" class="text-decoration-none text-reset"><h5 id="card-title-#id#" class="card-title custom_card_title_index">{{ post.title }}</h5></a>
+
+                                <p id="card-description-#id#" class="card-text custom_card_text_list">{{ post.description }}</p>
+                                <div class="btn-group" style="position: absolute; bottom: 10px; right: 0; left: 0; font-size: 0.8em">
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer text-muted custom_card_footer_bg_color" style="padding-right: 0.1rem !important; border: 0 !important;">
+                                <div  class="d-flex bd-highlight mb-3" style="font-size: 0.8rem">
+                                    <small class="mr-auto">le : <strong>{{ post.createdAt|date("d/m/Y H:i:s") }}</strong>  par <strong>{{ post.user.username }}</strong> dans <strong class="text-nowrap">{{ post.numCategory.libele }}</strong> </small>
+                                    <button {% if post.tags is empty %} disabled='disabled' {% endif %}class="btn btn-secondary btn-sm dropdown-toggle p-2 bd-highlight" style="margin-top: 4px;" type="button" data-toggle="collapse" data-target="#collapseTags-{{ post.id }}" aria-expanded="false" aria-controls="collapseExample">Tags</button>
+
+                                    <a id="popover-{{ post.id }}" tabindex="0" class="p-2 bd-highlight js-popover" role="button" data-trigger="focus" data-html="true" data-toggle="popover" data-placement="bottom" data-content="<a role='button' href='/article/edit/{{ post.id }}' class='btn btn-secondary btn-sm w-100 mb-1 d-block'>Editer</a> <a role='button' data-toggle='modal' data-target='#modalValiddelete' href='/rmArticleA/?id={{ post.id }}' class='btn btn-danger btn-sm w-100 js-btn-suppr' >Supprimer</a>"><img src="{{ asset('images/ellipsis-16.svg')}}"></a>
+                                </div>
+                                <div class="collapse" style="overflow-x: hidden" id="collapseTags-{{ post.id }}">{% if post.tags is not empty %}{% for tag in post.tags %}<span class="badge badge-success-custom mr-1">{{ tag.tagName }}</span>{% endfor %} {% endif %}</div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="offset-lg-1 col-10 mt-2 mb-4">
+                <nav aria-label="...">
+                    <ul class="pagination" style="width: min-content ; margin: auto;">
+                        {% if pageActuel == 1 %}<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Précédent</a> </li>{%  else %} <li class="page-item"> <a class="page-link" href="{{ path('admin-search-article-hystory', {'page': pageActuel-1}) }}" tabindex="-1">Précédent</a> </li>{% endif %}
+                        {% for i in 1 .. nbPage %}
+                            <li class="page-item {% if i == pageActuel %} active {% endif %}"><a class="page-link" href="{{ path('show_full_posts_list', {'page': i}) }}">{{ i }}</a></li>
+                        {% endfor %}
+                        {% if pageActuel ==  nbPage%}<li class="page-item disabled"> <a class="page-link" href="#" tabindex="+1">Suivant</a> </li>{%  else %} <li class="page-item"> <a class="page-link" href="{{ path('admin-search-article-hystory', {'page': pageActuel+1}) }}" tabindex="+1">Suivant</a> </li>{% endif %}
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+
+{%  endblock %}

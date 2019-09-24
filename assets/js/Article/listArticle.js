@@ -43,12 +43,12 @@ $(document).ready(function () {
     function menuArticleCreateTagHTML(value) {
         let tagIndex = $('#inputsTagHiden').children().length;
         $(menuArticleTagPrototype.replace(/__name__/g, tagIndex)).val(value).hide().appendTo('#inputsTagHiden');
-        let $tag = $('<a href="'+ tagIndex +'" class="badge badge-warning"></a>').click(function (e) {
+        let $tag = $('<a href="'+ tagIndex +'" class="badge badge-success-custom scale-in-center p-2 m-1 shadow"></a>').click(function (e) {
             e.preventDefault();
             $(this).remove();
             $("[id=article_filter_tags_"+ $(this).attr('href') +"]").remove();
         });
-        $tag.text(value).appendTo('#tagsList');
+        $tag.text(value.toUpperCase()).appendTo('#tagsList');
     }
 
     function menuArticleSendAjaxFormFilter(){

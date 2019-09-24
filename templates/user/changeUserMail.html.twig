@@ -1,10 +1,10 @@
 <div class="modal fade" id="changeUserMailModel" tabindex="-1" role="dialog" aria-labelledby="addUserModelLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addUserModelLabel">Changer votre adresse mail</h5>
+            <div class="modal-header custom_bg_gray_dark">
+                <h5 class="modal-title text-light" id="addUserModelLabel">Changer votre adresse mail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" class="font-weight-bold text-white">&times;</span>
                 </button>
             </div>
             {{ form_start(form) }}
@@ -12,8 +12,10 @@
                 {{form_row(form.adresseMail) }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                {{form_row(form.submit, {'label': 'valider'}) }}
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+                {{form_row(form.submit, {'label': 'valider',  'attr': {'class': 'btn btn-success-custom'}}) }}
                 {{form_row(form._token)}}
 
 

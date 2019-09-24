@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header  text-white font-weight-bold custom_bg_gray_dark">
+            Historique des recherches
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+            {% if historySearchArticles is not empty %}
+                {% if historySearchArticles is defined %}
+                    {% for historySearchArticle in historySearchArticles %}
+                        <li class="list-group-item col-lg-6">
+                            <p class="text-truncate"><small>Recherche éffectué le <span class="font-weight-bold">{{ historySearchArticle.searchDate|date("d/m/Y H:i", "Europe/Paris") }}</span> par <span class="font-weight-bold"> {% if historySearchArticle.byUser is not null %} {{ historySearchArticle.byUser.username }} {% else %} Visiteur {% endif %}</span></small></p>
+                            <p>Terme(s) de la recherche :</p>
+                            <ul class="list-group list-group-flush rounded">
+
+                                {% if historySearchArticle.content is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">contenu : </span>{{ historySearchArticle.content }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.category is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Categorie(s) : </span>{{ historySearchArticle.category }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.tag is not null %}
+                                    {% set tags = historySearchArticle.tag|split(',') %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Tag(s) : </span>
+                                        {% for tag in tags %}
+                                            <span class="badge badge-success-custom">{{ tag }}</span>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                {% if historySearchArticle.category is not null %}
+                                    {% set categories = historySearchArticle.category|split(',') %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">categorie(s) : </span>
+                                        {% for category in categories %}
+                                            <span class="badge badge-secondary">{{ category }}</span>
+                                        {% endfor %}
+                                    </li>
+                                {% endif %}
+                                {% if historySearchArticle.createdAfter is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé apres : </span>{{ historySearchArticle.createdAfter|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.createdBefore is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé avant : </span>{{ historySearchArticle.createdBefore|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+                                {% if historySearchArticle.createdAfter is not null %}
+                                    <li class="list-group-item bg-light"><span class="font-weight-bold">Créé apres : </span>{{ historySearchArticle.createdAfter|date("d/m/Y H:i", "Europe/Paris") }}</li>
+                                {% endif %}
+
+                            </ul>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                <p class="text-center w-100 mt-2">Vous n'avez effectué aucune recherche</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="offset-lg-1 col-10 mt-2 mb-4">
+            <nav aria-label="...">
+                <ul class="pagination" style="width: min-content ; margin: auto;">
+                    {% if pageActuel == 1 %}<li class="page-item disabled"> <a class="page-link" href="#" tabindex="-1">Précédent</a> </li>{%  else %} <li class="page-item"> <a class="page-link" href="{{ path('admin-search-article-hystory', {'page': pageActuel-1}) }}" tabindex="-1">Précédent</a> </li>{% endif %}
+                    {% for i in 1 .. nbPage %}
+                        <li class="page-item {% if i == pageActuel %} active {% endif %}"><a class="page-link" href="{{ path('show_full_history', {'page': i}) }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if pageActuel ==  nbPage%}<li class="page-item disabled"> <a class="page-link" href="#" tabindex="+1">Suivant</a> </li>{%  else %} <li class="page-item"> <a class="page-link" href="{{ path('admin-search-article-hystory', {'page': pageActuel+1}) }}" tabindex="+1">Suivant</a> </li>{% endif %}
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

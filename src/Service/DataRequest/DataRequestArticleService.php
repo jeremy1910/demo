@@ -112,7 +112,7 @@ class DataRequestArticleService extends DataRequestClassService
 
         }
 
-        $nbPage = (int) ceil($nbElement[0]['1'] / $this->maxResult);
+        $nbPage = (int) ceil($nbElement / $this->maxResult);
         $result['nbPage'] = $nbPage;
 
         return $result;

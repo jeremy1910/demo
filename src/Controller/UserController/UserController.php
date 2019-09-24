@@ -22,6 +22,7 @@ use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -268,6 +269,50 @@ class UserController extends AbstractController
 
     }
 
+    /**
+     * @Route("/user/changeEmailA/{id}", name="changeEmailA")
+     */
+    public function changeEmailA(User $user, Request $request){
+        if($this->canEditUser($user)){
+            $form = $this->createForm(UserAddType::class, $user, [
+                'action' => $this->generateUrl('changeEmailA', ['id' => $user->getId()])
+            ]);
+            $form->handleRequest($request);
+
+
+            if($form->isSubmitted() && $form->isValid()){
+                try{
+                    $this->doChangeMail($user->getAdresseMail(), $user);
+
+                }catch (\Exception $exception){
+
+                    $form->get('adresseMail')->addError(new FormError('Une erreur est survenu'));
+
+                    return $this->render('user/changeUserMail.html.twig', [
+                        'form' => $form->createView(),
+                    ]);
+                }
+
+                $flashMessage = $this->flashMessage->getFlashMessage('success', 'Utilisateur modifié');
+                return new JsonResponse([true, $flashMessage]);
+            }else{
+
+                return $this->render('user/changeUserMail.html.twig', [
+                   'form' => $form->createView(),
+                ]);
+            }
+        }
+        else{
+            $flashMessage = $this->flashMessage->getFlashMessage('error', "Vous ne pouvez effectuer cette action.");
+            return new JsonResponse([false, $flashMessage]);
+        }
+    }
+
+    private function doChangeMail($mail, User $user){
+        $user->setAdresseMail($mail);
+
+        $this->entityManager->flush();
+    }
     private function doChangePassword(string $password, User $user){
 
         $user->setPassword($this->passwordEncoder->encodePassword($user, $password));

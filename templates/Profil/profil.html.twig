@@ -37,7 +37,7 @@
                     <h5 class="card-title border-right font-weight-bold">Adresse mail</h5>
                 </div>
                 <div class="col-6 border-bottom d-flex flex-wrap">
-                    <p class="card-text">{{ user.adresseMail }}</p><button class="btn btn-success-custom d-block ml-auto position-relative" style="bottom: 4px;">Modifier</button>
+                    <p class="card-text">{{ user.adresseMail }}</p><a role="button" href="{{ path('changeEmailA', {'id': user.id}) }}" class="btn btn-success-custom d-block ml-auto position-relative js-btn-change-mail" style="bottom: 4px;">Modifier</a>
                 </div>
             </div>
             <div class="row mt-2">
@@ -45,7 +45,7 @@
                     <h5 class="card-title border-right font-weight-bold">Mot de passe</h5>
                 </div>
                 <div class="col-6">
-                    <a type="button" href="{{ path('resetUserA', {'id': user.id}) }}" class="btn btn-success-custom d-block ml-auto mr-auto position-relative js-btn-reset-user" style="bottom: 4px;">Changer de mot de passe</a>
+                    <a role="button" href="{{ path('resetUserA', {'id': user.id}) }}" class="btn btn-success-custom d-block ml-auto mr-auto position-relative js-btn-reset-user" style="bottom: 4px;">Changer de mot de passe</a>
                 </div>
             </div>
 
@@ -159,6 +159,7 @@
         </div>
         {{ include('article/modalValideDelete.html.twig') }}
     </div>
+    <div id="modal_encre_user"></div>
 {%  endblock %}
 
 {% block javascripts %}

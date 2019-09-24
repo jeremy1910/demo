@@ -112,6 +112,27 @@ class UserAddType extends AbstractType
                    $form = $event->getForm();
                    $form->remove('password');
                 }
+                if(! key_exists('username', $event->getData())) {
+                   $form = $event->getForm();
+                   $form->remove('username');
+                }
+                if(! key_exists('lastName', $event->getData())) {
+                   $form = $event->getForm();
+                   $form->remove('lastName');
+                }
+                if(! key_exists('firstName', $event->getData())) {
+                   $form = $event->getForm();
+                   $form->remove('firstName');
+                }
+                if(! key_exists('enable', $event->getData())) {
+                   $form = $event->getForm();
+                   $form->remove('enable');
+                }
+                if(! key_exists('roles', $event->getData())) {
+                   $form = $event->getForm();
+                   $form->remove('roles');
+                }
+
             })
         ;
 

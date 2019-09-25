@@ -60,8 +60,10 @@
                 <form class="form-inline my-2 my-lg-0 mr-md-3" name="generalSearch">
                     <input class="form-control form-control-sm mr-sm-2"   type="search" id="general_search_searchString" placeholder="Recherche Rapide" data-toggle="dropdown" aria-label="Search">
                     <div id="dropDownGeneralSearch" class="dropdown-menu shadow w-100">
-                        <div id="spinnerLoadingGeneralSearch" class="mr-auto ml-auto" style="display: none">
-                            {{ include('divers/animation/loading.html.twig') }}
+                        <div id="spinnerLoadingGeneralSearch" class="spinner mr-auto ml-auto" style="display: none">
+                            <div class="bounce1 shadow-custom-dark"></div>
+                            <div class="bounce2 shadow-custom-dark"></div>
+                            <div class="bounce3 shadow-custom-dark"></div>
                         </div>
                         <div id="ListResultsGeneralSearch" class="list-group">
 
@@ -202,23 +204,27 @@
                     $('#ListResultsGeneralSearch').empty();
                     let parsedData = JSON.parse(data);
                     $.each(parsedData, function (i, element) {
-                        console.log(element);
+
                         let lementMenu =
                             '<a href="/show/'+ element.id +'" class="list-group-item list-group-item-action flex-column align-items-start border-0">' +
                             '   <div class="row">'+
                             '       <div class="col-md-9"><span class="font-weight-bold" >' + element.title + '</span></div>'+
-                            '       <div class="col-md-3"><span class="badge badge-pill badge-info float-right">'+ element.libele +'</span></div> '+
+                            '       <div class="col-md-3"><span class="badge badge-pill badge-success-custom badge-zoom float-right">'+ element.libele +'</span></div> '+
                             '       <div class="col-xs-12 w-100 ml-md-3"><span style="font-size: 0.8rem;">' + element.description + '</span></div> '+
                             '    </div>' +
                             '  </a>';
                         $(lementMenu).appendTo($('#ListResultsGeneralSearch'));
                     })
+
+                    $('#ListResultsGeneralSearch a').click(function (e) {
+                        e.preventDefault();
+                        console.log('toto');
+                        document.location.href = $(this).attr('href');
+                    })
                 })
             }
         });
-        $('#dropDownGeneralSearch').on('show', function () {
-            console.log('tototo');
-        });
+
 
         $('#general_search_searchString').focus(function (e) {
 

@@ -88,7 +88,7 @@ class CategoryController extends AbstractController
                     $category->setLibele($request->query->get('libele'));
                     $this->createCategory($category);
                     $this->addFlash(
-                        'notice',
+                        'success',
                         'Category créée !'
                     );
                     $flashMessage = $this->get('session')->getFlashBag()->all();
@@ -100,7 +100,7 @@ class CategoryController extends AbstractController
             } else {
 
                 $this->addFlash(
-                    'notice',
+                    'danger',
                     'Création impossible !'
                 );
                 $flashMessage = $this->get('session')->getFlashBag()->all();
@@ -136,7 +136,7 @@ class CategoryController extends AbstractController
             if($category === NULL)
             {
                         $this->addFlash(
-                            'notice',
+                            'danger',
                             'Suppression impossible ! La categorie n\'existe pas.'
                         );
                         $flashMessage = $this->get('session')->getFlashBag()->all();
@@ -163,7 +163,7 @@ class CategoryController extends AbstractController
         
         }else{
             $this->addFlash(
-                'notice',
+                'danger',
                 "Aucun élément à supprimer."
             );
             $flashMessage = $this->get('session')->getFlashBag()->all();
@@ -209,6 +209,11 @@ class CategoryController extends AbstractController
                 $flashMessage = $this->flashMessage->getFlashMessage('danger', "Impossible de renomer la categorie ! Vous n'avaez pas les autoristaions necessaires");
                 return new JsonResponse([false, $flashMessage]);
             }
+        }
+        else{
+            $flashMessage = $this->flashMessage->getFlashMessage('danger', 'Requete Incorrect');
+            return new JsonResponse([false, $flashMessage]);
+
         }
 
     }

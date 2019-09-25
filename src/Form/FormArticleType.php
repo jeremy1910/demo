@@ -118,10 +118,7 @@ class FormArticleType extends AbstractType
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
 
-        $choices = $view->vars['form']->children['num_category']->vars['choices'];
 
-        $choices[] = new ChoiceView([], 'add', 'Ajouter une catégorie');
-        $view->vars['form']->children['num_category']->vars['choices'] = $choices;
 
 
     }

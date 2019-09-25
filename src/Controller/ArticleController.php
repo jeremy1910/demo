@@ -137,7 +137,7 @@ class ArticleController extends AbstractController
             ]);
         }
 
-        $this->addFlash('notice', 'Impossible de modifier cette article');
+        $this->addFlash('error', 'Impossible de modifier cette article');
         return $this->redirectToRoute('index');
     }
 
@@ -232,8 +232,9 @@ class ArticleController extends AbstractController
 
         }
         else{
+
             $this->addFlash(
-                'alert',
+                'error',
                 $result
             );
 
@@ -248,7 +249,7 @@ class ArticleController extends AbstractController
      * @param Request $request
      * @return mixed
      */
-    public function removeCategoryAjax(Request $request){
+    public function rmArticleA(Request $request){
         if ($request->query->has('id') AND \preg_match("/^[0-9]+$/", $request->query->get('id'))) {
             $repo = $this->entityManager->getRepository(Article::class);
             $id = $request->query->get('id');
@@ -268,7 +269,7 @@ class ArticleController extends AbstractController
                 try {
                     $this->delete($article);
                     $flashMessage = $this->flashMessage->getFlashMessage('success', 'Article supprimé avec succès');
-                    return new JsonResponse([false, $flashMessage]);
+                    return new JsonResponse([true, $flashMessage]);
 
                 }catch (\Exception $e){
                     return new JsonResponse($e->getMessage());
@@ -337,26 +338,7 @@ class ArticleController extends AbstractController
             //'form' => $form->createView(),
         ]);
     }
-    /*
-    public function genralSearch(Request $request, ArticleRepository $articleRepository){
 
-        $generalSearch = new Generalsearch();
-        $form = $this->createForm(GeneralSearchType::class, $generalSearch);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $result = $articleRepository->searchAll($generalSearch->getSearchString());
-            $serializer = SerializerBuilder::create()->build();
-            return new JsonResponse($serializer->serialize($result, 'json', SerializationContext::create()->enableMaxDepthChecks()));
-        }
-
-        return $this->render("test/testTableStructure.html.twig", [
-            'form' => $form->createView(),
-        ]);
-
-    }
-*/
 
     private function delete($article)
     {

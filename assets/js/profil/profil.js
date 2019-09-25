@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $('.js-popover').on('shown.bs.popover', function(){
 
-        console.log('toto');
+
         $('.js-btn-suppr').click(function (e) {
             e.preventDefault();
             let url = $(this).attr('href');
@@ -20,6 +20,10 @@ $(document).ready(function () {
             $('#buttonValidDelete').click(function (e) {
                 e.preventDefault();
                 eventSuppr('article');
+
+                let id = url.substr(16);
+                $('#card-'+id).remove();
+
 
             });
         });

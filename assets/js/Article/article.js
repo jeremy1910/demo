@@ -14,6 +14,7 @@ CKEDITOR.on('instanceReady', function() {
 
 $('#form_article_num_category').selectpicker();
 
+/*
 $('#form_article_num_category').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
     if ($( "#form_article_num_category option:selected" ).val() === 'add'){
         let selectHiden = document.getElementById('selectHiden')
@@ -35,7 +36,7 @@ $('#submitHiden').click(function (e) {
     let submitHiden = document.getElementById('submitHiden');
     submitHiden.style.display = 'none';
 });
-
+*/
 
 $('.js-btn-suppr').each(function () {
     $(this).click(function () {

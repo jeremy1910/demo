@@ -46,7 +46,7 @@
         </div>
         <div class="container">
         {% for tag in mostUsedtags %}
-            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center p-2 m-1 shadow"><h6>{{ tag.tagName }}</h6></span></a>
+            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center p-2 m-1 shadow badge-zoom"><h6>{{ tag.tagName }}</h6></span></a>
         {% endfor %}
         </div>
         <div class="container-fluid" >

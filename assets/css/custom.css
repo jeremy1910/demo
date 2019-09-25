@@ -179,6 +179,29 @@
     color: #6c757d;
 }
 
+#arrow-previous:hover, #arrow-next:hover{
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.title-with-line{
+    width: 80% !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.shadow-custom-dark{
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.27) !important;
+}
+
+.radius-custom-top{
+    border-top-left-radius: 2rem !important;
+    border-top-right-radius: 2rem !important;
+}
+
 .badge-success-custom{
     color: #fff;
     background-color: #6fa939  !important;
@@ -222,6 +245,10 @@
 
 }
 
+.js-index-card-min:hover{
+    position: relative;
+    bottom: 3px;
+}
 .btn-success-custom{
     color: #fff;
     background-color: #6fa939;

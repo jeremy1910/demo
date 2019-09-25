@@ -5,13 +5,11 @@
 {% block body %}
 
 
-    <div class="jumbotron custom_jumbotron_bg custom_shadow mt-4 mb-5">
-        <h1 class="text-center font-weight-bolder text-white">{{ article.title }}</h1>
+    <div class="jumbotron custom_bg_green custom_shadow mt-4 mb-5" style="padding: 1.2rem 1rem; width: 80%; margin-right: auto; margin-left: auto;">
+        <h2 class="text-center font-weight-bolder text-white">{{ article.title }}</h2>
     </div>
     <div class="container">
-
         {{ article.body | raw }}
-
     </div>
 
     {% include 'article/modalValideDelete.html.twig' %}

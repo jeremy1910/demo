@@ -93,11 +93,13 @@
                 <div class="jumbotron custom_bg_blue text-light w-75 mr-auto ml-auto"><h4>Vous n'avez publié aucun Post, Cliquez <a   class="font-weight-bold text-dark" href="{{ path('create_article') }}">ici</a> pour en créer un</h4></div>
             {% endif %}
         </div>
+        {% if created_articles is not empty %}
         <div class="row mt-4">
             <div class="col">
                 <a role="button" href="{{ path('show_full_posts_list') }}" class="btn btn-primary-custom d-block ml-auto mr-auto w-75">Voir tout mes Posts ...</a>
             </div>
         </div>
+        {% endif %}
     </div>
 
     <div class="container-fluid" >

@@ -29,13 +29,13 @@ class SubscribeMailHandler
     public function createSubscribeMail(Token $token)
     {
         $this->message = (new \Swift_Message('Confirmation inscription'))
-            ->setFrom('jeremy1910@gmail.com')
+            ->setFrom('jerambaud05@gmail.com')
             ->setTo($token->getUser()->getAdresseMail())
             ->setBody(
                 $this->twig->render(
                 // templates/emails/registration.html.twig
                     'subscribe/email.html.twig',
-                    ['token' => $token->getToken()]
+                    ['tokenToValidate' => $token->getToken()]
                 ),
                 'text/html'
             );

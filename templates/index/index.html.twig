@@ -91,7 +91,7 @@
 
             <div class="d-flex flex-row flex-wrap mt-4">
                 {% for article in topArticle %}
-                    <div class="js-index-card js-index-card-min col-lg-2 d-flex flex-column custom_shadow mr-4 p-0 mb-4">
+                    <div class="js-index-card-min col-lg-2 d-flex flex-column custom_shadow mr-4 p-0 mb-4">
 
                         <a href="{{ path('show_article', {'id': article.id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ article.image.fileName }}" style="height: 125px" class="js-index-card-img  d-block mr-auto ml-auto w-100" alt="..."></a>
                         <a class="js-index-card-top text-decoration-none" href="{{ path('show_article', {'id': article.id}) }}"><div id="col-{{ loop.index }}-card" class="card w-100 align-self-center d-flex flex-column border-0" style="height: 100px">

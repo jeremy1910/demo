@@ -24,6 +24,8 @@ class SubscribeType extends AbstractType
     {
         $builder->add('username', TextType::class)
             ->add('adresseMail', EmailType::class)
+            ->add('lastName', TextType::class)
+            ->add('firstName', TextType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,

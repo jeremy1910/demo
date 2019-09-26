@@ -12,7 +12,7 @@ $(document).ready(function () {
     setNbColumnShowed();
     initChargedCategories();
 
-    console.log('largeur colone : '+nbColumnShowed);
+
 
 
 
@@ -48,8 +48,7 @@ $(document).ready(function () {
                         cursor = cursor-(offset%3);
                         offset -= 100*(offset%3);
 
-                        console.log('curseur :'+cursor);
-                        console.log('offset: '+offset);
+
                         $('.js-index-card').animate({
                             right: offset+'%'
                         }, 0);
@@ -129,15 +128,16 @@ $(document).ready(function () {
                 $('#animation_loading_column').hide();
                 $('#arrow-next').show();
 
+                $('.js-index-card').hover(function (e) {
+                    $(this).prev().children().first().removeClass('offset-img');
+                    $(this).prev().children().first().addClass('offset-img-none');
+                }, function (e) {
+                    $(this).prev().children().first().removeClass('offset-img-none');
+                    $(this).prev().children().first().addClass('offset-img');
+                });
                 setCursorNextPosition('next');
 
-                console.log('');
-                console.log('');
-                console.log('');
-                console.log('largeur colone : '+nbColumnShowed);
-                console.log('categorie autorisée : '+allowedCategories);
-                console.log('categories : '+chargedCategories);
-                console.log('curseur : '+cursor);
+
             })
 
         }else if (allowedCategories[cursor+nbColumnShowed] !== undefined && chargedCategories[cursor+nbColumnShowed] !== undefined){

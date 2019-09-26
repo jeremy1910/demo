@@ -317,6 +317,12 @@
     white-space:pre-wrap;
 }
 
+#subscribe-container label{
+    width: 100%;
+    text-align: center;
+
+}
+
 @keyframes scale-in-center {
     0% {
         transform: scale(0);

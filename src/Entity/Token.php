@@ -36,7 +36,7 @@ class Token
     private $createdAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -84,7 +84,10 @@ class Token
 
     public function isValid()
     {
+        /*
         $interval = new \DateInterval('PT6H');
         return $this->createdAt->add($interval) > new \DateTime();
+        */
+        return true;
     }
 }

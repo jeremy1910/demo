@@ -14,7 +14,7 @@
 
 {%  block navBare %}
     <nav class="navbar navbar-expand-lg navbar-light" style="position: sticky; top: 0px; box-shadow: 0px 0px 4px 5px rgba(0,0,0,0.3); z-index: 1000; padding-bottom: 0; background-color: rgba(0,0,0,0.73) !important; padding: 0rem 1rem;">
-        <a class="navbar-brand" href="{{ path('index') }}"><h2 class=" text-light font-weight-bold">Memo</h2></a><
+        <a class="navbar-brand" href="{{ path('index') }}"><h2 class=" text-light font-weight-bold">Memo</h2></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,10 +25,10 @@
                     <a class="nav-link text-light" href="{{ path('index') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ path('list_article') }}">liste des articles <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light" href="{{ path('list_article') }}">Liste des Posts<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{{ path('create_article') }}">Créer un article <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-light" href="{{ path('create_article') }}">Créer un Post<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
 
@@ -87,6 +87,7 @@
                         <div class="dropdown-menu dropdown-menu-right" style="background-color: #000000ba !important;" aria-labelledby="navbarDropdown">
                             {% if app.user.username == 'admin' %}
                                 <a class="dropdown-item text-light" href="{{ path('admin_page') }}">Admin Dashboard</a>
+                                <a class="dropdown-item text-light" href="{{ path('profil') }}">Profil</a>
                             {% else %}
                                 <a class="dropdown-item text-light" href="{{ path('profil') }}">Profil</a>
                             {% endif %}

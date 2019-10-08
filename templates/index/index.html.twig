@@ -63,13 +63,13 @@
             <img id="arrow-next" class="float-right" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
             <div id="category-container-card" class="row flex-nowrap">
                 {% for category in categories %}
-                    <div id="col-{{ category.id }}" class="js-index-card col-lg-4 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
+                    <div id="col-{{ category.id }}" class="js-index-card col-lg-3 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
                         <div class="d-flex">
                             <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
                         </div>
                         {% for i in category.articles|length..category.articles|length-6 %}
                             {% if category.articles[i] is defined %}
-                                <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 200px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto radius-custom-top" alt="..."></a>
+                                <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 160px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto radius-custom-top" alt="..."></a>
                                 <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 200px">
                                         <h5 class="bg-white text-gray card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
                                         <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden m-0">{{ category.articles[i].description }}</p>

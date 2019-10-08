@@ -32,11 +32,11 @@
             <h1 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold  title-with-line" style="color: #6c757d;">Le MeMo</h1>
         </div>
 
-        <div class="container w-100 p-4 d-flex flex-column align-items-center mb-5">
-            <a class="btn btn-success-custom shadow mb-1" href="{{ path('create_article') }}" role="button"><h5 class="text-light">Créer un Post</h5></a>
-            <a class="btn btn-primary-custom shadow mb-1" href="{{ path('list_article') }}" role="button"><h5 class="text-light">Rechercher un Post</h5></a>
+        <div class="container w-100 p-4 d-flex flex-row justify-content-between align-items-center mb-5">
+            <a class="btn btn-success-custom shadow mb-1 slide-top br-0" href="{{ path('create_article') }}" role="button"><h5 class="text-light fs-1">Créer un Post</h5></a>
+            <a class="btn btn-primary-custom shadow mb-1 slide-top br-0" href="{{ path('list_article') }}" role="button"><h5 class="text-light fs-1">Rechercher un Post</h5></a>
             {% if not is_granted('ROLE_USER') %}
-            <a class="btn btn-success-custom btn-lg mb-2" href="{{ path('app_login') }}" role="button"><h5 class="text-light">Se connecter</h5></a>
+            <a class="btn btn-success-custom btn-lg mb-2 slide-top br-0" href="{{ path('app_login') }}" role="button"><h5 class="text-light fs-1">Se connecter</h5></a>
 
             {% endif %}
         </div>
@@ -44,9 +44,9 @@
         <div class="container-fluid " >
             <h3 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 border-bottom font-weight-bold title-with-line" style="color: #6c757d;">LES TAGS LES PLUS UTILISES</h3>
         </div>
-        <div class="container">
+        <div class="container d-flex justify-content-center">
         {% for tag in mostUsedtags %}
-            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center p-2 m-1 shadow badge-zoom"><h6>{{ tag.tagName }}</h6></span></a>
+            <a href="{{ path('list_article', {'tag': tag.tagName}) }}"><span class="badge badge-success-custom scale-in-center m-1 shadow badge-zoom"><h6 class="fs-09">{{ tag.tagName }}</h6></span></a>
         {% endfor %}
         </div>
         <div class="container-fluid" >
@@ -63,17 +63,17 @@
             <img id="arrow-next" class="float-right" src="{{ asset('images/icones/right-arrow-48.png') }}" alt="arrow-next">
             <div id="category-container-card" class="row flex-nowrap">
                 {% for category in categories %}
-                    <div id="col-{{ category.id }}" class="js-index-card col-lg-3 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
+                    <div id="col-{{ category.id }}" class="js-index-card col-12 col-lg-3 d-flex flex-column {%  if not  loop.last %} border-right{% endif %}  position-relative">
                         <div class="d-flex">
-                            <h3 class="text-center mb-4" style="color: #6c757d; flex: 1; ">{{ category.libele }}</h3>
+                            <h3 class="text-center mb-4 font-weight-bold" style="color: cadetblue; flex: 1; ">{{ category.libele }}</h3>
                         </div>
                         {% for i in category.articles|length..category.articles|length-6 %}
                             {% if category.articles[i] is defined %}
-                                <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 160px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto radius-custom-top" alt="..."></a>
-                                <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-3 mb-md-5 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 200px">
-                                        <h5 class="bg-white text-gray card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate" >{{ category.articles[i].title }}</h5>
-                                        <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden m-0">{{ category.articles[i].description }}</p>
-                                        <p class="card-text border-top d-flex flex-row-reverse pr-4" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
+                                <a href="{{ path('show_article', {'id': category.articles[i].id}) }}"><img id="col-{{ loop.index }}-img" src="{{ asset('images') }}/{{ category.articles[i].image.fileName }}" style="height: 160px; width: 90%" class="card-img custom_shadow align-self-center js-index-card-img position-relative offset-img d-block mr-auto ml-auto" alt="..."></a>
+                                <a class="js-index-card text-decoration-none" href="{{ path('show_article', {'id': category.articles[i].id}) }}"><div id="col-{{ loop.index }}-card" class="card mb-2 custom_shadow w-100 align-self-center d-flex flex-column border-0" style="height: 200px">
+                                        <h5 class="bg-white text-gray card-title font-weight-bold text-center pl-4 pr-4 pt-md-2 pt-3 pb-3 rounded text-truncate fs-1" >{{ category.articles[i].title }}</h5>
+                                        <p class="card-text custom_card_text_index pl-4 pr-2 h-100 overflow-hidden m-0 fs-08">{{ category.articles[i].description }}</p>
+                                        <p class="card-text border-top d-flex flex-row-reverse pr-4 fs-08" style="padding-top: 10px; height: 2em" ><small class="text-muted align-self-end">le : <strong>{{ category.articles[i].CreatedAt | date("d/m/Y H:i:s") }} </strong> {% if category.articles[i].user.username is defined %} par <strong>{{ category.articles[i].user.username }} </strong>{% endif %}</small></p>
                                     </div></a>
                             {% endif %}
                         {% endfor %}

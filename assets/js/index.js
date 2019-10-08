@@ -21,7 +21,7 @@ $(document).ready(function () {
             nbColumnShowed = 1;
         }
         else{
-            nbColumnShowed = 3;
+            nbColumnShowed = 4;
         }
 
         $(window).resize(
@@ -34,19 +34,19 @@ $(document).ready(function () {
                     }, 0);
                 }
                 else{
-                    nbColumnShowed = 3;
+                    nbColumnShowed = 4;
 
 
-                    if (offset%3 === 0){
+                    if (offset%4 === 0){
                         cursor = offset/100;
-                        offset = offset/3;
+                        offset = offset/4;
                         $('.js-index-card').animate({
                             right: offset+'%'
                         }, 0);
 
                     }else{
-                        cursor = cursor-(offset%3);
-                        offset -= 100*(offset%3);
+                        cursor = cursor-(offset%4);
+                        offset -= 100*(offset%4);
 
 
                         $('.js-index-card').animate({
@@ -60,7 +60,7 @@ $(document).ready(function () {
     }
 
     function initChargedCategories(){
-        for (let i=0; i<3; i++){
+        for (let i=0; i<4; i++){
             chargedCategories.push(allowedCategories[i]);
         }
     }
@@ -76,14 +76,14 @@ $(document).ready(function () {
     function setCursorNextPosition(direction){
 
         if (direction === 'next'){
-            if (nbColumnShowed == 3) {
-                cursor += 3;
+            if (nbColumnShowed == 4) {
+                cursor += 4;
             }else{
                 cursor++;
             }
         }else{
-            if (nbColumnShowed == 3) {
-                cursor -= 3;
+            if (nbColumnShowed == 4) {
+                cursor -= 4;
             }else{
                 cursor--;
             }
@@ -98,7 +98,7 @@ $(document).ready(function () {
         if (allowedCategories[cursor+nbColumnShowed] !== undefined && chargedCategories[cursor+nbColumnShowed] === undefined) {
 
             let needdedCategory = [];
-            for (let i=0; i<3 ; i++ ){
+            for (let i=0; i<4 ; i++ ){
                 if (allowedCategories[cursor+nbColumnShowed+i] !== undefined){
                     needdedCategory += allowedCategories[cursor+nbColumnShowed+i]+','
                 }
@@ -115,7 +115,7 @@ $(document).ready(function () {
                 }
             }).done(function (data) {
 
-                for (let i=0; i<3;i++){
+                for (let i=0; i<4;i++){
                     addChargedCategory(allowedCategories[cursor+nbColumnShowed+i]);
                 }
 

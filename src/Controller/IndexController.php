@@ -22,7 +22,7 @@ class IndexController extends AbstractController
     private $repository;
     private $categoryRepository;
     private $tagRepository;
-    const NB_COL_BY_SLIDE = 3;
+    const NB_COL_BY_SLIDE = 4;
 
     public function __construct(ArticleRepository $repository, CategoryRepository $categoryRepository, TagRepository $tagRepository)
     {
@@ -40,7 +40,7 @@ class IndexController extends AbstractController
         $articles = $this->repository->find5lastArticles();
 
         $nbArticles = $this->repository->findNumberOfArticles();
-        $categories = $this->categoryRepository->findByCondition(null, 3, 0);
+        $categories = $this->categoryRepository->findByCondition(null, 4, 0);
         $allIdCategory = $this->categoryRepository->getAllId();
         $topArticle = $this->repository->getTop10MostViewed();
         $mostUsedtags = $this->tagRepository->getMostUsedTag();

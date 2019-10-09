@@ -48,7 +48,12 @@ class Category
      */
     private $created_user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagePath;
 
+    private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="User")
@@ -65,6 +70,8 @@ class Category
     {
         return $this->id;
     }
+
+
 
     public function getLibele(): ?string
     {
@@ -184,6 +191,46 @@ class Category
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     * @return Category
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param mixed $imagePath
+     * @return Category
+     */
+    public function setImagePath($imagePath)
+    {
+        $this->imagePath = $imagePath;
+        return $this;
+    }
+
 
     /**
      * @ORM\PreFlush()

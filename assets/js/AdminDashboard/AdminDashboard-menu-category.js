@@ -36,16 +36,49 @@ $(document).ready(function () {
         $('#category_filter_search').click();
     });
 
+    $('#categoryChangeImageSelecter').change(function (e) {
+
+        let id = $('#categoryChangeImageID').val();
+
+        let $form = $("form[name='categoryChangeImageForm']");
+        console.log($form);
+
+        $.ajax({
+            url: $form.attr('action'),
+            method: 'POST',
+            data: new FormData($form[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+
+            beforeSend: function () {
+
+            }
+        })
+            .done(function (data, textStatus, jqXDR) {
+
+                displayFlashMessageSuccess(Object.keys(data[1])[0], Object.values(data[1])[0][0], 'flash-message');
+                $('#category_filter_search').click();
+
+
+        })
+
+    });
 
     collapseOnWidthScreen('#menu-category-collapse-form', 768);
 
     function menuCategorySendAjaxFormFilter() {
         let $form = $("form[name='category_filter']");
         let tableBodyCategoryHeight = $('#table-body-category').css('height') === "0px" ? 150 : $('#table-body-category').css('height');
+
         $.ajax({
             url: $form.attr('action'),
             method: 'POST',
-            data: $form.serialize(),
+            data: new FormData($form[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+
             beforeSend: function () {
                 $('#table-body-category').fadeOut(400, function () {
                     $('#spinnerLoadingGeneralSearch-adminDashboardCategory').addClass('d-block');
@@ -147,7 +180,9 @@ $(document).ready(function () {
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
             '<td style="width:' + COL_WIDTH + '%" id="categoryLibele' + item.id + '">' + item.libele + '</td>' +
+            '<td style="width:' + COL_WIDTH + '%" id="categoryImage' + item.id + '"><img src="/images/category_img/'+ item.image_path +'"></td>' +
             '<td  class="d-none d-md-table-cell" style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
+            '<a href="#" onclick="$(\'#categoryChangeImageID\').val('+item.id+');document.getElementById(\'categoryChangeImageSelecter\').click();" class="btn btn-secondary js-btn-edit">Modifier l\'image</a>'+
             '<a href="/rmCategoryA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +
             '<td class="d-md-none">' +
             '                    <button class="btn" type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +

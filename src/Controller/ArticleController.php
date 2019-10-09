@@ -11,7 +11,7 @@ use App\Form\GeneralSearch\GeneralSearchType;
 use App\Repository\ArticleRepository;
 use App\Repository\GeneralSearchRepository;
 use App\Service\ArticleFilterHandler;
-use App\Service\ImageArticleHandler;
+use App\Service\ImageHandler;
 use App\Service\ImageProcessingHandler;
 use App\Service\session\flashMessage\flashMessage;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -61,7 +61,7 @@ class ArticleController extends AbstractController
      * @Route("/new", name="create_article")
      */
 
-    public function createArticle(Request $request, ImageProcessingHandler $resizer, ImageArticleHandler $imageArticleHandler)
+    public function createArticle(Request $request, ImageProcessingHandler $resizer, ImageHandler $imageArticleHandler)
     {
 
         $newArticle = new Article();
@@ -103,7 +103,7 @@ class ArticleController extends AbstractController
      * @Route("/article/edit/{id}", name="edit_article")
      */
 
-    public function editArticle(Article $article, Request $request, ImageArticleHandler $imageArticleHandler, ImageProcessingHandler $resizer)
+    public function editArticle(Article $article, Request $request, ImageHandler $imageArticleHandler, ImageProcessingHandler $resizer)
     {
 
         if($this->isGranted('ARTICLE_EDIT', $article)) {

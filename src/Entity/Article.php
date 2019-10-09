@@ -71,8 +71,8 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="Merci de choisir une image")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank(message="Merci de choisir une categorie")
      */
     private $num_category;
 

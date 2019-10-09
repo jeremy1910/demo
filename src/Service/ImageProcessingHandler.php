@@ -23,6 +23,7 @@ class ImageProcessingHandler
             $dimention = self::RESIZE_DIMENTION;
         }
 
+
         $cmdResizeImg = "convert \"".$fileName."\" -resize ".$dimention." \"" . $fileName . "\"";
 
         shell_exec($cmdResizeImg);

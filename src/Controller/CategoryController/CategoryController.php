@@ -12,6 +12,8 @@ namespace App\Controller\CategoryController;
 use App\Entity\Category;
 use App\Form\Category\CategoryType;
 use App\Form\Category\Filter\CategoryFilterType;
+use App\Service\ImageHandler;
+use App\Service\ImageProcessingHandler;
 use App\Service\session\flashMessage\flashMessage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,15 +24,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
 
-    public function __construct(EntityManagerInterface $entityManager, flashMessage $flashMessage)
+    public function __construct(EntityManagerInterface $entityManager, flashMessage $flashMessage, ImageHandler $imageHandler, ImageProcessingHandler $resizer)
     {
         $this->entityManager = $entityManager;
         $this->flashMessage = $flashMessage;
+        $this->imageHandler = $imageHandler;
+        $this->resizer = $resizer;
     }
 
     private $entityManager;
     private $flashMessage;
-
+    private $imageHandler;
+    private $resizer;
 
     /**
      * @Route("/category/filter", name="categoryFilter")
@@ -50,17 +55,57 @@ class CategoryController extends AbstractController
 
                 return $this->redirectToRoute("get_info", $tabParameterRequest);
             }elseif ($form->get('clickedButton')->getData() == "category_filter[createCategory][submit]"){
+                /**
+                 * @var $category Category
+                 */
+
                 $category = $form->get('createCategory')->getData();
-                $this->createCategory($category);
-                $flashMessage = $this->flashMessage->getFlashMessage('success', 'Categorie créée');
-                return new JsonResponse([true, $flashMessage]);
+
+                $this->hadelCategoryImage($category);
+
+                try{
+                    $this->createCategory($category);
+                    $flashMessage = $this->flashMessage->getFlashMessage('success', 'Categorie créée');
+                    return new JsonResponse([true, $flashMessage]);
+                }catch (\Exception $e){
+                    $flashMessage = $this->flashMessage->getFlashMessage('danger', "une erreure c'est produit durant la création de la category");
+                    return new JsonResponse([false, $flashMessage]);
+                }
             }
 
         }
         else{
-
+            dd($form->getErrors());
             return new JsonResponse(false, 'formulaire invalide');
         }
+    }
+
+    private function hadelCategoryImage(Category $category){
+        $name = $this->imageHandler->save($category->getImage(), $this->getParameter('kernel.project_dir').$this->getParameter('category_img_path'));
+        $category->setImagePath($name);
+        $this->resizer->resize($this->getParameter('kernel.project_dir').$this->getParameter('category_img_path').$category->getImagePath(), '75x75');
+
+    }
+
+    /**
+     * @Route("/category/chgImageA", name="categoryCngImageA")
+     */
+    public function changeImage(Request $request){
+
+
+        if ($request->request->has('categoryChangeImageForm')) {
+
+            $image = $request->files->get('categoryChangeImageForm')['image'];
+            $id = $request->request->get('categoryChangeImageForm')['id'];
+            $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
+
+            if ($this->isGranted('CATEGORY_EDIT', $category)) {
+                $category->setImage($image);
+                $this->hadelCategoryImage($category);
+                $this->entityManager->flush();
+            }
+        }
+
     }
 
     /**
@@ -174,6 +219,9 @@ class CategoryController extends AbstractController
     }
 
     private function deleteCategory(Category $category){
+        if($category->getImagePath() !== null){
+            unlink($this->getParameter('kernel.project_dir').$this->getParameter('category_img_path').$category->getImagePath());
+        }
         $this->entityManager->remove($category);
         $this->entityManager->flush();
     }

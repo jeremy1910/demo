@@ -1,30 +1,34 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: jeje
+ * Date: 09/10/19
+ * Time: 20:41
+ */
 
 namespace App\Form\Category;
 
-use App\Entity\Category;
+use App\Entity\ImageArticle;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CategoryType extends AbstractType
+
+class ImageCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('libele', TextType::class)
-            ->add('image', FileType::class)
-            ->add('submit', SubmitType::class)
+            ->add('CategoryFile', FileType::class, ['label' => 'Image de la category'])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Category::class,
+            'data_class' => null,
         ]);
     }
 }

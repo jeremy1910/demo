@@ -91,7 +91,7 @@ class CategoryController extends AbstractController
         $name = $this->imageHandler->save($category->getImage(), $this->getParameter('kernel.project_dir').$category_img_path);
         $category->setImagePath($name);
 
-        $this->resizer->resize($this->getParameter('kernel.project_dir').$category_img_path.$category->getImagePath(), '75x75');
+        $this->resizer->resize($this->getParameter('kernel.project_dir').$category_img_path.$category->getImagePath(), $this->getParameter('cotegory_img_dim'));
 
     }
 

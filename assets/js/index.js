@@ -13,7 +13,18 @@ $(document).ready(function () {
     initChargedCategories();
 
 
+    $('.js-index-card').each(function () {
+        $(this).mouseover(function (e) {
+            if (! $(this).hasClass('show'))
+            {
+                let target = e.currentTarget.dataset.target;
 
+                $('.js-collapse-index').collapse('hide');
+                $('#'+target).collapse('show');
+            }
+
+        })
+    });
 
 
     function setNbColumnShowed(){

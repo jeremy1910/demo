@@ -180,7 +180,7 @@ $(document).ready(function () {
         $('<tr>' +
             '<th style="width:' + COL_WIDTH + '%" scope="row">' + item.id + '</th>' +
             '<td style="width:' + COL_WIDTH + '%" id="categoryLibele' + item.id + '">' + item.libele + '</td>' +
-            '<td style="width:' + COL_WIDTH + '%" id="categoryImage' + item.id + '"><img src="/images/category_img/'+ item.image_path +'"></td>' +
+            '<td style="width:' + COL_WIDTH + '%" id="categoryImage' + item.id + '"><img class="rounded-circle" style="width: 50px; height: 50px;" src="/images/category_img/'+ item.image_path +'"></td>' +
             '<td  class="d-none d-md-table-cell" style="width:' + COL_WIDTH + '%" ><div class="btn-group"><a href="/edtCategoryA?id=' + item.id + '" num="' + item.id + '" class="btn btn-secondary js-btn-edit">Modifier le libélé</a>' +
             '<a href="#" onclick="$(\'#categoryChangeImageID\').val('+item.id+');document.getElementById(\'categoryChangeImageSelecter\').click();" class="btn btn-secondary js-btn-edit">Modifier l\'image</a>'+
             '<a href="/rmCategoryA?id=' + item.id + '"class="btn btn-danger js-btn-suppr-category" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>' +

@@ -81,9 +81,17 @@ class CategoryController extends AbstractController
     }
 
     private function hadelCategoryImage(Category $category){
-        $name = $this->imageHandler->save($category->getImage(), $this->getParameter('kernel.project_dir').$this->getParameter('category_img_path'));
+        if(PHP_OS_FAMILY !== "Windows"){
+            $category_img_path = $this->getParameter('category_img_path');
+        }
+        else{
+            $category_img_path = $this->getParameter('category_img_path_win');
+        }
+
+        $name = $this->imageHandler->save($category->getImage(), $this->getParameter('kernel.project_dir').$category_img_path);
         $category->setImagePath($name);
-        $this->resizer->resize($this->getParameter('kernel.project_dir').$this->getParameter('category_img_path').$category->getImagePath(), '75x75');
+
+        $this->resizer->resize($this->getParameter('kernel.project_dir').$category_img_path.$category->getImagePath(), '75x75');
 
     }
 

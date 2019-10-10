@@ -8,6 +8,7 @@ parameters:
     max_keep_article_history: 10
     nb_search_history_records_admin_dashbord_to_show: 15
     category_img_path: "/public/images/category_img/"
+    category_img_path_win: "\\public\\images\\category_img\\"
 
 services:
     # default configuration for services in *this* file

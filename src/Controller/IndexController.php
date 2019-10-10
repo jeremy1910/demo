@@ -37,6 +37,7 @@ class IndexController extends AbstractController
      */
     public function index()
     {
+
         $articles = $this->repository->find5lastArticles();
 
         $nbArticles = $this->repository->findNumberOfArticles();

@@ -13,18 +13,7 @@ $(document).ready(function () {
     initChargedCategories();
 
 
-    $('.js-index-card').each(function () {
-        $(this).mouseover(function (e) {
-            if (! $(this).hasClass('show'))
-            {
-                let target = e.currentTarget.dataset.target;
 
-                $('.js-collapse-index').collapse('hide');
-                $('#'+target).collapse('show');
-            }
-
-        })
-    });
 
 
     function setNbColumnShowed(){
@@ -194,7 +183,7 @@ $(document).ready(function () {
         console.log('curseur : '+cursor);
     });
 
-    $('.js-index-card').hover(function (e) {
+    $('.js-index-card-body').hover(function (e) {
         $(this).prev().children().first().removeClass('offset-img');
         $(this).prev().children().first().addClass('offset-img-none');
     }, function (e) {
@@ -204,7 +193,22 @@ $(document).ready(function () {
 
 
 
+    $('.js-index-card').each(function () {
+        $(this).mouseenter(function (e) {
 
+            let target = e.currentTarget.dataset.target;
+            if (!  $('#'+target).hasClass('show'))
+            {
+                console.log($(this));
+                $(this).find('img').addClass('slide-bottom');
+                $('.js-collapse-index').collapse('hide');
+                $('#'+target).collapse('show');
+            }
+
+        });
+
+        //$('.js-index-card').find('img').removeClass('slide-bottom');
+    });
 
 
     const ratio = .2;

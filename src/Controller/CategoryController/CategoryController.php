@@ -20,22 +20,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+
 
 class CategoryController extends AbstractController
 {
 
-    public function __construct(EntityManagerInterface $entityManager, flashMessage $flashMessage, ImageHandler $imageHandler, ImageProcessingHandler $resizer)
+    public function __construct(EntityManagerInterface $entityManager, flashMessage $flashMessage, ImageHandler $imageHandler, ImageProcessingHandler $resizer, Filesystem $filesystem)
     {
         $this->entityManager = $entityManager;
         $this->flashMessage = $flashMessage;
         $this->imageHandler = $imageHandler;
         $this->resizer = $resizer;
+        $this->filesystem = $filesystem;
     }
 
     private $entityManager;
     private $flashMessage;
     private $imageHandler;
     private $resizer;
+    private $filesystem;
 
     /**
      * @Route("/category/filter", name="categoryFilter")
@@ -87,7 +92,10 @@ class CategoryController extends AbstractController
         else{
             $category_img_path = $this->getParameter('category_img_path_win');
         }
-
+        if($category->getImagePath() !== null){
+            //unlink($this->getParameter('kernel.project_dir').$category_img_path.$category->getImagePath());
+            $this->filesystem->remove($this->getParameter('kernel.project_dir').$category_img_path.$category->getImagePath());
+        }
         $name = $this->imageHandler->save($category->getImage(), $this->getParameter('kernel.project_dir').$category_img_path);
         $category->setImagePath($name);
 
@@ -111,6 +119,7 @@ class CategoryController extends AbstractController
                 $category->setImage($image);
                 $this->hadelCategoryImage($category);
                 $this->entityManager->flush();
+                return new JsonResponse();
             }
         }
 

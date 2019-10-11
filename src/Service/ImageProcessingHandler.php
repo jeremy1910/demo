@@ -22,10 +22,11 @@ class ImageProcessingHandler
         if ($dimention === null){
             $dimention = self::RESIZE_DIMENTION;
         }
-
-
-        $cmdResizeImg = "convert \"".$fileName."\" -resize ".$dimention." \"" . $fileName . "\"";
-
+        if(PHP_OS_FAMILY !== "Windows") {
+            $cmdResizeImg = "convert \"" . $fileName . "\" -resize " . $dimention . " \"" . $fileName . "\"";
+        }else{
+            $cmdResizeImg = "magick convert \"" . $fileName . "\" -resize " . $dimention . " \"" . $fileName . "\"";
+        }
         shell_exec($cmdResizeImg);
 
     }

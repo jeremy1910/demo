@@ -51,7 +51,7 @@
 
 
 
-        <div class="pt-4 pr-4 pl-4 mr-auto ml-auto custom_bg_gray_dark-2" style="width: 100%">
+        <div class="pt-4 pr-4 pl-4 mr-auto ml-auto custom_bg_gray_dark-2" style="width: 100%; box-shadow: 0px 0px 4px 5px rgba(0,0,0,0.3);">
             <div class="container-fluid" >
                 <h3 class="w-100 text-center rounded mt-4 mb-5 pt-2 pb-2 title-with-line text-light" style=" border-bottom: 1px #434343 solid">LES DERNIERS POSTS PAR CATEGORIE</h3>
             </div>
@@ -103,7 +103,7 @@
         </div>
         <div class="container border-right border-left border-bottom bg-light">
             {% for category in categories %}
-                <div class="js-collapse-index collapse row {%  if loop.first  %} show {% endif %}" id="collapse-category-{{  category.id  }}">
+                <div class="js-collapse-index collapse row shadow-sm {%  if loop.first  %} show {% endif %}" id="collapse-category-{{  category.id  }}">
 
                     {% for i in category.articles|length..category.articles|length-6 %}
                         {% if category.articles[i] is defined %}
@@ -122,7 +122,7 @@
             {% endfor %}
         </div>
 
-        <div class="mr-auto ml-auto pt-5" style="width: 100%; padding-bottom: 6rem !important; background-color: #2b2a2a;}">
+        <div class="mr-auto ml-auto pt-5 mt-4" style="width: 100%; padding-bottom: 6rem !important; background-color: #2b2a2a; box-shadow: 0px 0px 4px 5px rgba(0,0,0,0.3)">
             <div class="container-fluid" >
                 <h3 class="w-100 text-center rounded mb-5 pt-2 pb-2 font-weight-bold  title-with-line text-light" style="color: #6c757d; border-bottom: 1px #434343 solid">LES POSTS LES PLUS CONSULTES</h3>
             </div>

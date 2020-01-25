@@ -1,8 +1,8 @@
 swiftmailer:
     url: 'smtp.gmail.com'
     transport: gmail
-    username: 'jerambaud05@gmail.com'
-    password: 'Guild1019a$az'
+    username: 'exempledemojr@gmail.com'
+    password: 'Guild1910a$a'
     port: 465
     encryption: ssl
     auth_mode: login

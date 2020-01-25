@@ -209,7 +209,7 @@
 
 .badge-success-custom{
     color: #fff;
-    background-color: #6fa939  !important;
+    background-color: #434343  !important;
 }
 
 .badge-zoom:hover{
@@ -266,23 +266,25 @@
     color: #fff;
     background-color: #6fa939;
     border-color: #6fa939;
+    border-radius: 4px !important;
 }
 
 .btn-success-custom:hover{
     color: #fff;
-    background-color: #218838 !important;
-    border-color: #1e7e34 !important;
+    background-color: #2f5f2f !important;
+    border-color: #2f5f2f !important;
 }
 .btn-primary-custom{
     color: #fff;
-    background-color: #008cba;
-    border-color: #008cba;
+    background-color: #434343;
+    border-color: #434343;
+    border-radius: 4px !important;
 }
 
 .btn-primary-custom:hover{
     color: #fff;
-    background-color: #005d85 !important;
-    border-color: #005D85 !important;
+    background-color: #434343 !important;
+    border-color: #434343 !important;
 }
 
 

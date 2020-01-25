@@ -79,9 +79,10 @@ class ArticleController extends AbstractController
             }
 
             $image = $newArticle->getImage();
-            $imageArticleHandler->save($image,  $this->getParameter('kernel.project_dir')."/public/images");
-
+            $name = $imageArticleHandler->save($image->getImageFile(),  $this->getParameter('kernel.project_dir')."/public/images");
+            $image->setFileName($name);
             $resizer->resize($this->getParameter('kernel.project_dir')."/public/images/".$image->getFileName());
+            $newArticle->setImage($image);
 
             $newArticle->setUser($this->getUser());
 

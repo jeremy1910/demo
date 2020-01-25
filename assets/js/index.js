@@ -196,18 +196,23 @@ $(document).ready(function () {
     $('.js-index-card').each(function () {
         $(this).mouseenter(function (e) {
 
+
+
             let target = e.currentTarget.dataset.target;
             if (!  $('#'+target).hasClass('show'))
             {
-                console.log($(this));
-                $(this).find('img').addClass('slide-bottom');
+
+                $('.js-index-card img').removeClass('slide-bottom-e');
+
+                $(this).find('img').addClass('slide-bottom-e');
+
                 $('.js-collapse-index').collapse('hide');
                 $('#'+target).collapse('show');
             }
 
         });
 
-        //$('.js-index-card').find('img').removeClass('slide-bottom');
+
     });
 
 

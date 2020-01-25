@@ -162,7 +162,7 @@ $(document).ready(function () {
             '<td class="d-none d-md-table-cell">'+ editDate +'</td>' +
             '<td class="d-none d-md-table-cell">'+ (item.description != undefined ? item.description : '') +'</td>'+
             '<td class="d-none d-md-table-cell">'+ tagHtml +'</td>' +
-            '<td class="d-none d-md-table-cell"><div class="btn-group"> <a href="/edit/'+ item.id +'" class="btn btn-secondary" role="link" >Editer</a><a href="/show/'+ item.id +'" class="btn btn-success">Voir</a><a href="/rmArticleA?id='+ item.id +'" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
+            '<td class="d-none d-md-table-cell"><div class="btn-group"> <a href="article/edit/'+ item.id +'" class="btn btn-secondary" role="link" >Editer</a><a href="/show/'+ item.id +'" class="btn btn-success">Voir</a><a href="/rmArticleA?id='+ item.id +'" class="btn btn-danger js-btn-suppr" data-toggle="modal" data-target="#modalValiddelete">supprimer</a></div></td>'+
             '<td class="d-md-none">' +
             '                    <button class="btn" type="button" data-toggle="collapse" data-target="#lineTargetCollapse-'+ item.id +'" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">' +
             '                        <span class="custom_background-btn navbar-toggler-icon"></span>' +

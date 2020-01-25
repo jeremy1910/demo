@@ -22,9 +22,9 @@
                 <div id="divAddNewCategory" class="col-12">
                     <div class="row">
                         <div class="col-12">
-                            {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': false, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
+                            {{ form_row(formCategory.createCategory.libele, {'label': false, 'required': true, 'attr': {'placeholder': 'Nom de la catégorie à créer'} } )}}
 
-                            {{ form_row(formCategory.createCategory.image) }}
+                            {{ form_row(formCategory.createCategory.image, {'required': true}) }}
 
 
                         </div>

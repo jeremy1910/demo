@@ -1,78 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9df2cd9e-7f6b-416b-9030-07d2b79b9ae3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/Article/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/Article/article.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0ea5f81da04af333e8e4d8d57990027b.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/0fe8e103ab42bbd023b8ab01f575eda0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/13fed1b481abb2bbd9d8d700f031bd6e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/167cb8eb7441ffa7d6e26771e0eaaafb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/183db23b678b1d28d193f5854b637b60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/18941e70d3d061c5d86c044e993ff0a5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/190a53dacdd117cca61988690ef57332.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/1aa23dabfe9f1e01c4eff0bd2ac63d6c.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/1dc7d060d1b417451141a51c905eecff.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2517eb436f03aed2deaa8326061ffc7c.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2705e277513f4d6c91018ede80fd5f3e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/286e05dd004d47ba684a1ccafc97b5e2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2baa72c5381ff02c984ad8eb4c6d4ce6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2c0c9df3bb4a315cb86e14d9405f06e8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2d69e32db3d906054ee78fd57a0e3f20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/2e125f4fd6bec5c7d4d1a7dbdc33840e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/3569185306989eb4a694cbe72a33454f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/37ca8d0362ffe5bdca120774e0bdfa76.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/3f0e824077af45ed826420778e5c59d8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/3fbd46db164da5bded69e213f6f563e5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/40a553ef0c411e009770fbe15f85187a.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/52e06c36f6ebfa202b4353cc7a02df34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/5694dda7eab7bf54b536efdd743528ad.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/57f4c9c8911adb19345e1996918fbc74.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/5f922216a46c926b487933070479aa1c.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/6bce944317044c1993b7b8dbde1fa99d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/6c1101b2518eac5c0c7deebe148934d6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/6d8b85c1535ea9f3cc7955113a893196.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/797c00478f6ece4a852df6aeb31e35bf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/7a00fafaa93d110bc4798aa2d3115a9a.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/7d7389746b843489b70c2ef5e6668cc5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/807afeabc7b8d2a462581473b568a694.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/8add27f228eda94032255ae8646cffbe.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/914a7d4f77c32be919b389099ea5f2da.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/949fe4bc0978af31c0e92cf78cd445f6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/a0456db149c9a03b6c81891759f841d2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/a33dd842960a84f20f568b64b7b20808.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/a9dd5990d598abf0f44219174cbe34e2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/aa120c10a7f1f49ca9bb27e2eac8555d.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/b69ba978240a2fa6a0bd38291e4e06a4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/b93cacf8d57165273e80934547e039d0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/backgroung.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/bc4853326b1eb343b4fcb152bd4e961c.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/c25bdf5a3c8da20cb4edc121bec7e444.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/c622c0aa24ac554beb884676972156a0.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/c811fefc6234c1973104fa6fa06eb922.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/c9c01c9d4384f2ea1cf9a2c4a7592be8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/cd904910e91b39cb5952fe84c1bda8d2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/d3e7f9922cd71b600663946c44d8dca2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/d3f57591a33dafbe9c1b61231312378e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/d58d3ae4e303795f756984e11f194b22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/db1264d02075e0d4034210b8be2c6d01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/dbe50215d8fae2e47021014b2bacf0d3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/de7e699bac5e40fa320e89b4a6842ff3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/e00f2fab25f5930ca512d93f169182c1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/ef0c26366c41d8304757105a27becb2f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/f10027affe87167cebafc218cca1794e.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/f2036d9ff70f0a7afb32b7dd3fceb5fd.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/f2c9286f7b923d1c74f91e9334e27fac.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/f6838148a85decc27cef21ee11786a9b.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/fb65cb2ab208ff58ff42d0cebbb84da4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/admin/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/admin/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataFixtures/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataFixtures/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ImageArticle.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/ImageArticle.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20191009183819.php" beforeDir="false" />
-    </list>
+    <list default="true" id="9df2cd9e-7f6b-416b-9030-07d2b79b9ae3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +71,7 @@
         <entry file="file://$PROJECT_DIR$/src/Form/Article/Filter/ArticleFilterType.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="69">
-              <caret line="82" column="36" lean-forward="true" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
+              <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -172,7 +101,7 @@
         <entry file="file://$PROJECT_DIR$/assets/js/Article/article.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="368">
-              <caret line="58" column="14" lean-forward="true" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="14" />
+              <caret line="58" column="14" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -181,7 +110,7 @@
         <entry file="file://$PROJECT_DIR$/src/Form/FormArticleType.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
-              <caret line="65" column="36" lean-forward="true" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+              <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -420,89 +349,13 @@
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="Article" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-              <item name="Article" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-              <item name="Article" type="462c0819:PsiDirectoryNode" />
-              <item name="Filter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Form" type="462c0819:PsiDirectoryNode" />
-              <item name="Tag" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="article" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="divers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="divers" type="462c0819:PsiDirectoryNode" />
-              <item name="animation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="demo" type="b2602c69:ProjectViewProjectNode" />
-              <item name="demo" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="index" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -551,16 +404,15 @@
       <updated>1579801619361</updated>
       <workItem from="1579801622833" duration="5312000" />
       <workItem from="1579891104333" duration="5292000" />
-      <workItem from="1580029629014" duration="5366000" />
+      <workItem from="1580029629014" duration="5630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19572000" />
+    <option name="totallyTimeSpent" value="19836000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="2560" height="1350" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -852,7 +704,7 @@
     <entry file="file://$PROJECT_DIR$/src/Form/Article/Filter/ArticleFilterType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
-          <caret line="82" column="36" lean-forward="true" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
+          <caret line="82" column="36" selection-start-line="82" selection-start-column="36" selection-end-line="82" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -862,7 +714,7 @@
     <entry file="file://$PROJECT_DIR$/src/Form/FormArticleType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="65" column="36" lean-forward="true" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
+          <caret line="65" column="36" selection-start-line="65" selection-start-column="36" selection-end-line="65" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -881,7 +733,7 @@
     <entry file="file://$PROJECT_DIR$/assets/js/Article/article.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
-          <caret line="58" column="14" lean-forward="true" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="14" />
+          <caret line="58" column="14" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="14" />
         </state>
       </provider>
     </entry>

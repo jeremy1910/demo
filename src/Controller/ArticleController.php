@@ -123,13 +123,14 @@ class ArticleController extends AbstractController
                 $image = $article->getImage();
                 if ($image->getImageFile() !== null) {
 
-                    $imageArticleHandler->save($image, $this->getParameter('kernel.project_dir') . "/public/images");
-
+                    $name = $imageArticleHandler->save($image->getImageFile(), $this->getParameter('kernel.project_dir') . "/public/images");
                     $resizer->resize($this->getParameter('kernel.project_dir') . "/public/images/" . $image->getFileName());
-                }
+                    $image->setFileName($name);
+                    $article->setImage($image);
+					$article->setLastEditUser($this->getUser());
+				}
 
-                $article->setLastEditUser($this->getUser());
-                $this->em->flush();
+				$this->em->flush();
             }
 
 

@@ -58,10 +58,10 @@ class ImageArticle
 
     public function setFileName(string $fileName): self
     {
-        if($this->getFileName())
-        {
-            unlink("../public/images/".$this->getFileName());
-        }
+//        if($this->getFileName())
+//        {
+//            unlink("../public/images/".$this->getFileName());
+//        }
         $this->fileName = $fileName;
 
         return $this;

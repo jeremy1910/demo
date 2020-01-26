@@ -84,8 +84,13 @@ class AdminController extends AbstractController
         $lastEditCategory = $this->categoryRepository->getLastModifiedCategory()[0];
 
         $nbTag = $this->tagRepository->getNumberOfTag();
-        $lastCreatedTag = $this->tagRepository->getLastCreatedTag()[0];
-        $lastEditTag = $this->tagRepository->getLastModifiedTag()[0];
+        if($nbTag >= 1){
+			$lastCreatedTag = $this->tagRepository->getLastCreatedTag()[0];
+			$lastEditTag = $this->tagRepository->getLastModifiedTag()[0];
+		}else{
+			$lastCreatedTag = null;
+			$lastEditTag = null;
+		}
 
 
         $nbUser = $this->userRepository->getNumberOfUser();

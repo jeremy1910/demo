@@ -54,7 +54,7 @@ Gestion des Tags
 ******************************************/
 
 
-$("<div class=\"form-group\"><input id='input_enter_new_tag' class=\"form-control invisible_input\" placeholder=\"Ajoutez des tags\"></div>").insertBefore('#tag-container');
+$("<div class=\"form-group\"><input id='input_enter_new_tag' class=\"form-control invisible_input\" placeholder=\"Ajoutez des tags (entrée pour valider)\"></div>").insertBefore('#tag-container');
 $('#input_enter_new_tag').keypress(enterTag);
 let index = 0;
 let teamplate = $('#form_article_tags').attr('data-prototype');

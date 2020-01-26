@@ -14,6 +14,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Role\Role;
 
 class UserFixture extends Fixture
 {
@@ -29,27 +30,23 @@ class UserFixture extends Fixture
         $useradmin = new User();
 
         $useradmin->setUsername('admin');
-        echo '1';
         $useradmin->setPassword($this->encodePasswordFixture($useradmin, 'admin'));
-        echo '2';
         $role = new Roles();
-        echo '3';
         $role->setRoleName('ROLE_ADMIN');
         $role->setLibele('Role Administrateur');
-        echo '4';
         $useradmin->addRoles($role);
-        echo '5';
         $useradmin->setEnable(true);
-        echo '6';
         $useradmin->setLastName("Administrateur");
         $useradmin->setFirstName('');
         $useradmin->setAdresseMail('jeremy1910@gmail.com');
-        echo '7';
         $manager->persist($useradmin);
-        echo '8';
-
         $manager->flush();
-        echo '9';
+
+        $role = new Roles();
+        $role->setRoleName('ROLE_USER');
+        $role->setLibele('Role Utilisateur');
+        $manager->persist($role);
+        $manager->flush();
     }
 
     private function encodePasswordFixture(User $user, string $password)

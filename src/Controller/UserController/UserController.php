@@ -235,6 +235,7 @@ class UserController extends AbstractController
 
                 if($forgottenPasswordHandler->validateToken($forgottenPassword)) {
                     $data = $form->getData();
+
                     $this->doChangePassword($data['password'], $user);
                     $this->entityManager->remove($forgottenPassword);
                     $this->entityManager->flush();

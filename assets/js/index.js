@@ -16,48 +16,45 @@ $(document).ready(function () {
 
 
 
-    function setNbColumnShowed(){
-        if (ResponsiveBootstrapToolkit.is('<lg')){
-            nbColumnShowed = 1;
-        }
-        else{
-            nbColumnShowed = 4;
-        }
-
-        $(window).resize(
-            ResponsiveBootstrapToolkit.changed(function() {
-                if (ResponsiveBootstrapToolkit.is('<lg')){
-                    nbColumnShowed = 1;
-                    offset = cursor*100;
-                    $('.js-index-card').animate({
-                        right: offset+'%'
-                    }, 0);
-                }
-                else{
-                    nbColumnShowed = 4;
-
-
-                    if (offset%4 === 0){
-                        cursor = offset/100;
-                        offset = offset/4;
-                        $('.js-index-card').animate({
-                            right: offset+'%'
-                        }, 0);
-
-                    }else{
-                        cursor = cursor-(offset%4);
-                        offset -= 100*(offset%4);
-
-
-                        $('.js-index-card').animate({
-                            right: offset+'%'
-                        }, 0);
-                    }
-                }
-
-            })
-        );
+  function setNbColumnShowed(){
+    if (window.innerWidth <  960){
+      nbColumnShowed = 1;
     }
+    else{
+      nbColumnShowed = 4;
+    }
+
+    $(window).resize(function () {
+      if (window.innerWidth <  960){
+        nbColumnShowed = 1;
+        offset = cursor*100;
+        $('.js-index-card').animate({
+          right: offset+'%'
+        }, 0);
+      }
+      else{
+        nbColumnShowed = 4;
+
+
+        if (offset%4 === 0){
+          cursor = offset/100;
+          offset = offset/4;
+          $('.js-index-card').animate({
+            right: offset+'%'
+          }, 0);
+
+        }else{
+          cursor = cursor-(offset%4);
+          offset -= 100*(offset%4);
+
+
+          $('.js-index-card').animate({
+            right: offset+'%'
+          }, 0);
+        }
+      }
+    });
+  }
 
     function initChargedCategories(){
         for (let i=0; i<4; i++){
